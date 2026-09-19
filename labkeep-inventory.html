@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>LabKeep - Inventory Dashboard</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="index,follow">
+  <meta name="generator" content="GrapesJS Studio">
+  <link rel="stylesheet" href="./style.css">
+  </head>
+  <body><!-- =========================================
+       TOP NAVIGATION
+  ========================================== --><header class="top-header"><div class="brand-area"><!--
+        REPLACE THIS IMAGE IN GRAPESJS.
+        It is a normal editable IMG element.
+      --><img src="https://cdn.grapesjs.com/workspaces/cmszuue1t0cy0fdmhxd4cfe88/assets/04666e83-e65c-4e93-b5f2-61f9b3937420__logo-5.jpeg" alt="LabKeep Logo" id="iclkepm" class="brand-logo"/><div class="brand-text"><div class="brand-name">
+          LabKeep
+        </div><span id="i65pzu9" class="brand-subtitle">
+          Keeping Labs Ready, Always
+        </span></div></div><!-- MAIN NAVIGATION --><nav id="mainNavigation" aria-label="Main navigation" class="main-navigation"><a href="#" id="icvodx1" class="nav-link">
+        Home
+      </a><a href="#" id="iqso3vb" class="nav-link">
+        Suppliers
+      </a><a href="#" id="igi5l4d" class="nav-link">
+        Supplies
+      </a><a href="#" id="iyykny1" class="nav-link">
+        Engineers
+      </a><a href="./labkeep-inventory.html" id="i1aed05" class="nav-link active">
+        Inventory
+      </a><a href="#" id="i2am4dr" class="nav-link">
+        About Us
+      </a></nav><!-- HEADER ICONS --><div class="header-actions"><!-- Shopping cart --><a href="#" aria-label="Shopping cart" class="header-icon cart-action"><svg width="29" height="29" viewBox="0 0 32 32" fill="none"><path d="M4 6H8L10.4 21.2C10.56 22.25 11.47 23 12.53 23H24.15C25.12 23 25.97 22.35 26.2 21.41L28 14H9" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="13" cy="27" r="1.8" fill="currentColor"></circle><circle cx="24" cy="27" r="1.8" fill="currentColor"></circle></svg></a><!-- User profile --><a href="#" aria-label="User profile" class="header-icon profile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7"></circle><path d="M5.5 20C6.2 16.8 8.45 15.2 12 15.2C15.55 15.2 17.8 16.8 18.5 20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg></a><!-- Mobile hamburger --><button type="button" id="mobileMenuButton" aria-label="Open navigation" aria-expanded="false" class="mobile-menu-button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></button></div></header><!-- =========================================
+       DASHBOARD SHELL
+  ========================================== --><div class="dashboard-shell"><!-- Mobile overlay --><div id="sidebarOverlay" class="sidebar-overlay"></div><!-- =========================================
+         INVENTORY SIDEBAR
+    ========================================== --><aside id="inventorySidebar" class="inventory-sidebar"><h1 id="ih1l58m" class="sidebar-title">
+        Inventory
+      </h1><ul class="sidebar-menu"><li><a href="#" id="icsxepe" class="sidebar-link active">
+            Dashboard
+          </a></li><li><a href="#" id="i5likpj" class="sidebar-link">
+            Products
+          </a></li><li><a href="#" id="ifv7bgh" class="sidebar-link">
+            Stock In
+          </a></li><li><a href="#" id="i1sa8n1" class="sidebar-link">
+            Stock Out
+          </a></li><li><a href="#" id="i6tq2ys" class="sidebar-link">
+            Adjustments
+          </a></li><li><a href="#" id="iol7ebf" class="sidebar-link">
+            Expiry Tracker
+          </a></li><li><a href="#" id="igo4zym" class="sidebar-link">
+            Reorder Alerts
+          </a></li><li><a href="#" id="ipwjih5" class="sidebar-link">
+            Reports
+          </a></li><li><a href="#" id="iq51hfw" class="sidebar-link">
+            Settings
+          </a></li></ul></aside><!-- =========================================
+         MAIN DASHBOARD
+    ========================================== --><main id="iqt3cs9" class="dashboard-main"><!-- Mobile inventory menu --><button type="button" id="mobileSidebarButton" aria-expanded="false" class="mobile-sidebar-button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg><span>
+          Inventory Menu
+        </span></button><!-- Dashboard heading --><section class="dashboard-header"><h2 id="icv3zhr" class="dashboard-title">
+          Dashboard
+        </h2><button type="button" class="lab-selector"><span id="izdikpi">
+            LabKeep Diagnostics Lab
+          </span><svg viewBox="0 0 24 24" fill="none"><path d="M7 9L12 14L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></section><!-- =========================================
+           COMING SOON
+      ========================================== --><div id="icv3tt4" class="coming-soon"><span id="iw6rqid">
+          COMING SOON
+        </span></div><!-- =========================================
+           SUMMARY CARDS
+      ========================================== --><section aria-label="Inventory summary" class="summary-grid"><!-- Total Items --><article class="summary-card"><div class="summary-label">
+            Total Items
+          </div><div class="summary-number">
+            128
+          </div></article><!-- Low Stock --><article class="summary-card"><div class="summary-label">
+            Low Stock Items
+          </div><div class="summary-number low">
+            15
+          </div></article><!-- Expired --><article class="summary-card"><div class="summary-label">
+            Expired Items
+          </div><div class="summary-number expired">
+            3
+          </div></article><!-- Total Value --><article class="summary-card"><div class="summary-label">
+            Total Value
+          </div><div class="summary-number value">
+            ₦2,450,000
+          </div></article></section><!-- =========================================
+           STOCK OVERVIEW
+      ========================================== --><section class="content-card stock-card"><div id="i7vi00m" class="card-header"><h3 id="io0zqvq" class="card-title">
+            Stock Overview
+          </h3><a href="#" id="itwoyoe" class="view-all">
+            View All
+          </a></div><!--
+          Only this table wrapper scrolls horizontally
+          on small screens.
+        --><div class="table-wrapper"><table class="stock-table"><thead><tr><th id="ig3kkus">
+                  Item
+                </th><th id="i2l5b3z">
+                  Current Stock
+                </th><th id="ivaicsj">
+                  Min. Level
+                </th><th id="ia0o7t4">
+                  Status
+                </th></tr></thead><tbody><tr><td id="iudthwx">
+                  EDTA Blood Collection Tubes
+                </td><td id="i0n62nw">
+                  20 Packs
+                </td><td id="iw1rpdn">
+                  30 Packs
+                </td><td><span id="iqt8qtf" class="status status-low">
+                    Low Stock
+                  </span></td></tr><tr><td id="i6f3kpk">
+                  Malaria RDT (25 Tests)
+                </td><td id="i7o2md7">
+                  5 Boxes
+                </td><td id="i7flqnz">
+                  20 Boxes
+                </td><td><span id="iquvogc" class="status status-low">
+                    Low Stock
+                  </span></td></tr><tr><td id="idljrsm">
+                  Mindray BC-6800 Reagent
+                </td><td id="i3fxrih">
+                  2 Bottles
+                </td><td id="ig9hxdk">
+                  2 Bottles
+                </td><td id="itnzeob"><span id="ijju1ag" class="status status-reorder">
+                    Reorder
+                  </span></td></tr><tr><td id="iqon4i6">
+                  Gloves (Examination)
+                </td><td id="ia8ncgq">
+                  10 Boxes
+                </td><td id="i2xidxk">
+                  10 Boxes
+                </td><td id="i8pue3g"><span id="igbkjxw" class="status status-ok">
+                    OK
+                  </span></td></tr><tr><td id="ixbnnij">
+                  Microscope Slides
+                </td><td id="ito1qyt">
+                  50 Boxes
+                </td><td id="iz9pq9y">
+                  30 Boxes
+                </td><td id="itcrolg"><span id="ipujuqu" class="status status-ok">
+                    OK
+                  </span></td></tr></tbody></table></div></section><!-- =========================================
+           BOTTOM CARDS
+      ========================================== --><section class="bottom-grid"><!-- EXPIRY ALERTS --><article class="content-card bottom-card"><div class="card-header"><h3 class="card-title">
+              Expiry Alerts
+            </h3><a href="#" id="ie9240b" class="view-all">
+              View All
+            </a></div><div class="activity-list"><!-- Mindray Reagent --><div class="activity-item"><div class="activity-icon expiry"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="6" y="5" width="12" height="15" rx="2" stroke="currentColor" stroke-width="1.8"></rect><path d="M9 3V6M15 3V6M9 10H15M9 14H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></div><div class="activity-main"><div id="i5jf7hj" class="activity-title">
+                  Mindray Reagent
+                </div><div id="ic6yqcw" class="activity-description">
+                  Expires in 30 days
+                </div></div></div><!-- Latex Gloves --><div id="irhuf3m" class="activity-item"><div class="activity-icon warning"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 4L20 19H4L12 4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M12 9V13M12 16V16.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></div><div class="activity-main"><div id="ix8neon" class="activity-title">
+                  Latex Gloves
+                </div><div class="activity-description">
+                  Expires in 45 days
+                </div></div></div></div></article><!-- RECENT ACTIVITY --><article id="ik71x03" class="content-card bottom-card"><div class="card-header"><h3 class="card-title">
+              Recent Activity
+            </h3><a href="#" id="iot38rc" class="view-all">
+              View All
+            </a></div><div class="activity-list"><!-- Stock In --><div class="activity-item"><div class="activity-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 8V12L15 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></div><div class="activity-main"><div class="activity-title">
+                  Stock In - EDTA Tubes
+                </div><div class="activity-description">
+                  50 Packs added
+                </div></div><div class="activity-time">
+                Today, 10:20 AM
+              </div></div><!-- Stock Out --><div class="activity-item"><div class="activity-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" stroke="currentColor" stroke-width="1.8"></circle><path d="M9 12H15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></div><div class="activity-main"><div id="i7mn3ce" class="activity-title">
+                  Stock Out - Malaria RDT
+                </div><div class="activity-description">
+                  10 Boxes used
+                </div></div><div class="activity-time">
+                Today, 09:15 AM
+              </div></div></div></article></section><div data-type-role="flex-row" id="ifir9vo" class="gjs-plg-flex-row"><div data-type-role="flex-column" id="isbycbm" class="gjs-plg-flex-column"><div id="il94kif"><b id="iynbh84">COMING SOON</b><div id="i0jl1rj"><b id="ig4us3i-2">Interested in LabKeep Inventory Managment?</b></div><div id="iyczi32-2">Chat with us on WhatsApp to learn more</div></div><a id="iyhrzec" class="gjs-t-link">Chat on WhatsApp</a></div></div></main></div><!-- =========================================
+       MINIMAL MOBILE JAVASCRIPT
+  ========================================== --><script>
+
+    (function () {
+
+      var mobileMenuButton =
+        document.getElementById("mobileMenuButton");
+
+      var mainNavigation =
+        document.getElementById("mainNavigation");
+
+      var mobileSidebarButton =
+        document.getElementById("mobileSidebarButton");
+
+      var inventorySidebar =
+        document.getElementById("inventorySidebar");
+
+      var sidebarOverlay =
+        document.getElementById("sidebarOverlay");
+
+
+      function closeSidebar() {
+
+        inventorySidebar.classList.remove(
+          "mobile-open"
+        );
+
+        sidebarOverlay.classList.remove(
+          "mobile-open"
+        );
+
+        mobileSidebarButton.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+      }
+
+
+      function closeNavigation() {
+
+        mainNavigation.classList.remove(
+          "mobile-open"
+        );
+
+        mobileMenuButton.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+      }
+
+
+      /* Mobile top navigation */
+
+      mobileMenuButton.addEventListener(
+        "click",
+        function () {
+
+          var isOpen =
+            mainNavigation.classList.toggle(
+              "mobile-open"
+            );
+
+          mobileMenuButton.setAttribute(
+            "aria-expanded",
+            isOpen ? "true" : "false"
+          );
+
+        }
+      );
+
+
+      /* Mobile inventory sidebar */
+
+      mobileSidebarButton.addEventListener(
+        "click",
+        function () {
+
+          var isOpen =
+            inventorySidebar.classList.toggle(
+              "mobile-open"
+            );
+
+          sidebarOverlay.classList.toggle(
+            "mobile-open",
+            isOpen
+          );
+
+          mobileSidebarButton.setAttribute(
+            "aria-expanded",
+            isOpen ? "true" : "false"
+          );
+
+        }
+      );
+
+
+      /* Close sidebar when overlay is clicked */
+
+      sidebarOverlay.addEventListener(
+        "click",
+        function () {
+
+          closeSidebar();
+
+        }
+      );
+
+
+      /* Close sidebar after selecting a menu item */
+
+      document
+        .querySelectorAll(".sidebar-link")
+        .forEach(function (link) {
+
+          link.addEventListener(
+            "click",
+            function () {
+
+              if (window.innerWidth <= 768) {
+                closeSidebar();
+              }
+
+            }
+          );
+
+        });
+
+
+      /* Close mobile navigation after selecting a page */
+
+      document
+        .querySelectorAll(".nav-link")
+        .forEach(function (link) {
+
+          link.addEventListener(
+            "click",
+            function () {
+
+              if (window.innerWidth <= 768) {
+                closeNavigation();
+              }
+
+            }
+          );
+
+        });
+
+
+      /* Reset mobile menus when returning to desktop */
+
+      window.addEventListener(
+        "resize",
+        function () {
+
+          if (window.innerWidth > 768) {
+
+            closeNavigation();
+            closeSidebar();
+
+          }
+
+        }
+      );
+
+    })();
+
+  </script></body>
+</html>
