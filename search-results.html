@@ -1,18 +1,310 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>LabKeep Supplies</title>
+<head>
+  <title>Search Results | LabKeep</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="index,follow">
   <meta name="generator" content="GrapesJS Studio">
+
   <link rel="stylesheet" href="./style-pages.css">
-  </head>
-  <body><div class="LabKeep Supplies"><!-- HEADER / HERO --><header class="LabKeep-hero"><div class="LabKeep-stars"></div><div class="Labkeep-crystal crystal-one"></div><div class="LabKeep-crystal crystal-two"></div><!-- NAVIGATION --><nav id="idf26h-2-3" class="LabKeep-nav"><div class="LabKeep-logo"><div id="if1ihv-2-3" class="logo-symbol"><img src="https://cdn.grapesjs.com/workspaces/cmszuue1t0cy0fdmhxd4cfe88/assets/04666e83-e65c-4e93-b5f2-61f9b3937420__logo-5.jpeg" id="igrr81-2-3"/></div><div><div id="i1awjp-2-3" class="logo-name">LabKeep</div><div class="logo-tagline">
-            Keeping Labs Ready, Always.
-          </div></div></div><div class="LabKeep-links"><a href="./index.html" id="ic9kwd-2-3">Home</a><a href="./labkeep-supplies.html" id="izzaem-2-3" class="selected">Supplies</a><a href="./labkeep-suppliers.html" id="irnuum-2-3">Suppliers</a><a href="./labkeep-engineers.html" id="isv58j-2-3">Engineers</a><a href="./labkeep-inventory.html" id="i184ui-2-3">Inventory</a><a href="#" id="ivxsoj-2-3">About Us</a></div><div class="LabKeep-actions"><div class="cart"><span id="i7s5wg-2-3" class="cart-symbol">🛒</span></div><div id="i1xgek-2-3" class="profile">♙</div></div></nav><!-- HERO CONTENT --><div id="itspvx-2-3" class="hero-center"><h1 id="irlj9u-2-3">Shop Laboratory Supplies</h1><p id="itmvkl-2-3">
-        Find quality laboratory products from verified suppliers.
-      </p></div>
-    <script src="./search.js"></script>
-  </body>
+
+  <style>
+    .search-results-page {
+      background: #ffffff;
+      min-height: 500px;
+      padding: 50px 5%;
+    }
+
+    .search-results-section {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .search-results-heading {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .search-results-heading h2 {
+      color: #1237d8;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .search-results-heading p {
+      color: #555;
+      font-size: 16px;
+    }
+
+    .search-result-group {
+      margin-bottom: 50px;
+    }
+
+    .search-result-title {
+      margin-bottom: 25px;
+    }
+
+    .search-result-title h2 {
+      color: #1237d8;
+      font-size: 25px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: #555;
+    }
+
+    .no-results h2 {
+      color: #1237d8;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 1000px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search-results-page {
+        padding: 40px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="LabKeep Supplies">
+
+    <!-- HEADER / HERO -->
+    <header class="LabKeep-hero">
+
+      <div class="LabKeep-stars"></div>
+      <div class="Labkeep-crystal crystal-one"></div>
+      <div class="LabKeep-crystal crystal-two"></div>
+
+      <!-- NAVIGATION -->
+      <nav class="LabKeep-nav">
+
+        <div class="LabKeep-logo">
+
+          <div class="logo-symbol">
+            <img
+              src="https://cdn.grapesjs.com/workspaces/cmszuue1t0cy0fdmhxd4cfe88/assets/04666e83-e65c-4e93-b5f2-61f9b3937420__logo-5.jpeg"
+              alt="LabKeep Logo"
+            >
+          </div>
+
+          <div>
+            <div class="logo-name">
+              LabKeep
+            </div>
+
+            <div class="logo-tagline">
+              Keeping Labs Ready, Always.
+            </div>
+          </div>
+
+        </div>
+
+        <div class="LabKeep-links">
+
+          <a href="./index.html">
+            Home
+          </a>
+
+          <a href="./labkeep-supplies.html" class="selected">
+            Supplies
+          </a>
+
+          <a href="./labkeep-suppliers.html">
+            Suppliers
+          </a>
+
+          <a href="./labkeep-engineers.html">
+            Engineers
+          </a>
+
+          <a href="./labkeep-inventory.html">
+            Inventory
+          </a>
+
+          <a href="#">
+            About Us
+          </a>
+
+        </div>
+
+        <div class="LabKeep-actions">
+
+          <div class="cart">
+            <span class="cart-symbol">
+              🛒
+            </span>
+          </div>
+
+          <div class="profile">
+            ♙
+          </div>
+
+        </div>
+
+      </nav>
+
+      <!-- HERO CONTENT -->
+      <div class="hero-center">
+
+        <h1>
+          Search Laboratory Supplies
+        </h1>
+
+        <p>
+          Find quality laboratory products, suppliers and engineers.
+        </p>
+
+      </div>
+
+    </header>
+
+
+    <!-- SEARCH RESULTS -->
+    <main class="search-results-page">
+
+      <section class="search-results-section">
+
+        <!-- SEARCH SUMMARY -->
+        <div class="search-results-heading">
+
+          <h2>
+            Search Results
+          </h2>
+
+          <p id="search-summary">
+            Search results will appear here.
+          </p>
+
+        </div>
+
+
+        <!-- PRODUCTS -->
+        <section
+          id="products-results-section"
+          class="search-result-group"
+        >
+
+          <div class="search-result-title">
+
+            <h2>
+              Products
+            </h2>
+
+          </div>
+
+          <div
+            id="products-results"
+            class="product-grid"
+          >
+          </div>
+
+        </section>
+
+
+        <!-- SUPPLIERS -->
+        <section
+          id="suppliers-results-section"
+          class="search-result-group"
+        >
+
+          <div class="search-result-title">
+
+            <h2>
+              Suppliers
+            </h2>
+
+          </div>
+
+          <div
+            id="suppliers-results"
+            class="product-grid"
+          >
+          </div>
+
+        </section>
+
+
+        <!-- ENGINEERS -->
+        <section
+          id="engineers-results-section"
+          class="search-result-group"
+        >
+
+          <div class="search-result-title">
+
+            <h2>
+              Engineers
+            </h2>
+
+          </div>
+
+          <div
+            id="engineers-results"
+            class="product-grid"
+          >
+          </div>
+
+        </section>
+
+
+        <!-- NO RESULTS -->
+        <div
+          id="no-results"
+          class="no-results"
+          style="display:none;"
+        >
+
+          <h2>
+            No results found
+          </h2>
+
+          <p>
+            We couldn't find anything matching your search.
+            Try another product, supplier, engineer or location.
+          </p>
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="LabKeep-footer">
+
+      <p>
+        © 2026 LabKeep. Keeping Labs Ready, Always.
+      </p>
+
+    </footer>
+
+  </div>
+
+
+  <!-- SEARCH JAVASCRIPT -->
+  <script src="./search.js"></script>
+
+</body>
 </html>
