@@ -30,17 +30,14 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      const url =
-        "search-results.html?q=" +
+      window.location.href =
+        "./search-results.html?q=" +
         encodeURIComponent(searchTerm) +
         "&category=" +
         encodeURIComponent(category);
-
-      window.location.href = url;
     });
 
 
-    // Press Enter to search
     searchInput.addEventListener("keydown", function (event) {
 
       if (event.key === "Enter") {
@@ -56,10 +53,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // SEARCH RESULTS PAGE
   // ========================================
 
-  if (window.location.pathname.includes("search-results.html")) {
-
+  if (
+    window.location.pathname.endsWith("search-results.html")
+  ) {
     runSearch();
-
   }
 
 });
@@ -71,7 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function runSearch() {
 
-  const params = new URLSearchParams(window.location.search);
+  const params =
+    new URLSearchParams(window.location.search);
 
   const searchTerm =
     (params.get("q") || "").trim().toLowerCase();
@@ -105,16 +103,14 @@ async function runSearch() {
     document.getElementById("no-results");
 
 
-  // ----------------------------------------
-  // Display search information
-  // ----------------------------------------
+  // ========================================
+  // SHOW WHAT WAS SEARCHED
+  // ========================================
 
   if (summary) {
 
     summary.textContent =
-      'Showing results for "' +
-      searchTerm +
-      '"';
+      'Searching for "' + searchTerm + '"';
 
     if (selectedCategory !== "All Categories") {
 
@@ -126,13 +122,12 @@ async function runSearch() {
   }
 
 
-  // ----------------------------------------
-  // Pages containing searchable information
-  // ----------------------------------------
+  // ========================================
+  // PAGES TO SEARCH
+  // ========================================
 
   const sources = [
 
-    // PRODUCTS
     {
       url: "./labkeep-supplies.html",
       type: "product",
@@ -157,16 +152,12 @@ async function runSearch() {
       category: "Laboratory Equipment"
     },
 
-
-    // SUPPLIERS
     {
       url: "./labkeep-suppliers.html",
       type: "supplier",
       category: "All Categories"
     },
 
-
-    // ENGINEERS
     {
       url: "./labkeep-engineers.html",
       type: "engineer",
@@ -182,17 +173,18 @@ async function runSearch() {
 
 
   // ========================================
-  // READ EACH EXISTING LABKEEP PAGE
+  // SEARCH EACH PAGE
   // ========================================
 
   for (const source of sources) {
 
-    // Category filtering
+    // Skip product pages that don't match
+    // the selected category.
+
     if (
+      source.type === "product" &&
       selectedCategory !== "All Categories" &&
-      source.category !== selectedCategory &&
-      source.type !== "supplier" &&
-      source.type !== "engineer"
+      source.category !== selectedCategory
     ) {
       continue;
     }
@@ -200,11 +192,24 @@ async function runSearch() {
 
     try {
 
+      const pageURL =
+        new URL(source.url, window.location.href).href;
+
+
       const response =
-        await fetch(source.url);
+        await fetch(pageURL, {
+          cache: "no-store"
+        });
+
 
       if (!response.ok) {
-        console.log("Could not load:", source.url, response.status);
+
+        console.error(
+          "LabKeep search could not load:",
+          pageURL,
+          response.status
+        );
+
         continue;
       }
 
@@ -217,23 +222,36 @@ async function runSearch() {
         new DOMParser();
 
 
-      const documentPage =
-        parser.parseFromString(html, "text/html");
+      const page =
+        parser.parseFromString(
+          html,
+          "text/html"
+        );
 
 
       const cards =
-        documentPage.querySelectorAll(".product-card");
+        page.querySelectorAll(".product-card");
+
+
+      console.log(
+        "LabKeep search:",
+        source.url,
+        "Cards found:",
+        cards.length
+      );
 
 
       cards.forEach(function (card) {
 
         const cardText =
-          card.textContent.toLowerCase();
+          card.textContent
+            .replace(/\s+/g, " ")
+            .trim()
+            .toLowerCase();
 
 
-        // ----------------------------------
-        // Check whether card matches search
-        // ----------------------------------
+        // If the search term isn't found,
+        // ignore this card.
 
         if (
           searchTerm &&
@@ -243,18 +261,20 @@ async function runSearch() {
         }
 
 
-        // ----------------------------------
-        // Remove GrapesJS IDs
-        // ----------------------------------
+        // Copy the existing LabKeep card.
 
-        const clonedCard =
+        const resultCard =
           card.cloneNode(true);
 
 
-        clonedCard.removeAttribute("id");
+        // Remove GrapesJS IDs so that
+        // duplicate IDs don't appear
+        // on the results page.
+
+        resultCard.removeAttribute("id");
 
 
-        clonedCard
+        resultCard
           .querySelectorAll("[id]")
           .forEach(function (element) {
 
@@ -264,33 +284,34 @@ async function runSearch() {
 
 
         // ----------------------------------
-        // Store result
+        // PRODUCTS
         // ----------------------------------
 
         if (source.type === "product") {
 
-          productResults.push({
-            card: clonedCard,
-            category: source.category
-          });
+          productResults.push(resultCard);
 
         }
 
+
+        // ----------------------------------
+        // SUPPLIERS
+        // ----------------------------------
 
         if (source.type === "supplier") {
 
-          supplierResults.push({
-            card: clonedCard
-          });
+          supplierResults.push(resultCard);
 
         }
 
 
+        // ----------------------------------
+        // ENGINEERS
+        // ----------------------------------
+
         if (source.type === "engineer") {
 
-          engineerResults.push({
-            card: clonedCard
-          });
+          engineerResults.push(resultCard);
 
         }
 
@@ -300,7 +321,7 @@ async function runSearch() {
     } catch (error) {
 
       console.error(
-        "Could not search:",
+        "LabKeep search error:",
         source.url,
         error
       );
@@ -318,10 +339,9 @@ async function runSearch() {
 
     productsSection.style.display = "block";
 
+    productResults.forEach(function (card) {
 
-    productResults.forEach(function (result) {
-
-      productsContainer.appendChild(result.card);
+      productsContainer.appendChild(card);
 
     });
 
@@ -340,10 +360,9 @@ async function runSearch() {
 
     suppliersSection.style.display = "block";
 
+    supplierResults.forEach(function (card) {
 
-    supplierResults.forEach(function (result) {
-
-      suppliersContainer.appendChild(result.card);
+      suppliersContainer.appendChild(card);
 
     });
 
@@ -362,10 +381,9 @@ async function runSearch() {
 
     engineersSection.style.display = "block";
 
+    engineerResults.forEach(function (card) {
 
-    engineerResults.forEach(function (result) {
-
-      engineersContainer.appendChild(result.card);
+      engineersContainer.appendChild(card);
 
     });
 
@@ -377,7 +395,7 @@ async function runSearch() {
 
 
   // ========================================
-  // NO RESULTS
+  // TOTAL RESULTS
   // ========================================
 
   const totalResults =
@@ -390,9 +408,30 @@ async function runSearch() {
 
     noResults.style.display = "block";
 
+    if (summary) {
+
+      summary.textContent =
+        'No results found for "' +
+        searchTerm +
+        '"';
+
+    }
+
   } else {
 
     noResults.style.display = "none";
+
+    if (summary) {
+
+      summary.textContent =
+        totalResults +
+        ' result' +
+        (totalResults === 1 ? "" : "s") +
+        ' found for "' +
+        searchTerm +
+        '"';
+
+    }
 
   }
 
