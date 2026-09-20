@@ -304,7 +304,163 @@
 
 
   <!-- SEARCH JAVASCRIPT -->
-  <script src="./search.js"></script>
+ <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // Get the search word from the URL
+  const params = new URLSearchParams(window.location.search);
+  const searchQuery = (params.get("q") || "").trim().toLowerCase();
+  const category = (params.get("category") || "All Categories").trim();
+
+  const productsContainer = document.getElementById("products-results");
+  const suppliersSection = document.getElementById("suppliers-results-section");
+  const engineersSection = document.getElementById("engineers-results-section");
+  const noResults = document.getElementById("no-results");
+  const searchSummary = document.getElementById("search-summary");
+
+  // Catalogue pages used by LabKeep
+  const cataloguePages = [
+    "./reagents-kits.html",
+    "./consumables.html",
+    "./equipment.html",
+    "./glassware.html",
+    "./safety-protection.html",
+    "./lab-furniture.html"
+  ];
+
+  // Show the search term
+  if (searchQuery) {
+    searchSummary.textContent =
+      'Showing results for "' + searchQuery + '"';
+  } else {
+    searchSummary.textContent =
+      "Enter a product, supplier or location to search.";
+  }
+
+  // Hide sections that we are not searching yet
+  suppliersSection.style.display = "none";
+  engineersSection.style.display = "none";
+
+  // If there is no search term, stop here
+  if (!searchQuery) {
+    noResults.style.display = "block";
+    noResults.querySelector("h2").textContent = "No search entered";
+    noResults.querySelector("p").textContent =
+      "Please enter a product, supplier or location in the search bar.";
+    return;
+  }
+
+  // Search one catalogue page
+  function searchCataloguePage(page) {
+
+    return fetch(page)
+      .then(function (response) {
+
+        if (!response.ok) {
+          throw new Error("Could not load " + page);
+        }
+
+        return response.text();
+      })
+      .then(function (html) {
+
+        const parser = new DOMParser();
+        const documentPage = parser.parseFromString(html, "text/html");
+
+        const cards = documentPage.querySelectorAll(".product-card");
+
+        const matchingProducts = [];
+
+        cards.forEach(function (card) {
+
+          const cardText = card.textContent.toLowerCase();
+
+          // Match product name, supplier, price or location
+          if (cardText.includes(searchQuery)) {
+            matchingProducts.push(card);
+          }
+
+        });
+
+        return matchingProducts;
+      })
+      .catch(function () {
+
+        // If a category page cannot be loaded,
+        // simply continue searching the other pages.
+        return [];
+      });
+  }
+
+  // Search all catalogue pages
+  Promise.all(cataloguePages.map(searchCataloguePage))
+    .then(function (results) {
+
+      // Combine all results
+      let matchingProducts = [];
+
+      results.forEach(function (pageResults) {
+        matchingProducts = matchingProducts.concat(pageResults);
+      });
+
+      // Remove duplicate products by product name
+      const uniqueProducts = [];
+      const productNames = new Set();
+
+      matchingProducts.forEach(function (card) {
+
+        const nameElement = card.querySelector("h3");
+
+        if (!nameElement) {
+          return;
+        }
+
+        const productName =
+          nameElement.textContent.trim().toLowerCase();
+
+        if (!productNames.has(productName)) {
+
+          productNames.add(productName);
+          uniqueProducts.push(card);
+
+        }
+
+      });
+
+      // Clear the results area
+      productsContainer.innerHTML = "";
+
+      // Display matching products
+      uniqueProducts.forEach(function (card) {
+
+        const clonedCard = card.cloneNode(true);
+
+        productsContainer.appendChild(clonedCard);
+
+      });
+
+      // If products were found
+      if (uniqueProducts.length > 0) {
+
+        noResults.style.display = "none";
+
+      } else {
+
+        noResults.style.display = "block";
+
+        noResults.querySelector("h2").textContent =
+          "No products found";
+
+        noResults.querySelector("p").textContent =
+          'We couldn’t find a product matching "' +
+          searchQuery +
+          '". Try another product name, supplier or location.';
+      }
+
+    });
+
+});
+</script>
 
 </body>
 </html>
