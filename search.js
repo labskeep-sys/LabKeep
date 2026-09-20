@@ -204,6 +204,7 @@ async function runSearch() {
         await fetch(source.url);
 
       if (!response.ok) {
+        console.log("Could not load:", source.url, response.status);
         continue;
       }
 
