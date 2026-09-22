@@ -411,16 +411,14 @@
         "%0A%0A" +
         "Please confirm availability and delivery details.";
 
-      const whatsappURL =
-        "https://wa.me/" +
-        whatsappNumber +
-        "?text=" +
-        message;
+      const whatsappURL = "https://wa.me/" + whatsappNumber + "?text=" + message;
 
-      window.open(
-        whatsappURL,
-        "_blank"
-      );
+window.open(whatsappURL, "_blank");
+
+// Clear the cart after sending the order
+cart = [];
+saveCart();
+displayCart();
 
     }
 
