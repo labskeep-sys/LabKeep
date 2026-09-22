@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LabKeep Cart</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f6f8fc;
+      color: #14294c;
+    }
+
+    .cart-header {
+      background: #1237d8;
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+    }
+
+    .cart-header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .cart-header p {
+      margin: 8px 0 0;
+      font-size: 14px;
+    }
+
+    .cart-container {
+      width: 92%;
+      max-width: 900px;
+      margin: 30px auto;
+    }
+
+    .cart-item {
+      background: white;
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .cart-item h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #14294c;
+    }
+
+    .cart-item p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .cart-price {
+      font-weight: bold;
+      color: #1237d8;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .quantity-controls button {
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 6px;
+      background: #1237d8;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .quantity {
+      font-weight: bold;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .remove-button {
+      margin-top: 12px;
+      border: none;
+      background: transparent;
+      color: #d93025;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .cart-summary {
+      background: white;
+      border-radius: 10px;
+      padding: 22px;
+      margin-top: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .cart-button {
+      display: block;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 10px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .continue-shopping {
+      background: #eef2ff;
+      color: #1237d8;
+    }
+
+    .whatsapp-button {
+      background: #25D366;
+      color: white;
+    }
+
+    .empty-cart {
+      background: white;
+      padding: 40px 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .empty-cart h2 {
+      margin-top: 0;
+    }
+
+    @media (max-width: 600px) {
+
+      .cart-header h1 {
+        font-size: 24px;
+      }
+
+      .cart-container {
+        width: 94%;
+      }
+
+      .total-row {
+        font-size: 18px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cart-header">
+    <h1>LabKeep Cart</h1>
+    <p>Review your selected laboratory products</p>
+  </div>
+
+  <main class="cart-container">
+
+    <div id="cartItems"></div>
+
+    <div id="cartSummary" class="cart-summary">
+
+      <div class="total-row">
+        <span>Total</span>
+        <span id="cartTotal">₦0</span>
+      </div>
+
+      <button
+        class="cart-button continue-shopping"
+        onclick="window.history.back()">
+        Continue Shopping
+      </button>
+
+      <button
+        class="cart-button whatsapp-button"
+        onclick="sendCartToWhatsApp()">
+        Send Order via WhatsApp
+      </button>
+
+    </div>
+
+  </main>
+
+  <script>
+
+    const whatsappNumber = "2347078986387";
+
+    let cart =
+      JSON.parse(localStorage.getItem("labkeepCart")) || [];
+
+    function formatPrice(number) {
+      return "₦" + Number(number).toLocaleString("en-NG");
+    }
+
+    function saveCart() {
+      localStorage.setItem(
+        "labkeepCart",
+        JSON.stringify(cart)
+      );
+    }
+
+    function displayCart() {
+
+      const cartItems =
+        document.getElementById("cartItems");
+
+      const cartTotal =
+        document.getElementById("cartTotal");
+
+      if (cart.length === 0) {
+
+        cartItems.innerHTML = `
+          <div class="empty-cart">
+            <h2>Your cart is empty</h2>
+            <p>Add laboratory products to your cart to see them here.</p>
+          </div>
+        `;
+
+        cartTotal.textContent = "₦0";
+
+        return;
+      }
+
+      let total = 0;
+
+      cartItems.innerHTML = "";
+
+      cart.forEach(function (item, index) {
+
+        const subtotal =
+          item.price * item.quantity;
+
+        total += subtotal;
+
+        const itemHTML = `
+          <div class="cart-item">
+
+            <h3>${item.name}</h3>
+
+            <p>
+              Supplier: ${item.supplier}
+            </p>
+
+            <p>
+              Location: ${item.location}
+            </p>
+
+            <p class="cart-price">
+              ${item.priceDisplay}
+            </p>
+
+            <div class="quantity-controls">
+
+              <button onclick="decreaseQuantity(${index})">
+                −
+              </button>
+
+              <span class="quantity">
+                ${item.quantity}
+              </span>
+
+              <button onclick="increaseQuantity(${index})">
+                +
+              </button>
+
+            </div>
+
+            <p>
+              Subtotal:
+              <strong>
+                ${formatPrice(subtotal)}
+              </strong>
+            </p>
+
+            <button
+              class="remove-button"
+              onclick="removeItem(${index})">
+              Remove
+            </button>
+
+          </div>
+        `;
+
+        cartItems.innerHTML += itemHTML;
+
+      });
+
+      cartTotal.textContent =
+        formatPrice(total);
+
+    }
+
+    function increaseQuantity(index) {
+
+      cart[index].quantity += 1;
+
+      saveCart();
+      displayCart();
+
+    }
+
+    function decreaseQuantity(index) {
+
+      if (cart[index].quantity > 1) {
+
+        cart[index].quantity -= 1;
+
+      } else {
+
+        cart.splice(index, 1);
+
+      }
+
+      saveCart();
+      displayCart();
+
+    }
+
+    function removeItem(index) {
+
+      cart.splice(index, 1);
+
+      saveCart();
+      displayCart();
+
+    }
+
+    function sendCartToWhatsApp() {
+
+      if (cart.length === 0) {
+
+        alert("Your cart is empty.");
+
+        return;
+
+      }
+
+      let message =
+        "Hello LabKeep, I would like to order the following products:%0A%0A";
+
+      let total = 0;
+
+      cart.forEach(function (item, index) {
+
+        const subtotal =
+          item.price * item.quantity;
+
+        total += subtotal;
+
+        message +=
+          (index + 1) + ". " +
+          encodeURIComponent(item.name) +
+          " - " +
+          encodeURIComponent(item.priceDisplay) +
+          " x " +
+          item.quantity +
+          " = " +
+          encodeURIComponent(formatPrice(subtotal)) +
+          "%0A";
+
+      });
+
+      message +=
+        "%0A" +
+        "Total: " +
+        encodeURIComponent(formatPrice(total)) +
+        "%0A%0A" +
+        "Please confirm availability and delivery details.";
+
+      const whatsappURL =
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
+        message;
+
+      window.open(
+        whatsappURL,
+        "_blank"
+      );
+
+    }
+
+    displayCart();
+
+  </script>
+
+</body>
+</html>
