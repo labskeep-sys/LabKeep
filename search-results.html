@@ -112,6 +112,70 @@
   font-weight: bold;
 }
   </style>
+
+  <style>
+  .LabKeep-hero .hero-center .page-search-fix {
+    width: 90% !important;
+    max-width: 850px !important;
+    margin: 24px auto 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  .LabKeep-hero .hero-center .page-search-fix input {
+    width: auto !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    height: 50px !important;
+    padding: 0 18px !important;
+    margin: 0 !important;
+    border: 1px solid #d9dee8 !important;
+    border-radius: 8px !important;
+    background: #ffffff !important;
+    color: #14294c !important;
+    font-size: 14px !important;
+    line-height: normal !important;
+    text-align: left !important;
+    box-sizing: border-box !important;
+    outline: none !important;
+  }
+
+  .LabKeep-hero .hero-center .page-search-fix input::placeholder {
+    color: #777777 !important;
+    opacity: 1 !important;
+  }
+
+  .LabKeep-hero .hero-center .page-search-fix button {
+    width: auto !important;
+    flex: 0 0 auto !important;
+    height: 50px !important;
+    padding: 0 22px !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    background: #1237d8 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+  }
+
+  @media (max-width: 600px) {
+    .LabKeep-hero .hero-center .page-search-fix {
+      width: 92% !important;
+      flex-direction: column !important;
+    }
+
+    .LabKeep-hero .hero-center .page-search-fix input,
+    .LabKeep-hero .hero-center .page-search-fix button {
+      width: 100% !important;
+      flex: none !important;
+    }
+  }
+</style>
 </head>
 
 <body>
@@ -205,6 +269,15 @@
         </p>
 
       </div>
+
+      <div class="page-search-fix">
+  <input
+    type="text"
+    id="pageSearchInput"
+    placeholder="Search for products, suppliers, engineers or services..."
+  />
+  <button type="button" onclick="runPageSearch()">🔍 Search</button>
+</div>
 
     </header>
 
