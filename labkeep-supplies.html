@@ -292,7 +292,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   requestLinks.forEach(function (link) {
 
-    // Change the text automatically
     link.textContent = "Add to Cart";
 
     link.addEventListener("click", function (event) {
@@ -314,7 +313,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const location =
         productCard.querySelector(".location")?.textContent.trim() || "";
 
-      // Convert the displayed price into a number
       const priceNumber = parseFloat(
         priceText.replace(/[^\d.]/g, "")
       );
@@ -322,7 +320,6 @@ document.addEventListener("DOMContentLoaded", function () {
       let cart =
         JSON.parse(localStorage.getItem("labkeepCart")) || [];
 
-      // Check if product is already in cart
       const existingProduct = cart.find(function (item) {
         return item.name === productName;
       });
@@ -349,27 +346,235 @@ document.addEventListener("DOMContentLoaded", function () {
         JSON.stringify(cart)
       );
 
-      // Update cart number
-      const cartCount =
-        document.getElementById("cartCount");
+      updateCartNumber();
 
-      if (cartCount) {
-
-        const totalItems = cart.reduce(function (total, item) {
-          return total + item.quantity;
-        }, 0);
-
-        cartCount.textContent = totalItems;
-
-      }
-
-      alert(productName + " has been added to your cart!");
+      showCartConfirmation(productName);
 
     });
 
   });
 
+
+  function updateCartNumber() {
+
+    const cartCount =
+      document.getElementById("cartCount");
+
+    if (!cartCount) return;
+
+    const cart =
+      JSON.parse(localStorage.getItem("labkeepCart")) || [];
+
+    const totalItems = cart.reduce(function (total, item) {
+      return total + item.quantity;
+    }, 0);
+
+    cartCount.textContent = totalItems;
+
+  }
+
+
+  function showCartConfirmation(productName) {
+
+    const oldModal =
+      document.getElementById("labkeepCartModal");
+
+    if (oldModal) {
+      oldModal.remove();
+    }
+
+    const modal = document.createElement("div");
+
+    modal.id = "labkeepCartModal";
+
+    modal.innerHTML = `
+      <div class="labkeep-cart-overlay">
+
+        <div class="labkeep-cart-box">
+
+          <div class="labkeep-cart-check">✓</div>
+
+          <h2>Added to Cart</h2>
+
+          <p>
+            <strong>${productName}</strong>
+            has been added to your cart.
+          </p>
+
+          <div class="labkeep-cart-actions">
+
+            <button
+              type="button"
+              class="labkeep-view-cart"
+              id="labkeepViewCart">
+              View Cart
+            </button>
+
+            <button
+              type="button"
+              class="labkeep-continue"
+              id="labkeepContinue">
+              Continue Shopping
+            </button>
+
+            <button
+              type="button"
+              class="labkeep-remove"
+              id="labkeepRemove">
+              Remove from Cart
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+
+    document
+      .getElementById("labkeepViewCart")
+      .addEventListener("click", function () {
+
+        window.location.href = "cart.html";
+
+      });
+
+
+    document
+      .getElementById("labkeepContinue")
+      .addEventListener("click", function () {
+
+        modal.remove();
+
+      });
+
+
+    document
+      .getElementById("labkeepRemove")
+      .addEventListener("click", function () {
+
+        let cart =
+          JSON.parse(localStorage.getItem("labkeepCart")) || [];
+
+        const productIndex =
+          cart.findIndex(function (item) {
+            return item.name === productName;
+          });
+
+        if (productIndex !== -1) {
+
+          if (cart[productIndex].quantity > 1) {
+
+            cart[productIndex].quantity -= 1;
+
+          } else {
+
+            cart.splice(productIndex, 1);
+
+          }
+
+        }
+
+        localStorage.setItem(
+          "labkeepCart",
+          JSON.stringify(cart)
+        );
+
+        updateCartNumber();
+
+        modal.remove();
+
+      });
+
+  }
+
 });
 </script>
+
+    <style>
+.labkeep-cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 99999;
+}
+
+.labkeep-cart-box {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 30px 24px;
+  text-align: center;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.18);
+}
+
+.labkeep-cart-check {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  background: #1237d8;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.labkeep-cart-box h2 {
+  margin: 0 0 10px;
+  color: #14294c;
+  font-size: 23px;
+}
+
+.labkeep-cart-box p {
+  margin: 0 0 24px;
+  color: #555555;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.labkeep-cart-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.labkeep-cart-actions button {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 13px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.labkeep-view-cart {
+  background: #1237d8;
+  color: #ffffff;
+}
+
+.labkeep-continue {
+  background: #eef2ff;
+  color: #1237d8;
+}
+
+.labkeep-remove {
+  background: #ffffff;
+  color: #d93025;
+  border: 1px solid #eeeeee !important;
+}
+</style>
+    
   </body>
 </html>
