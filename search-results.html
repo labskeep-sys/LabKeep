@@ -114,20 +114,22 @@
   </style>
 
   <style>
-  .LabKeep-hero .hero-center .page-search-fix {
+  /* SEARCH BAR ON SEARCH RESULTS PAGE */
+  .page-search-fix {
     width: 90% !important;
     max-width: 850px !important;
-    margin: 24px auto 0 !important;
+    margin: 25px auto !important;
     display: flex !important;
     align-items: center !important;
+    justify-content: center !important;
     gap: 10px !important;
     box-sizing: border-box !important;
   }
 
-  .LabKeep-hero .hero-center .page-search-fix input {
-    width: auto !important;
+  .page-search-fix input {
+    flex: 1 !important;
+    width: 100% !important;
     min-width: 0 !important;
-    flex: 1 1 auto !important;
     height: 50px !important;
     padding: 0 18px !important;
     margin: 0 !important;
@@ -136,20 +138,19 @@
     background: #ffffff !important;
     color: #14294c !important;
     font-size: 14px !important;
-    line-height: normal !important;
     text-align: left !important;
     box-sizing: border-box !important;
     outline: none !important;
   }
 
-  .LabKeep-hero .hero-center .page-search-fix input::placeholder {
+  .page-search-fix input::placeholder {
     color: #777777 !important;
     opacity: 1 !important;
   }
 
-  .LabKeep-hero .hero-center .page-search-fix button {
-    width: auto !important;
+  .page-search-fix button {
     flex: 0 0 auto !important;
+    width: auto !important;
     height: 50px !important;
     padding: 0 22px !important;
     margin: 0 !important;
@@ -163,16 +164,29 @@
     box-sizing: border-box !important;
   }
 
+  /* MOBILE */
   @media (max-width: 600px) {
-    .LabKeep-hero .hero-center .page-search-fix {
+    .page-search-fix {
       width: 92% !important;
+      max-width: none !important;
+      margin: 20px auto !important;
       flex-direction: column !important;
+      gap: 10px !important;
     }
 
-    .LabKeep-hero .hero-center .page-search-fix input,
-    .LabKeep-hero .hero-center .page-search-fix button {
+    .page-search-fix input,
+    .page-search-fix button {
       width: 100% !important;
       flex: none !important;
+    }
+
+    .page-search-fix input {
+      height: 48px !important;
+      font-size: 14px !important;
+    }
+
+    .page-search-fix button {
+      height: 48px !important;
     }
   }
 </style>
