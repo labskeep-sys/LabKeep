@@ -595,5 +595,23 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+  <script>
+function runPageSearch() {
+  const searchInput = document.getElementById("pageSearchInput");
+  const searchTerm = searchInput.value.trim();
+
+  if (searchTerm !== "") {
+    window.location.href =
+      "search-results.html?q=" + encodeURIComponent(searchTerm);
+  }
+}
+
+document.getElementById("pageSearchInput").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    runPageSearch();
+  }
+});
+</script>
+  
 </body>
 </html>
