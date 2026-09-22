@@ -285,5 +285,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const cartButton = document.getElementById("cartButton");
+  const cartCount = document.getElementById("cartCount");
+
+  // Get existing cart or create an empty one
+  let cart = JSON.parse(localStorage.getItem("labkeepCart")) || [];
+
+  // Update the number shown on the cart icon
+  function updateCartCount() {
+    const totalItems = cart.reduce(function (total, item) {
+      return total + item.quantity;
+    }, 0);
+
+    if (cartCount) {
+      cartCount.textContent = totalItems;
+    }
+  }
+
+  // Save cart
+  function saveCart() {
+    localStorage.setItem("labkeepCart", JSON.stringify(cart));
+    updateCartCount();
+  }
+
+  // Make the cart icon clickable
+  if (cartButton) {
+    cartButton.addEventListener("click", function () {
+      alert("Your LabKeep cart is coming next!");
+    });
+  }
+
+  updateCartCount();
+
+});
+</script>
   </body>
 </html>
