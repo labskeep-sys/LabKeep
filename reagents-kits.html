@@ -64,5 +64,40 @@ var n,t=this,e='gjs-collapse',a='max-height',o=0,i=function(){var n=document.cre
 }.bind(items[i]))();
           }</script>
     <script src="location-filter.js"></script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const cartButton = document.getElementById("cartButton");
+  const cartCount = document.getElementById("cartCount");
+
+  function updateCartCount() {
+    const cart =
+      JSON.parse(localStorage.getItem("labkeepCart")) || [];
+
+    const totalItems = cart.reduce(function (total, item) {
+      return total + item.quantity;
+    }, 0);
+
+    if (cartCount) {
+      cartCount.textContent = totalItems;
+    }
+  }
+
+  if (cartButton) {
+    cartButton.addEventListener("click", function () {
+      window.location.href = "cart.html";
+    });
+  }
+
+  updateCartCount();
+
+  window.addEventListener("pageshow", function () {
+    updateCartCount();
+  });
+
+});
+</script>
+    
   </body>
 </html>
