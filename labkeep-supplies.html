@@ -253,10 +253,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const cartButton = document.getElementById("cartButton");
   const cartCount = document.getElementById("cartCount");
 
-  // Get existing cart or create an empty one
   let cart = JSON.parse(localStorage.getItem("labkeepCart")) || [];
 
-  // Update the number shown on the cart icon
   function updateCartCount() {
     const totalItems = cart.reduce(function (total, item) {
       return total + item.quantity;
@@ -267,23 +265,32 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Save cart
   function saveCart() {
     localStorage.setItem("labkeepCart", JSON.stringify(cart));
     updateCartCount();
   }
 
-  // Make the cart icon clickable
   if (cartButton) {
-  cartButton.addEventListener("click", function () {
-    window.location.href = "cart.html";
-  });
-}
+    cartButton.addEventListener("click", function () {
+      window.location.href = "cart.html";
+    });
+  }
 
   updateCartCount();
+
   window.addEventListener("pageshow", function () {
-  cart = JSON.parse(localStorage.getItem("labkeepCart")) || [];
-  updateCartCount();
+
+    cart = JSON.parse(localStorage.getItem("labkeepCart")) || [];
+
+    updateCartCount();
+
+    const oldModal = document.getElementById("labkeepCartModal");
+
+    if (oldModal) {
+      oldModal.remove();
+    }
+
+  });
 
 });
 </script>
