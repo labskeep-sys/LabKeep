@@ -323,5 +323,92 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const requestLinks = document.querySelectorAll(".Request");
+
+  requestLinks.forEach(function (link) {
+
+    // Change the text automatically
+    link.textContent = "Add to Cart";
+
+    link.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      const productCard = link.closest(".product-card");
+
+      if (!productCard) return;
+
+      const productName =
+        productCard.querySelector("h3")?.textContent.trim() || "";
+
+      const supplier =
+        productCard.querySelector(".supplier")?.childNodes[0]?.textContent.trim() || "";
+
+      const priceText =
+        productCard.querySelector(".product-price")?.textContent.trim() || "";
+
+      const location =
+        productCard.querySelector(".location")?.textContent.trim() || "";
+
+      // Convert the displayed price into a number
+      const priceNumber = parseFloat(
+        priceText.replace(/[^\d.]/g, "")
+      );
+
+      let cart =
+        JSON.parse(localStorage.getItem("labkeepCart")) || [];
+
+      // Check if product is already in cart
+      const existingProduct = cart.find(function (item) {
+        return item.name === productName;
+      });
+
+      if (existingProduct) {
+
+        existingProduct.quantity += 1;
+
+      } else {
+
+        cart.push({
+          name: productName,
+          supplier: supplier,
+          price: priceNumber,
+          priceDisplay: priceText,
+          location: location,
+          quantity: 1
+        });
+
+      }
+
+      localStorage.setItem(
+        "labkeepCart",
+        JSON.stringify(cart)
+      );
+
+      // Update cart number
+      const cartCount =
+        document.getElementById("cartCount");
+
+      if (cartCount) {
+
+        const totalItems = cart.reduce(function (total, item) {
+          return total + item.quantity;
+        }, 0);
+
+        cartCount.textContent = totalItems;
+
+      }
+
+      alert(productName + " has been added to your cart!");
+
+    });
+
+  });
+
+});
+</script>
   </body>
 </html>
