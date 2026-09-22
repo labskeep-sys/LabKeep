@@ -275,10 +275,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Make the cart icon clickable
   if (cartButton) {
-    cartButton.addEventListener("click", function () {
-      alert("Your LabKeep cart is coming next!");
-    });
-  }
+  cartButton.addEventListener("click", function () {
+    window.location.href = "cart.html";
+  });
+}
 
   updateCartCount();
 
