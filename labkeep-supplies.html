@@ -281,6 +281,9 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
   updateCartCount();
+  window.addEventListener("pageshow", function () {
+  cart = JSON.parse(localStorage.getItem("labkeepCart")) || [];
+  updateCartCount();
 
 });
 </script>
