@@ -222,3 +222,14 @@
   font-size:12px;
   font-weight:bold;
 }
+/* KEEP PRODUCT CARDS THE SAME SIZE AFTER LOCATION FILTERING */
+.product-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+}
+
+.product-card {
+  width: 100%;
+  max-width: 100%;
+  align-self: start;
+}
