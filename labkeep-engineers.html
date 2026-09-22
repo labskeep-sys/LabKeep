@@ -116,5 +116,31 @@ document.getElementById("pageSearchInput").addEventListener("keydown", function(
   }
 });
 </script>
+
+    <style>
+/* RESTORE ORIGINAL ENGINEERS PAGE GRID */
+.LabKeep-products .product-grid {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 17px !important;
+}
+
+@media (max-width: 900px) {
+  .LabKeep-products .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .LabKeep-products .product-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>
   </body>
 </html>
