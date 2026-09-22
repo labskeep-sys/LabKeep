@@ -276,6 +276,18 @@ document.addEventListener("DOMContentLoaded", function () {
         modal.remove();
       });
   }
+  window.addEventListener("pageshow", function () {
+
+    updateCartNumber();
+
+    const oldModal =
+      document.getElementById("labkeepCartModal");
+
+    if (oldModal) {
+      oldModal.remove();
+    }
+
+  });
 
 });
 </script>
