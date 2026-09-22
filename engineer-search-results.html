@@ -1,1 +1,535 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Engineer Search Results | LabKeep</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <meta name="generator" content="GrapesJS Studio">
 
+    <link rel="stylesheet" href="./style-pages.css">
+
+    <style>
+      /* SEARCH RESULTS PAGE */
+
+      .engineer-results-page {
+        min-height: 70vh;
+        padding: 50px 7%;
+        box-sizing: border-box;
+      }
+
+      .engineer-results-heading {
+        text-align: center;
+        margin-bottom: 35px;
+      }
+
+      .engineer-results-heading h1 {
+        margin: 0 0 10px;
+        color: #14294c;
+        font-size: 32px;
+      }
+
+      .engineer-results-heading p {
+        margin: 0;
+        color: #666;
+        font-size: 15px;
+      }
+
+      /* SEARCH BAR */
+
+      .engineer-results-search {
+        width: 90%;
+        max-width: 850px;
+        margin: 0 auto 40px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-sizing: border-box;
+      }
+
+      .engineer-results-search input {
+        width: auto;
+        min-width: 0;
+        flex: 1 1 auto;
+        height: 50px;
+        padding: 0 18px;
+        margin: 0;
+        border: 1px solid #d9dee8;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #14294c;
+        font-size: 14px;
+        line-height: normal;
+        text-align: left;
+        box-sizing: border-box;
+        outline: none;
+      }
+
+      .engineer-results-search input::placeholder {
+        color: #777777;
+        opacity: 1;
+      }
+
+      .engineer-results-search button {
+        width: auto;
+        flex: 0 0 auto;
+        height: 50px;
+        padding: 0 22px;
+        margin: 0;
+        border: none;
+        border-radius: 8px;
+        background: #1237d8;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        box-sizing: border-box;
+      }
+
+      /* RESULTS TITLE */
+
+      .results-title {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto 20px;
+        color: #14294c;
+        font-size: 20px;
+      }
+
+      /* ENGINEER RESULTS */
+
+      #engineer-results {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 17px;
+      }
+
+      /* NO RESULTS */
+
+      #no-results {
+        width: 100%;
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 40px 20px;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      #no-results h2 {
+        color: #14294c;
+        margin-bottom: 10px;
+      }
+
+      #no-results p {
+        color: #666;
+        margin: 0;
+      }
+
+      /* FOOTER */
+
+      .engineer-results-footer {
+        padding: 25px 20px;
+        text-align: center;
+        border-top: 1px solid #e5e8ef;
+        color: #666;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+
+      /* MOBILE */
+
+      @media (max-width: 900px) {
+        #engineer-results {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 600px) {
+
+        .engineer-results-page {
+          padding: 40px 5%;
+        }
+
+        .engineer-results-heading h1 {
+          font-size: 27px;
+        }
+
+        .engineer-results-search {
+          width: 92%;
+          flex-direction: column;
+        }
+
+        .engineer-results-search input,
+        .engineer-results-search button {
+          width: 100%;
+          flex: none;
+        }
+
+        #engineer-results {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- SEARCH RESULTS CONTENT -->
+
+    <main class="engineer-results-page">
+
+      <div class="engineer-results-heading">
+
+        <h1>Engineer Search Results</h1>
+
+        <p id="search-summary">
+          Search for an engineer, location or service.
+        </p>
+
+      </div>
+
+
+      <!-- SEARCH BAR -->
+
+      <div class="engineer-results-search">
+
+        <input
+          type="text"
+          id="engineerSearchInput"
+          placeholder="Search for engineers, locations or services..."
+        />
+
+        <button
+          type="button"
+          onclick="runEngineerSearch()"
+        >
+          🔍 Search
+        </button>
+
+      </div>
+
+
+      <!-- RESULTS TITLE -->
+
+      <h2
+        id="results-title"
+        class="results-title"
+        style="display:none;"
+      >
+        Matching Engineers
+      </h2>
+
+
+      <!-- ENGINEER RESULTS -->
+
+      <div id="engineer-results"></div>
+
+
+      <!-- NO RESULTS -->
+
+      <div id="no-results" style="display:none;">
+
+        <h2>No engineers found</h2>
+
+        <p>
+          We couldn’t find an engineer matching your search.
+          Try another engineer name, location or service.
+        </p>
+
+      </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="engineer-results-footer">
+      © 2026 LabKeep. Keeping Labs Ready, Always.
+    </footer>
+
+
+    <!-- SEARCH FUNCTION -->
+
+    <script>
+
+      document.addEventListener("DOMContentLoaded", function () {
+
+        /* Get search term from URL */
+
+        const params =
+          new URLSearchParams(window.location.search);
+
+        const searchQuery =
+          (params.get("q") || "").trim();
+
+
+        const searchInput =
+          document.getElementById(
+            "engineerSearchInput"
+          );
+
+        const searchSummary =
+          document.getElementById(
+            "search-summary"
+          );
+
+        const resultsTitle =
+          document.getElementById(
+            "results-title"
+          );
+
+        const resultsContainer =
+          document.getElementById(
+            "engineer-results"
+          );
+
+        const noResults =
+          document.getElementById(
+            "no-results"
+          );
+
+
+        /* Put the search term into the search box */
+
+        if (searchQuery !== "") {
+
+          searchInput.value =
+            searchQuery;
+
+        }
+
+
+        /* If there is no search term */
+
+        if (searchQuery === "") {
+
+          searchSummary.textContent =
+            "Search for an engineer, location or service.";
+
+          return;
+
+        }
+
+
+        /* Show what was searched */
+
+        searchSummary.textContent =
+          'Showing results for "' +
+          searchQuery +
+          '"';
+
+
+        /*
+         * Load the main Engineers page.
+         *
+         * The engineer cards already exist there,
+         * so we don't need to manually copy them.
+         */
+
+        fetch("labkeep-engineers.html")
+
+          .then(function (response) {
+
+            if (!response.ok) {
+
+              throw new Error(
+                "Could not load the Engineers page."
+              );
+
+            }
+
+            return response.text();
+
+          })
+
+
+          .then(function (html) {
+
+            /* Convert the HTML into a searchable document */
+
+            const parser =
+              new DOMParser();
+
+            const engineerPage =
+              parser.parseFromString(
+                html,
+                "text/html"
+              );
+
+
+            /*
+             * Find all engineer cards.
+             *
+             * Your engineer cards use:
+             * class="product-card"
+             */
+
+            const engineerCards =
+              engineerPage.querySelectorAll(
+                ".product-card"
+              );
+
+
+            const matchingEngineers = [];
+
+
+            /* Search through each engineer card */
+
+            engineerCards.forEach(function (card) {
+
+              const cardText =
+                card.textContent
+                  .trim()
+                  .toLowerCase();
+
+
+              /*
+               * Search the entire engineer card.
+               *
+               * This allows searches for:
+               * - Engineer name
+               * - Location
+               * - Equipment/service expertise
+               */
+
+              if (
+                cardText.includes(
+                  searchQuery.toLowerCase()
+                )
+              ) {
+
+                matchingEngineers.push(card);
+
+              }
+
+            });
+
+
+            /* Clear the results area */
+
+            resultsContainer.innerHTML = "";
+
+
+            /* Display matching engineers */
+
+            matchingEngineers.forEach(function (card) {
+
+              const clonedCard =
+                card.cloneNode(true);
+
+              resultsContainer.appendChild(
+                clonedCard
+              );
+
+            });
+
+
+            /* If engineers were found */
+
+            if (matchingEngineers.length > 0) {
+
+              resultsTitle.style.display =
+                "block";
+
+              noResults.style.display =
+                "none";
+
+            }
+
+
+            /* If no engineers were found */
+
+            else {
+
+              resultsTitle.style.display =
+                "none";
+
+              noResults.style.display =
+                "block";
+
+              noResults.querySelector("h2").textContent =
+                "No engineers found";
+
+              noResults.querySelector("p").textContent =
+                'We couldn’t find an engineer matching "' +
+                searchQuery +
+                '". Try another engineer name, location or service.';
+
+            }
+
+          })
+
+
+          /* If the Engineers page cannot be loaded */
+
+          .catch(function (error) {
+
+            console.error(error);
+
+            resultsTitle.style.display =
+              "none";
+
+            noResults.style.display =
+              "block";
+
+            noResults.querySelector("h2").textContent =
+              "Unable to load engineers";
+
+            noResults.querySelector("p").textContent =
+              "Please try again.";
+
+          });
+
+      });
+
+
+      /* Search button */
+
+      function runEngineerSearch() {
+
+        const searchInput =
+          document.getElementById(
+            "engineerSearchInput"
+          );
+
+        const searchTerm =
+          searchInput.value.trim();
+
+
+        if (searchTerm !== "") {
+
+          window.location.href =
+            "engineer-search-results.html?q=" +
+            encodeURIComponent(searchTerm);
+
+        }
+
+      }
+
+
+      /* Allow Enter key to search */
+
+      document
+        .getElementById(
+          "engineerSearchInput"
+        )
+        .addEventListener(
+          "keydown",
+          function (event) {
+
+            if (event.key === "Enter") {
+
+              runEngineerSearch();
+
+            }
+
+          }
+        );
+
+    </script>
+
+  </body>
+</html>
