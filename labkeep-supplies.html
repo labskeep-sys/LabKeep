@@ -19,14 +19,78 @@
   </p>
 
   <!-- SEARCH BAR -->
-  <div class="page-search">
-    <input
-      type="text"
-      id="pageSearchInput"
-      placeholder="Search for products, suppliers, engineers or services..."
-    />
-    <button type="button" onclick="runPageSearch()">🔍 Search</button>
-  </div>
+ <style>
+  .LabKeep-hero .hero-center .page-search-fix {
+    width: 90% !important;
+    max-width: 850px !important;
+    margin: 24px auto 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  .LabKeep-hero .hero-center .page-search-fix input {
+    width: auto !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    height: 50px !important;
+    padding: 0 18px !important;
+    margin: 0 !important;
+    border: 1px solid #d9dee8 !important;
+    border-radius: 8px !important;
+    background: #ffffff !important;
+    color: #14294c !important;
+    font-size: 14px !important;
+    line-height: normal !important;
+    text-align: left !important;
+    box-sizing: border-box !important;
+    outline: none !important;
+  }
+
+  .LabKeep-hero .hero-center .page-search-fix input::placeholder {
+    color: #777777 !important;
+    opacity: 1 !important;
+  }
+
+  .LabKeep-hero .hero-center .page-search-fix button {
+    width: auto !important;
+    flex: 0 0 auto !important;
+    height: 50px !important;
+    padding: 0 22px !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    background: #1237d8 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+  }
+
+  @media (max-width: 600px) {
+    .LabKeep-hero .hero-center .page-search-fix {
+      width: 92% !important;
+      flex-direction: column !important;
+    }
+
+    .LabKeep-hero .hero-center .page-search-fix input,
+    .LabKeep-hero .hero-center .page-search-fix button {
+      width: 100% !important;
+      flex: none !important;
+    }
+  }
+</style>
+
+<div class="page-search-fix">
+  <input
+    type="text"
+    id="pageSearchInput"
+    placeholder="Search for products, suppliers, engineers or services..."
+  />
+  <button type="button" onclick="runPageSearch()">🔍 Search</button>
+</div>
 </div>
 </header>
     <!-- MAIN CONTENT --><main id="io3mzt-2-3" class="LabKeep-main"><!-- SIDEBAR --><aside id="isa79v-2-3" class="LabKeep-sidebar&quot;"><h2 id="iq9qxd-2-3">Categories</h2><div class="categories"><div id="ifyq6n8" class="category active"><span>▦</span><b id="i00rg8-2-3">All Products</b></div><a id="im1h8xr" href="./reagents-kits.html" class="gjs-t-link"><span id="iftwn45-2-2" data-pm-slice="0 0 []">⚗</span> Reagents &amp; Kits</a><a id="i1ss11o" href="./consumables.html" class="gjs-t-link"><span id="isjugc-2-3-2" data-pm-slice="0 0 []">▯</span> Consumables</a><a id="iqi3ack" href="./equipment.html" class="gjs-t-link"><span id="inxkkz9-2-2" data-pm-slice="0 0 []">♜</span> Equipment</a><a id="i7ep1r9" href="./glassware.html" class="gjs-t-link"><span id="i37erez-2-2" data-pm-slice="0 0 []">♧</span> Glassware</a><a id="iguv99l" href="./safety-protection.html" class="gjs-t-link"><span id="i6iqbx3-2-2" data-pm-slice="0 0 []">⬟</span> Safety &amp; Protection</a><a id="i61r2bg" href="./lab-furniture.html" class="gjs-t-link"><span id="i30ya9g-2-2" data-pm-slice="0 0 []">▤</span> Lab Furniture</a></div><div id="ii875a-2-3" class="filter-section"><h2 id="iaivd5-2-3">Filter by</h2><label id="iv92af-2-3">Price Range</label><div class="price-slider"><div class="slider-line"></div><div class="slider-dot left"></div><div class="slider-dot right"></div></div><div class="price-labels"><span id="imqva9-2-3">₦0</span><span id="isiu4v-2-3">₦500,000+</span></div><label id="imsgx6-2-4" class="supplier-label">
