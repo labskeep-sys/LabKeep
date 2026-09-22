@@ -1,213 +1,512 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+  <head>
+    <title>Supplier Search Results | LabKeep</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <meta name="generator" content="GrapesJS Studio">
 
-  <title>Supplier Search Results | LabKeep</title>
+    <link rel="stylesheet" href="./style-pages.css">
 
-  <link rel="stylesheet" href="style-pages.css">
+    <style>
+      /* SEARCH RESULTS PAGE */
 
-  <style>
-    .supplier-search-page {
-      padding: 50px 7%;
-      min-height: 500px;
-    }
-
-    .supplier-search-page h1 {
-      margin-bottom: 10px;
-    }
-
-    #search-summary {
-      margin-bottom: 30px;
-      color: #555;
-    }
-
-    #supplier-results {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .no-results {
-      text-align: center;
-      padding: 50px 20px;
-    }
-
-    @media (max-width: 900px) {
-      #supplier-results {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .supplier-results-page {
+        min-height: 70vh;
+        padding: 50px 7%;
+        box-sizing: border-box;
       }
-    }
 
-    @media (max-width: 600px) {
-      #supplier-results {
-        grid-template-columns: 1fr;
+      .supplier-results-heading {
+        text-align: center;
+        margin-bottom: 35px;
       }
-    }
-  </style>
-</head>
 
-<body>
+      .supplier-results-heading h1 {
+        margin: 0 0 10px;
+        color: #14294c;
+        font-size: 32px;
+      }
 
-  <main class="supplier-search-page">
+      .supplier-results-heading p {
+        margin: 0;
+        color: #666;
+        font-size: 15px;
+      }
 
-    <h1>Supplier Search Results</h1>
+      /* Search bar */
 
-    <p id="search-summary"></p>
+      .supplier-results-search {
+        width: 90%;
+        max-width: 850px;
+        margin: 0 auto 40px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-sizing: border-box;
+      }
 
-    <div id="supplier-results"></div>
+      .supplier-results-search input {
+        width: auto;
+        min-width: 0;
+        flex: 1 1 auto;
+        height: 50px;
+        padding: 0 18px;
+        margin: 0;
+        border: 1px solid #d9dee8;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #14294c;
+        font-size: 14px;
+        line-height: normal;
+        text-align: left;
+        box-sizing: border-box;
+        outline: none;
+      }
 
-    <div id="no-results" class="no-results" style="display:none;">
-      <h2>No suppliers found</h2>
-      <p>Try searching for another supplier, location or service.</p>
-    </div>
+      .supplier-results-search input::placeholder {
+        color: #777777;
+        opacity: 1;
+      }
 
-  </main>
+      .supplier-results-search button {
+        width: auto;
+        flex: 0 0 auto;
+        height: 50px;
+        padding: 0 22px;
+        margin: 0;
+        border: none;
+        border-radius: 8px;
+        background: #1237d8;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        box-sizing: border-box;
+      }
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
+      /* Results heading */
 
-      /* Get the search word from the URL */
-      const params = new URLSearchParams(window.location.search);
-      const searchQuery = (params.get("q") || "").trim().toLowerCase();
+      .results-title {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto 20px;
+        color: #14294c;
+        font-size: 20px;
+      }
 
-      const resultsContainer =
-        document.getElementById("supplier-results");
+      /* Supplier results */
 
-      const noResults =
-        document.getElementById("no-results");
+      #supplier-results {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 17px;
+      }
 
-      const searchSummary =
-        document.getElementById("search-summary");
+      /* No results */
+
+      #no-results {
+        width: 100%;
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 40px 20px;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      #no-results h2 {
+        color: #14294c;
+        margin-bottom: 10px;
+      }
+
+      #no-results p {
+        color: #666;
+        margin: 0;
+      }
+
+      /* Footer */
+
+      .supplier-results-footer {
+        padding: 25px 20px;
+        text-align: center;
+        border-top: 1px solid #e5e8ef;
+        color: #666;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+
+      @media (max-width: 900px) {
+        #supplier-results {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 600px) {
+
+        .supplier-results-page {
+          padding: 40px 5%;
+        }
+
+        .supplier-results-heading h1 {
+          font-size: 27px;
+        }
+
+        .supplier-results-search {
+          width: 92%;
+          flex-direction: column;
+        }
+
+        .supplier-results-search input,
+        .supplier-results-search button {
+          width: 100%;
+          flex: none;
+        }
+
+        #supplier-results {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- SEARCH RESULTS CONTENT -->
+
+    <main class="supplier-results-page">
+
+      <div class="supplier-results-heading">
+        <h1>Supplier Search Results</h1>
+
+        <p id="search-summary">
+          Search for a supplier, location or service.
+        </p>
+      </div>
 
 
-      /* If nothing was searched */
-      if (!searchQuery) {
+      <!-- SEARCH BAR -->
+
+      <div class="supplier-results-search">
+
+        <input
+          type="text"
+          id="supplierSearchInput"
+          placeholder="Search for suppliers, locations or services..."
+        />
+
+        <button
+          type="button"
+          onclick="runSupplierSearch()"
+        >
+          🔍 Search
+        </button>
+
+      </div>
+
+
+      <!-- RESULTS TITLE -->
+
+      <h2
+        id="results-title"
+        class="results-title"
+        style="display:none;"
+      >
+        Matching Suppliers
+      </h2>
+
+
+      <!-- SUPPLIER RESULTS -->
+
+      <div id="supplier-results"></div>
+
+
+      <!-- NO RESULTS -->
+
+      <div id="no-results" style="display:none;">
+
+        <h2>No suppliers found</h2>
+
+        <p>
+          We couldn’t find a supplier matching your search.
+          Try another supplier name, location or service.
+        </p>
+
+      </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="supplier-results-footer">
+      © 2026 LabKeep. Keeping Labs Ready, Always.
+    </footer>
+
+
+    <!-- SEARCH FUNCTION -->
+
+    <script>
+
+      /* Read the search term from the URL */
+
+      document.addEventListener("DOMContentLoaded", function () {
+
+        const params =
+          new URLSearchParams(window.location.search);
+
+        const searchQuery =
+          (params.get("q") || "").trim();
+
+
+        const searchInput =
+          document.getElementById("supplierSearchInput");
+
+        const searchSummary =
+          document.getElementById("search-summary");
+
+        const resultsTitle =
+          document.getElementById("results-title");
+
+        const resultsContainer =
+          document.getElementById("supplier-results");
+
+        const noResults =
+          document.getElementById("no-results");
+
+
+        /* Put the search word into the search box */
+
+        if (searchQuery !== "") {
+
+          searchInput.value = searchQuery;
+
+        }
+
+
+        /* If there is no search word */
+
+        if (searchQuery === "") {
+
+          searchSummary.textContent =
+            "Search for a supplier, location or service.";
+
+          return;
+
+        }
+
+
+        /* Show what the user searched for */
 
         searchSummary.textContent =
-          "Enter a supplier name, location or service to search.";
-
-        noResults.style.display = "block";
-
-        return;
-      }
+          'Showing results for "' +
+          searchQuery +
+          '"';
 
 
-      /* Show the search term */
-      searchSummary.textContent =
-        'Showing supplier results for "' +
-        searchQuery +
-        '"';
+        /*
+         * Load the main Suppliers page.
+         *
+         * The supplier cards already exist there,
+         * so we don't have to manually copy them here.
+         */
 
+        fetch("labkeep-suppliers.html")
 
-      /* Load the Suppliers page */
-      fetch("labkeep-suppliers.html")
+          .then(function (response) {
 
-        .then(function (response) {
+            if (!response.ok) {
 
-          if (!response.ok) {
-            throw new Error("Could not load suppliers page.");
-          }
-
-          return response.text();
-
-        })
-
-        .then(function (html) {
-
-          /* Turn the HTML into a document we can search */
-          const parser = new DOMParser();
-
-          const supplierPage =
-            parser.parseFromString(html, "text/html");
-
-
-          /* Find all supplier cards */
-          const supplierCards =
-            supplierPage.querySelectorAll(".product-card");
-
-
-          let matchingSuppliers = [];
-
-
-          /* Check each supplier card */
-          supplierCards.forEach(function (card) {
-
-            const cardText =
-              card.textContent.toLowerCase();
-
-
-            /*
-             * Search the entire supplier card.
-             *
-             * This means people can search:
-             * - Supplier name
-             * - Location
-             * - Type of supplies/services
-             */
-
-            if (cardText.includes(searchQuery)) {
-
-              matchingSuppliers.push(card);
+              throw new Error(
+                "Could not load the Suppliers page."
+              );
 
             }
 
-          });
+            return response.text();
+
+          })
 
 
-          /* Clear previous results */
-          resultsContainer.innerHTML = "";
+          .then(function (html) {
+
+            /* Convert the HTML into a searchable document */
+
+            const parser =
+              new DOMParser();
+
+            const supplierPage =
+              parser.parseFromString(
+                html,
+                "text/html"
+              );
 
 
-          /* Display matching suppliers */
-          matchingSuppliers.forEach(function (card) {
+            /*
+             * Find all supplier cards.
+             *
+             * Your supplier cards use:
+             * class="product-card"
+             */
 
-            const clonedCard =
-              card.cloneNode(true);
-
-            resultsContainer.appendChild(clonedCard);
-
-          });
+            const supplierCards =
+              supplierPage.querySelectorAll(
+                ".product-card"
+              );
 
 
-          /* Show/hide no-results message */
-          if (matchingSuppliers.length > 0) {
+            const matchingSuppliers = [];
 
-            noResults.style.display = "none";
 
-          } else {
+            /* Search through each supplier card */
+
+            supplierCards.forEach(function (card) {
+
+              const cardText =
+                card.textContent
+                  .trim()
+                  .toLowerCase();
+
+
+              /*
+               * Search the entire supplier card.
+               *
+               * This allows searches for:
+               * supplier name
+               * location
+               * laboratory supplies/services
+               */
+
+              if (
+                cardText.includes(
+                  searchQuery.toLowerCase()
+                )
+              ) {
+
+                matchingSuppliers.push(card);
+
+              }
+
+            });
+
+
+            /* Clear the results area */
+
+            resultsContainer.innerHTML = "";
+
+
+            /* Display matching supplier cards */
+
+            matchingSuppliers.forEach(function (card) {
+
+              const clonedCard =
+                card.cloneNode(true);
+
+              resultsContainer.appendChild(
+                clonedCard
+              );
+
+            });
+
+
+            /* If suppliers were found */
+
+            if (matchingSuppliers.length > 0) {
+
+              resultsTitle.style.display = "block";
+
+              noResults.style.display = "none";
+
+            }
+
+
+            /* If no suppliers were found */
+
+            else {
+
+              resultsTitle.style.display = "none";
+
+              noResults.style.display = "block";
+
+              noResults.querySelector("h2").textContent =
+                "No suppliers found";
+
+              noResults.querySelector("p").textContent =
+                'We couldn’t find a supplier matching "' +
+                searchQuery +
+                '". Try another supplier name, location or service.';
+
+            }
+
+          })
+
+
+          /* If the Suppliers page cannot be loaded */
+
+          .catch(function (error) {
+
+            console.error(error);
+
+            resultsTitle.style.display = "none";
 
             noResults.style.display = "block";
 
             noResults.querySelector("h2").textContent =
-              "No suppliers found";
+              "Unable to load suppliers";
 
             noResults.querySelector("p").textContent =
-              'We couldn’t find a supplier matching "' +
-              searchQuery +
-              '". Try another supplier name, location or service.';
+              "Please try again.";
+
+          });
+
+      });
+
+
+      /* Search button */
+
+      function runSupplierSearch() {
+
+        const searchInput =
+          document.getElementById(
+            "supplierSearchInput"
+          );
+
+        const searchTerm =
+          searchInput.value.trim();
+
+
+        if (searchTerm !== "") {
+
+          window.location.href =
+            "supplier-search-results.html?q=" +
+            encodeURIComponent(searchTerm);
+
+        }
+
+      }
+
+
+      /* Allow Enter key to search */
+
+      document
+        .getElementById("supplierSearchInput")
+        .addEventListener(
+          "keydown",
+          function (event) {
+
+            if (event.key === "Enter") {
+
+              runSupplierSearch();
+
+            }
 
           }
+        );
 
-        })
+    </script>
 
-        .catch(function (error) {
-
-          console.error(error);
-
-          noResults.style.display = "block";
-
-          noResults.querySelector("h2").textContent =
-            "Unable to load suppliers";
-
-          noResults.querySelector("p").textContent =
-            "Please try again.";
-
-        });
-
-    });
-  </script>
-
-</body>
+  </body>
 </html>
