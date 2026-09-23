@@ -293,6 +293,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateCartCount();
 
+  const homeCartStyle =
+  document.createElement("style");
+
+homeCartStyle.textContent = `
+
+updateCartCount();
+
 /* Refresh cart when returning to the Home page */
 window.addEventListener("pageshow", function () {
 
@@ -308,11 +315,6 @@ window.addEventListener("pageshow", function () {
 });
 
 });
-
-  const homeCartStyle =
-  document.createElement("style");
-
-homeCartStyle.textContent = `
 
   .labkeep-home-cart-overlay {
     position: fixed;
