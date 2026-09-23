@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
   ============================== */
 
  const requestLinks =
-  document.querySelectorAll(".Request, .add-to-cart-button");
-
+  document.querySelectorAll(".product-card .Request, .product-card .add-to-cart-button");
+  
   requestLinks.forEach(function (link) {
 
     link.textContent = "Add to Cart";
