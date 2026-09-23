@@ -38,8 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
      ADD TO CART
   ============================== */
 
-  const requestLinks =
-    document.querySelectorAll(".Request");
+ const requestLinks =
+  document.querySelectorAll(".Request, .add-to-cart-button");
 
   requestLinks.forEach(function (link) {
 
