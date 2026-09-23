@@ -84,7 +84,6 @@ const location =
   locationMatch
     ? locationMatch[1].trim()
     : "";
-        );
 
       let cart =
         JSON.parse(
