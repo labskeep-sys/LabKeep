@@ -55,24 +55,35 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!productCard) return;
 
       const productName =
-        productCard.querySelector("h3")
-          ?.textContent.trim() || "";
+  productCard.querySelector("h3, .product-name")
+    ?.textContent.replace(/\s+/g, " ").trim() || "";
 
-      const supplier =
-        productCard.querySelector(".supplier")
-          ?.childNodes[0]?.textContent.trim() || "";
+const supplierElement =
+  productCard.querySelector(".supplier, .supplier-name");
 
-      const priceText =
-        productCard.querySelector(".product-price")
-          ?.textContent.trim() || "";
+const supplier =
+  supplierElement
+    ?.textContent.replace(/\s+/g, " ").trim()
+    .replace(/^Supplier:\s*/i, "")
+    .split("★★★★")[0]
+    .trim() || "";
 
-      const location =
-        productCard.querySelector(".location")
-          ?.textContent.trim() || "";
+const priceElement =
+  productCard.querySelector(".product-price, .price");
 
-      const priceNumber =
-        parseFloat(
-          priceText.replace(/[^\d.]/g, "")
+const priceText =
+  priceElement
+    ?.textContent.replace(/\s+/g, " ").trim() || "";
+
+const locationMatch =
+  productCard.textContent.match(
+    /Location:\s*([^]+?)(?=\s*(?:Add to Cart|Request|$))/i
+  );
+
+const location =
+  locationMatch
+    ? locationMatch[1].trim()
+    : "";
         );
 
       let cart =
