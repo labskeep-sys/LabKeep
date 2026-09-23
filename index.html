@@ -164,13 +164,122 @@ document.addEventListener("DOMContentLoaded", function () {
 
       updateCartCount();
 
-      alert(
-        name + " has been added to your cart."
-      );
+      showCartConfirmation(name);
 
     });
 
   });
+
+  function showCartConfirmation(productName) {
+
+  const oldModal =
+    document.getElementById("labkeepHomeCartModal");
+
+  if (oldModal) {
+    oldModal.remove();
+  }
+
+  const modal =
+    document.createElement("div");
+
+  modal.id = "labkeepHomeCartModal";
+
+  modal.innerHTML = `
+    <div class="labkeep-home-cart-overlay">
+
+      <div class="labkeep-home-cart-box">
+
+        <div class="labkeep-home-cart-check">
+          ✓
+        </div>
+
+        <h2>Added to Cart</h2>
+
+        <p>
+          <strong>${productName}</strong>
+          has been added to your cart.
+        </p>
+
+        <div class="labkeep-home-cart-actions">
+
+          <button
+            type="button"
+            id="homeViewCart">
+            View Cart
+          </button>
+
+          <button
+            type="button"
+            id="homeContinueShopping">
+            Continue Shopping
+          </button>
+
+          <button
+            type="button"
+            id="homeRemoveCart">
+            Remove from Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  document
+    .getElementById("homeViewCart")
+    .addEventListener("click", function () {
+      window.location.href = "cart.html";
+    });
+
+  document
+    .getElementById("homeContinueShopping")
+    .addEventListener("click", function () {
+      modal.remove();
+    });
+
+  document
+    .getElementById("homeRemoveCart")
+    .addEventListener("click", function () {
+
+      let cart =
+        JSON.parse(
+          localStorage.getItem("labkeepCart")
+        ) || [];
+
+      const productIndex =
+        cart.findIndex(function (item) {
+          return item.name === productName;
+        });
+
+      if (productIndex !== -1) {
+
+        if (cart[productIndex].quantity > 1) {
+
+          cart[productIndex].quantity -= 1;
+
+        } else {
+
+          cart.splice(productIndex, 1);
+
+        }
+
+      }
+
+      localStorage.setItem(
+        "labkeepCart",
+        JSON.stringify(cart)
+      );
+
+      updateCartCount();
+
+      modal.remove();
+
+    });
+}
 
   /* Cart icon */
   const cartButton =
@@ -183,6 +292,95 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   updateCartCount();
+
+  const homeCartStyle =
+  document.createElement("style");
+
+homeCartStyle.textContent = `
+
+  .labkeep-home-cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 99999;
+  }
+
+  .labkeep-home-cart-box {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 30px 24px;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.18);
+  }
+
+  .labkeep-home-cart-check {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: #1237d8;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .labkeep-home-cart-box h2 {
+    margin: 0 0 10px;
+    color: #14294c;
+    font-size: 23px;
+  }
+
+  .labkeep-home-cart-box p {
+    margin: 0 0 24px;
+    color: #555555;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+
+  .labkeep-home-cart-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .labkeep-home-cart-actions button {
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  #homeViewCart {
+    background: #1237d8;
+    color: #ffffff;
+  }
+
+  #homeContinueShopping {
+    background: #eef2ff;
+    color: #1237d8;
+  }
+
+  #homeRemoveCart {
+    background: #ffffff;
+    color: #d93025;
+    border: 1px solid #eeeeee;
+  }
+
+`;
+
+document.head.appendChild(homeCartStyle);
 
 });
 </script>
