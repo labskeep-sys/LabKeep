@@ -293,6 +293,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateCartCount();
 
+/* Refresh cart when returning to the Home page */
+window.addEventListener("pageshow", function () {
+
+  updateCartCount();
+
+  const oldModal =
+    document.getElementById("labkeepHomeCartModal");
+
+  if (oldModal) {
+    oldModal.remove();
+  }
+
+});
+
+});
+
   const homeCartStyle =
   document.createElement("style");
 
