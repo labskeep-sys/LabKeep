@@ -409,39 +409,23 @@
 }
 
 /* Join as an Engineer CTA */
-.engineer-join-button {
-  display: inline-block;
+#engineerJoinButton,
+#supplierJoinButton {
   background-color: rgb(255, 252, 252);
   color: rgb(13, 33, 84);
   padding: 12px 24px;
   border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.engineer-join-button:hover {
-  background-color: rgb(245, 245, 245);
-  color: rgb(13, 33, 84);
-}
-
-.supplier-join-button {
   display: inline-block;
-  background-color: rgb(255, 252, 252);
-  color: rgb(13, 33, 84);
-  padding: 12px 24px;
-  border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  max-width: 100%;
-  box-sizing: border-box;
   text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.supplier-join-button:hover {
+#engineerJoinButton:hover,
+#supplierJoinButton:hover {
   background-color: rgb(245, 245, 245);
   color: rgb(13, 33, 84);
 }
