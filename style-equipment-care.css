@@ -1283,3 +1283,17 @@ font-size: 18px;
 }
 
 }
+
+/* SELECTED SERVICE / PRIORITY */
+.request-option.selected,
+.priority-card.selected {
+  border-color: #1237d8;
+  background: #eef3ff;
+  box-shadow: 0 8px 24px rgba(18, 55, 216, 0.12);
+  transform: translateY(-2px);
+}
+
+.request-option.selected strong,
+.priority-card.selected strong {
+  color: #1237d8;
+}
