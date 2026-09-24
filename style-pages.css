@@ -345,12 +345,12 @@
   box-sizing: border-box;
   text-align: left;
   border-radius: 10px;
-  background: rgb(18 55 216 / 1);
+  background: #ffffff;
 }
 
 .equipment-care-content h2 {
   margin: 0 0 8px;
-  color: #ffffff;
+  color: rgb(18 55 216 / 1);
   font-size: 21px;
   line-height: 1.2;
   font-weight: 700;
