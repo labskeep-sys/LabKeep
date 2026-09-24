@@ -139,6 +139,85 @@
         box-sizing: border-box;
       }
 
+      /* EQUIPMENT CARE IN HEADER */
+
+.equipment-care-section {
+  width: 100%;
+  padding: 14px 20px 18px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.equipment-care-content {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 10px;
+  background: rgb(13 33 84 / 1);
+  overflow: hidden;
+}
+
+.equipment-care-text-wrapper {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.equipment-care-content p {
+  display: inline-block;
+  width: max-content;
+  max-width: none;
+  margin: 0 auto 18px;
+  color: rgb(255, 252, 252);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.equipment-care-button {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 11px 26px;
+  background: rgb(255, 252, 252);
+  color: rgb(13 33 84 / 1);
+  text-decoration: none;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.equipment-care-button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+
+  .equipment-care-section {
+    padding: 10px 12px 14px;
+  }
+
+  .equipment-care-content {
+    padding: 16px 12px;
+  }
+
+  .equipment-care-content p {
+    font-size: 14px;
+  }
+
+  .equipment-care-button {
+    padding: 11px 24px;
+    font-size: 14px;
+  }
+}
+
       /* MOBILE */
 
       @media (max-width: 900px) {
@@ -251,6 +330,23 @@
       </div>
 
     </nav>
+
+    <!-- EQUIPMENT CARE -->
+    <section class="equipment-care-section">
+      <div class="equipment-care-content">
+
+        <div class="equipment-care-text-wrapper">
+          <p id="equipmentCareText">
+            Keep your laboratory equipment running reliably with installation, maintenance, repairs, calibration and technical support.
+          </p>
+        </div>
+
+        <a href="./labkeep-equipment-care.html" class="equipment-care-button">
+          Explore Equipment Care
+        </a>
+
+      </div>
+    </section>
 
   </header>
 </div>
@@ -608,6 +704,49 @@
         );
 
     </script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const text = document.getElementById("equipmentCareText");
+  const wrapper = document.querySelector(".equipment-care-text-wrapper");
+
+  if (!text || !wrapper) return;
+
+  let position = 0;
+  let direction = 1;
+
+  function moveText() {
+
+    const maxMovement = Math.max(
+      0,
+      (text.offsetWidth - wrapper.offsetWidth) / 2
+    );
+
+    if (maxMovement > 0) {
+
+      position += direction * 0.5;
+
+      if (position >= maxMovement) {
+        position = maxMovement;
+        direction = -1;
+      }
+
+      if (position <= -maxMovement) {
+        position = -maxMovement;
+        direction = 1;
+      }
+
+      text.style.transform = "translateX(" + (-position) + "px)";
+    }
+
+    requestAnimationFrame(moveText);
+  }
+
+  moveText();
+
+});
+</script>
 
   </body>
 </html>
