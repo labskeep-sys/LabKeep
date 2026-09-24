@@ -341,36 +341,39 @@
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 14px 22px;
+  padding: 16px 22px;
   box-sizing: border-box;
   text-align: left;
   border-radius: 10px;
-  background: rgb(11 31 92 / 1);
+  background: rgb(11 34 103 / 1);
 }
 
 .equipment-care-content h2 {
-  margin: 0 0 4px;
+  margin: 0 0 8px;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 21px;
   line-height: 1.2;
+  font-weight: 700;
 }
 
 .equipment-care-content p {
-  margin: 0 0 10px;
+  margin: 0 0 15px;
   color: #ffffff;
-  line-height: 1.4;
-  font-size: 13px;
+  line-height: 1.5;
+  font-size: 14px;
+  font-weight: 600;
+  max-width: 850px;
 }
 
 .equipment-care-button {
   display: inline-block;
-  padding: 7px 14px;
+  padding: 8px 16px;
   background: #ffffff;
   color: rgb(11 31 92 / 1);
   text-decoration: none;
   border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .equipment-care-button:hover {
@@ -383,14 +386,16 @@
   }
 
   .equipment-care-content {
-    padding: 12px 16px;
+    padding: 14px 16px;
   }
 
   .equipment-care-content h2 {
-    font-size: 18px;
+    font-size: 19px;
+    margin-bottom: 8px;
   }
 
   .equipment-care-content p {
-    font-size: 12px;
+    font-size: 13px;
+    margin-bottom: 14px;
   }
 }
