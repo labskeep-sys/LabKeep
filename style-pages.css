@@ -335,49 +335,59 @@
   width: 100%;
   padding: 10px 20px;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .equipment-care-content {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 16px 22px;
+  padding: 18px 22px;
   box-sizing: border-box;
-  text-align: left;
+  text-align: center;
   border-radius: 10px;
-  background: #ffffff;
-}
-
-.equipment-care-content h2 {
-  margin: 0 0 8px;
-  color: rgb(18 55 216 / 1);
-  font-size: 21px;
-  line-height: 1.2;
-  font-weight: 700;
+  background: rgb(11 34 103 / 1);
+  overflow: hidden;
 }
 
 .equipment-care-content p {
-  margin: 0 0 15px;
+  margin: 0 auto 17px;
   color: #ffffff;
   line-height: 1.5;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   max-width: 850px;
+
+  animation: equipmentCareMove 5s ease-in-out infinite alternate;
 }
 
 .equipment-care-button {
-  display: inline-block;
-  padding: 8px 16px;
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 11px 26px;
   background: #ffffff;
-  color: rgb(11 31 92 / 1);
+  color: rgb(11 34 103 / 1);
   text-decoration: none;
-  border-radius: 6px;
-  font-size: 13px;
+  border-radius: 7px;
+  font-size: 15px;
   font-weight: 700;
 }
 
 .equipment-care-button:hover {
   opacity: 0.9;
+}
+
+/* HORIZONTAL ANIMATION */
+
+@keyframes equipmentCareMove {
+  0% {
+    transform: translateX(-35px);
+  }
+
+  100% {
+    transform: translateX(35px);
+  }
 }
 
 @media (max-width: 600px) {
@@ -386,16 +396,16 @@
   }
 
   .equipment-care-content {
-    padding: 14px 16px;
-  }
-
-  .equipment-care-content h2 {
-    font-size: 19px;
-    margin-bottom: 8px;
+    padding: 16px;
   }
 
   .equipment-care-content p {
-    font-size: 13px;
-    margin-bottom: 14px;
+    font-size: 14px;
+    animation-duration: 4s;
+  }
+
+  .equipment-care-button {
+    padding: 11px 24px;
+    font-size: 14px;
   }
 }
