@@ -333,43 +333,43 @@
 
 .equipment-care-section {
   width: 100%;
-  padding: 18px 20px;
+  padding: 10px 20px;
   box-sizing: border-box;
 }
 
 .equipment-care-content {
+  width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 18px 24px;
+  padding: 14px 22px;
   box-sizing: border-box;
   text-align: left;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #eef3ff, #ffffff);
-  border: 1px solid #dbe4ff;
-  box-shadow: 0 4px 15px rgba(18, 55, 216, 0.08);
+  border-radius: 10px;
+  background: rgb(11 31 92 / 1);
 }
 
 .equipment-care-content h2 {
-  margin: 0 0 6px;
-  color: #1237d8;
-  font-size: 21px;
+  margin: 0 0 4px;
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 1.2;
 }
 
 .equipment-care-content p {
-  margin: 0 0 12px;
-  color: #4d5a70;
-  line-height: 1.5;
-  font-size: 14px;
+  margin: 0 0 10px;
+  color: #ffffff;
+  line-height: 1.4;
+  font-size: 13px;
 }
 
 .equipment-care-button {
   display: inline-block;
-  padding: 8px 16px;
-  background: #1237d8;
-  color: #ffffff;
+  padding: 7px 14px;
+  background: #ffffff;
+  color: rgb(11 31 92 / 1);
   text-decoration: none;
-  border-radius: 7px;
-  font-size: 13px;
+  border-radius: 6px;
+  font-size: 12px;
   font-weight: 600;
 }
 
@@ -379,18 +379,18 @@
 
 @media (max-width: 600px) {
   .equipment-care-section {
-    padding: 14px 12px;
+    padding: 8px 12px;
   }
 
   .equipment-care-content {
-    padding: 16px;
+    padding: 12px 16px;
   }
 
   .equipment-care-content h2 {
-    font-size: 19px;
+    font-size: 18px;
   }
 
   .equipment-care-content p {
-    font-size: 13px;
+    font-size: 12px;
   }
 }
