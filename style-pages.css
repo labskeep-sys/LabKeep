@@ -429,3 +429,81 @@
   background-color: rgb(245, 245, 245);
   color: rgb(13, 33, 84);
 }
+
+/* EQUIPMENT CARE SECTION */
+
+.equipment-care-section {
+  width: 100%;
+  padding: 12px 15px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.equipment-care-content {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 10px;
+  background: rgb(13 33 84 / 1);
+  overflow: hidden;
+}
+
+.equipment-care-text-wrapper {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.equipment-care-content p {
+  display: inline-block;
+  width: max-content;
+  max-width: none;
+  margin: 0 auto 18px;
+  color: rgb(255, 252, 252);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.equipment-care-button {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 11px 26px;
+  background: rgb(255, 252, 252);
+  color: rgb(13 33 84 / 1);
+  text-decoration: none;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.equipment-care-button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+  .equipment-care-section {
+    padding: 8px 12px;
+  }
+
+  .equipment-care-content {
+    padding: 16px 12px;
+  }
+
+  .equipment-care-content p {
+    font-size: 14px;
+  }
+
+  .equipment-care-button {
+    padding: 11px 24px;
+    font-size: 14px;
+  }
+}
