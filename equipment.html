@@ -67,6 +67,50 @@ var n,t=this,e='gjs-collapse',a='max-height',o=0,i=function(){var n=document.cre
   <script src="location-filter.js"></script>
 
     <script src="cart.js"></script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const text = document.getElementById("equipmentCareText");
+  const wrapper = document.querySelector(".equipment-care-text-wrapper");
+
+  if (!text || !wrapper) return;
+
+  let position = 0;
+  let direction = 1;
+
+  function moveText() {
+
+    const wrapperWidth = wrapper.clientWidth;
+    const textWidth = text.scrollWidth;
+
+    const maxMovement = Math.max(
+      35,
+      (textWidth - wrapperWidth) / 2 + 35
+    );
+
+    position += direction * 0.35;
+
+    if (position >= maxMovement) {
+      position = maxMovement;
+      direction = -1;
+    }
+
+    if (position <= -maxMovement) {
+      position = -maxMovement;
+      direction = 1;
+    }
+
+    text.style.transform =
+      "translateX(" + (-position) + "px)";
+
+    requestAnimationFrame(moveText);
+  }
+
+  moveText();
+
+});
+</script>
     
   </body>
 </html>
