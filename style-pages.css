@@ -328,3 +328,34 @@
     width: 100%;
   }
 }
+
+/* LABKEEP EQUIPMENT CARE SECTION */
+
+.equipment-care-intro {
+  margin: 25px auto;
+  padding: 22px;
+  max-width: 700px;
+  text-align: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.equipment-care-intro h2 {
+  margin: 0 0 10px;
+  font-size: 24px;
+}
+
+.equipment-care-intro p {
+  margin: 0 auto 16px;
+  line-height: 1.6;
+}
+
+.equipment-care-link {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  background: #1237d8;
+  color: #fff;
+  font-weight: 600;
+}
