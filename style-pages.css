@@ -333,7 +333,7 @@
 
 .equipment-care-section {
   width: 100%;
-  padding: 10px 20px;
+  padding: 12px 15px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -342,23 +342,32 @@
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 18px 22px;
+  padding: 18px 20px;
   box-sizing: border-box;
   text-align: center;
   border-radius: 10px;
-  background: rgb(11 34 103 / 1);
+  background: rgb(13 33 84 / 1);
   overflow: hidden;
 }
 
+.equipment-care-text-wrapper {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
 .equipment-care-content p {
-  margin: 0 auto 17px;
-  color: #ffffff;
-  line-height: 1.5;
+  display: inline-block;
+  width: max-content;
+  max-width: none;
+  margin: 0 auto 18px;
+  color: rgb(255, 252, 252);
   font-size: 16px;
   font-weight: 700;
-  max-width: 850px;
-
-  animation: equipmentCareMove 5s ease-in-out infinite alternate;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .equipment-care-button {
@@ -366,42 +375,31 @@
   width: fit-content;
   margin: 0 auto;
   padding: 11px 26px;
-  background: #ffffff;
-  color: rgb(11 34 103 / 1);
+  background: rgb(255, 252, 252);
+  color: rgb(13 33 84 / 1);
   text-decoration: none;
   border-radius: 7px;
   font-size: 15px;
   font-weight: 700;
+  text-align: center;
 }
 
 .equipment-care-button:hover {
   opacity: 0.9;
 }
 
-/* HORIZONTAL ANIMATION */
-
-@keyframes equipmentCareMove {
-  0% {
-    transform: translateX(-35px);
-  }
-
-  100% {
-    transform: translateX(35px);
-  }
-}
-
 @media (max-width: 600px) {
+
   .equipment-care-section {
     padding: 8px 12px;
   }
 
   .equipment-care-content {
-    padding: 16px;
+    padding: 16px 12px;
   }
 
   .equipment-care-content p {
     font-size: 14px;
-    animation-duration: 4s;
   }
 
   .equipment-care-button {
