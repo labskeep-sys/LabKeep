@@ -1,498 +1,606 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>About Us | LabKeep</title>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="robots" content="index,follow">
-  <meta name="generator" content="GrapesJS Studio">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-
-  <link rel="stylesheet" href="./style-home.css">
-
-  <style>
-    .about-page {
-      min-height: 100vh;
-      background: #f7f9ff;
+  <head>
+    <title>About Us | LabKeep — Keeping Labs Ready, Always.</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="robots" content="index,follow">
+    <meta name="generator" content="GrapesJS Studio">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<!-- Your existing LabKeep homepage stylesheet -->
+<link rel="stylesheet" href="./style-home.css">
+<style>
+  /* =========================
+     ABOUT US PAGE
+     ========================= */
+  .about-page-content {
+    background: #f7f9ff;
+    color: #172033;
+  }
+  /* About Hero */
+  .about-hero-section {
+    background: #f7f9ff;
+    padding: 85px 24px 75px;
+    text-align: center;
+  }
+  .about-hero-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .about-hero-label {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(18, 55, 216, 0.08);
+    color: #1237d8;
+    font-family: "Manrope", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .about-hero-heading {
+    margin: 0 0 22px;
+    color: #1237d8;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: clamp(38px, 6vw, 60px);
+    line-height: 1.1;
+    font-weight: 800;
+  }
+  .about-hero-description {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #596273;
+    font-family: "Manrope", sans-serif;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+  /* Main sections */
+  .about-main-section {
+    padding: 75px 24px;
+    background: #ffffff;
+  }
+  .about-main-section.soft-section {
+    background: #f7f9ff;
+  }
+  .about-content-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .about-two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 55px;
+    align-items: center;
+  }
+  .about-section-heading {
+    margin: 0 0 20px;
+    color: #1237d8;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: clamp(30px, 4vw, 42px);
+    line-height: 1.2;
+    font-weight: 800;
+  }
+  .about-text {
+    margin: 0;
+    color: #596273;
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    line-height: 1.85;
+  }
+  .about-text + .about-text {
+    margin-top: 18px;
+  }
+  /* Mission card */
+  .about-highlight-card {
+    padding: 38px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #1237d8 0%, #2148df 100%);
+    box-shadow: 0 18px 45px rgba(18, 55, 216, 0.16);
+    color: white;
+  }
+  .about-highlight-card h3 {
+    margin: 0 0 16px;
+    color: white;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 26px;
+    line-height: 1.3;
+    font-weight: 800;
+  }
+  .about-highlight-card p {
+    margin: 0;
+    color: rgba(255,255,255,0.88);
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  /* What LabKeep Does */
+  .about-centered-heading {
+    max-width: 750px;
+    margin: 0 auto 45px;
+    text-align: center;
+  }
+  .about-centered-heading h2 {
+    margin: 0 0 16px;
+    color: #1237d8;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: clamp(30px, 4vw, 42px);
+    line-height: 1.2;
+    font-weight: 800;
+  }
+  .about-centered-heading p {
+    margin: 0;
+    color: #596273;
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  .about-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .about-feature-card {
+    padding: 30px 26px;
+    border: 1px solid rgba(18, 55, 216, 0.08);
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 12px 35px rgba(18, 55, 216, 0.07);
+  }
+  .about-feature-icon {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 20px;
+    border-radius: 16px;
+    background: #1237d8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .about-feature-icon img {
+    width: 28px;
+    height: 28px;
+  }
+  .about-feature-card h3 {
+    margin: 0 0 12px;
+    color: #172033;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 700;
+  }
+  .about-feature-card p {
+    margin: 0;
+    color: #596273;
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  /* Mission / vision */
+  .about-mission-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .about-mission-card {
+    padding: 34px;
+    border-radius: 22px;
+    background: #ffffff;
+    border: 1px solid rgba(18, 55, 216, 0.08);
+    box-shadow: 0 12px 35px rgba(18, 55, 216, 0.06);
+  }
+  .about-mission-card h3 {
+    margin: 0 0 14px;
+    color: #1237d8;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+  }
+  .about-mission-card p {
+    margin: 0;
+    color: #596273;
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  /* CTA */
+  .about-cta-section {
+    padding: 75px 24px;
+    background: linear-gradient(135deg, #1237d8 0%, #183bc5 100%);
+    color: white;
+    text-align: center;
+  }
+  .about-cta-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .about-cta-heading {
+    margin: 0 0 16px;
+    color: white;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: clamp(30px, 4vw, 44px);
+    line-height: 1.2;
+    font-weight: 800;
+  }
+  .about-cta-text {
+    margin: 0 auto 30px;
+    max-width: 680px;
+    color: rgba(255,255,255,0.88);
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  .about-cta-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .about-cta-button {
+    min-height: 52px;
+    padding: 0 25px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .about-cta-button:hover {
+    transform: translateY(-2px);
+  }
+  .about-cta-primary {
+    background: white;
+    color: #1237d8;
+  }
+  .about-cta-secondary {
+    border: 1px solid rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.08);
+    color: white;
+  }
+  /* Mobile */
+  @media (max-width: 800px) {
+    .about-hero-section {
+      padding: 65px 20px 60px;
     }
-
-    .about-hero {
-      background: linear-gradient(135deg, #1237d8 0%, #183bc5 100%);
-      color: white;
-      padding: 90px 24px 80px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+    .about-main-section {
+      padding: 60px 20px;
     }
-
-    .about-hero-content {
-      max-width: 850px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
+    .about-two-column {
+      grid-template-columns: 1fr;
+      gap: 32px;
     }
-
-    .about-hero h1 {
-      font-family: "Plus Jakarta Sans", sans-serif;
-      font-size: clamp(38px, 6vw, 64px);
-      line-height: 1.1;
-      margin: 0 0 22px;
-      font-weight: 800;
+    .about-feature-grid {
+      grid-template-columns: 1fr;
     }
-
-    .about-hero p {
-      max-width: 720px;
-      margin: 0 auto;
-      font-family: "Manrope", sans-serif;
-      font-size: 18px;
-      line-height: 1.8;
-      color: rgba(255,255,255,0.88);
+    .about-mission-grid {
+      grid-template-columns: 1fr;
     }
-
-    .about-section {
-      padding: 80px 24px;
+    .about-highlight-card {
+      padding: 30px 25px;
     }
-
-    .about-container {
-      max-width: 1100px;
-      margin: 0 auto;
+    .about-cta-section {
+      padding: 60px 20px;
     }
-
-    .about-intro {
-      max-width: 850px;
-      margin: 0 auto 65px;
-      text-align: center;
+  }
+  @media (max-width: 500px) {
+    .about-hero-heading {
+      font-size: 38px;
     }
-
-    .about-intro h2,
-    .about-section-heading {
-      font-family: "Plus Jakarta Sans", sans-serif;
-      color: #1237d8;
-      font-size: clamp(28px, 4vw, 40px);
-      line-height: 1.2;
-      font-weight: 800;
-      margin: 0 0 20px;
-    }
-
-    .about-intro p,
-    .about-text {
-      font-family: "Manrope", sans-serif;
-      color: #4b5563;
+    .about-hero-description {
       font-size: 16px;
-      line-height: 1.8;
-      margin: 0;
     }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+    .about-feature-card {
+      padding: 27px 22px;
     }
-
-    .about-card {
-      background: white;
-      border-radius: 20px;
-      padding: 32px 26px;
-      box-shadow: 0 12px 35px rgba(18,55,216,0.08);
-      border: 1px solid rgba(18,55,216,0.08);
+    .about-mission-card {
+      padding: 28px 23px;
     }
-
-    .about-icon {
-      width: 58px;
-      height: 58px;
-      border-radius: 16px;
-      background: #1237d8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 22px;
+    .about-cta-buttons {
+      flex-direction: column;
+      width: 100%;
     }
-
-    .about-icon img {
-      width: 28px;
-      height: 28px;
+    .about-cta-button {
+      width: 100%;
     }
-
-    .about-card h3 {
-      font-family: "Plus Jakarta Sans", sans-serif;
-      color: #172033;
-      font-size: 21px;
-      margin: 0 0 12px;
-      font-weight: 700;
-    }
-
-    .about-card p {
-      font-family: "Manrope", sans-serif;
-      color: #5b6472;
-      font-size: 15px;
-      line-height: 1.75;
-      margin: 0;
-    }
-
-    .mission-section {
-      background: white;
-    }
-
-    .mission-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
-    }
-
-    .mission-box {
-      background: #f2f5ff;
-      border-radius: 24px;
-      padding: 38px;
-      border-left: 5px solid #1237d8;
-    }
-
-    .mission-box h3 {
-      font-family: "Plus Jakarta Sans", sans-serif;
-      color: #1237d8;
-      font-size: 25px;
-      margin: 0 0 15px;
-    }
-
-    .mission-box p {
-      font-family: "Manrope", sans-serif;
-      color: #4b5563;
-      line-height: 1.8;
-      margin: 0;
-    }
-
-    .network-section {
-      background: #f7f9ff;
-    }
-
-    .network-content {
-      max-width: 850px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .network-content h2 {
-      font-family: "Plus Jakarta Sans", sans-serif;
-      color: #172033;
-      font-size: clamp(28px, 4vw, 40px);
-      margin: 0 0 18px;
-    }
-
-    .network-content p {
-      font-family: "Manrope", sans-serif;
-      color: #5b6472;
-      line-height: 1.8;
-      margin: 0 0 30px;
-    }
-
-    .about-buttons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .about-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 52px;
-      padding: 0 26px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-family: "Manrope", sans-serif;
-      font-weight: 700;
-      transition: 0.2s ease;
-    }
-
-    .about-button-primary {
-      background: #1237d8;
-      color: white;
-    }
-
-    .about-button-primary:hover {
-      transform: translateY(-2px);
-      opacity: 0.94;
-    }
-
-    .about-button-secondary {
-      background: white;
-      color: #1237d8;
-      border: 1px solid #d7def8;
-    }
-
-    .about-button-secondary:hover {
-      transform: translateY(-2px);
-      border-color: #1237d8;
-    }
-
-    @media (max-width: 800px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .mission-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-
-      .about-section {
-        padding: 60px 20px;
-      }
-
-      .about-hero {
-        padding: 70px 20px 60px;
-      }
-
-      .about-hero p {
-        font-size: 16px;
-      }
-    }
-
-    @media (max-width: 500px) {
-      .about-hero h1 {
-        font-size: 38px;
-      }
-
-      .about-card {
-        padding: 27px 22px;
-      }
-
-      .mission-box {
-        padding: 28px 24px;
-      }
-
-      .about-buttons {
-        flex-direction: column;
-        width: 100%;
-      }
-
-      .about-button {
-        width: 100%;
-      }
-    }
-  </style>
-</head>
-
-<body class="gjs-t-body font-body">
-
-<div class="about-page">
-
-  <!-- HEADER -->
-  <header id="ifoua" class="header">
-    <div id="i571j" class="header-container">
-
-      <a href="./index.html" id="ianw3" class="logo-link">
-        <div id="ivegb-2" class="outline-light logo-mark">
-          <img src="https://cdn.grapesjs.com/workspaces/cmszuue1t0cy0fdmhxd4cfe88/assets/04666e83-e65c-4e93-b5f2-61f9b3937420__logo-5.jpeg" id="inuwju" alt="LabKeep logo"/>
-        </div>
-
-        <div id="iyarv-2" class="logo-text">
-          <span id="iyvlb-2" class="font-display cls-84uwiz">LabKeep</span>
-          <span id="i521g-2" class="cls-sorn44">Keeping Labs Ready, Always.</span>
-        </div>
-      </a>
-
-      <nav id="i1vqa" class="outline-light main-navigation">
-        <a href="./index.html" class="Request text-white/86 nav-link">Home</a>
-        <a href="./labkeep-supplies.html" class="Request text-white/72 nav-link">Supplies</a>
-        <a href="./labkeep-suppliers.html" class="Request text-white/72 nav-link">Suppliers</a>
-        <a href="./labkeep-engineers.html" class="Request text-white/72 nav-link">Engineers</a>
-        <a href="./labkeep-inventory.html" class="Request text-white/72 nav-link">Inventory</a>
-        <a href="./about-us.html" class="Request text-white/72 nav-link">About Us</a>
-      </nav>
-
-      <div class="header-actions">
-        <a href="#" class="gjs-t-button contact-button">Help</a>
-
-        <a href="cart.html" id="cartButton" class="hover:bg-white/16 cart-button">
-          <img src="https://api.iconify.design/lucide-shopping-cart.svg?color=white" alt="Shopping cart"/>
-          <span id="cartCount">0</span>
+  }
+</style>
+  </head>
+  <body class="gjs-t-body font-body cls-iqjmk0">
+<div id="i0ycg" class="page-wrapper">
+  <!-- =========================
+       YOUR LABKEEP HEADER
+       ========================= -->
+  <section class="hero-bg hero-section">
+    <div id="i2twi" class="crystal hero-crystal-left"></div>
+    <div id="ig5o5" class="crystal hero-crystal-left-small"></div>
+    <div id="i6fr4" class="crystal hero-crystal-right"></div>
+    <div id="ipeh1" class="crystal lg:w-18 hero-crystal-right-small"></div>
+    <div id="inkh8" class="glow-particle"></div>
+    <div id="i503r" class="glow-particle"></div>
+    <div id="i3xvf" class="glow-particle"></div>
+    <div id="i683m" class="glow-particle"></div>
+    <div id="ixma4" class="glow-particle"></div>
+    <header id="ifoua" class="header">
+      <div id="i571j" class="header-container">
+        <a href="./index.html" id="ianw3" class="logo-link">
+          <div id="ivegb-2" class="outline-light logo-mark">
+            <img
+              src="https://cdn.grapesjs.com/workspaces/cmszuue1t0cy0fdmhxd4cfe88/assets/04666e83-e65c-4e93-b5f2-61f9b3937420__logo-5.jpeg"
+              id="inuwju"
+              alt="LabKeep"
+            />
+          </div>
+          <div id="iyarv-2" class="logo-text">
+            <span id="iyvlb-2" class="font-display cls-84uwiz">LabKeep</span>
+            <span id="i521g-2" class="cls-sorn44">Keeping Labs Ready, Always.</span>
+          </div>
         </a>
+        <nav id="i1vqa" class="outline-light main-navigation">
+          <a href="./index.html" id="i6h3j-2" class="Request text-white/86 nav-link">
+            Home
+          </a>
+          <a href="./labkeep-supplies.html" id="ii4pg-2" class="Request text-white/72 nav-link">
+            Supplies
+          </a>
+          <a href="./labkeep-suppliers.html" id="iamun-2" class="Request text-white/72 nav-link">
+            Suppliers
+          </a>
+          <a href="./labkeep-engineers.html" id="iqbta-2" class="Request text-white/72 nav-link">
+            Engineers
+          </a>
+          <a href="./labkeep-inventory.html" id="iwqte-2" class="Request text-white/72 nav-link">
+            Inventory
+          </a>
+          <a href="./about-us.html" id="ie3xg-2" class="Request text-white/72 nav-link">
+            About Us
+          </a>
+        </nav>
+        <div class="header-actions">
+          <!-- Help will be connected after the Help page is created -->
+          <a href="#" id="ii9mb" class="gjs-t-button contact-button">
+            Help
+          </a>
+          <a href="cart.html" id="cartButton" class="hover:bg-white/16 cart-button">
+            <img
+              src="https://api.iconify.design/lucide-shopping-cart.svg?color=white"
+              alt="Shopping cart"
+              id="i7hf1"
+              class="cls-nmcamr"
+            />
+            <span id="cartCount">0</span>
+          </a>
+        </div>
       </div>
-
-    </div>
-  </header>
-
-
-  <!-- ABOUT HERO -->
-  <section class="about-hero">
-    <div class="about-hero-content">
-      <h1>About LabKeep</h1>
-
-      <p>
-        LabKeep is a digital platform designed to connect diagnostic laboratories
-        with the supplies, trusted suppliers, biomedical engineers and inventory
-        solutions they need to keep their laboratories ready.
-      </p>
-    </div>
+    </header>
   </section>
-
-
-  <!-- WHO WE ARE -->
-  <section class="about-section">
-    <div class="about-container">
-
-      <div class="about-intro">
-        <h2>Who We Are</h2>
-
-        <p>
-          Laboratories need reliable access to supplies, technical support and
-          effective inventory management to operate efficiently. LabKeep brings
-          these essential resources together in one connected platform, making it
-          easier for laboratories to find what they need and connect with the
-          right people.
+  <!-- =========================
+       ABOUT US CONTENT
+       ========================= -->
+  <main class="about-page-content">
+    <!-- ABOUT HERO -->
+    <section class="about-hero-section">
+      <div class="about-hero-container">
+        <span class="about-hero-label">
+          About LabKeep
+        </span>
+        <h1 class="about-hero-heading">
+          Keeping Laboratories Ready, Always.
+        </h1>
+        <p class="about-hero-description">
+          LabKeep is a digital platform that connects diagnostic laboratories
+          with trusted suppliers, biomedical engineers and smart inventory
+          solutions, all in one place.
         </p>
       </div>
-
-
-      <div class="about-grid">
-
-        <article class="about-card">
-          <div class="about-icon">
-            <img src="https://api.iconify.design/lucide-package.svg?color=white" alt="Laboratory supplies"/>
+    </section>
+    <!-- WHO WE ARE -->
+    <section class="about-main-section">
+      <div class="about-content-container">
+        <div class="about-two-column">
+          <div>
+            <h2 class="about-section-heading">
+              Who We Are
+            </h2>
+            <p class="about-text">
+              Laboratories depend on reliable supplies, functional equipment,
+              technical support and effective inventory management to provide
+              quality diagnostic services.
+            </p>
+            <p class="about-text">
+              LabKeep was created to make it easier for laboratories to find
+              these essential resources by bringing suppliers, biomedical
+              engineers and laboratory inventory solutions together on one
+              platform.
+            </p>
+            <p class="about-text">
+              Our goal is to simplify the process of finding what a laboratory
+              needs and connecting with the right people to keep laboratory
+              operations running.
+            </p>
           </div>
-
-          <h3>Laboratory Supplies</h3>
-
-          <p>
-            Find laboratory supplies from different categories, including
-            reagents and test kits, consumables, equipment, glassware, furniture
-            and safety products.
-          </p>
-        </article>
-
-
-        <article class="about-card">
-          <div class="about-icon">
-            <img src="https://api.iconify.design/lucide-wrench.svg?color=white" alt="Biomedical engineers"/>
+          <div class="about-highlight-card">
+            <h3>
+              One Connected Laboratory Ecosystem
+            </h3>
+            <p>
+              From laboratory supplies and technical support to inventory
+              management, LabKeep brings important laboratory resources
+              together so laboratories can spend less time searching and
+              more time focusing on their work.
+            </p>
           </div>
-
-          <h3>Biomedical Engineers</h3>
-
-          <p>
-            Connect with biomedical engineers and technical professionals who
-            provide services such as installation, maintenance, troubleshooting
-            and equipment support.
-          </p>
-        </article>
-
-
-        <article class="about-card">
-          <div class="about-icon">
-            <img src="https://api.iconify.design/lucide-boxes.svg?color=white" alt="Inventory management"/>
-          </div>
-
-          <h3>Inventory Management</h3>
-
-          <p>
-            Support better laboratory stock management by helping laboratories
-            keep track of supplies, monitor expiry dates and identify when
-            products may need to be reordered.
-          </p>
-        </article>
-
+        </div>
       </div>
-
-    </div>
-  </section>
-
-
-  <!-- MISSION -->
-  <section class="about-section mission-section">
-    <div class="about-container">
-
-      <div class="mission-grid">
-
-        <div>
-          <h2 class="about-section-heading">Our Mission</h2>
-
-          <p class="about-text">
-            Our mission is to make laboratory procurement, technical support and
-            inventory management more connected and accessible.
-          </p>
-
-          <br/>
-
-          <p class="about-text">
-            By bringing laboratories, suppliers and biomedical engineers together,
-            LabKeep aims to help laboratories spend less time searching for what
-            they need and more time focusing on quality diagnostic services.
+    </section>
+    <!-- WHAT LABKEEP DOES -->
+    <section class="about-main-section soft-section">
+      <div class="about-content-container">
+        <div class="about-centered-heading">
+          <h2>
+            What LabKeep Does
+          </h2>
+          <p>
+            LabKeep connects different parts of the laboratory support
+            ecosystem through three core areas.
           </p>
         </div>
-
-
-        <div class="mission-box">
-          <h3>Keeping Labs Ready, Always.</h3>
-
+        <div class="about-feature-grid">
+          <!-- Supplies -->
+          <article class="about-feature-card">
+            <div class="about-feature-icon">
+              <img
+                src="https://api.iconify.design/lucide-package.svg?color=white"
+                alt="Laboratory supplies"
+              />
+            </div>
+            <h3>
+              Laboratory Supplies
+            </h3>
+            <p>
+              Discover laboratory products across categories such as
+              reagents and test kits, consumables, equipment, glassware,
+              laboratory furniture and safety products.
+            </p>
+          </article>
+          <!-- Engineers -->
+          <article class="about-feature-card">
+            <div class="about-feature-icon">
+              <img
+                src="https://api.iconify.design/lucide-wrench.svg?color=white"
+                alt="Biomedical engineers"
+              />
+            </div>
+            <h3>
+              Biomedical Engineers
+            </h3>
+            <p>
+              Connect laboratories with biomedical engineers and technical
+              professionals for installation, maintenance, troubleshooting,
+              repairs and other equipment support.
+            </p>
+          </article>
+          <!-- Inventory -->
+          <article class="about-feature-card">
+            <div class="about-feature-icon">
+              <img
+                src="https://api.iconify.design/lucide-boxes.svg?color=white"
+                alt="Inventory management"
+              />
+            </div>
+            <h3>
+              Smart Inventory
+            </h3>
+            <p>
+              Help laboratories keep track of stock, monitor expiry dates
+              and identify products that may need to be reordered.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- MISSION AND VISION -->
+    <section class="about-main-section">
+      <div class="about-content-container">
+        <div class="about-centered-heading">
+          <h2>
+            Our Mission & Vision
+          </h2>
           <p>
-            From finding laboratory supplies to connecting with technical
-            professionals and managing laboratory stock, LabKeep is built around
-            one simple goal: helping laboratories stay prepared.
+            Building a more connected and prepared laboratory ecosystem.
           </p>
         </div>
-
+        <div class="about-mission-grid">
+          <div class="about-mission-card">
+            <h3>
+              Our Mission
+            </h3>
+            <p>
+              To make laboratory procurement, technical support and
+              inventory management more connected, accessible and
+              convenient for diagnostic laboratories.
+            </p>
+          </div>
+          <div class="about-mission-card">
+            <h3>
+              Our Vision
+            </h3>
+            <p>
+              To contribute to a stronger laboratory ecosystem where
+              laboratories can readily find the supplies, technical
+              expertise and tools they need to stay prepared.
+            </p>
+          </div>
+        </div>
       </div>
-
-    </div>
-  </section>
-
-
-  <!-- NETWORK -->
-  <section class="about-section network-section">
-    <div class="about-container">
-
-      <div class="network-content">
-
-        <h2>Join the LabKeep Network</h2>
-
-        <p>
-          LabKeep brings together laboratories, suppliers and biomedical engineers
-          in one connected ecosystem. Whether you need laboratory supplies,
-          technical support or better inventory management, you can get started
-          with LabKeep today.
+    </section>
+    <!-- CTA -->
+    <section class="about-cta-section">
+      <div class="about-cta-container">
+        <h2 class="about-cta-heading">
+          Let's Build a Stronger Laboratory Ecosystem Together.
+        </h2>
+        <p class="about-cta-text">
+          Whether you need laboratory supplies, technical support or
+          inventory management solutions, LabKeep is here to help connect
+          you with the resources you need.
         </p>
-
-        <div class="about-buttons">
-
-          <a href="./get-started.html" class="about-button about-button-primary">
+        <div class="about-cta-buttons">
+          <a
+            href="./get-started.html"
+            class="about-cta-button about-cta-primary"
+          >
             Get Started
           </a>
-
-          <a href="https://wa.me/2348067546789?text=Hello%20LabKeep%2C%20I%20would%20like%20to%20make%20an%20enquiry." class="about-button about-button-secondary">
+          <a
+            href="https://wa.me/2348067546789?text=Hello%20LabKeep%2C%20I%20would%20like%20to%20make%20an%20enquiry."
+            class="about-cta-button about-cta-secondary"
+          >
             Chat with LabKeep
           </a>
-
         </div>
-
       </div>
-
-    </div>
-  </section>
-
-
-  <!-- FOOTER -->
+    </section>
+  </main>
+  <!-- =========================
+       FOOTER
+       ========================= -->
   <footer id="itbe9c" class="footer">
     <div id="idpjfk" class="footer-container">
-
       <p id="in1egk" class="footer-copyright">
         ©️ 2026 LabKeep. All rights reserved.
       </p>
-
       <div id="ifhsha" class="footer-links">
-        <a href="./privacy-policy.html" class="Request footer-link">Privacy Policy</a>
-        <a href="./terms-of-use.html" class="Request footer-link">Terms of Use</a>
-        <a href="./contact-us.html" class="Request footer-link">Contact Us</a>
+        <a
+          href="./privacy-policy.html"
+          id="igp9ns-2"
+          class="Request footer-link"
+        >
+          Privacy Policy
+        </a>
+        <a
+          href="./terms-of-use.html"
+          id="ir7da5-2"
+          class="Request footer-link"
+        >
+          Terms of Use
+        </a>
+        <a
+          href="./contact-us.html"
+          id="ixwjs5-2"
+          class="Request footer-link"
+        >
+          Contact Us
+        </a>
       </div>
-
     </div>
   </footer>
-
 </div>
-
-</body>
+  </body>
 </html>
