@@ -718,27 +718,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function moveText() {
 
+    const wrapperWidth = wrapper.clientWidth;
+    const textWidth = text.scrollWidth;
+
+    /* Always create horizontal movement */
     const maxMovement = Math.max(
-      0,
-      (text.offsetWidth - wrapper.offsetWidth) / 2
+      35,
+      (textWidth - wrapperWidth) / 2 + 35
     );
 
-    if (maxMovement > 0) {
+    position += direction * 0.35;
 
-      position += direction * 0.5;
-
-      if (position >= maxMovement) {
-        position = maxMovement;
-        direction = -1;
-      }
-
-      if (position <= -maxMovement) {
-        position = -maxMovement;
-        direction = 1;
-      }
-
-      text.style.transform = "translateX(" + (-position) + "px)";
+    if (position >= maxMovement) {
+      position = maxMovement;
+      direction = -1;
     }
+
+    if (position <= -maxMovement) {
+      position = -maxMovement;
+      direction = 1;
+    }
+
+    text.style.transform =
+      "translateX(" + (-position) + "px)";
 
     requestAnimationFrame(moveText);
   }
@@ -747,6 +749,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
-
+    
   </body>
 </html>
