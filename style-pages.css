@@ -329,3 +329,61 @@
   }
 }
 
+/* EQUIPMENT CARE SECTION */
+
+.equipment-care-section {
+  width: 100%;
+  padding: 35px 20px;
+  box-sizing: border-box;
+}
+
+.equipment-care-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+  text-align: center;
+  background: #f5f7ff;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.equipment-care-content h2 {
+  margin: 0 0 10px;
+  color: #14294c;
+  font-size: 24px;
+}
+
+.equipment-care-content p {
+  margin: 0 auto 20px;
+  max-width: 700px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.equipment-care-button {
+  display: inline-block;
+  padding: 11px 22px;
+  background: #1237d8;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.equipment-care-button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+  .equipment-care-section {
+    padding: 25px 15px;
+  }
+
+  .equipment-care-content {
+    padding: 24px 18px;
+  }
+
+  .equipment-care-content h2 {
+    font-size: 21px;
+  }
+}
