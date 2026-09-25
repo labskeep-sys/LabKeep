@@ -271,12 +271,16 @@ body {
 
 
 /* =========================================================
-   MOBILE PRODUCTS
-   HORIZONTAL SCROLLING IS INTENTIONAL
+   MOBILE PRODUCT CAROUSELS
+   ALL PRODUCT GRIDS SCROLL HORIZONTALLY
    ========================================================= */
 
 @media (max-width: 600px) {
 
+  /*
+     The product section itself stays inside
+     the phone's width.
+  */
   .LabKeep-products {
     width: 100% !important;
     max-width: 100% !important;
@@ -289,25 +293,23 @@ body {
 
 
   /*
-     PRODUCT CAROUSEL
-     The container stays the width of the phone.
-     The cards inside it are wider than the available
-     space, creating horizontal scrolling.
-  */
+     IMPORTANT:
+     Use .product-grid instead of #ibewto-4-3.
 
-  #ibewto-4-3 {
+     This applies the carousel behavior to
+     EVERY product grid on the page.
+  */
+  .product-grid {
     display: flex !important;
 
     flex-direction: row !important;
-
     flex-wrap: nowrap !important;
 
-    gap: 14px !important;
-
-    /* CHANGE: 100% instead of max-content */
     width: 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
+
+    gap: 14px !important;
 
     overflow-x: auto !important;
     overflow-y: hidden !important;
@@ -318,21 +320,25 @@ body {
 
     -webkit-overflow-scrolling: touch !important;
 
-    /* Allow horizontal finger swiping */
     touch-action: pan-x !important;
   }
 
-  #ibewto-4-3::-webkit-scrollbar {
+
+  /*
+     Hide scrollbar on Chrome/Safari/iPhone
+  */
+  .product-grid::-webkit-scrollbar {
     display: none !important;
   }
 
 
   /*
-     Product cards remain wide.
-     This creates the horizontal overflow.
-  */
+     Every product card keeps a fixed width.
 
-  #ibewto-4-3 .product-card {
+     This creates the horizontal overflow
+     that the user can swipe through.
+  */
+  .product-grid .product-card {
     flex: 0 0 310px !important;
 
     width: 310px !important;
@@ -340,6 +346,7 @@ body {
     min-width: 310px !important;
     max-width: 310px !important;
   }
+
 }
 
 
@@ -349,7 +356,7 @@ body {
 
 @media (max-width: 380px) {
 
-  #ibewto-4-3 .product-card {
+  .product-grid .product-card {
     flex: 0 0 285px !important;
 
     width: 285px !important;
