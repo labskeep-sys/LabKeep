@@ -530,7 +530,7 @@
 .supplier-popup-overlay {
   position: absolute;
   inset: 0;
-  background: rgb(13 33 84/1);
+  background: rgba(9, 20, 55, 0.68);
   backdrop-filter: blur(4px);
 }
 
@@ -555,7 +555,7 @@
 
 .supplier-profile-header {
   position: relative;
-  background: linear-gradient(135deg, #1237d8, #2855e8);
+  background: rgb(13 33 84/1);
   padding: 32px 30px 28px;
   color: #ffffff;
 }
