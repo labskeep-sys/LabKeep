@@ -651,7 +651,7 @@
   display: block;
   margin: 22px 30px 8px;
   padding: 14px 20px;
-  background: #1237d8;
+  background: rgb(13 33 84/1);
   color: #ffffff;
   text-decoration: none;
   text-align: center;
@@ -663,7 +663,9 @@
 }
 
 .supplier-profile-request:hover {
-  background: #0e2db5;
+  background: #ffffff;
+  color: rgb(13 33 84/1);
+  border: 2px solid rgb(13 33 84/1);    
   transform: translateY(-1px);
   box-shadow: 0 8px 20px rgba(18, 55, 216, 0.28);
 }
