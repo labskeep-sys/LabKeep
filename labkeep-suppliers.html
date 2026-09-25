@@ -325,11 +325,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function openSupplierProfile(supplierId) {
 
-    const supplier = supplierProfiles[supplierId];
+  const supplier = supplierProfiles[supplierId];
 
-    if (!supplier) {
+  if (!supplier) {
+    alert("Supplier not found");
+    return;
+  }
+
+  const ids = [
+    "profileSupplierName",
+    "profileSupplierLocation",
+    "profileSupplierAbout",
+    "profileInfoLocation",
+    "profileInfoSpecialties",
+    "profileInfoRating",
+    "profileSupplierProducts",
+    "supplierProfileView",
+    "supplierRequestView",
+    "supplierProfilePopup"
+  ];
+
+  for (let i = 0; i < ids.length; i++) {
+
+    const element = document.getElementById(ids[i]);
+
+    if (!element) {
+      alert("Missing popup ID: " + ids[i]);
       return;
     }
+
+  }
+
+  alert("All popup IDs are present!");
+}
 
 
     document.getElementById("profileSupplierName").textContent =
