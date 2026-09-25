@@ -507,3 +507,153 @@
     font-size: 14px;
   }
 }
+
+
+/* ================================
+   SUPPLIER PROFILE POPUP
+================================ */
+
+.supplier-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+}
+
+.supplier-popup.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.supplier-popup-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.supplier-popup-content {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 600px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  box-sizing: border-box;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+}
+
+.supplier-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: none;
+  background: transparent;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+  color: #555;
+}
+
+.supplier-popup-close:hover {
+  color: #1237d8;
+}
+
+.supplier-profile-header {
+  padding-right: 35px;
+  margin-bottom: 25px;
+}
+
+.supplier-profile-header h2 {
+  margin: 0 0 8px;
+  font-size: 25px;
+  color: #1237d8;
+}
+
+.supplier-profile-rating {
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+.supplier-profile-location {
+  margin: 0;
+  font-size: 15px;
+  color: #666;
+}
+
+.supplier-profile-section {
+  margin-bottom: 22px;
+}
+
+.supplier-profile-section h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  color: #222;
+}
+
+.supplier-profile-section p {
+  margin: 0;
+  line-height: 1.6;
+  color: #555;
+}
+
+.supplier-profile-section ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  color: #555;
+  line-height: 1.7;
+}
+
+.supplier-profile-request {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 13px 20px;
+  background: #1237d8;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.supplier-profile-request:hover {
+  opacity: 0.9;
+}
+
+
+/* ================================
+   MOBILE SUPPLIER POPUP
+================================ */
+
+@media (max-width: 600px) {
+
+  .supplier-popup {
+    align-items: flex-end;
+  }
+
+  .supplier-popup-content {
+    width: 100%;
+    max-width: none;
+    max-height: 90vh;
+    border-radius: 18px 18px 0 0;
+    padding: 25px 20px 30px;
+  }
+
+  .supplier-profile-header h2 {
+    font-size: 22px;
+  }
+
+  .supplier-profile-section h3 {
+    font-size: 16px;
+  }
+
+  .supplier-profile-request {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+}
