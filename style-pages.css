@@ -530,7 +530,7 @@
 .supplier-popup-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(9, 20, 55, 0.68);
+  background: rgb(13 33 84/1);
   backdrop-filter: blur(4px);
 }
 
