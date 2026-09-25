@@ -383,3 +383,11 @@ body {
   }
 }
 }
+
+
+/*FIX HEADER FOR SEARCH*/
+@media (min-width: 601px) {
+  .LabKeep-hero {
+    height: 310px;
+  }
+}
