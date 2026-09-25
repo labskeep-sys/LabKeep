@@ -649,7 +649,7 @@
 
 .supplier-profile-request {
   display: block;
-  margin: 24px 30px 30px;
+  margin: 22px 30px 8px;
   padding: 14px 20px;
   background: #1237d8;
   color: #ffffff;
@@ -667,7 +667,6 @@
   transform: translateY(-1px);
   box-shadow: 0 8px 20px rgba(18, 55, 216, 0.28);
 }
-
 
 /* =========================================
    MOBILE
@@ -699,6 +698,6 @@
   }
 
   .supplier-profile-request {
-    margin: 22px;
-  }
+  margin: 18px 22px 8px;
+}
 }
