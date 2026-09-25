@@ -115,547 +115,323 @@ document.getElementById("pageSearchInput").addEventListener("keydown", function(
 });
 </script>
 
-    <!-- SUPPLIER PROFILE POPUP -->
-<div id="supplierProfilePopup" class="profile-popup">
+   
+    /*SUPPLIER VIEW PROFILE*/
+    
+    <script>
 
-  <div class="profile-popup-overlay" onclick="closeSupplierProfile()"></div>
+document.addEventListener("DOMContentLoaded", function () {
 
-  <div class="profile-popup-content">
+  const supplierProfiles = {
 
-    <button
-      type="button"
-      class="profile-popup-close"
-      onclick="closeSupplierProfile()">
-      &times;
-    </button>
+    "standard-diagnostics": {
 
+      name: "Standard Diagnostics",
 
-    <!-- SUPPLIER PROFILE -->
-    <div id="supplierProfileView">
+      location: "Abuja, Nigeria",
 
-      <div class="profile-popup-header">
+      specialties:
+        "Diagnostic Kits, Rapid Tests, Laboratory Consumables",
 
-        <h2 id="profileSupplierName">
-          Supplier Name
-        </h2>
+      rating: "4.4/5 (24)",
 
-        <p id="profileSupplierLocation">
-          Location
-        </p>
+      about:
+        "Standard Diagnostics is a laboratory supplier offering diagnostic kits, rapid tests and laboratory consumables.",
 
-      </div>
+      products: [
+        "Malaria Rapid Diagnostic Test Kits",
+        "Widal Test Kits",
+        "Rapid Diagnostic Tests",
+        "Laboratory Consumables",
+        "Other Diagnostic Supplies"
+      ]
 
+    },
 
-      <div class="profile-popup-section">
+    "biolab-solutions": {
 
-        <h3>About</h3>
+      name: "BioLab Solutions",
 
-        <p id="profileSupplierAbout"></p>
+      location: "Anambra, Nigeria",
 
-      </div>
+      specialties:
+        "Reagents, Consumables, Laboratory Kits",
 
+      rating: "4.5/5 (11)",
 
-      <div class="profile-popup-section">
+      about:
+        "BioLab Solutions supplies laboratory reagents, consumables and laboratory kits.",
 
-        <h3>Supplies</h3>
+      products: [
+        "Laboratory Reagents",
+        "Laboratory Consumables",
+        "Laboratory Kits",
+        "Diagnostic Supplies"
+      ]
 
-        <ul id="profileSupplierProducts"></ul>
+    },
 
-      </div>
+    "medlab-supplies": {
 
+      name: "MedLab Supplies",
 
-      <div class="profile-popup-section">
+      location: "Enugu, Nigeria",
 
-        <h3>Supplier Information</h3>
+      specialties:
+        "Reagents, Consumables, Equipment",
 
-        <p>
-          <strong>Location:</strong>
-          <span id="profileInfoLocation"></span>
-        </p>
+      rating: "4.8/5 (15)",
 
-        <p>
-          <strong>Specialties:</strong>
-          <span id="profileInfoSpecialties"></span>
-        </p>
+      about:
+        "MedLab Supplies provides laboratory reagents, consumables and laboratory equipment.",
 
-        <p>
-          <strong>Rating:</strong>
-          <span id="profileInfoRating"></span>
-        </p>
+      products: [
+        "Laboratory Reagents",
+        "Laboratory Consumables",
+        "Laboratory Equipment",
+        "Diagnostic Supplies"
+      ]
 
-      </div>
+    },
 
+    "labtech-nigeria": {
 
-      <div class="profile-popup-contact">
+      name: "LabTech Nigeria",
 
-        <h3>Interested in a product?</h3>
+      location: "Lagos, Nigeria",
 
-        <p>
-          Send your request through LabKeep and we'll help connect you
-          with this supplier.
-        </p>
+      specialties:
+        "Laboratory Equipment, Furniture, Accessories",
 
-        <button
-          type="button"
-          class="profile-request-button"
-          onclick="showSupplierRequestForm()">
-          Request from this Supplier
-        </button>
+      rating: "4.4/5 (7)",
 
-      </div>
+      about:
+        "LabTech Nigeria supplies laboratory equipment, furniture and accessories.",
 
-    </div>
+      products: [
+        "Laboratory Equipment",
+        "Laboratory Furniture",
+        "Laboratory Accessories"
+      ]
 
+    },
 
-    <!-- SUPPLIER REQUEST FORM -->
-    <div id="supplierRequestView" style="display:none;">
+    "safecare": {
 
-      <div class="profile-popup-header">
+      name: "Safecare",
 
-        <h2>Send Request to LabKeep</h2>
+      location: "Enugu, Nigeria",
 
-        <p>
-          Your request will first be received by LabKeep.
-          We will then contact the supplier privately.
-        </p>
+      specialties:
+        "Lab Consumables, Reagents, Rapid Test Kits",
 
-      </div>
+      rating: "4.5/5 (12)",
 
+      about:
+        "Safecare supplies laboratory consumables, reagents and rapid diagnostic test kits.",
 
-      <form id="supplierRequestForm">
+      products: [
+        "Laboratory Consumables",
+        "Reagents",
+        "Rapid Test Kits",
+        "Diagnostic Supplies"
+      ]
 
-        <div class="request-form-group">
+    },
 
-          <label for="customerName">
-            Your Name
-          </label>
+    "felin-supplies": {
 
-          <input
-            type="text"
-            id="customerName"
-            name="customerName"
-            placeholder="Enter your name"
-            required>
+      name: "Felin Supplies",
 
-        </div>
+      location: "Lagos, Nigeria",
 
+      specialties:
+        "Glasswares, Equipment, Laboratory Kits",
 
-        <div class="request-form-group">
+      rating: "4.4/5 (10)",
 
-          <label for="customerPhone">
-            WhatsApp / Phone Number
-          </label>
+      about:
+        "Felin Supplies provides laboratory glassware, equipment and laboratory kits.",
 
-          <input
-            type="tel"
-            id="customerPhone"
-            name="customerPhone"
-            placeholder="Enter your phone number"
-            required>
+      products: [
+        "Laboratory Glassware",
+        "Laboratory Equipment",
+        "Laboratory Kits"
+      ]
 
-        </div>
+    },
 
+    "labcare": {
 
-        <div class="request-form-group">
+      name: "Labcare",
 
-          <label for="requestedProduct">
-            Product or Supply Needed
-          </label>
+      location: "Enugu, Nigeria",
 
-          <input
-            type="text"
-            id="requestedProduct"
-            name="requestedProduct"
-            placeholder="e.g. Malaria RDT Kits"
-            required>
+      specialties:
+        "Reagents, Consumables, Rapid Test Kits",
 
-        </div>
+      rating: "4.8/5 (22)",
 
+      about:
+        "Labcare supplies laboratory reagents, consumables and rapid diagnostic test kits.",
 
-        <div class="request-form-group">
+      products: [
+        "Laboratory Reagents",
+        "Laboratory Consumables",
+        "Rapid Test Kits",
+        "Diagnostic Supplies"
+      ]
 
-          <label for="requestedQuantity">
-            Quantity
-          </label>
+    },
 
-          <input
-            type="text"
-            id="requestedQuantity"
-            name="requestedQuantity"
-            placeholder="e.g. 5 packs"
-            required>
+    "microlab": {
 
-        </div>
+      name: "MicroLab",
 
+      location: "Lagos, Nigeria",
 
-        <div class="request-form-group">
+      specialties:
+        "Laboratory Kits, Consumables, Accessories",
 
-          <label for="customerLocation">
-            Your Location
-          </label>
+      rating: "4.5/5 (10)",
 
-          <input
-            type="text"
-            id="customerLocation"
-            name="customerLocation"
-            placeholder="City / State"
-            required>
+      about:
+        "MicroLab supplies laboratory kits, consumables and laboratory accessories.",
 
-        </div>
+      products: [
+        "Laboratory Kits",
+        "Laboratory Consumables",
+        "Laboratory Accessories"
+      ]
 
+    }
 
-        <div class="request-form-group">
+  };
 
-          <label for="customerMessage">
-            Additional Message
-          </label>
 
-          <textarea
-            id="customerMessage"
-            name="customerMessage"
-            rows="4"
-            placeholder="Tell us anything else about your request..."></textarea>
+  function openSupplierProfile(supplierId) {
 
-        </div>
+    const supplier = supplierProfiles[supplierId];
 
+    if (!supplier) {
+      return;
+    }
 
-        <button
-          type="submit"
-          class="profile-submit-button">
-          Submit Request to LabKeep
-        </button>
 
-      </form>
+    document.getElementById("profileSupplierName").textContent =
+      supplier.name;
 
+    document.getElementById("profileSupplierLocation").textContent =
+      supplier.location;
 
-      <button
-        type="button"
-        class="profile-back-button"
-        onclick="showSupplierProfile()">
-        ← Back to Supplier Profile
-      </button>
+    document.getElementById("profileSupplierAbout").textContent =
+      supplier.about;
 
-    </div>
+    document.getElementById("profileInfoLocation").textContent =
+      supplier.location;
 
-  </div>
+    document.getElementById("profileInfoSpecialties").textContent =
+      supplier.specialties;
 
-</div>
+    document.getElementById("profileInfoRating").textContent =
+      supplier.rating;
 
 
-<script>
+    const productList =
+      document.getElementById("profileSupplierProducts");
 
-const supplierProfiles = {
+    productList.innerHTML = "";
 
-  "standard-diagnostics": {
 
-    name: "Standard Diagnostics",
+    supplier.products.forEach(function(product) {
 
-    location: "Abuja, Nigeria",
+      const li = document.createElement("li");
 
-    specialties:
-      "Diagnostic Kits, Rapid Tests, Laboratory Consumables",
+      li.textContent = product;
 
-    rating: "4.4/5 (24)",
+      productList.appendChild(li);
 
-    about:
-      "Standard Diagnostics is a laboratory supplier offering diagnostic kits, rapid tests and laboratory consumables.",
+    });
 
-    products: [
-      "Malaria Rapid Diagnostic Test Kits",
-      "Widal Test Kits",
-      "Rapid Diagnostic Tests",
-      "Laboratory Consumables",
-      "Other Diagnostic Supplies"
-    ]
 
-  },
+    document.getElementById("supplierProfileView").style.display =
+      "block";
 
+    document.getElementById("supplierRequestView").style.display =
+      "none";
 
-  "biolab-solutions": {
 
-    name: "BioLab Solutions",
-
-    location: "Anambra, Nigeria",
-
-    specialties:
-      "Reagents, Consumables, Laboratory Kits",
-
-    rating: "4.5/5 (11)",
-
-    about:
-      "BioLab Solutions supplies laboratory reagents, consumables and laboratory kits.",
-
-    products: [
-      "Laboratory Reagents",
-      "Laboratory Consumables",
-      "Laboratory Kits",
-      "Diagnostic Supplies"
-    ]
-
-  },
-
-
-  "medlab-supplies": {
-
-    name: "MedLab Supplies",
-
-    location: "Enugu, Nigeria",
-
-    specialties:
-      "Reagents, Consumables, Equipment",
-
-    rating: "4.8/5 (15)",
-
-    about:
-      "MedLab Supplies provides laboratory reagents, consumables and laboratory equipment.",
-
-    products: [
-      "Laboratory Reagents",
-      "Laboratory Consumables",
-      "Laboratory Equipment",
-      "Diagnostic Supplies"
-    ]
-
-  },
-
-
-  "labtech-nigeria": {
-
-    name: "LabTech Nigeria",
-
-    location: "Lagos, Nigeria",
-
-    specialties:
-      "Laboratory Equipment, Furniture, Accessories",
-
-    rating: "4.4/5 (7)",
-
-    about:
-      "LabTech Nigeria supplies laboratory equipment, furniture and accessories.",
-
-    products: [
-      "Laboratory Equipment",
-      "Laboratory Furniture",
-      "Laboratory Accessories"
-    ]
-
-  },
-
-
-  "safecare": {
-
-    name: "Safecare",
-
-    location: "Enugu, Nigeria",
-
-    specialties:
-      "Lab Consumables, Reagents, Rapid Test Kits",
-
-    rating: "4.5/5 (12)",
-
-    about:
-      "Safecare supplies laboratory consumables, reagents and rapid diagnostic test kits.",
-
-    products: [
-      "Laboratory Consumables",
-      "Reagents",
-      "Rapid Test Kits",
-      "Diagnostic Supplies"
-    ]
-
-  },
-
-
-  "felin-supplies": {
-
-    name: "Felin Supplies",
-
-    location: "Lagos, Nigeria",
-
-    specialties:
-      "Glasswares, Equipment, Laboratory Kits",
-
-    rating: "4.4/5 (10)",
-
-    about:
-      "Felin Supplies provides laboratory glassware, equipment and laboratory kits.",
-
-    products: [
-      "Laboratory Glassware",
-      "Laboratory Equipment",
-      "Laboratory Kits"
-    ]
-
-  },
-
-
-  "labcare": {
-
-    name: "Labcare",
-
-    location: "Enugu, Nigeria",
-
-    specialties:
-      "Reagents, Consumables, Rapid Test Kits",
-
-    rating: "4.8/5 (22)",
-
-    about:
-      "Labcare supplies laboratory reagents, consumables and rapid diagnostic test kits.",
-
-    products: [
-      "Laboratory Reagents",
-      "Laboratory Consumables",
-      "Rapid Test Kits",
-      "Diagnostic Supplies"
-    ]
-
-  },
-
-
-  "microlab": {
-
-    name: "MicroLab",
-
-    location: "Lagos, Nigeria",
-
-    specialties:
-      "Laboratory Kits, Consumables, Accessories",
-
-    rating: "4.5/5 (10)",
-
-    about:
-      "MicroLab supplies laboratory kits, consumables and laboratory accessories.",
-
-    products: [
-      "Laboratory Kits",
-      "Laboratory Consumables",
-      "Laboratory Accessories"
-    ]
+    document.getElementById("supplierProfilePopup")
+      .classList.add("active");
 
   }
 
-};
+
+  window.openSupplierProfile = openSupplierProfile;
 
 
-let currentSupplier = "";
+  window.showSupplierProfile = function() {
+
+    document.getElementById("supplierProfileView").style.display =
+      "block";
+
+    document.getElementById("supplierRequestView").style.display =
+      "none";
+
+  };
 
 
-function openSupplierProfile(supplierId) {
+  window.showSupplierRequestForm = function() {
 
-  const supplier = supplierProfiles[supplierId];
+    document.getElementById("supplierProfileView").style.display =
+      "none";
 
-  if (!supplier) {
-    return;
-  }
+    document.getElementById("supplierRequestView").style.display =
+      "block";
 
-  currentSupplier = supplierId;
-
-
-  document.getElementById("profileSupplierName").textContent =
-    supplier.name;
-
-  document.getElementById("profileSupplierLocation").textContent =
-    supplier.location;
-
-  document.getElementById("profileSupplierAbout").textContent =
-    supplier.about;
-
-  document.getElementById("profileInfoLocation").textContent =
-    supplier.location;
-
-  document.getElementById("profileInfoSpecialties").textContent =
-    supplier.specialties;
-
-  document.getElementById("profileInfoRating").textContent =
-    supplier.rating;
+  };
 
 
-  const productList =
-    document.getElementById("profileSupplierProducts");
+  window.closeSupplierProfile = function() {
 
-  productList.innerHTML = "";
+    document.getElementById("supplierProfilePopup")
+      .classList.remove("active");
 
+    window.showSupplierProfile();
 
-  supplier.products.forEach(function(product) {
-
-    const li = document.createElement("li");
-
-    li.textContent = product;
-
-    productList.appendChild(li);
-
-  });
+  };
 
 
-  showSupplierProfile();
+  const supplierLink =
+    document.querySelector('[data-supplier="standard-diagnostics"]');
 
-
-  document
-    .getElementById("supplierProfilePopup")
-    .classList.add("active");
-
-}
-
-
-function showSupplierProfile() {
-
-  document.getElementById("supplierProfileView").style.display =
-    "block";
-
-  document.getElementById("supplierRequestView").style.display =
-    "none";
-
-}
-
-
-function showSupplierRequestForm() {
-
-  document.getElementById("supplierProfileView").style.display =
-    "none";
-
-  document.getElementById("supplierRequestView").style.display =
-    "block";
-
-}
-
-
-function closeSupplierProfile() {
-
-  document
-    .getElementById("supplierProfilePopup")
-    .classList.remove("active");
-
-  showSupplierProfile();
-
-}
-
-
-document
-  .getElementById("supplierRequestForm")
-  .addEventListener("submit", function(event) {
-
-    event.preventDefault();
-
-    alert(
-      "Thank you. Your request has been received by LabKeep. We will contact you shortly."
-    );
-
-  });
-
-  document.addEventListener("DOMContentLoaded", function () {
-
-  const supplierLink = document.querySelector(
-    '[data-supplier="standard-diagnostics"]'
-  );
 
   if (supplierLink) {
 
-    supplierLink.addEventListener("click", function (event) {
+    supplierLink.addEventListener("click", function(event) {
 
       event.preventDefault();
 
       openSupplierProfile("standard-diagnostics");
+
+    });
+
+  }
+
+
+  const requestForm =
+    document.getElementById("supplierRequestForm");
+
+
+  if (requestForm) {
+
+    requestForm.addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      alert(
+        "Thank you. Your request has been received by LabKeep. We will contact you shortly."
+      );
 
     });
 
