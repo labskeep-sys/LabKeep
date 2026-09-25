@@ -148,7 +148,17 @@ function openSupplierProfile(supplierId) {
     <div class="supplier-profile-header">
       <h2>${supplier.name}</h2>
       <p class="supplier-profile-rating">${supplier.rating}</p>
-      <p class="supplier-profile-location">${supplier.location}</p>
+      <p class="supplier-profile-location">📍 ${supplier.location}</p>
+    </div>
+
+    <a href="https://wa.me/234XXXXXXXXXX"
+       class="supplier-profile-request">
+       Request from this Supplier
+    </a>
+
+    <div class="supplier-profile-section">
+      <h3>About this Supplier</h3>
+      <p>${supplier.description}</p>
     </div>
 
     <div class="supplier-profile-section">
@@ -157,21 +167,11 @@ function openSupplierProfile(supplierId) {
     </div>
 
     <div class="supplier-profile-section">
-      <h3>About this Supplier</h3>
-      <p>${supplier.description}</p>
-    </div>
-
-    <div class="supplier-profile-section">
       <h3>Products & Services</h3>
       <ul>
         ${supplier.products.map(product => `<li>${product}</li>`).join("")}
       </ul>
     </div>
-
-    <a href="https://wa.me/234XXXXXXXXXX"
-       class="supplier-profile-request">
-       Request from this Supplier
-    </a>
   `;
 
   document.getElementById("supplierProfilePopup").classList.add("active");
