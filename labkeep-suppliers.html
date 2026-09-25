@@ -113,6 +113,106 @@ document.getElementById("pageSearchInput").addEventListener("keydown", function(
   }
 });
 </script>
+
+    <script>
+const supplierProfiles = {
+
+  "standard-diagnostics": {
+    name: "Standard Diagnostics",
+    location: "Abuja, Nigeria",
+    rating: "★★★★ 4.4/5 (24)",
+    specialties: "Diagnostic Kits, Rapid Tests, Lab Consumables",
+    description: "Standard Diagnostics supplies laboratory and diagnostic products to healthcare facilities and laboratories.",
+    products: [
+      "Malaria RDT (25 Tests)",
+      "Diagnostic Test Kits",
+      "Rapid Tests",
+      "Laboratory Consumables"
+    ]
+  }
+
+};
+
+
+function openSupplierProfile(supplierId) {
+
+  const supplier = supplierProfiles[supplierId];
+
+  if (!supplier) {
+    return;
+  }
+
+  const profileBody = document.getElementById("supplierProfileBody");
+
+  profileBody.innerHTML = `
+    <div class="supplier-profile-header">
+      <h2>${supplier.name}</h2>
+      <p class="supplier-profile-rating">${supplier.rating}</p>
+      <p class="supplier-profile-location">${supplier.location}</p>
+    </div>
+
+    <div class="supplier-profile-section">
+      <h3>Specialties</h3>
+      <p>${supplier.specialties}</p>
+    </div>
+
+    <div class="supplier-profile-section">
+      <h3>About this Supplier</h3>
+      <p>${supplier.description}</p>
+    </div>
+
+    <div class="supplier-profile-section">
+      <h3>Products & Services</h3>
+      <ul>
+        ${supplier.products.map(product => `<li>${product}</li>`).join("")}
+      </ul>
+    </div>
+
+    <a href="https://wa.me/234XXXXXXXXXX"
+       class="supplier-profile-request">
+       Request from this Supplier
+    </a>
+  `;
+
+  document.getElementById("supplierProfilePopup").classList.add("active");
+
+  document.body.style.overflow = "hidden";
+}
+
+
+function closeSupplierProfile() {
+
+  document.getElementById("supplierProfilePopup").classList.remove("active");
+
+  document.body.style.overflow = "";
+}
+
+
+document.addEventListener("keydown", function(event) {
+
+  if (event.key === "Escape") {
+    closeSupplierProfile();
+  }
+
+});
+</script>
+    
+    <!-- SUPPLIER PROFILE POPUP -->
+<div id="supplierProfilePopup" class="supplier-popup">
+  <div class="supplier-popup-overlay" onclick="closeSupplierProfile()"></div>
+
+  <div class="supplier-popup-content">
+
+    <button class="supplier-popup-close" onclick="closeSupplierProfile()">
+      ×
+    </button>
+
+    <div id="supplierProfileBody">
+      <!-- Supplier information will appear here -->
+    </div>
+
+  </div>
+</div>
   
   </body>
 </html>
