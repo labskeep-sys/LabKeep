@@ -509,9 +509,9 @@
 }
 
 
-/* ================================
-   SUPPLIER PROFILE POPUP
-================================ */
+/* =========================================
+   LABKEEP SUPPLIER PROFILE POPUP
+========================================= */
 
 .supplier-popup {
   display: none;
@@ -526,108 +526,152 @@
   justify-content: center;
 }
 
+/* Dark background */
 .supplier-popup-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(9, 20, 55, 0.68);
+  backdrop-filter: blur(4px);
 }
 
+/* Main popup */
 .supplier-popup-content {
   position: relative;
   z-index: 2;
-  width: 90%;
-  max-width: 600px;
-  max-height: 85vh;
+  width: 92%;
+  max-width: 620px;
+  max-height: 88vh;
   overflow-y: auto;
   background: #ffffff;
-  border-radius: 16px;
-  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+  overflow-x: hidden;
 }
 
-.supplier-popup-close {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  border: none;
-  background: transparent;
-  font-size: 30px;
-  line-height: 1;
-  cursor: pointer;
-  color: #555;
-}
-
-.supplier-popup-close:hover {
-  color: #1237d8;
-}
+/* =========================================
+   SUPPLIER HEADER
+========================================= */
 
 .supplier-profile-header {
-  padding-right: 35px;
-  margin-bottom: 25px;
+  position: relative;
+  background: linear-gradient(135deg, #1237d8, #2855e8);
+  padding: 32px 30px 28px;
+  color: #ffffff;
 }
 
 .supplier-profile-header h2 {
-  margin: 0 0 8px;
-  font-size: 25px;
-  color: #1237d8;
+  margin: 0 40px 10px 0;
+  font-size: 27px;
+  font-weight: 700;
+  color: #ffffff;
 }
 
 .supplier-profile-rating {
-  margin: 0 0 6px;
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #FFD166;
   font-size: 14px;
-  color: #555;
+  font-weight: 600;
 }
 
 .supplier-profile-location {
   margin: 0;
-  font-size: 15px;
-  color: #666;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
 }
 
+/* Close button */
+.supplier-popup-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  z-index: 5;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font-size: 25px;
+  line-height: 30px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.supplier-popup-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* =========================================
+   POPUP BODY
+========================================= */
+
 .supplier-profile-section {
-  margin-bottom: 22px;
+  margin: 0;
+  padding: 22px 30px;
+  border-bottom: 1px solid #eef1f7;
 }
 
 .supplier-profile-section h3 {
-  margin: 0 0 8px;
-  font-size: 17px;
-  color: #222;
+  margin: 0 0 9px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #172033;
 }
 
 .supplier-profile-section p {
   margin: 0;
-  line-height: 1.6;
-  color: #555;
-}
-
-.supplier-profile-section ul {
-  margin: 8px 0 0;
-  padding-left: 20px;
-  color: #555;
+  color: #626b7d;
+  font-size: 14px;
   line-height: 1.7;
 }
 
+/* Products list */
+.supplier-profile-section ul {
+  margin: 10px 0 0;
+  padding-left: 20px;
+  color: #555f72;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.supplier-profile-section li::marker {
+  color: #1237d8;
+}
+
+/* =========================================
+   REQUEST BUTTON
+========================================= */
+
 .supplier-profile-request {
-  display: inline-block;
-  margin-top: 5px;
-  padding: 13px 20px;
+  display: block;
+  margin: 24px 30px 30px;
+  padding: 14px 20px;
   background: #1237d8;
   color: #ffffff;
   text-decoration: none;
-  border-radius: 8px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 15px;
   font-weight: 600;
-  transition: 0.2s ease;
+  box-shadow: 0 6px 16px rgba(18, 55, 216, 0.22);
+  transition: all 0.2s ease;
 }
 
 .supplier-profile-request:hover {
-  opacity: 0.9;
+  background: #0e2db5;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(18, 55, 216, 0.28);
 }
 
 
-/* ================================
-   MOBILE SUPPLIER POPUP
-================================ */
+/* =========================================
+   MOBILE
+========================================= */
 
 @media (max-width: 600px) {
 
@@ -638,22 +682,23 @@
   .supplier-popup-content {
     width: 100%;
     max-width: none;
-    max-height: 90vh;
-    border-radius: 18px 18px 0 0;
-    padding: 25px 20px 30px;
+    max-height: 92vh;
+    border-radius: 22px 22px 0 0;
+  }
+
+  .supplier-profile-header {
+    padding: 27px 22px 24px;
   }
 
   .supplier-profile-header h2 {
-    font-size: 22px;
+    font-size: 23px;
   }
 
-  .supplier-profile-section h3 {
-    font-size: 16px;
+  .supplier-profile-section {
+    padding: 19px 22px;
   }
 
   .supplier-profile-request {
-    width: 100%;
-    box-sizing: border-box;
-    text-align: center;
+    margin: 22px;
   }
 }
