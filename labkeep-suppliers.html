@@ -123,29 +123,50 @@ document.getElementById("pageSearchInput").addEventListener("keydown", function(
 
   <div class="profile-popup-content">
 
-    <button class="profile-popup-close" onclick="closeSupplierProfile()">
+    <button
+      type="button"
+      class="profile-popup-close"
+      onclick="closeSupplierProfile()">
       &times;
     </button>
+
 
     <!-- SUPPLIER PROFILE -->
     <div id="supplierProfileView">
 
       <div class="profile-popup-header">
-        <h2 id="profileSupplierName">Supplier Name</h2>
-        <p id="profileSupplierLocation">Location</p>
+
+        <h2 id="profileSupplierName">
+          Supplier Name
+        </h2>
+
+        <p id="profileSupplierLocation">
+          Location
+        </p>
+
       </div>
 
+
       <div class="profile-popup-section">
+
         <h3>About</h3>
+
         <p id="profileSupplierAbout"></p>
+
       </div>
 
+
       <div class="profile-popup-section">
+
         <h3>Supplies</h3>
+
         <ul id="profileSupplierProducts"></ul>
+
       </div>
 
+
       <div class="profile-popup-section">
+
         <h3>Supplier Information</h3>
 
         <p>
@@ -162,14 +183,16 @@ document.getElementById("pageSearchInput").addEventListener("keydown", function(
           <strong>Rating:</strong>
           <span id="profileInfoRating"></span>
         </p>
+
       </div>
+
 
       <div class="profile-popup-contact">
 
         <h3>Interested in a product?</h3>
 
         <p>
-          Send your request and we'll help connect you
+          Send your request through LabKeep and we'll help connect you
           with this supplier.
         </p>
 
@@ -181,6 +204,8 @@ document.getElementById("pageSearchInput").addEventListener("keydown", function(
         </button>
 
       </div>
+
+    </div>
 
 
     <!-- SUPPLIER REQUEST FORM -->
@@ -196,6 +221,7 @@ document.getElementById("pageSearchInput").addEventListener("keydown", function(
         </p>
 
       </div>
+
 
       <form id="supplierRequestForm">
 
@@ -526,6 +552,7 @@ function openSupplierProfile(supplierId) {
 
   currentSupplier = supplierId;
 
+
   document.getElementById("profileSupplierName").textContent =
     supplier.name;
 
@@ -550,6 +577,7 @@ function openSupplierProfile(supplierId) {
 
   productList.innerHTML = "";
 
+
   supplier.products.forEach(function(product) {
 
     const li = document.createElement("li");
@@ -562,6 +590,7 @@ function openSupplierProfile(supplierId) {
 
 
   showSupplierProfile();
+
 
   document
     .getElementById("supplierProfilePopup")
