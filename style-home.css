@@ -289,10 +289,12 @@ body {
 
 
   /*
-     IMPORTANT:
-     The product container itself scrolls horizontally.
-     The BODY does not.
+     PRODUCT CAROUSEL
+     The container stays the width of the phone.
+     The cards inside it are wider than the available
+     space, creating horizontal scrolling.
   */
+
   #ibewto-4-3 {
     display: flex !important;
 
@@ -302,7 +304,9 @@ body {
 
     gap: 14px !important;
 
-    width: max-content !important;
+    /* CHANGE: 100% instead of max-content */
+    width: 100% !important;
+    max-width: 100% !important;
     min-width: 0 !important;
 
     overflow-x: auto !important;
@@ -313,6 +317,9 @@ body {
     scrollbar-width: none !important;
 
     -webkit-overflow-scrolling: touch !important;
+
+    /* Allow horizontal finger swiping */
+    touch-action: pan-x !important;
   }
 
   #ibewto-4-3::-webkit-scrollbar {
@@ -321,9 +328,10 @@ body {
 
 
   /*
-     Fixed card width is what creates the
-     horizontal product carousel.
+     Product cards remain wide.
+     This creates the horizontal overflow.
   */
+
   #ibewto-4-3 .product-card {
     flex: 0 0 310px !important;
 
@@ -342,8 +350,10 @@ body {
 @media (max-width: 380px) {
 
   #ibewto-4-3 .product-card {
-    flex-basis: 285px !important;
+    flex: 0 0 285px !important;
+
     width: 285px !important;
+
     min-width: 285px !important;
     max-width: 285px !important;
   }
@@ -351,4 +361,5 @@ body {
   .LabKeep-products {
     padding-left: 14px !important;
   }
+
 }
