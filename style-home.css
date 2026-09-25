@@ -271,37 +271,28 @@ body {
 
 
 /* =========================================================
-   MOBILE PRODUCT CAROUSELS
-   ALL PRODUCT GRIDS SCROLL HORIZONTALLY
+   MOBILE ONLY — PRODUCT CAROUSEL
    ========================================================= */
 
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
 
-  /*
-     The product section itself stays inside
-     the phone's width.
-  */
+  /* Keep the product section inside the phone */
   .LabKeep-products {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
-
-    padding: 20px 0 30px 18px !important;
-
     overflow: hidden !important;
+
+    padding-left: 18px !important;
+    padding-right: 0 !important;
   }
 
-
   /*
-     IMPORTANT:
-     Use .product-grid instead of #ibewto-4-3.
-
-     This applies the carousel behavior to
-     EVERY product grid on the page.
+     Only on mobile:
+     turn the product grid into a horizontal row.
   */
-  .product-grid {
+  .LabKeep-products .product-grid {
     display: flex !important;
-
     flex-direction: row !important;
     flex-wrap: nowrap !important;
 
@@ -317,49 +308,37 @@ body {
     padding-right: 18px !important;
 
     scrollbar-width: none !important;
-
     -webkit-overflow-scrolling: touch !important;
-
   }
 
-
-  /*
-     Hide scrollbar on Chrome/Safari/iPhone
-  */
-  .product-grid::-webkit-scrollbar {
+  .LabKeep-products .product-grid::-webkit-scrollbar {
     display: none !important;
   }
 
-
   /*
-     Every product card keeps a fixed width.
-
-     This creates the horizontal overflow
-     that the user can swipe through.
+     Cards remain wide enough to create
+     the horizontal scrolling effect.
   */
-  .product-grid .product-card {
+  .LabKeep-products .product-grid .product-card {
     flex: 0 0 310px !important;
 
     width: 310px !important;
-
     min-width: 310px !important;
     max-width: 310px !important;
   }
-
 }
 
 
 /* =========================================================
-   VERY SMALL PHONES
+   SMALL PHONES
    ========================================================= */
 
-@media (max-width: 380px) {
+@media screen and (max-width: 380px) {
 
-  .product-grid .product-card {
+  .LabKeep-products .product-grid .product-card {
     flex: 0 0 285px !important;
 
     width: 285px !important;
-
     min-width: 285px !important;
     max-width: 285px !important;
   }
@@ -367,41 +346,4 @@ body {
   .LabKeep-products {
     padding-left: 14px !important;
   }
-
-}
-
-/* FIX PRODUCT CARD STRETCHING AFTER LOCATION FILTER */
-
-.product-grid {
-  display: grid !important;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-  gap: 17px !important;
-  align-items: start !important;
-}
-
-.product-card {
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: none !important;
-  grid-column: auto !important;
-  align-self: start !important;
-}
-
-@media (max-width: 1200px) {
-  .product-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  }
-}
-
-@media (max-width: 700px) {
-  .product-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .product-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
 }
