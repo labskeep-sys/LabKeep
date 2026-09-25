@@ -348,5 +348,38 @@ body {
   }
 }
 
+/* FIX PRODUCT CARD STRETCHING — SUPPLIES PAGE ONLY */
 
+#suppliesProductGrid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 17px !important;
+  align-items: start !important;
+}
+
+#suppliesProductGrid .product-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  grid-column: auto !important;
+  align-self: start !important;
+}
+
+@media (max-width: 1200px) {
+  #suppliesProductGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  #suppliesProductGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #suppliesProductGrid {
+    grid-template-columns: 1fr !important;
+  }
+}
 
