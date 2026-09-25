@@ -1,1 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Supplier Profile | LabKeep</title>
+
+  <link rel="stylesheet" href="./style-pages.css">
+
+</head>
+
+<body>
+
+  <main class="LabKeep-main">
+
+    <section class="LabKeep-products">
+
+      <div class="product-info">
+
+        <h1 id="supplierName">Standard Diagnostics</h1>
+
+        <p id="supplierLocation">Abuja, Nigeria</p>
+
+        <p id="supplierSpecialties">
+          Diagnostic Kits, Rapid Tests, Laboratory Consumables
+        </p>
+
+        <hr>
+
+        <h2>About This Supplier</h2>
+
+        <p id="supplierAbout">
+          Standard Diagnostics is a laboratory supplier offering diagnostic
+          kits, rapid tests and laboratory consumables.
+        </p>
+
+        <h2>Products &amp; Supplies</h2>
+
+        <ul id="supplierProducts">
+          <li>Malaria Rapid Diagnostic Test Kits</li>
+          <li>Widal Test Kits</li>
+          <li>Rapid Diagnostic Tests</li>
+          <li>Laboratory Consumables</li>
+          <li>Other Diagnostic Supplies</li>
+        </ul>
+
+        <h2>Supplier Information</h2>
+
+        <p>
+          <strong>Location:</strong>
+          <span id="supplierInfoLocation">Abuja, Nigeria</span>
+        </p>
+
+        <p>
+          <strong>Specialties:</strong>
+          <span id="supplierInfoSpecialties">
+            Diagnostic Kits, Rapid Tests, Laboratory Consumables
+          </span>
+        </p>
+
+        <p>
+          <strong>Rating:</strong>
+          <span id="supplierRating">4.4/5 (24)</span>
+        </p>
+
+        <div class="profile-popup-contact">
+
+          <h2>Interested in a product?</h2>
+
+          <p>
+            Send your request through LabKeep and we'll help connect you
+            with this supplier.
+          </p>
+
+          <a
+            href="#supplier-request"
+            class="Request">
+            Request from this Supplier
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- REQUEST SECTION -->
+
+    <section id="supplier-request" class="LabKeep-products">
+
+      <div class="product-info">
+
+        <h2>Request from this Supplier</h2>
+
+        <p>
+          Tell us what you need and LabKeep will help connect you
+          with the supplier.
+        </p>
+
+        <form id="supplierRequestForm">
+
+          <label for="customerName">Your Name</label>
+          <input
+            type="text"
+            id="customerName"
+            name="customerName"
+            required>
+
+          <label for="customerPhone">WhatsApp / Phone Number</label>
+          <input
+            type="tel"
+            id="customerPhone"
+            name="customerPhone"
+            required>
+
+          <label for="requestedProduct">Product or Supply Needed</label>
+          <input
+            type="text"
+            id="requestedProduct"
+            name="requestedProduct"
+            required>
+
+          <label for="requestedQuantity">Quantity</label>
+          <input
+            type="text"
+            id="requestedQuantity"
+            name="requestedQuantity"
+            required>
+
+          <label for="customerLocation">Your Location</label>
+          <input
+            type="text"
+            id="customerLocation"
+            name="customerLocation"
+            required>
+
+          <label for="customerMessage">Additional Message</label>
+          <textarea
+            id="customerMessage"
+            name="customerMessage"></textarea>
+
+          <button type="submit" class="Request">
+            Submit Request to LabKeep
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+
+</html>
