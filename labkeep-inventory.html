@@ -10,15 +10,52 @@
     
     <style>
   .products-table {
-    min-width: 760px;
+    width: 100%;
+    min-width: 900px;
+    table-layout: auto;
   }
 
   .products-table th,
   .products-table td {
     white-space: nowrap;
     padding: 14px 18px;
+    vertical-align: middle;
   }
 
+  .products-table th:nth-child(1),
+  .products-table td:nth-child(1) {
+    min-width: 180px;
+  }
+
+  .products-table th:nth-child(2),
+  .products-table td:nth-child(2) {
+    min-width: 160px;
+  }
+
+  .products-table th:nth-child(3),
+  .products-table td:nth-child(3) {
+    min-width: 130px;
+  }
+
+  .products-table th:nth-child(4),
+  .products-table td:nth-child(4) {
+    min-width: 120px;
+  }
+
+  .products-table th:nth-child(5),
+  .products-table td:nth-child(5) {
+    min-width: 90px;
+  }
+
+  .products-table th:nth-child(6),
+  .products-table td:nth-child(6) {
+    min-width: 120px;
+  }
+
+  .products-table th:nth-child(7),
+  .products-table td:nth-child(7) {
+    min-width: 170px;
+  }
 </style>
 
     <style>
@@ -316,7 +353,7 @@
       </span>
     </div>
 
-    <div class="table-wrapper">
+    <div class="table-wrapper" style="overflow-x:auto; width:100%;">
 
       <table class="stock-table products-table">
 
