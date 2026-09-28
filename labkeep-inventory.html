@@ -1694,23 +1694,113 @@ if (addProductForm) {
          ADD NEW PRODUCT
       ========================================== */
 
-      else {
+      /* =========================================
+   ADD NEW PRODUCT OR NEW BATCH
+========================================== */
 
-        var newProduct = {
+else {
 
-          id: Date.now(),
+  var existingProduct =
+    findExistingProduct(
+      products,
+      productName,
+      productCategory,
+      productUnit
+    );
 
-          name: productName,
 
-          category: productCategory,
+  /* =========================================
+     PRODUCT ALREADY EXISTS
+  ========================================== */
 
-          unit: productUnit,
+  if (existingProduct) {
 
-          quantity: Number(productQuantity),
+    var confirmed =
+      confirm(
+        "This product already exists. Do you want to add this as a new batch?"
+      );
 
-          minimum: Number(productMinimum),
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    /* For now, add the new batch information
+       to the existing product */
+
+    if (!existingProduct.batches) {
+      existingProduct.batches = [];
+    }
+
+
+    existingProduct.batches.push({
+
+      batch: productBatch,
+
+      quantity: Number(productQuantity),
+
+      expiry: productExpiry,
+
+      cost: productCost
+        ? Number(productCost)
+        : 0,
+
+      notes: productNotes
+
+    });
+
+
+    /* Update total product quantity */
+
+    existingProduct.quantity =
+      existingProduct.batches.reduce(
+        function (total, batch) {
+          return total + Number(batch.quantity);
+        },
+        0
+      );
+
+  }
+
+
+  /* =========================================
+     PRODUCT DOES NOT EXIST
+  ========================================== */
+
+  else {
+
+    var newProduct = {
+
+      id: Date.now(),
+
+      name: productName,
+
+      category: productCategory,
+
+      unit: productUnit,
+
+      quantity: Number(productQuantity),
+
+      minimum: Number(productMinimum),
+
+      batch: productBatch,
+
+      expiry: productExpiry,
+
+      cost: productCost
+        ? Number(productCost)
+        : 0,
+
+      notes: productNotes,
+
+      batches: [
+
+        {
 
           batch: productBatch,
+
+          quantity: Number(productQuantity),
 
           expiry: productExpiry,
 
@@ -1720,12 +1810,18 @@ if (addProductForm) {
 
           notes: productNotes
 
-        };
+        }
+
+      ]
+
+    };
 
 
-        products.push(newProduct);
+    products.push(newProduct);
 
-      }
+  }
+
+}
 
 
       /* Save products */
