@@ -19,14 +19,6 @@
     padding: 14px 18px;
   }
 
-  .products-table th:last-child,
-  .products-table td:last-child {
-    min-width: 160px;
-    width: 160px;
-    text-align: left;
-    position: relative;
-    z-index: 2;
-  }
 </style>
 
     <style>
@@ -336,7 +328,7 @@
     <th style="min-width:120px;">Min. Stock</th>
     <th style="min-width:90px;">Unit</th>
     <th style="min-width:100px;">Status</th>
-    <th style="min-width:140px;">Batch</th>
+    <th style="min-width:160px;">Batch</th>
   </tr>
 </thead>
         
@@ -1254,36 +1246,36 @@ function renderProducts() {
     );
 
     row.innerHTML = `
-      <td>
-        <strong style="color:#0b1f5c;">
-          ${product.name}
-        </strong>
-      </td>
+  <td>
+    <strong style="color:#0b1f5c;">
+      ${product.name}
+    </strong>
+  </td>
 
-      <td>${product.category}</td>
+  <td>${product.category}</td>
 
-      <td>
-        ${product.quantity} ${product.unit}
-      </td>
+  <td>
+    ${product.quantity} ${product.unit}
+  </td>
 
-      <td>
-        ${product.minimum} ${product.unit}
-      </td>
+  <td>
+    ${product.minimum} ${product.unit}
+  </td>
 
-      <td>${product.unit}</td>
+  <td>${product.unit}</td>
 
-      <td>
-        <span class="${status.className}">
-          ${status.text}
-        </span>
-      </td>
+  <td>
+    <span class="${status.className}">
+      ${status.text}
+    </span>
+  </td>
 
-       <td>
- <strong style="color:#0b1f5c;">
-    ${product.batch}
-  </strong>
-</td>
-    `;
+  <td>
+    <strong style="color:#0b1f5c;">
+      ${product.batch}
+    </strong>
+  </td>
+`;
 
     productsTableBody.appendChild(row);
   });
