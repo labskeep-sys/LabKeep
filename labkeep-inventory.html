@@ -1237,98 +1237,175 @@ function getProductStatus(quantity, minimum) {
 }
 
 function renderProducts() {
+
   var products = getProducts();
-  var productsTableBody = document.getElementById("productsTableBody");
-  var emptyProductsRow = document.getElementById("emptyProductsRow");
-  var productCount = document.getElementById("productCount");
+
+  var productsTableBody =
+    document.getElementById("productsTableBody");
+
+  var emptyProductsRow =
+    document.getElementById("emptyProductsRow");
+
+  var productCount =
+    document.getElementById("productCount");
+
+  var searchInput =
+    document.getElementById("productSearch");
+
+  var categoryFilter =
+    document.getElementById("productCategoryFilter");
 
   if (!productsTableBody) return;
 
-  /* Remove previously generated product rows */
+
+  /* =========================================
+     SEARCH & CATEGORY FILTER
+  ========================================== */
+
+  var searchTerm = searchInput
+    ? searchInput.value.trim().toLowerCase()
+    : "";
+
+  var selectedCategory = categoryFilter
+    ? categoryFilter.value
+    : "";
+
+
+  var filteredProducts = products.filter(function (product) {
+
+    var matchesSearch =
+      !searchTerm ||
+      product.name.toLowerCase().includes(searchTerm) ||
+      product.category.toLowerCase().includes(searchTerm);
+
+    var matchesCategory =
+      !selectedCategory ||
+      product.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+
+  });
+
+
+  /* =========================================
+     REMOVE OLD PRODUCT ROWS
+  ========================================== */
+
   productsTableBody
     .querySelectorAll(".product-data-row")
     .forEach(function (row) {
       row.remove();
     });
 
-  /* Update product count */
+
+  /* =========================================
+     UPDATE PRODUCT COUNT
+  ========================================== */
+
   if (productCount) {
-  if (filteredProducts.length === products.length) {
-    productCount.textContent =
-      products.length === 1
-        ? "1 product"
-        : products.length + " products";
-  } else {
-    productCount.textContent =
-      filteredProducts.length +
-      " of " +
-      products.length +
-      " products";
-  }
-}
 
-  /* Show empty state if there are no products */
+    if (filteredProducts.length === products.length) {
+
+      productCount.textContent =
+        products.length === 1
+          ? "1 product"
+          : products.length + " products";
+
+    } else {
+
+      productCount.textContent =
+        filteredProducts.length +
+        " of " +
+        products.length +
+        " products";
+
+    }
+
+  }
+
+
+  /* =========================================
+     EMPTY STATE
+  ========================================== */
+
   if (filteredProducts.length === 0) {
-  if (emptyProductsRow) {
-    emptyProductsRow.style.display = "";
+
+    if (emptyProductsRow) {
+      emptyProductsRow.style.display = "";
+    }
+
+    return;
+
   }
 
-  return;
-}
 
-/* Hide empty state */
-if (emptyProductsRow) {
-  emptyProductsRow.style.display = "none";
-}
+  /* Hide empty state */
 
-/* Add filtered products to table */
-filteredProducts.forEach(function (product) {
-  
+  if (emptyProductsRow) {
+    emptyProductsRow.style.display = "none";
+  }
 
-  /* Add products to table */
-  products.forEach(function (product) {
+
+  /* =========================================
+     DISPLAY PRODUCTS
+  ========================================== */
+
+  filteredProducts.forEach(function (product) {
+
     var row = document.createElement("tr");
+
     row.className = "product-data-row";
+
 
     var status = getProductStatus(
       product.quantity,
       product.minimum
     );
 
+
     row.innerHTML = `
-  <td>
-    <strong style="color:#0b1f5c;">
-      ${product.name}
-    </strong>
-  </td>
 
-  <td>${product.category}</td>
+      <td>
+        <strong style="color:#0b1f5c;">
+          ${product.name}
+        </strong>
+      </td>
 
-  <td>
-    ${product.quantity} ${product.unit}
-  </td>
+      <td>
+        ${product.category}
+      </td>
 
-  <td>
-    ${product.minimum} ${product.unit}
-  </td>
+      <td>
+        ${product.quantity} ${product.unit}
+      </td>
 
-  <td>${product.unit}</td>
+      <td>
+        ${product.minimum} ${product.unit}
+      </td>
 
-  <td>
-    <span class="${status.className}">
-      ${status.text}
-    </span>
-  </td>
+      <td>
+        ${product.unit}
+      </td>
 
-  <td>
-    <strong style="color:#0b1f5c;">
-      ${product.batch}
-    </strong>
-  </td>
-`;
+      <td>
+        <span class="${status.className}">
+          ${status.text}
+        </span>
+      </td>
+
+      <td>
+        <strong style="color:#0b1f5c;">
+          ${product.batch}
+        </strong>
+      </td>
+
+    `;
+
 
     productsTableBody.appendChild(row);
+
   });
+
 }
 
 
@@ -1337,103 +1414,150 @@ filteredProducts.forEach(function (product) {
 ========================================== */
 
 if (addProductForm) {
-  addProductForm.addEventListener("submit", function (event) {
-    event.preventDefault();
 
-    var productName = document.getElementById("productName").value.trim();
-    var productCategory = document.getElementById("productCategory").value;
-    var productUnit = document.getElementById("productUnit").value;
-    var productQuantity = document.getElementById("productQuantity").value;
-    var productMinimum = document.getElementById("productMinimum").value;
-    var productBatch = document.getElementById("productBatch").value;
-    var productExpiry = document.getElementById("productExpiry").value;
-    var productCost = document.getElementById("productCost").value;
-    var productNotes = document.getElementById("productNotes").value.trim();
+  addProductForm.addEventListener(
+    "submit",
+    function (event) {
 
-    /* Basic validation */
-    if (
-      !productName ||
-      !productCategory ||
-      !productUnit ||
-      productQuantity === "" ||
-      productMinimum === "" ||
-      !productBatch ||
-      !productExpiry
-    ) {
-      alert("Please complete all required fields.");
-      return;
+      event.preventDefault();
+
+
+      var productName =
+        document.getElementById("productName").value.trim();
+
+      var productCategory =
+        document.getElementById("productCategory").value;
+
+      var productUnit =
+        document.getElementById("productUnit").value;
+
+      var productQuantity =
+        document.getElementById("productQuantity").value;
+
+      var productMinimum =
+        document.getElementById("productMinimum").value;
+
+      var productBatch =
+        document.getElementById("productBatch").value;
+
+      var productExpiry =
+        document.getElementById("productExpiry").value;
+
+      var productCost =
+        document.getElementById("productCost").value;
+
+      var productNotes =
+        document.getElementById("productNotes").value.trim();
+
+
+      /* Basic validation */
+
+      if (
+        !productName ||
+        !productCategory ||
+        !productUnit ||
+        productQuantity === "" ||
+        productMinimum === "" ||
+        !productBatch ||
+        !productExpiry
+      ) {
+
+        alert("Please complete all required fields.");
+
+        return;
+
+      }
+
+
+      /* =========================================
+         AUTOMATIC BATCH NUMBER
+      ========================================== */
+
+      if (productBatch === "New Batch") {
+
+        var today = new Date();
+
+        var year =
+          today.getFullYear();
+
+        var month =
+          String(today.getMonth() + 1).padStart(2, "0");
+
+        var day =
+          String(today.getDate()).padStart(2, "0");
+
+
+        productBatch =
+          "B-" +
+          year +
+          month +
+          day +
+          "-" +
+          String(Date.now()).slice(-4);
+
+      }
+
+
+      /* =========================================
+         CREATE PRODUCT
+      ========================================== */
+
+      var products = getProducts();
+
+
+      var newProduct = {
+
+        id: Date.now(),
+
+        name: productName,
+
+        category: productCategory,
+
+        unit: productUnit,
+
+        quantity: Number(productQuantity),
+
+        minimum: Number(productMinimum),
+
+        batch: productBatch,
+
+        expiry: productExpiry,
+
+        cost: productCost
+          ? Number(productCost)
+          : 0,
+
+        notes: productNotes
+
+      };
+
+
+      products.push(newProduct);
+
+
+      saveProducts(products);
+
+
+      /* Refresh table */
+
+      renderProducts();
+
+
+      /* Reset form */
+
+      addProductForm.reset();
+
+
+      /* Close popup */
+
+      closeAddProductModalWindow();
+
+
+      alert("Product saved successfully! 🎉");
+
     }
+  );
 
-    /* Automatically create a batch number */
-    if (productBatch === "New Batch") {
-      var today = new Date();
-
-      var year = today.getFullYear();
-      var month = String(today.getMonth() + 1).padStart(2, "0");
-      var day = String(today.getDate()).padStart(2, "0");
-
-      productBatch =
-        "B-" +
-        year +
-        month +
-        day +
-        "-" +
-        String(Date.now()).slice(-4);
-    }
-
-    var products = getProducts();
-
-    var searchInput = document.getElementById("productSearch");
-var categoryFilter = document.getElementById("productCategoryFilter");
-
-var searchTerm = searchInput
-  ? searchInput.value.trim().toLowerCase()
-  : "";
-
-var selectedCategory = categoryFilter
-  ? categoryFilter.value
-  : "";
-
-var filteredProducts = products.filter(function (product) {
-  var matchesSearch =
-    !searchTerm ||
-    product.name.toLowerCase().includes(searchTerm) ||
-    product.category.toLowerCase().includes(searchTerm);
-
-  var matchesCategory =
-    !selectedCategory ||
-    product.category === selectedCategory;
-
-  return matchesSearch && matchesCategory;
-});
-
-    var newProduct = {
-      id: Date.now(),
-      name: productName,
-      category: productCategory,
-      unit: productUnit,
-      quantity: Number(productQuantity),
-      minimum: Number(productMinimum),
-      batch: productBatch,
-      expiry: productExpiry,
-      cost: productCost ? Number(productCost) : 0,
-      notes: productNotes
-    };
-
-    products.push(newProduct);
-
-    saveProducts(products);
-
-    renderProducts();
-
-    /* Reset form */
-    addProductForm.reset();
-
-    /* Close popup */
-    closeAddProductModalWindow();
-
-    alert("Product saved successfully! 🎉");
-  });
 }
 
 
@@ -1443,21 +1567,49 @@ var filteredProducts = products.filter(function (product) {
 
 renderProducts();
 
-  var productSearch = document.getElementById("productSearch");
-var productCategoryFilter = document.getElementById("productCategoryFilter");
+
+/* =========================================
+   SEARCH
+========================================== */
+
+var productSearch =
+  document.getElementById("productSearch");
+
 
 if (productSearch) {
-  productSearch.addEventListener("input", function () {
-    renderProducts();
-  });
+
+  productSearch.addEventListener(
+    "input",
+    function () {
+
+      renderProducts();
+
+    }
+  );
+
 }
+
+
+/* =========================================
+   CATEGORY FILTER
+========================================== */
+
+var productCategoryFilter =
+  document.getElementById("productCategoryFilter");
+
 
 if (productCategoryFilter) {
-  productCategoryFilter.addEventListener("change", function () {
-    renderProducts();
-  });
-}
 
+  productCategoryFilter.addEventListener(
+    "change",
+    function () {
+
+      renderProducts();
+
+    }
+  );
+
+}
     })();
 
   </script></body>
