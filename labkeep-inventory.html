@@ -56,6 +56,48 @@
   .products-table td:nth-child(7) {
     min-width: 170px;
   }
+
+      .product-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.product-edit-button,
+.product-delete-button {
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.product-edit-button {
+  background: #ffffff;
+  color: #0b1f5c;
+  border: 1px solid #dbe3ef;
+}
+
+.product-edit-button:hover {
+  background: #f8fbff;
+  border-color: #3f7cff;
+}
+
+.product-delete-button {
+  background: #ffffff;
+  color: #b42318;
+  border: 1px solid #f1c0bc;
+}
+
+.product-delete-button:hover {
+  background: #fff5f4;
+}
+
+      .products-table th:nth-child(8),
+.products-table td:nth-child(8) {
+  min-width: 150px;
+}
 </style>
 
     <style>
@@ -366,6 +408,7 @@
     <th style="min-width:90px;">Unit</th>
     <th style="min-width:100px;">Status</th>
     <th style="min-width:160px;">Batch</th>
+    <th style="min-width:150px;">Actions</th>
   </tr>
 </thead>
         
@@ -374,7 +417,7 @@
 
           <tr id="emptyProductsRow">
 
-            <td colspan="7" style="text-align:center; padding:50px 20px;">
+            <td colspan="8" style="text-align:center; padding:50px 20px;">
               <div style="font-size:16px; font-weight:700; color:#0b1f5c; margin-bottom:8px;">
                 No products yet
               </div>
@@ -1399,6 +1442,25 @@ function renderProducts() {
         </strong>
       </td>
 
+      <td>
+  <div class="product-action-buttons">
+
+    <button
+      type="button"
+      class="product-edit-button"
+      data-product-id="${product.id}">
+      Edit
+    </button>
+
+    <button
+      type="button"
+      class="product-delete-button"
+      data-product-id="${product.id}">
+      Delete
+    </button>
+
+  </div>
+</td>
     `;
 
 
@@ -1605,6 +1667,54 @@ if (productCategoryFilter) {
     function () {
 
       renderProducts();
+
+    }
+  );
+
+}
+
+      /* =========================================
+   PRODUCT ACTIONS
+========================================== */
+
+var productsTableBody =
+  document.getElementById("productsTableBody");
+
+if (productsTableBody) {
+
+  productsTableBody.addEventListener(
+    "click",
+    function (event) {
+
+      var deleteButton =
+        event.target.closest(".product-delete-button");
+
+      if (deleteButton) {
+
+        var productId =
+          Number(deleteButton.getAttribute("data-product-id"));
+
+        var confirmed =
+          confirm(
+            "Are you sure you want to delete this product?"
+          );
+
+        if (!confirmed) {
+          return;
+        }
+
+        var products = getProducts();
+
+        products = products.filter(function (product) {
+          return product.id !== productId;
+        });
+
+        saveProducts(products);
+
+        renderProducts();
+
+        return;
+      }
 
     }
   );
