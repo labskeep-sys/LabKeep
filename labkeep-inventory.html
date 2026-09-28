@@ -1562,41 +1562,101 @@ if (addProductForm) {
 
 
       /* =========================================
-         CREATE PRODUCT
+         GET EXISTING PRODUCTS
       ========================================== */
 
       var products = getProducts();
 
 
-      var newProduct = {
+      /* =========================================
+         EDIT EXISTING PRODUCT
+      ========================================== */
 
-        id: Date.now(),
+      if (editingProductId !== null) {
 
-        name: productName,
+        var productIndex =
+          products.findIndex(function (product) {
 
-        category: productCategory,
+            return product.id === editingProductId;
 
-        unit: productUnit,
-
-        quantity: Number(productQuantity),
-
-        minimum: Number(productMinimum),
-
-        batch: productBatch,
-
-        expiry: productExpiry,
-
-        cost: productCost
-          ? Number(productCost)
-          : 0,
-
-        notes: productNotes
-
-      };
+          });
 
 
-      products.push(newProduct);
+        if (productIndex !== -1) {
 
+          products[productIndex].name =
+            productName;
+
+          products[productIndex].category =
+            productCategory;
+
+          products[productIndex].unit =
+            productUnit;
+
+          products[productIndex].quantity =
+            Number(productQuantity);
+
+          products[productIndex].minimum =
+            Number(productMinimum);
+
+          products[productIndex].batch =
+            productBatch;
+
+          products[productIndex].expiry =
+            productExpiry;
+
+          products[productIndex].cost =
+            productCost
+              ? Number(productCost)
+              : 0;
+
+          products[productIndex].notes =
+            productNotes;
+
+        }
+
+      }
+
+
+      /* =========================================
+         ADD NEW PRODUCT
+      ========================================== */
+
+      else {
+
+        var newProduct = {
+
+          id: Date.now(),
+
+          name: productName,
+
+          category: productCategory,
+
+          unit: productUnit,
+
+          quantity: Number(productQuantity),
+
+          minimum: Number(productMinimum),
+
+          batch: productBatch,
+
+          expiry: productExpiry,
+
+          cost: productCost
+            ? Number(productCost)
+            : 0,
+
+          notes: productNotes
+
+        };
+
+
+        products.push(newProduct);
+
+      }
+
+
+      /* Save products */
 
       saveProducts(products);
 
@@ -1604,6 +1664,11 @@ if (addProductForm) {
       /* Refresh table */
 
       renderProducts();
+
+
+      /* Reset edit mode */
+
+      editingProductId = null;
 
 
       /* Reset form */
@@ -1622,8 +1687,6 @@ if (addProductForm) {
   );
 
 }
-
-
 /* =========================================
    LOAD PRODUCTS WHEN PAGE OPENS
 ========================================== */
