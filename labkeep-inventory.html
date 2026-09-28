@@ -1005,10 +1005,58 @@
 
       function openAddProductModal() {
 
-        addProductModal.classList.add("show");
+  var batchSelect =
+    document.getElementById("productBatch");
+
+  if (batchSelect) {
+
+    var products = getProducts();
+
+    /* Keep the first and last options */
+
+    batchSelect.innerHTML =
+      '<option value="">Select batch</option>' +
+      '<option value="New Batch">+ Add New Batch</option>';
+
+
+    /* Get unique existing batches */
+
+    var batches = [];
+
+    products.forEach(function (product) {
+
+      if (
+        product.batch &&
+        !batches.includes(product.batch)
+      ) {
+
+        batches.push(product.batch);
 
       }
 
+    });
+
+
+    /* Add existing batches to dropdown */
+
+    batches.forEach(function (batch) {
+
+      var option =
+        document.createElement("option");
+
+      option.value = batch;
+
+      option.textContent = batch;
+
+      batchSelect.appendChild(option);
+
+    });
+
+  }
+
+
+  addProductModal.classList.add("show");
+}
 
       function closeAddProductModalWindow() {
 
