@@ -1164,6 +1164,212 @@
         }
       );
 
+      /* =========================================
+   PRODUCT STORAGE & DISPLAY
+========================================== */
+
+var productsStorageKey = "labkeepInventoryProducts";
+
+function getProducts() {
+  try {
+    return JSON.parse(localStorage.getItem(productsStorageKey)) || [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveProducts(products) {
+  localStorage.setItem(productsStorageKey, JSON.stringify(products));
+}
+
+function getProductStatus(quantity, minimum) {
+  quantity = Number(quantity);
+  minimum = Number(minimum);
+
+  if (quantity <= 0) {
+    return {
+      text: "Out of Stock",
+      className: "status-low"
+    };
+  }
+
+  if (quantity <= minimum) {
+    return {
+      text: "Low Stock",
+      className: "status-low"
+    };
+  }
+
+  return {
+    text: "In Stock",
+    className: "status-ok"
+  };
+}
+
+function renderProducts() {
+  var products = getProducts();
+  var productsTableBody = document.getElementById("productsTableBody");
+  var emptyProductsRow = document.getElementById("emptyProductsRow");
+  var productCount = document.getElementById("productCount");
+
+  if (!productsTableBody) return;
+
+  /* Remove previously generated product rows */
+  productsTableBody
+    .querySelectorAll(".product-data-row")
+    .forEach(function (row) {
+      row.remove();
+    });
+
+  /* Update product count */
+  if (productCount) {
+    productCount.textContent =
+      products.length === 1
+        ? "1 product"
+        : products.length + " products";
+  }
+
+  /* Show empty state if there are no products */
+  if (products.length === 0) {
+    if (emptyProductsRow) {
+      emptyProductsRow.style.display = "";
+    }
+    return;
+  }
+
+  /* Hide empty state */
+  if (emptyProductsRow) {
+    emptyProductsRow.style.display = "none";
+  }
+
+  /* Add products to table */
+  products.forEach(function (product) {
+    var row = document.createElement("tr");
+    row.className = "product-data-row";
+
+    var status = getProductStatus(
+      product.quantity,
+      product.minimum
+    );
+
+    row.innerHTML = `
+      <td>
+        <strong style="color:#0b1f5c;">
+          ${product.name}
+        </strong>
+      </td>
+
+      <td>${product.category}</td>
+
+      <td>
+        ${product.quantity} ${product.unit}
+      </td>
+
+      <td>
+        ${product.minimum} ${product.unit}
+      </td>
+
+      <td>${product.unit}</td>
+
+      <td>
+        <span class="${status.className}">
+          ${status.text}
+        </span>
+      </td>
+    `;
+
+    productsTableBody.appendChild(row);
+  });
+}
+
+
+/* =========================================
+   SAVE PRODUCT
+========================================== */
+
+if (addProductForm) {
+  addProductForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    var productName = document.getElementById("productName").value.trim();
+    var productCategory = document.getElementById("productCategory").value;
+    var productUnit = document.getElementById("productUnit").value;
+    var productQuantity = document.getElementById("productQuantity").value;
+    var productMinimum = document.getElementById("productMinimum").value;
+    var productBatch = document.getElementById("productBatch").value;
+    var productExpiry = document.getElementById("productExpiry").value;
+    var productCost = document.getElementById("productCost").value;
+    var productNotes = document.getElementById("productNotes").value.trim();
+
+    /* Basic validation */
+    if (
+      !productName ||
+      !productCategory ||
+      !productUnit ||
+      productQuantity === "" ||
+      productMinimum === "" ||
+      !productBatch ||
+      !productExpiry
+    ) {
+      alert("Please complete all required fields.");
+      return;
+    }
+
+    /* Automatically create a batch number */
+    if (productBatch === "New Batch") {
+      var today = new Date();
+
+      var year = today.getFullYear();
+      var month = String(today.getMonth() + 1).padStart(2, "0");
+      var day = String(today.getDate()).padStart(2, "0");
+
+      productBatch =
+        "B-" +
+        year +
+        month +
+        day +
+        "-" +
+        String(Date.now()).slice(-4);
+    }
+
+    var products = getProducts();
+
+    var newProduct = {
+      id: Date.now(),
+      name: productName,
+      category: productCategory,
+      unit: productUnit,
+      quantity: Number(productQuantity),
+      minimum: Number(productMinimum),
+      batch: productBatch,
+      expiry: productExpiry,
+      cost: productCost ? Number(productCost) : 0,
+      notes: productNotes
+    };
+
+    products.push(newProduct);
+
+    saveProducts(products);
+
+    renderProducts();
+
+    /* Reset form */
+    addProductForm.reset();
+
+    /* Close popup */
+    closeAddProductModalWindow();
+
+    alert("Product saved successfully! 🎉");
+  });
+}
+
+
+/* =========================================
+   LOAD PRODUCTS WHEN PAGE OPENS
+========================================== */
+
+renderProducts();
+
     })();
 
   </script></body>
