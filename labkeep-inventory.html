@@ -1686,6 +1686,57 @@ if (productsTableBody) {
     "click",
     function (event) {
 
+      var editButton =
+  event.target.closest(".product-edit-button");
+
+if (editButton) {
+
+  var productId =
+    Number(editButton.getAttribute("data-product-id"));
+
+  var products = getProducts();
+
+  var product =
+    products.find(function (item) {
+      return item.id === productId;
+    });
+
+  if (!product) {
+    return;
+  }
+
+  document.getElementById("productName").value =
+    product.name;
+
+  document.getElementById("productCategory").value =
+    product.category;
+
+  document.getElementById("productUnit").value =
+    product.unit;
+
+  document.getElementById("productQuantity").value =
+    product.quantity;
+
+  document.getElementById("productMinimum").value =
+    product.minimum;
+
+  document.getElementById("productBatch").value =
+    product.batch;
+
+  document.getElementById("productExpiry").value =
+    product.expiry;
+
+  document.getElementById("productCost").value =
+    product.cost || "";
+
+  document.getElementById("productNotes").value =
+    product.notes || "";
+
+  addProductModal.classList.add("show");
+
+  return;
+}
+
       var deleteButton =
         event.target.closest(".product-delete-button");
 
