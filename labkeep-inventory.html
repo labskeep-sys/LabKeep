@@ -329,22 +329,23 @@
       <table class="stock-table products-table">
 
         <thead>
-          <tr>
-            <th style="min-width:180px;">Product</th>
-<th style="min-width:160px;">Category</th>
-<th style="min-width:130px;">Current Stock</th>
-<th style="min-width:120px;">Min. Stock</th>
-<th style="min-width:90px;">Unit</th>
-<th style="min-width:100px;">Status</th>
-          </tr>
-        </thead>
+  <tr>
+    <th style="min-width:180px;">Product</th>
+    <th style="min-width:160px;">Category</th>
+    <th style="min-width:130px;">Current Stock</th>
+    <th style="min-width:120px;">Min. Stock</th>
+    <th style="min-width:90px;">Unit</th>
+    <th style="min-width:140px;">Batch</th>
+    <th style="min-width:100px;">Status</th>
+  </tr>
+</thead>
+        
 
         <tbody id="productsTableBody">
 
           <tr id="emptyProductsRow">
 
-            <td colspan="6" style="text-align:center; padding:50px 20px;">
-
+            <td colspan="7" style="text-align:center; padding:50px 20px;">
               <div style="font-size:16px; font-weight:700; color:#0b1f5c; margin-bottom:8px;">
                 No products yet
               </div>
@@ -1270,6 +1271,12 @@ function renderProducts() {
       </td>
 
       <td>${product.unit}</td>
+
+      <td>
+ <strong style="color:#0b1f5c;">
+    ${product.batch}
+  </strong>
+</td>
 
       <td>
         <span class="${status.className}">
