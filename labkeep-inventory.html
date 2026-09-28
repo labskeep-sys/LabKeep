@@ -1813,11 +1813,23 @@ if (editButton) {
       return item.id === productId;
     });
 
-  editingProductId = productId;
-  
   if (!product) {
     return;
   }
+
+  editingProductId = productId;
+
+
+  /* =========================================
+     OPEN EDIT FORM
+  ========================================== */
+
+  openAddProductModal();
+
+
+  /* =========================================
+     FILL PRODUCT INFORMATION
+  ========================================== */
 
   document.getElementById("productName").value =
     product.name;
@@ -1834,8 +1846,12 @@ if (editButton) {
   document.getElementById("productMinimum").value =
     product.minimum;
 
+
+  /* Select the existing batch */
+
   document.getElementById("productBatch").value =
     product.batch;
+
 
   document.getElementById("productExpiry").value =
     product.expiry;
@@ -1846,7 +1862,6 @@ if (editButton) {
   document.getElementById("productNotes").value =
     product.notes || "";
 
-  addProductModal.classList.add("show");
 
   return;
 }
