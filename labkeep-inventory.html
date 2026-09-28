@@ -1304,6 +1304,30 @@ function saveProducts(products) {
   localStorage.setItem(productsStorageKey, JSON.stringify(products));
 }
 
+      function findExistingProduct(
+  products,
+  productName,
+  productCategory,
+  productUnit
+) {
+
+  return products.find(function (product) {
+
+    return (
+      product.name.trim().toLowerCase() ===
+        productName.trim().toLowerCase() &&
+
+      product.category ===
+        productCategory &&
+
+      product.unit ===
+        productUnit
+    );
+
+  });
+
+}
+      
 function getProductStatus(quantity, minimum) {
   quantity = Number(quantity);
   minimum = Number(minimum);
