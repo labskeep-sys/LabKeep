@@ -21,8 +21,8 @@
 
   .products-table th:last-child,
   .products-table td:last-child {
-    min-width: 130px;
-    width: 130px;
+    min-width: 160px;
+    width: 160px;
     text-align: left;
     position: relative;
     z-index: 2;
@@ -335,8 +335,8 @@
     <th style="min-width:130px;">Current Stock</th>
     <th style="min-width:120px;">Min. Stock</th>
     <th style="min-width:90px;">Unit</th>
-    <th style="min-width:140px;">Batch</th>
     <th style="min-width:100px;">Status</th>
+    <th style="min-width:140px;">Batch</th>
   </tr>
 </thead>
         
@@ -1273,16 +1273,16 @@ function renderProducts() {
       <td>${product.unit}</td>
 
       <td>
- <strong style="color:#0b1f5c;">
-    ${product.batch}
-  </strong>
-</td>
-
-      <td>
         <span class="${status.className}">
           ${status.text}
         </span>
       </td>
+
+       <td>
+ <strong style="color:#0b1f5c;">
+    ${product.batch}
+  </strong>
+</td>
     `;
 
     productsTableBody.appendChild(row);
