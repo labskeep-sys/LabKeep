@@ -1702,6 +1702,8 @@ if (editButton) {
       return item.id === productId;
     });
 
+  editingProductId = productId;
+  
   if (!product) {
     return;
   }
