@@ -1253,24 +1253,37 @@ function renderProducts() {
 
   /* Update product count */
   if (productCount) {
+  if (filteredProducts.length === products.length) {
     productCount.textContent =
       products.length === 1
         ? "1 product"
         : products.length + " products";
+  } else {
+    productCount.textContent =
+      filteredProducts.length +
+      " of " +
+      products.length +
+      " products";
   }
+}
 
   /* Show empty state if there are no products */
-  if (products.length === 0) {
-    if (emptyProductsRow) {
-      emptyProductsRow.style.display = "";
-    }
-    return;
+  if (filteredProducts.length === 0) {
+  if (emptyProductsRow) {
+    emptyProductsRow.style.display = "";
   }
 
-  /* Hide empty state */
-  if (emptyProductsRow) {
-    emptyProductsRow.style.display = "none";
-  }
+  return;
+}
+
+/* Hide empty state */
+if (emptyProductsRow) {
+  emptyProductsRow.style.display = "none";
+}
+
+/* Add filtered products to table */
+filteredProducts.forEach(function (product) {
+  
 
   /* Add products to table */
   products.forEach(function (product) {
@@ -1370,6 +1383,30 @@ if (addProductForm) {
 
     var products = getProducts();
 
+    var searchInput = document.getElementById("productSearch");
+var categoryFilter = document.getElementById("productCategoryFilter");
+
+var searchTerm = searchInput
+  ? searchInput.value.trim().toLowerCase()
+  : "";
+
+var selectedCategory = categoryFilter
+  ? categoryFilter.value
+  : "";
+
+var filteredProducts = products.filter(function (product) {
+  var matchesSearch =
+    !searchTerm ||
+    product.name.toLowerCase().includes(searchTerm) ||
+    product.category.toLowerCase().includes(searchTerm);
+
+  var matchesCategory =
+    !selectedCategory ||
+    product.category === selectedCategory;
+
+  return matchesSearch && matchesCategory;
+});
+
     var newProduct = {
       id: Date.now(),
       name: productName,
@@ -1405,6 +1442,21 @@ if (addProductForm) {
 ========================================== */
 
 renderProducts();
+
+  var productSearch = document.getElementById("productSearch");
+var productCategoryFilter = document.getElementById("productCategoryFilter");
+
+if (productSearch) {
+  productSearch.addEventListener("input", function () {
+    renderProducts();
+  });
+}
+
+if (productCategoryFilter) {
+  productCategoryFilter.addEventListener("change", function () {
+    renderProducts();
+  });
+}
 
     })();
 
