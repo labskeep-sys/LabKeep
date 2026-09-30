@@ -1041,20 +1041,20 @@ var dashboardContent =
              */
 
             document
-              .querySelectorAll(".dashboard-main > section")
-              .forEach(function (section) {
+  .querySelectorAll(".dashboard-main > section, .dashboard-main > div")
+  .forEach(function (element) {
 
-                if (section.id === "productsSection") {
+    if (element.id === "productsSection") {
 
-                  section.style.display = "block";
+      element.style.display = "block";
 
-                } else {
+    } else {
 
-                  section.style.display = "none";
+      element.style.display = "none";
 
-                }
+    }
 
-              });
+  });
 
             /*
              * Make Products active
