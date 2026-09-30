@@ -1977,9 +1977,17 @@ if (editButton) {
   document.getElementById("productUnit").value =
     product.unit;
 
+  if (product.batches && product.batches.length > 0) {
+
+  document.getElementById("productQuantity").value =
+    product.batches[0].quantity;
+
+} else {
+
   document.getElementById("productQuantity").value =
     product.quantity;
 
+}
   document.getElementById("productMinimum").value =
     product.minimum;
 
