@@ -1152,20 +1152,30 @@ var dashboardContent =
 
     var products = getProducts();
 
-    /* Keep the first and last options */
-
     batchSelect.innerHTML =
       '<option value="">Select batch</option>' +
       '<option value="New Batch">+ Add New Batch</option>';
-
-
-    /* Get unique existing batches */
 
     var batches = [];
 
     products.forEach(function (product) {
 
-      if (
+      if (product.batches && product.batches.length > 0) {
+
+        product.batches.forEach(function (batch) {
+
+          if (
+            batch.batch &&
+            !batches.includes(batch.batch)
+          ) {
+            batches.push(batch.batch);
+          }
+
+        });
+
+      }
+
+      else if (
         product.batch &&
         !batches.includes(product.batch)
       ) {
@@ -1176,16 +1186,12 @@ var dashboardContent =
 
     });
 
-
-    /* Add existing batches to dropdown */
-
     batches.forEach(function (batch) {
 
       var option =
         document.createElement("option");
 
       option.value = batch;
-
       option.textContent = batch;
 
       batchSelect.appendChild(option);
@@ -1194,15 +1200,17 @@ var dashboardContent =
 
   }
 
+  addProductModal.style.removeProperty("display");
 
   addProductModal.classList.add("show");
 }
-
+      
       function closeAddProductModalWindow() {
-
-        addProductModal.classList.remove("show");
-
-      }
+        
+  addProductModal.classList.remove("show");
+        
+  addProductModal.style.removeProperty("display");
+}
 
 
       if (addProductButton) {
