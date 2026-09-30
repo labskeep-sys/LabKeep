@@ -1099,21 +1099,20 @@ var dashboardContent =
              */
 
             document
-              .querySelectorAll(".dashboard-main > section")
-              .forEach(function (section) {
+  .querySelectorAll(".dashboard-main > section, .dashboard-main > div")
+  .forEach(function (element) {
 
-                if (section.id === "stockInSection") {
+    if (element.id === "stockInSection") {
 
-                  section.style.display = "block";
+      element.style.display = "block";
 
-                } else {
+    } else {
 
-                  section.style.display = "none";
+      element.style.display = "none";
 
-                }
+    }
 
-              });
-
+  });
             /*
              * Make Stock In active
              */
