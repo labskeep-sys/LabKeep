@@ -2045,6 +2045,45 @@ if (editButton) {
 
   }
 
+
+  /* Change batch details when a different batch is selected */
+
+  editBatchSelect.addEventListener(
+    "change",
+    function () {
+
+      if (!product.batches || product.batches.length === 0) {
+        return;
+      }
+
+      var selectedBatch =
+        product.batches.find(function (batch) {
+
+          return batch.batch ===
+            editBatchSelect.value;
+
+        });
+
+      if (!selectedBatch) {
+        return;
+      }
+
+      document.getElementById("productQuantity").value =
+        selectedBatch.quantity;
+
+      document.getElementById("productExpiry").value =
+        selectedBatch.expiry;
+
+      document.getElementById("productCost").value =
+        selectedBatch.cost || "";
+
+      document.getElementById("productNotes").value =
+        selectedBatch.notes || "";
+
+    }
+  );
+
+
   document.getElementById("productExpiry").value =
     product.expiry;
 
@@ -2057,7 +2096,6 @@ if (editButton) {
 
   return;
 }
-
       var deleteButton =
         event.target.closest(".product-delete-button");
 
