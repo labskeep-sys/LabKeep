@@ -1506,11 +1506,40 @@ function renderProducts() {
       </span>
     </td>
     <td>
-      <strong style="color:#0b1f5c;">
-        ${batchCount}
-        ${batchCount === 1 ? "Batch" : "Batches"}
-      </strong>
-    </td>
+  <strong style="color:#0b1f5c;">
+    ${batchCount}
+    ${batchCount === 1 ? "Batch" : "Batches"}
+  </strong>
+  ${
+    product.batches && product.batches.length > 0
+      ? `
+        <div style="margin-top:8px; font-size:12px; line-height:1.7; color:#5b6472;">
+          ${product.batches.map(function(batch) {
+            return `
+              <div>
+                <strong style="color:#0b1f5c;">
+                  ${batch.batch}
+                </strong>
+                — ${batch.quantity} ${product.unit}
+                — Expires ${batch.expiry}
+              </div>
+            `;
+          }).join("")}
+        </div>
+      `
+      : `
+        <div style="margin-top:8px; font-size:12px; line-height:1.7; color:#5b6472;">
+          <div>
+            <strong style="color:#0b1f5c;">
+              ${product.batch}
+            </strong>
+            — ${product.quantity} ${product.unit}
+            — Expires ${product.expiry}
+          </div>
+        </div>
+      `
+  }
+</td>
     <td>
       <div class="product-action-buttons">
         <button
