@@ -530,15 +530,7 @@
       <!-- Mobile inventory menu --><button type="button" id="mobileSidebarButton" aria-expanded="false" class="mobile-sidebar-button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg><span>
           Inventory Menu
         </span></button>
-      
-<section id="dashboardSection" class="dashboard-section">
-      
-      <!-- Dashboard heading --><section class="dashboard-header"><h2 id="icv3zhr" class="dashboard-title">
-          Dashboard
-        </h2><button type="button" class="lab-selector"><span id="izdikpi">
-            LabKeep Diagnostics Lab
-          </span><svg viewBox="0 0 24 24" fill="none"><path d="M7 9L12 14L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></section>
-      
+
       <!-- =========================================
      ADD PRODUCT POPUP
 ========================================== -->
@@ -832,6 +824,14 @@
 </div>
       
       
+<section id="dashboardSection" class="dashboard-section">
+      
+      <!-- Dashboard heading --><section class="dashboard-header"><h2 id="icv3zhr" class="dashboard-title">
+          Dashboard
+        </h2><button type="button" class="lab-selector"><span id="izdikpi">
+            LabKeep Diagnostics Lab
+          </span><svg viewBox="0 0 24 24" fill="none"><path d="M7 9L12 14L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></section>
+        
       <!-- =========================================
            SUMMARY CARDS
       ========================================== -->
@@ -938,7 +938,11 @@
                   10 Boxes used
                 </div></div><div class="activity-time">
                 Today, 09:15 AM
-              </div></div></div></article></section></main></div>
+              </div></div></div></article>
+      </section>
+     </section>
+    </main>
+  </div>
     <!-- =========================================
        MINIMAL MOBILE JAVASCRIPT
   ========================================== --><script>
@@ -966,8 +970,8 @@
 var stockInSection =
   document.getElementById("stockInSection");
 
-var dashboardContent =
-  document.querySelector(".dashboard-main");
+var dashboardSection =
+  document.getElementById("dashboardSection");
 
       var sidebarLinks =
         document.querySelectorAll(".sidebar-link");
