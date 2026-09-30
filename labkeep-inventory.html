@@ -1026,120 +1026,83 @@ var dashboardContent =
 
       }
 
-      /* Products section */
+     /* Products section */
 
-      if (productsLink) {
+if (productsLink) {
 
-        productsLink.addEventListener(
-          "click",
-          function (event) {
+  productsLink.addEventListener(
+    "click",
+    function (event) {
 
-            event.preventDefault();
+      event.preventDefault();
 
-            /*
-             * Hide all direct sections inside the dashboard
-             * except the Products section.
-             */
+      /* Show Products and hide Stock In */
 
-           document
-  .querySelectorAll(".dashboard-main > section")
-  .forEach(function (section) {
+      if (productsSection) {
+        productsSection.style.display = "block";
+      }
 
-    if (section.id === "productsSection") {
+      if (stockInSection) {
+        stockInSection.style.display = "none";
+      }
 
-      section.style.display = "block";
+      /* Make Products active */
 
-    } else {
+      sidebarLinks.forEach(function (link) {
+        link.classList.remove("active");
+      });
 
-      section.style.display = "none";
+      productsLink.classList.add("active");
+
+      /* Close mobile sidebar */
+
+      if (window.innerWidth <= 768) {
+        closeSidebar();
+      }
 
     }
+  );
 
-  });
-
-            /*
-             * Make Products active
-             */
-
-            sidebarLinks.forEach(function (link) {
-
-              link.classList.remove("active");
-
-            });
-
-            productsLink.classList.add("active");
-
-            /*
-             * Close mobile sidebar
-             */
-
-            if (window.innerWidth <= 768) {
-
-              closeSidebar();
-
-            }
-
-          }
-        );
-
-      }
+}
 
       /* Stock In section */
 
-      if (stockInLink) {
+if (stockInLink) {
 
-        stockInLink.addEventListener(
-          "click",
-          function (event) {
+  stockInLink.addEventListener(
+    "click",
+    function (event) {
 
-            event.preventDefault();
+      event.preventDefault();
 
-            /*
-             * Hide all direct sections inside the dashboard
-             * except the Stock In section.
-             */
+      /* Show Stock In and hide Products */
 
-           document
-  .querySelectorAll(".dashboard-main > section")
-  .forEach(function (section) {
+      if (stockInSection) {
+        stockInSection.style.display = "block";
+      }
 
-    if (section.id === "stockInSection") {
+      if (productsSection) {
+        productsSection.style.display = "none";
+      }
 
-      section.style.display = "block";
+      /* Make Stock In active */
 
-    } else {
+      sidebarLinks.forEach(function (link) {
+        link.classList.remove("active");
+      });
 
-      section.style.display = "none";
+      stockInLink.classList.add("active");
+
+      /* Close mobile sidebar */
+
+      if (window.innerWidth <= 768) {
+        closeSidebar();
+      }
 
     }
+  );
 
-  });
-            /*
-             * Make Stock In active
-             */
-
-            sidebarLinks.forEach(function (link) {
-
-              link.classList.remove("active");
-
-            });
-
-            stockInLink.classList.add("active");
-
-            /*
-             * Close mobile sidebar
-             */
-
-            if (window.innerWidth <= 768) {
-
-              closeSidebar();
-
-            }
-
-          }
-        );
-
-      }
+}
 
       /* Add Product popup */
 
@@ -1272,54 +1235,50 @@ var dashboardContent =
 
       
 
-      /* Dashboard section */
+     /* Dashboard section */
 
-      var dashboardLink =
-        document.querySelector('[data-section="dashboard"]');
+var dashboardLink =
+  document.querySelector('[data-section="dashboard"]');
 
-      if (dashboardLink) {
+if (dashboardLink) {
 
-        dashboardLink.addEventListener(
-          "click",
-          function (event) {
+  dashboardLink.addEventListener(
+    "click",
+    function (event) {
 
-            event.preventDefault();
+      event.preventDefault();
 
-            document
-              .querySelectorAll(".dashboard-main > section")
-              .forEach(function (section) {
+      /*
+       * Dashboard is the original static dashboard.
+       * Hide Products and Stock In when returning to Dashboard.
+       */
 
-                if (section.id === "productsSection") {
-
-                  section.style.display = "none";
-
-                } else {
-
-                  section.style.display = "";
-
-                }
-
-              });
-
-            sidebarLinks.forEach(function (link) {
-
-              link.classList.remove("active");
-
-            });
-
-            dashboardLink.classList.add("active");
-
-            if (window.innerWidth <= 768) {
-
-              closeSidebar();
-
-            }
-
-          }
-        );
-
+      if (productsSection) {
+        productsSection.style.display = "none";
       }
 
+      if (stockInSection) {
+        stockInSection.style.display = "none";
+      }
+
+      /* Make Dashboard active */
+
+      sidebarLinks.forEach(function (link) {
+        link.classList.remove("active");
+      });
+
+      dashboardLink.classList.add("active");
+
+      /* Close mobile sidebar */
+
+      if (window.innerWidth <= 768) {
+        closeSidebar();
+      }
+
+    }
+  );
+
+}
 
       /* Mobile top navigation */
 
