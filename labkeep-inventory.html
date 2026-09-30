@@ -1041,9 +1041,9 @@ var dashboardContent =
              * except the Products section.
              */
 
-            document
-  .querySelectorAll(".dashboard-main > section, .dashboard-main > div")
-  .forEach(function (element) {
+           document
+  .querySelectorAll(".dashboard-main > section")
+  .forEach(function (section) {
 
     if (element.id === "productsSection") {
 
@@ -1100,9 +1100,9 @@ var dashboardContent =
              */
 
             document
-  .querySelectorAll(".dashboard-main > section, .dashboard-main > div")
-  .forEach(function (element) {
-
+  .querySelectorAll(".dashboard-main > section")
+  .forEach(function (section) {
+    
     if (element.id === "stockInSection") {
 
       element.style.display = "block";
