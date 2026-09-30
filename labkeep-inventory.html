@@ -882,16 +882,22 @@
         document.getElementById("sidebarOverlay");
 
       var productsSection =
-        document.getElementById("productsSection");
+  document.getElementById("productsSection");
 
-      var dashboardContent =
-        document.querySelector(".dashboard-main");
+var stockInSection =
+  document.getElementById("stockInSection");
+
+var dashboardContent =
+  document.querySelector(".dashboard-main");
 
       var sidebarLinks =
         document.querySelectorAll(".sidebar-link");
 
       var productsLink =
         document.querySelector('[data-section="products"]');
+
+      var stockInLink =
+  document.querySelector('[data-section="stock-in"]');
 
       var addProductModal =
         document.getElementById("addProductModal");
@@ -987,6 +993,64 @@
             });
 
             productsLink.classList.add("active");
+
+            /*
+             * Close mobile sidebar
+             */
+
+            if (window.innerWidth <= 768) {
+
+              closeSidebar();
+
+            }
+
+          }
+        );
+
+      }
+
+      /* Stock In section */
+
+      if (stockInLink) {
+
+        stockInLink.addEventListener(
+          "click",
+          function (event) {
+
+            event.preventDefault();
+
+            /*
+             * Hide all direct sections inside the dashboard
+             * except the Stock In section.
+             */
+
+            document
+              .querySelectorAll(".dashboard-main > section")
+              .forEach(function (section) {
+
+                if (section.id === "stockInSection") {
+
+                  section.style.display = "block";
+
+                } else {
+
+                  section.style.display = "none";
+
+                }
+
+              });
+
+            /*
+             * Make Stock In active
+             */
+
+            sidebarLinks.forEach(function (link) {
+
+              link.classList.remove("active");
+
+            });
+
+            stockInLink.classList.add("active");
 
             /*
              * Close mobile sidebar
