@@ -1984,11 +1984,66 @@ if (editButton) {
     product.minimum;
 
 
-  /* Select the existing batch */
+  /* =========================================
+     LOAD PRODUCT BATCHES INTO EDIT DROPDOWN
+  ========================================== */
 
-  document.getElementById("productBatch").value =
-    product.batch;
+  var editBatchSelect =
+    document.getElementById("productBatch");
 
+  if (editBatchSelect) {
+
+    editBatchSelect.innerHTML =
+      '<option value="">Select batch</option>' +
+      '<option value="New Batch">+ Add New Batch</option>';
+
+    /* =========================================
+       PRODUCTS WITH MULTIPLE BATCHES
+    ========================================== */
+
+    if (product.batches && product.batches.length > 0) {
+
+      product.batches.forEach(function (batch) {
+
+        var option =
+          document.createElement("option");
+
+        option.value = batch.batch;
+
+        option.textContent = batch.batch;
+
+        editBatchSelect.appendChild(option);
+
+      });
+
+      /* Select the first/current batch */
+
+      editBatchSelect.value =
+        product.batches[0].batch;
+
+    }
+
+    /* =========================================
+       OLD SINGLE-BATCH PRODUCTS
+    ========================================== */
+
+    else if (product.batch) {
+
+      var option =
+        document.createElement("option");
+
+      option.value = product.batch;
+
+      option.textContent = product.batch;
+
+      editBatchSelect.appendChild(option);
+
+      editBatchSelect.value =
+        product.batch;
+
+    }
+
+  }
 
   document.getElementById("productExpiry").value =
     product.expiry;
