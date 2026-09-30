@@ -1045,13 +1045,13 @@ var dashboardContent =
   .querySelectorAll(".dashboard-main > section")
   .forEach(function (section) {
 
-    if (element.id === "productsSection") {
+    if (section.id === "productsSection") {
 
-      element.style.display = "block";
+      section.style.display = "block";
 
     } else {
 
-      element.style.display = "none";
+      section.style.display = "none";
 
     }
 
@@ -1099,17 +1099,17 @@ var dashboardContent =
              * except the Stock In section.
              */
 
-            document
+           document
   .querySelectorAll(".dashboard-main > section")
   .forEach(function (section) {
-    
-    if (element.id === "stockInSection") {
 
-      element.style.display = "block";
+    if (section.id === "stockInSection") {
+
+      section.style.display = "block";
 
     } else {
 
-      element.style.display = "none";
+      section.style.display = "none";
 
     }
 
