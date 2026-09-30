@@ -1663,49 +1663,137 @@ if (addProductForm) {
 
       if (editingProductId !== null) {
 
-        var productIndex =
-          products.findIndex(function (product) {
+  var productIndex =
+    products.findIndex(function (product) {
 
-            return product.id === editingProductId;
+      return product.id === editingProductId;
 
-          });
+    });
 
 
-        if (productIndex !== -1) {
+  if (productIndex !== -1) {
 
-          products[productIndex].name =
-            productName;
+    var productToEdit =
+      products[productIndex];
 
-          products[productIndex].category =
-            productCategory;
 
-          products[productIndex].unit =
-            productUnit;
+    /* =========================================
+       UPDATE GENERAL PRODUCT INFORMATION
+    ========================================== */
 
-          products[productIndex].quantity =
-            Number(productQuantity);
+    productToEdit.name =
+      productName;
 
-          products[productIndex].minimum =
-            Number(productMinimum);
+    productToEdit.category =
+      productCategory;
 
-          products[productIndex].batch =
-            productBatch;
+    productToEdit.unit =
+      productUnit;
 
-          products[productIndex].expiry =
-            productExpiry;
+    productToEdit.minimum =
+      Number(productMinimum);
 
-          products[productIndex].cost =
-            productCost
-              ? Number(productCost)
-              : 0;
 
-          products[productIndex].notes =
-            productNotes;
+    /* =========================================
+       UPDATE SELECTED BATCH
+    ========================================== */
 
-        }
+    if (
+      productToEdit.batches &&
+      productToEdit.batches.length > 0
+    ) {
+
+      var selectedBatch =
+        productToEdit.batches.find(
+          function (batch) {
+
+            return batch.batch ===
+              productBatch;
+
+          }
+        );
+
+
+      if (selectedBatch) {
+
+        selectedBatch.quantity =
+          Number(productQuantity);
+
+        selectedBatch.expiry =
+          productExpiry;
+
+        selectedBatch.cost =
+          productCost
+            ? Number(productCost)
+            : 0;
+
+        selectedBatch.notes =
+          productNotes;
 
       }
 
+
+      /* =========================================
+         RECALCULATE TOTAL PRODUCT QUANTITY
+      ========================================== */
+
+      productToEdit.quantity =
+        productToEdit.batches.reduce(
+          function (total, batch) {
+
+            return total +
+              Number(batch.quantity);
+
+          },
+          0
+        );
+
+
+      /* Keep the main batch field aligned */
+
+      productToEdit.batch =
+        productToEdit.batches[0].batch;
+
+      productToEdit.expiry =
+        productToEdit.batches[0].expiry;
+
+      productToEdit.cost =
+        productToEdit.batches[0].cost;
+
+      productToEdit.notes =
+        productToEdit.batches[0].notes;
+
+    }
+
+
+    /* =========================================
+       OLD SINGLE-BATCH PRODUCTS
+    ========================================== */
+
+    else {
+
+      productToEdit.quantity =
+        Number(productQuantity);
+
+      productToEdit.batch =
+        productBatch;
+
+      productToEdit.expiry =
+        productExpiry;
+
+      productToEdit.cost =
+        productCost
+          ? Number(productCost)
+          : 0;
+
+      productToEdit.notes =
+        productNotes;
+
+    }
+
+  }
+
+}
 
       /* =========================================
          ADD NEW PRODUCT
