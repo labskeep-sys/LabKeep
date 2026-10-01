@@ -1260,7 +1260,7 @@ if (stockInLink) {
 
       
 
-     /* Dashboard section */
+    /* Dashboard section */
 
 var dashboardLink =
   document.querySelector('[data-section="dashboard"]');
@@ -1273,14 +1273,19 @@ if (dashboardLink) {
 
       event.preventDefault();
 
-      /*
-       * Dashboard is the original static dashboard.
-       * Hide Products and Stock In when returning to Dashboard.
-       */
+      /* Show Dashboard */
+
+      if (dashboardSection) {
+        dashboardSection.style.display = "";
+      }
+
+      /* Hide Products */
 
       if (productsSection) {
         productsSection.style.display = "none";
       }
+
+      /* Hide Stock In */
 
       if (stockInSection) {
         stockInSection.style.display = "none";
