@@ -1036,6 +1036,8 @@ var dashboardSection =
 
      /* Products section */
 
+/* Products section */
+
 if (productsLink) {
 
   productsLink.addEventListener(
@@ -1044,14 +1046,22 @@ if (productsLink) {
 
       event.preventDefault();
 
-      /* Show Products and hide Stock In */
+      /* Show Products */
 
       if (productsSection) {
         productsSection.style.display = "block";
       }
 
+      /* Hide Stock In */
+
       if (stockInSection) {
         stockInSection.style.display = "none";
+      }
+
+      /* Hide Dashboard */
+
+      if (dashboardSection) {
+        dashboardSection.style.display = "none";
       }
 
       /* Make Products active */
@@ -1073,7 +1083,7 @@ if (productsLink) {
 
 }
 
-      /* Stock In section */
+/* Stock In section */
 
 if (stockInLink) {
 
@@ -1083,14 +1093,22 @@ if (stockInLink) {
 
       event.preventDefault();
 
-      /* Show Stock In and hide Products */
+      /* Show Stock In */
 
       if (stockInSection) {
         stockInSection.style.display = "block";
       }
 
+      /* Hide Products */
+
       if (productsSection) {
         productsSection.style.display = "none";
+      }
+
+      /* Hide Dashboard */
+
+      if (dashboardSection) {
+        dashboardSection.style.display = "none";
       }
 
       /* Make Stock In active */
@@ -1111,7 +1129,6 @@ if (stockInLink) {
   );
 
 }
-
       /* Add Product popup */
 
       function openAddProductModal() {
