@@ -822,6 +822,161 @@
   </div>
 
 </div>
+
+      <!-- =========================================
+     STOCK IN MODAL
+========================================== -->
+
+<div id="stockInModal" class="inventory-modal">
+
+  <div class="inventory-modal-content">
+
+    <div class="inventory-modal-header">
+
+      <div>
+        <h3>Record Stock In</h3>
+
+        <p>
+          Add newly received stock to your laboratory inventory.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        id="closeStockInModal"
+        class="inventory-modal-close"
+      >
+        &times;
+      </button>
+
+    </div>
+
+
+    <form id="stockInForm">
+
+      <!-- PRODUCT -->
+
+      <div class="form-group">
+
+        <label for="stockInProduct">
+          Product
+        </label>
+
+        <select
+          id="stockInProduct"
+          required
+        >
+
+          <option value="">
+            Select product
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- BATCH -->
+
+      <div class="form-group">
+
+        <label for="stockInBatch">
+          Batch
+        </label>
+
+        <select
+          id="stockInBatch"
+          required
+        >
+
+          <option value="">
+            Select batch
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- QUANTITY -->
+
+      <div class="form-group">
+
+        <label for="stockInQuantity">
+          Quantity Received
+        </label>
+
+        <input
+          type="number"
+          id="stockInQuantity"
+          min="1"
+          step="any"
+          placeholder="Enter quantity received"
+          required
+        >
+
+      </div>
+
+
+      <!-- EXPIRY -->
+
+      <div class="form-group">
+
+        <label for="stockInExpiry">
+          Expiry Date
+        </label>
+
+        <input
+          type="date"
+          id="stockInExpiry"
+        >
+
+      </div>
+
+
+      <!-- NOTES -->
+
+      <div class="form-group">
+
+        <label for="stockInNotes">
+          Notes
+        </label>
+
+        <textarea
+          id="stockInNotes"
+          rows="3"
+          placeholder="Optional notes about this stock received"
+        ></textarea>
+
+      </div>
+
+
+      <!-- BUTTONS -->
+
+      <div class="inventory-modal-actions">
+
+        <button
+          type="button"
+          id="cancelStockInButton"
+          class="cancel-button"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="save-button"
+        >
+          Save Stock In
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
       
       
 <section id="dashboardSection" class="dashboard-section">
@@ -2365,5 +2520,86 @@ if (editButton) {
 }
     })();
 
-  </script></body>
+  </script>
+  
+  <script>
+/* =========================================
+   STOCK IN MODAL CONTROLS
+========================================== */
+
+var stockInModal =
+  document.getElementById("stockInModal");
+
+var openStockInButton =
+  document.getElementById("openStockInButton");
+
+var emptyStockInButton =
+  document.getElementById("emptyStockInButton");
+
+var closeStockInModal =
+  document.getElementById("closeStockInModal");
+
+var cancelStockInButton =
+  document.getElementById("cancelStockInButton");
+
+
+function openStockInModal() {
+
+  if (stockInModal) {
+    stockInModal.classList.add("active");
+  }
+
+}
+
+
+function closeStockInModalFunction() {
+
+  if (stockInModal) {
+    stockInModal.classList.remove("active");
+  }
+
+}
+
+
+if (openStockInButton) {
+
+  openStockInButton.addEventListener(
+    "click",
+    openStockInModal
+  );
+
+}
+
+
+if (emptyStockInButton) {
+
+  emptyStockInButton.addEventListener(
+    "click",
+    openStockInModal
+  );
+
+}
+
+
+if (closeStockInModal) {
+
+  closeStockInModal.addEventListener(
+    "click",
+    closeStockInModalFunction
+  );
+
+}
+
+
+if (cancelStockInButton) {
+
+  cancelStockInButton.addEventListener(
+    "click",
+    closeStockInModalFunction
+  );
+
+}
+</script>
+  
+  </body>
 </html>
