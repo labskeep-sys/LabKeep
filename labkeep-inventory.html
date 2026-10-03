@@ -2524,84 +2524,753 @@ if (editButton) {
 
   </script>
   
-  <script>
+ <script>
 /* =========================================
-   STOCK IN MODAL CONTROLS
-========================================== */
+   LABKEEP STOCK IN SYSTEM
+   Connected to Existing Products Inventory
+   ========================================= */
 
-var stockInModal =
-  document.getElementById("stockInModal");
+(function () {
 
-var openStockInButton =
-  document.getElementById("openStockInButton");
+  var stockInModal =
+    document.getElementById("stockInModal");
 
-var emptyStockInButton =
-  document.getElementById("emptyStockInButton");
+  var openStockInButton =
+    document.getElementById("openStockInButton");
 
-var closeStockInModal =
-  document.getElementById("closeStockInModal");
+  var emptyStockInButton =
+    document.getElementById("emptyStockInButton");
 
-var cancelStockInButton =
-  document.getElementById("cancelStockInButton");
+  var closeStockInModalButton =
+    document.getElementById("closeStockInModal");
+
+  var cancelStockInButton =
+    document.getElementById("cancelStockInButton");
+
+  var stockInForm =
+    document.getElementById("stockInForm");
+
+  var stockInProduct =
+    document.getElementById("stockInProduct");
+
+  var stockInBatch =
+    document.getElementById("stockInBatch");
+
+  var stockInQuantity =
+    document.getElementById("stockInQuantity");
+
+  var stockInExpiry =
+    document.getElementById("stockInExpiry");
+
+  var stockInNotes =
+    document.getElementById("stockInNotes");
 
 
-function openStockInModal() {
+  /* -----------------------------------------
+     STORAGE KEYS
+  ----------------------------------------- */
 
-  if (stockInModal) {
-    stockInModal.classList.add("active");
+  var productsStorageKey =
+    "labkeepInventoryProducts";
+
+  var stockInStorageKey =
+    "labkeepStockInRecords";
+
+
+  /* -----------------------------------------
+     GET PRODUCTS
+  ----------------------------------------- */
+
+  function getStockInProducts() {
+
+    try {
+
+      return JSON.parse(
+        localStorage.getItem(productsStorageKey)
+      ) || [];
+
+    } catch (error) {
+
+      return [];
+
+    }
+
   }
 
-}
 
+  /* -----------------------------------------
+     SAVE PRODUCTS
+  ----------------------------------------- */
 
-function closeStockInModalFunction() {
+  function saveStockInProducts(products) {
 
-  if (stockInModal) {
-    stockInModal.classList.remove("active");
+    localStorage.setItem(
+      productsStorageKey,
+      JSON.stringify(products)
+    );
+
   }
 
-}
+
+  /* -----------------------------------------
+     GET STOCK IN RECORDS
+  ----------------------------------------- */
+
+  function getStockInRecords() {
+
+    try {
+
+      return JSON.parse(
+        localStorage.getItem(stockInStorageKey)
+      ) || [];
+
+    } catch (error) {
+
+      return [];
+
+    }
+
+  }
 
 
-if (openStockInButton) {
+  /* -----------------------------------------
+     SAVE STOCK IN RECORDS
+  ----------------------------------------- */
 
-  openStockInButton.addEventListener(
-    "click",
-    openStockInModal
-  );
+  function saveStockInRecords(records) {
 
-}
+    localStorage.setItem(
+      stockInStorageKey,
+      JSON.stringify(records)
+    );
 
-
-if (emptyStockInButton) {
-
-  emptyStockInButton.addEventListener(
-    "click",
-    openStockInModal
-  );
-
-}
+  }
 
 
-if (closeStockInModal) {
+  /* -----------------------------------------
+     GENERATE NEW BATCH NUMBER
+  ----------------------------------------- */
 
-  closeStockInModal.addEventListener(
-    "click",
-    closeStockInModalFunction
-  );
+  function generateStockInBatchNumber() {
 
-}
+    var today =
+      new Date();
+
+    var year =
+      today.getFullYear();
+
+    var month =
+      String(today.getMonth() + 1).padStart(2, "0");
+
+    var day =
+      String(today.getDate()).padStart(2, "0");
+
+    var randomNumber =
+      String(Date.now()).slice(-4);
+
+    return "B-" +
+      year +
+      month +
+      day +
+      "-" +
+      randomNumber;
+
+  }
 
 
-if (cancelStockInButton) {
+  /* -----------------------------------------
+     OPEN STOCK IN MODAL
+  ----------------------------------------- */
 
-  cancelStockInButton.addEventListener(
-    "click",
-    closeStockInModalFunction
-  );
+  function openStockInPopup() {
 
-}
+    if (!stockInModal) {
+      return;
+    }
+
+    populateStockInProducts();
+
+    stockInModal.classList.add(
+      "stock-in-open"
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     CLOSE STOCK IN MODAL
+  ----------------------------------------- */
+
+  function closeStockInPopup() {
+
+    if (!stockInModal) {
+      return;
+    }
+
+    stockInModal.classList.remove(
+      "stock-in-open"
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     POPULATE PRODUCT DROPDOWN
+  ----------------------------------------- */
+
+  function populateStockInProducts() {
+
+    if (!stockInProduct) {
+      return;
+    }
+
+    var products =
+      getStockInProducts();
+
+    stockInProduct.innerHTML =
+      '<option value="">Select product</option>';
+
+    products.forEach(function (product) {
+
+      var option =
+        document.createElement("option");
+
+      option.value =
+        product.id;
+
+      option.textContent =
+        product.name;
+
+      stockInProduct.appendChild(option);
+
+    });
+
+    if (stockInBatch) {
+
+      stockInBatch.innerHTML =
+        '<option value="">Select batch</option>';
+
+    }
+
+  }
+
+
+  /* -----------------------------------------
+     POPULATE BATCH DROPDOWN
+  ----------------------------------------- */
+
+  function populateStockInBatches() {
+
+    if (!stockInProduct || !stockInBatch) {
+      return;
+    }
+
+    var products =
+      getStockInProducts();
+
+    var selectedProductId =
+      Number(stockInProduct.value);
+
+    var product =
+      products.find(function (item) {
+
+        return item.id === selectedProductId;
+
+      });
+
+
+    stockInBatch.innerHTML =
+      '<option value="">Select batch</option>';
+
+
+    if (!product) {
+      return;
+    }
+
+
+    /* Existing multi-batch product */
+
+    if (
+      product.batches &&
+      product.batches.length > 0
+    ) {
+
+      product.batches.forEach(function (batch) {
+
+        var option =
+          document.createElement("option");
+
+        option.value =
+          batch.batch;
+
+        option.textContent =
+          batch.batch;
+
+        stockInBatch.appendChild(option);
+
+      });
+
+    }
+
+
+    /* Legacy single-batch product */
+
+    else if (product.batch) {
+
+      var option =
+        document.createElement("option");
+
+      option.value =
+        product.batch;
+
+      option.textContent =
+        product.batch;
+
+      stockInBatch.appendChild(option);
+
+    }
+
+
+    /* Allow new batch */
+
+    var newBatchOption =
+      document.createElement("option");
+
+    newBatchOption.value =
+      "New Batch";
+
+    newBatchOption.textContent =
+      "+ Add New Batch";
+
+    stockInBatch.appendChild(
+      newBatchOption
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     PRODUCT CHANGE
+  ----------------------------------------- */
+
+  if (stockInProduct) {
+
+    stockInProduct.addEventListener(
+      "change",
+      function () {
+
+        populateStockInBatches();
+
+      }
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     OPEN BUTTONS
+  ----------------------------------------- */
+
+  if (openStockInButton) {
+
+    openStockInButton.addEventListener(
+      "click",
+      openStockInPopup
+    );
+
+  }
+
+
+  if (emptyStockInButton) {
+
+    emptyStockInButton.addEventListener(
+      "click",
+      openStockInPopup
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     CLOSE BUTTONS
+  ----------------------------------------- */
+
+  if (closeStockInModalButton) {
+
+    closeStockInModalButton.addEventListener(
+      "click",
+      closeStockInPopup
+    );
+
+  }
+
+
+  if (cancelStockInButton) {
+
+    cancelStockInButton.addEventListener(
+      "click",
+      closeStockInPopup
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     SAVE STOCK IN
+  ----------------------------------------- */
+
+  if (stockInForm) {
+
+    stockInForm.addEventListener(
+      "submit",
+      function (event) {
+
+        event.preventDefault();
+
+
+        var products =
+          getStockInProducts();
+
+
+        var selectedProductId =
+          Number(stockInProduct.value);
+
+
+        var selectedBatch =
+          stockInBatch.value;
+
+
+        var quantityReceived =
+          Number(stockInQuantity.value);
+
+
+        var expiry =
+          stockInExpiry.value;
+
+
+        var notes =
+          stockInNotes.value.trim();
+
+
+        /* Validate product */
+
+        if (!selectedProductId) {
+
+          alert(
+            "Please select a product."
+          );
+
+          return;
+
+        }
+
+
+        /* Validate batch */
+
+        if (!selectedBatch) {
+
+          alert(
+            "Please select a batch."
+          );
+
+          return;
+
+        }
+
+
+        /* Validate quantity */
+
+        if (
+          !quantityReceived ||
+          quantityReceived <= 0
+        ) {
+
+          alert(
+            "Please enter a valid quantity received."
+          );
+
+          return;
+
+        }
+
+
+        /* Find product */
+
+        var product =
+          products.find(function (item) {
+
+            return item.id === selectedProductId;
+
+          });
+
+
+        if (!product) {
+
+          alert(
+            "The selected product could not be found."
+          );
+
+          return;
+
+        }
+
+
+        /* -----------------------------------------
+           MAKE SURE PRODUCT HAS BATCHES
+        ----------------------------------------- */
+
+        if (
+          !product.batches ||
+          product.batches.length === 0
+        ) {
+
+          product.batches = [];
+
+          if (product.batch) {
+
+            product.batches.push({
+
+              batch: product.batch,
+
+              quantity:
+                Number(product.quantity) || 0,
+
+              expiry:
+                product.expiry || "",
+
+              cost:
+                product.cost || "",
+
+              notes:
+                product.notes || ""
+
+            });
+
+          }
+
+        }
+
+
+        /* -----------------------------------------
+           NEW BATCH
+        ----------------------------------------- */
+
+        if (
+          selectedBatch === "New Batch"
+        ) {
+
+          var newBatch =
+            generateStockInBatchNumber();
+
+
+          product.batches.push({
+
+            batch:
+              newBatch,
+
+            quantity:
+              quantityReceived,
+
+            expiry:
+              expiry,
+
+            cost:
+              "",
+
+            notes:
+              notes
+
+          });
+
+
+          selectedBatch =
+            newBatch;
+
+        }
+
+
+        /* -----------------------------------------
+           EXISTING BATCH
+        ----------------------------------------- */
+
+        else {
+
+          var batchToUpdate =
+            product.batches.find(
+              function (batch) {
+
+                return batch.batch ===
+                  selectedBatch;
+
+              }
+            );
+
+
+          if (!batchToUpdate) {
+
+            alert(
+              "The selected batch could not be found."
+            );
+
+            return;
+
+          }
+
+
+          batchToUpdate.quantity =
+            Number(batchToUpdate.quantity || 0) +
+            quantityReceived;
+
+
+          /*
+             Only replace expiry if a new
+             expiry date was entered.
+          */
+
+          if (expiry) {
+
+            batchToUpdate.expiry =
+              expiry;
+
+          }
+
+
+          /*
+             Add notes only when provided.
+          */
+
+          if (notes) {
+
+            batchToUpdate.notes =
+              notes;
+
+          }
+
+        }
+
+
+        /* -----------------------------------------
+           RECALCULATE PRODUCT TOTAL
+        ----------------------------------------- */
+
+        product.quantity =
+          product.batches.reduce(
+            function (total, batch) {
+
+              return total +
+                (Number(batch.quantity) || 0);
+
+            },
+            0
+          );
+
+
+        /* -----------------------------------------
+           KEEP MAIN PRODUCT DATA ALIGNED
+           WITH FIRST BATCH
+        ----------------------------------------- */
+
+        if (
+          product.batches.length > 0
+        ) {
+
+          product.batch =
+            product.batches[0].batch;
+
+          product.expiry =
+            product.batches[0].expiry || "";
+
+          product.cost =
+            product.batches[0].cost || "";
+
+          product.notes =
+            product.batches[0].notes || "";
+
+        }
+
+
+        /* -----------------------------------------
+           SAVE UPDATED PRODUCT INVENTORY
+        ----------------------------------------- */
+
+        saveStockInProducts(
+          products
+        );
+
+
+        /* -----------------------------------------
+           CREATE STOCK IN RECORD
+        ----------------------------------------- */
+
+        var stockInRecords =
+          getStockInRecords();
+
+
+        stockInRecords.push({
+
+          id:
+            Date.now(),
+
+          date:
+            new Date().toISOString(),
+
+          productId:
+            product.id,
+
+          productName:
+            product.name,
+
+          batch:
+            selectedBatch,
+
+          quantity:
+            quantityReceived,
+
+          unit:
+            product.unit,
+
+          expiry:
+            expiry,
+
+          notes:
+            notes
+
+        });
+
+
+        saveStockInRecords(
+          stockInRecords
+        );
+
+
+        /* -----------------------------------------
+           SUCCESS
+        ----------------------------------------- */
+
+        alert(
+          quantityReceived +
+          " " +
+          product.unit +
+          " of " +
+          product.name +
+          " has been added to stock."
+        );
+
+
+        /*
+           Reload so the existing Products
+           section immediately reads the
+           updated inventory.
+        */
+
+        window.location.reload();
+
+      }
+    );
+
+  }
+
+})();
 </script>
-  
   </body>
 </html>
