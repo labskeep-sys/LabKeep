@@ -825,16 +825,17 @@
 
       <!-- =========================================
      STOCK IN MODAL
+     Separate CSS from Add Product Modal
 ========================================== -->
 
-<div id="stockInModal" class="inventory-modal">
+<div id="stockInModal" class="stock-in-modal">
 
-  <div class="inventory-modal-content">
+  <div class="stock-in-modal-content">
 
-    <div class="inventory-modal-header">
+    <div class="stock-in-modal-header">
 
       <div>
-        <h3>Record Stock In</h3>
+        <h2>Record Stock In</h2>
 
         <p>
           Add newly received stock to your laboratory inventory.
@@ -844,7 +845,8 @@
       <button
         type="button"
         id="closeStockInModal"
-        class="inventory-modal-close"
+        class="stock-in-modal-close"
+        aria-label="Close"
       >
         &times;
       </button>
@@ -856,7 +858,7 @@
 
       <!-- PRODUCT -->
 
-      <div class="form-group">
+      <div class="stock-in-form-group">
 
         <label for="stockInProduct">
           Product
@@ -878,7 +880,7 @@
 
       <!-- BATCH -->
 
-      <div class="form-group">
+      <div class="stock-in-form-group">
 
         <label for="stockInBatch">
           Batch
@@ -900,7 +902,7 @@
 
       <!-- QUANTITY -->
 
-      <div class="form-group">
+      <div class="stock-in-form-group">
 
         <label for="stockInQuantity">
           Quantity Received
@@ -920,7 +922,7 @@
 
       <!-- EXPIRY -->
 
-      <div class="form-group">
+      <div class="stock-in-form-group">
 
         <label for="stockInExpiry">
           Expiry Date
@@ -936,7 +938,7 @@
 
       <!-- NOTES -->
 
-      <div class="form-group">
+      <div class="stock-in-form-group">
 
         <label for="stockInNotes">
           Notes
@@ -953,19 +955,19 @@
 
       <!-- BUTTONS -->
 
-      <div class="inventory-modal-actions">
+      <div class="stock-in-modal-actions">
 
         <button
           type="button"
           id="cancelStockInButton"
-          class="cancel-button"
+          class="stock-in-cancel-button"
         >
           Cancel
         </button>
 
         <button
           type="submit"
-          class="save-button"
+          class="stock-in-save-button"
         >
           Save Stock In
         </button>
