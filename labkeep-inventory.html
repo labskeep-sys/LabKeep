@@ -495,6 +495,58 @@
 
     </div>
 
+    <!-- =========================================
+     STOCK IN RECORDS TABLE
+========================================== -->
+
+<div
+  id="stockInRecordsWrapper"
+  style="display:none; overflow-x:auto;"
+>
+
+  <table
+    style="width:100%; border-collapse:collapse; min-width:700px;"
+  >
+
+    <thead>
+
+      <tr>
+
+        <th style="text-align:left; padding:14px; color:#0b1f5c;">
+          Date
+        </th>
+
+        <th style="text-align:left; padding:14px; color:#0b1f5c;">
+          Product
+        </th>
+
+        <th style="text-align:left; padding:14px; color:#0b1f5c;">
+          Batch
+        </th>
+
+        <th style="text-align:left; padding:14px; color:#0b1f5c;">
+          Quantity
+        </th>
+
+        <th style="text-align:left; padding:14px; color:#0b1f5c;">
+          Expiry
+        </th>
+
+        <th style="text-align:left; padding:14px; color:#0b1f5c;">
+          Notes
+        </th>
+
+      </tr>
+
+    </thead>
+
+    <tbody id="stockInRecordsBody">
+    </tbody>
+
+  </table>
+
+</div>
+
     <div
       id="stockInEmptyState"
       style="text-align:center; padding:50px 20px;"
@@ -2520,6 +2572,10 @@ if (editButton) {
   );
 
 }
+      /* Allow Stock In to refresh the Products display */
+
+window.labkeepRefreshProducts = renderProducts;
+      
     })();
 
   </script>
@@ -2565,9 +2621,18 @@ if (editButton) {
   var stockInNotes =
     document.getElementById("stockInNotes");
 
+  var stockInRecordsWrapper =
+    document.getElementById("stockInRecordsWrapper");
+
+  var stockInRecordsBody =
+    document.getElementById("stockInRecordsBody");
+
+  var stockInEmptyState =
+    document.getElementById("stockInEmptyState");
+
 
   /* -----------------------------------------
-     STORAGE KEYS
+     STORAGE
   ----------------------------------------- */
 
   var productsStorageKey =
@@ -2576,10 +2641,6 @@ if (editButton) {
   var stockInStorageKey =
     "labkeepStockInRecords";
 
-
-  /* -----------------------------------------
-     GET PRODUCTS
-  ----------------------------------------- */
 
   function getStockInProducts() {
 
@@ -2598,10 +2659,6 @@ if (editButton) {
   }
 
 
-  /* -----------------------------------------
-     SAVE PRODUCTS
-  ----------------------------------------- */
-
   function saveStockInProducts(products) {
 
     localStorage.setItem(
@@ -2611,10 +2668,6 @@ if (editButton) {
 
   }
 
-
-  /* -----------------------------------------
-     GET STOCK IN RECORDS
-  ----------------------------------------- */
 
   function getStockInRecords() {
 
@@ -2633,10 +2686,6 @@ if (editButton) {
   }
 
 
-  /* -----------------------------------------
-     SAVE STOCK IN RECORDS
-  ----------------------------------------- */
-
   function saveStockInRecords(records) {
 
     localStorage.setItem(
@@ -2648,7 +2697,7 @@ if (editButton) {
 
 
   /* -----------------------------------------
-     GENERATE NEW BATCH NUMBER
+     BATCH NUMBER
   ----------------------------------------- */
 
   function generateStockInBatchNumber() {
@@ -2679,7 +2728,7 @@ if (editButton) {
 
 
   /* -----------------------------------------
-     OPEN STOCK IN MODAL
+     OPEN
   ----------------------------------------- */
 
   function openStockInPopup() {
@@ -2698,7 +2747,7 @@ if (editButton) {
 
 
   /* -----------------------------------------
-     CLOSE STOCK IN MODAL
+     CLOSE
   ----------------------------------------- */
 
   function closeStockInPopup() {
@@ -2715,7 +2764,7 @@ if (editButton) {
 
 
   /* -----------------------------------------
-     POPULATE PRODUCT DROPDOWN
+     PRODUCTS DROPDOWN
   ----------------------------------------- */
 
   function populateStockInProducts() {
@@ -2741,7 +2790,9 @@ if (editButton) {
       option.textContent =
         product.name;
 
-      stockInProduct.appendChild(option);
+      stockInProduct.appendChild(
+        option
+      );
 
     });
 
@@ -2756,7 +2807,7 @@ if (editButton) {
 
 
   /* -----------------------------------------
-     POPULATE BATCH DROPDOWN
+     BATCH DROPDOWN
   ----------------------------------------- */
 
   function populateStockInBatches() {
@@ -2774,7 +2825,8 @@ if (editButton) {
     var product =
       products.find(function (item) {
 
-        return item.id === selectedProductId;
+        return item.id ===
+          selectedProductId;
 
       });
 
@@ -2788,32 +2840,31 @@ if (editButton) {
     }
 
 
-    /* Existing multi-batch product */
-
     if (
       product.batches &&
       product.batches.length > 0
     ) {
 
-      product.batches.forEach(function (batch) {
+      product.batches.forEach(
+        function (batch) {
 
-        var option =
-          document.createElement("option");
+          var option =
+            document.createElement("option");
 
-        option.value =
-          batch.batch;
+          option.value =
+            batch.batch;
 
-        option.textContent =
-          batch.batch;
+          option.textContent =
+            batch.batch;
 
-        stockInBatch.appendChild(option);
+          stockInBatch.appendChild(
+            option
+          );
 
-      });
+        }
+      );
 
     }
-
-
-    /* Legacy single-batch product */
 
     else if (product.batch) {
 
@@ -2826,12 +2877,12 @@ if (editButton) {
       option.textContent =
         product.batch;
 
-      stockInBatch.appendChild(option);
+      stockInBatch.appendChild(
+        option
+      );
 
     }
 
-
-    /* Allow new batch */
 
     var newBatchOption =
       document.createElement("option");
@@ -2863,6 +2914,140 @@ if (editButton) {
 
       }
     );
+
+  }
+
+
+  /* -----------------------------------------
+     FORMAT DATE
+  ----------------------------------------- */
+
+  function formatStockInDate(dateString) {
+
+    if (!dateString) {
+      return "—";
+    }
+
+    var date =
+      new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+      return "—";
+    }
+
+    return date.toLocaleDateString(
+      "en-NG",
+      {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+      }
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     DISPLAY STOCK IN RECORDS
+  ----------------------------------------- */
+
+  function renderStockInRecords() {
+
+    if (
+      !stockInRecordsWrapper ||
+      !stockInRecordsBody
+    ) {
+      return;
+    }
+
+    var records =
+      getStockInRecords();
+
+
+    stockInRecordsBody.innerHTML =
+      "";
+
+
+    if (records.length === 0) {
+
+      stockInRecordsWrapper.style.display =
+        "none";
+
+      if (stockInEmptyState) {
+
+        stockInEmptyState.style.display =
+          "block";
+
+      }
+
+      return;
+
+    }
+
+
+    if (stockInEmptyState) {
+
+      stockInEmptyState.style.display =
+        "none";
+
+    }
+
+
+    stockInRecordsWrapper.style.display =
+      "block";
+
+
+    /*
+       Newest transaction first
+    */
+
+    records
+      .slice()
+      .reverse()
+      .forEach(function (record) {
+
+        var row =
+          document.createElement("tr");
+
+
+        row.style.borderTop =
+          "1px solid #e5e7eb";
+
+
+        row.innerHTML =
+
+          "<td style='padding:14px; color:#475569;'>" +
+            formatStockInDate(record.date) +
+          "</td>" +
+
+          "<td style='padding:14px; font-weight:600; color:#0b1f5c;'>" +
+            record.productName +
+          "</td>" +
+
+          "<td style='padding:14px; color:#475569;'>" +
+            record.batch +
+          "</td>" +
+
+          "<td style='padding:14px; color:#475569;'>" +
+            record.quantity +
+            " " +
+            record.unit +
+          "</td>" +
+
+          "<td style='padding:14px; color:#475569;'>" +
+            (record.expiry || "—") +
+          "</td>" +
+
+          "<td style='padding:14px; color:#64748b;'>" +
+            (record.notes || "—") +
+          "</td>";
+
+
+        stockInRecordsBody.appendChild(
+          row
+        );
+
+      });
 
   }
 
@@ -2931,28 +3116,21 @@ if (editButton) {
         var products =
           getStockInProducts();
 
-
         var selectedProductId =
           Number(stockInProduct.value);
-
 
         var selectedBatch =
           stockInBatch.value;
 
-
         var quantityReceived =
           Number(stockInQuantity.value);
-
 
         var expiry =
           stockInExpiry.value;
 
-
         var notes =
           stockInNotes.value.trim();
 
-
-        /* Validate product */
 
         if (!selectedProductId) {
 
@@ -2965,8 +3143,6 @@ if (editButton) {
         }
 
 
-        /* Validate batch */
-
         if (!selectedBatch) {
 
           alert(
@@ -2977,8 +3153,6 @@ if (editButton) {
 
         }
 
-
-        /* Validate quantity */
 
         if (
           !quantityReceived ||
@@ -2994,12 +3168,11 @@ if (editButton) {
         }
 
 
-        /* Find product */
-
         var product =
           products.find(function (item) {
 
-            return item.id === selectedProductId;
+            return item.id ===
+              selectedProductId;
 
           });
 
@@ -3016,7 +3189,7 @@ if (editButton) {
 
 
         /* -----------------------------------------
-           MAKE SURE PRODUCT HAS BATCHES
+           MAKE SURE BATCH SYSTEM EXISTS
         ----------------------------------------- */
 
         if (
@@ -3030,7 +3203,8 @@ if (editButton) {
 
             product.batches.push({
 
-              batch: product.batch,
+              batch:
+                product.batch,
 
               quantity:
                 Number(product.quantity) || 0,
@@ -3118,14 +3292,11 @@ if (editButton) {
 
 
           batchToUpdate.quantity =
-            Number(batchToUpdate.quantity || 0) +
+            Number(
+              batchToUpdate.quantity || 0
+            ) +
             quantityReceived;
 
-
-          /*
-             Only replace expiry if a new
-             expiry date was entered.
-          */
 
           if (expiry) {
 
@@ -3134,10 +3305,6 @@ if (editButton) {
 
           }
 
-
-          /*
-             Add notes only when provided.
-          */
 
           if (notes) {
 
@@ -3150,7 +3317,7 @@ if (editButton) {
 
 
         /* -----------------------------------------
-           RECALCULATE PRODUCT TOTAL
+           RECALCULATE TOTAL
         ----------------------------------------- */
 
         product.quantity =
@@ -3166,31 +3333,7 @@ if (editButton) {
 
 
         /* -----------------------------------------
-           KEEP MAIN PRODUCT DATA ALIGNED
-           WITH FIRST BATCH
-        ----------------------------------------- */
-
-        if (
-          product.batches.length > 0
-        ) {
-
-          product.batch =
-            product.batches[0].batch;
-
-          product.expiry =
-            product.batches[0].expiry || "";
-
-          product.cost =
-            product.batches[0].cost || "";
-
-          product.notes =
-            product.batches[0].notes || "";
-
-        }
-
-
-        /* -----------------------------------------
-           SAVE UPDATED PRODUCT INVENTORY
+           SAVE PRODUCTS
         ----------------------------------------- */
 
         saveStockInProducts(
@@ -3199,7 +3342,7 @@ if (editButton) {
 
 
         /* -----------------------------------------
-           CREATE STOCK IN RECORD
+           SAVE STOCK IN RECORD
         ----------------------------------------- */
 
         var stockInRecords =
@@ -3244,7 +3387,49 @@ if (editButton) {
 
 
         /* -----------------------------------------
-           SUCCESS
+           REFRESH PRODUCTS WITHOUT RELOADING
+        ----------------------------------------- */
+
+        if (
+          typeof window.labkeepRefreshProducts ===
+          "function"
+        ) {
+
+          window.labkeepRefreshProducts();
+
+        }
+
+
+        /* -----------------------------------------
+           REFRESH STOCK IN RECORDS
+        ----------------------------------------- */
+
+        renderStockInRecords();
+
+
+        /* -----------------------------------------
+           CLEAR FORM
+        ----------------------------------------- */
+
+        stockInForm.reset();
+
+        if (stockInBatch) {
+
+          stockInBatch.innerHTML =
+            '<option value="">Select batch</option>';
+
+        }
+
+
+        /* -----------------------------------------
+           CLOSE POPUP
+        ----------------------------------------- */
+
+        closeStockInPopup();
+
+
+        /* -----------------------------------------
+           SUCCESS MESSAGE
         ----------------------------------------- */
 
         alert(
@@ -3256,21 +3441,21 @@ if (editButton) {
           " has been added to stock."
         );
 
-
-        /*
-           Reload so the existing Products
-           section immediately reads the
-           updated inventory.
-        */
-
-        window.location.reload();
-
       }
     );
 
   }
 
+
+  /* -----------------------------------------
+     LOAD EXISTING RECORDS
+  ----------------------------------------- */
+
+  renderStockInRecords();
+
+
 })();
 </script>
+
   </body>
 </html>
