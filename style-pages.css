@@ -1030,3 +1030,9 @@
 .stock-in-save-button:hover {
   background: #1237d8;
 }
+
+
+/* Match Tests with the other Inventory sidebar links */
+#inventoryTestsLink {
+  font-size: 18px;
+}
