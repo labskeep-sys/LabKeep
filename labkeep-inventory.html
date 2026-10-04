@@ -638,6 +638,195 @@
 </section>
 
       <!-- =========================================
+     REGISTER TEST POPUP
+========================================== -->
+
+<div
+  id="testRegistrationModal"
+  class="product-modal"
+  style="display:none;"
+>
+
+  <div class="product-modal-content">
+
+    <div class="product-modal-header">
+
+      <div>
+        <h2 class="product-modal-title">
+          Register Test
+        </h2>
+
+        <p
+          style="
+            margin:5px 0 0;
+            color:#64748b;
+            font-size:14px;
+          "
+        >
+          Register a laboratory test for a patient.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        id="closeTestRegistrationModal"
+        class="product-modal-close"
+      >
+        &times;
+      </button>
+
+    </div>
+
+
+    <form id="testRegistrationForm">
+
+      <!-- Patient Name -->
+
+      <div class="form-group">
+
+        <label for="testPatientName">
+          Patient Name
+        </label>
+
+        <input
+          type="text"
+          id="testPatientName"
+          placeholder="Enter patient name"
+          required
+        >
+
+      </div>
+
+
+      <!-- Patient ID -->
+
+      <div class="form-group">
+
+        <label for="testPatientId">
+          Patient ID
+        </label>
+
+        <input
+          type="text"
+          id="testPatientId"
+          placeholder="Enter patient ID"
+          required
+        >
+
+      </div>
+
+
+      <!-- Test -->
+
+      <div class="form-group">
+
+        <label for="testSelection">
+          Test
+        </label>
+
+        <select
+          id="testSelection"
+          required
+        >
+
+          <option value="">
+            Select test
+          </option>
+
+          <option value="Full Blood Count">
+            Full Blood Count (FBC)
+          </option>
+
+          <option value="Malaria Parasite Test">
+            Malaria Parasite Test
+          </option>
+
+          <option value="Blood Glucose">
+            Blood Glucose
+          </option>
+
+          <option value="Urinalysis">
+            Urinalysis
+          </option>
+
+          <option value="Lipid Profile">
+            Lipid Profile
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Date -->
+
+      <div class="form-group">
+
+        <label for="testDate">
+          Date
+        </label>
+
+        <input
+          type="date"
+          id="testDate"
+          required
+        >
+
+      </div>
+
+
+      <!-- Notes -->
+
+      <div class="form-group">
+
+        <label for="testNotes">
+          Notes
+        </label>
+
+        <textarea
+          id="testNotes"
+          rows="4"
+          placeholder="Add any notes about this test..."
+        ></textarea>
+
+      </div>
+
+
+      <!-- Buttons -->
+
+      <div
+        style="
+          display:flex;
+          gap:10px;
+          justify-content:flex-end;
+          margin-top:20px;
+        "
+      >
+
+        <button
+          type="button"
+          id="cancelTestRegistration"
+          class="cancel-button"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="add-product-button"
+        >
+          Register Test
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+      <!-- =========================================
      STOCK IN SECTION
 ========================================== -->
 
@@ -1372,6 +1561,21 @@ var dashboardSection =
       var testsSection =
   document.getElementById("testsSection");
 
+      var testRegistrationModal =
+  document.getElementById("testRegistrationModal");
+
+var openTestRegistrationButton =
+  document.getElementById("openTestRegistrationButton");
+
+var emptyTestRegistrationButton =
+  document.getElementById("emptyTestRegistrationButton");
+
+var closeTestRegistrationModal =
+  document.getElementById("closeTestRegistrationModal");
+
+var cancelTestRegistration =
+  document.getElementById("cancelTestRegistration");
+
       var sidebarLinks =
         document.querySelectorAll(".sidebar-link");
 
@@ -1585,6 +1789,80 @@ if (testsLink) {
   );
 
 }
+
+      /* Register Test popup */
+
+function openTestRegistrationModalWindow() {
+
+  if (testRegistrationModal) {
+    testRegistrationModal.style.removeProperty("display");
+    testRegistrationModal.classList.add("show");
+  }
+
+}
+
+function closeTestRegistrationModalWindow() {
+
+  if (testRegistrationModal) {
+    testRegistrationModal.classList.remove("show");
+    testRegistrationModal.style.removeProperty("display");
+  }
+
+}
+
+if (openTestRegistrationButton) {
+
+  openTestRegistrationButton.addEventListener(
+    "click",
+    openTestRegistrationModalWindow
+  );
+
+}
+
+if (emptyTestRegistrationButton) {
+
+  emptyTestRegistrationButton.addEventListener(
+    "click",
+    openTestRegistrationModalWindow
+  );
+
+}
+
+if (closeTestRegistrationModal) {
+
+  closeTestRegistrationModal.addEventListener(
+    "click",
+    closeTestRegistrationModalWindow
+  );
+
+}
+
+if (cancelTestRegistration) {
+
+  cancelTestRegistration.addEventListener(
+    "click",
+    closeTestRegistrationModalWindow
+  );
+
+}
+
+if (testRegistrationModal) {
+
+  testRegistrationModal.addEventListener(
+    "click",
+    function (event) {
+
+      if (event.target === testRegistrationModal) {
+
+        closeTestRegistrationModalWindow();
+
+      }
+
+    }
+  );
+
+}
+      
       /* Add Product popup */
 
       function openAddProductModal() {
