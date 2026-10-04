@@ -757,6 +757,41 @@
 
       </div>
 
+      <div
+  id="testMaterialsBox"
+  style="
+    display:none;
+    margin-bottom:18px;
+    padding:16px;
+    background:#f8fbff;
+    border:1px solid #dbe3ef;
+    border-radius:12px;
+  "
+>
+
+  <div
+    style="
+      color:#0b1f5c;
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:10px;
+    "
+  >
+    Required Materials
+  </div>
+
+  <div
+    id="testMaterialsList"
+    style="
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    "
+  >
+  </div>
+
+</div>
+
 
       <!-- Date -->
 
@@ -1591,6 +1626,12 @@ var testRecordsWrapper =
       var testsStorageKey =
   "labkeepRegisteredTests";
 
+      var testMaterialsBox =
+  document.getElementById("testMaterialsBox");
+
+var testMaterialsList =
+  document.getElementById("testMaterialsList");
+
       var sidebarLinks =
         document.querySelectorAll(".sidebar-link");
 
@@ -1884,6 +1925,112 @@ if (testRegistrationModal) {
         closeTestRegistrationModalWindow();
 
       }
+
+    }
+  );
+
+}
+
+      /* Test Material Requirements */
+
+var testMaterialRequirements = {
+
+  "Full Blood Count": [
+
+    {
+      name: "Leishman Stain",
+      category: "Reagent",
+      quantity: 5,
+      unit: "mL"
+    },
+
+    {
+      name: "Buffer Water",
+      category: "Material",
+      quantity: 1,
+      unit: "mL"
+    },
+
+    {
+      name: "EDTA Blood Collection Bottle",
+      category: "Consumable",
+      quantity: 1,
+      unit: "bottle"
+    },
+
+    {
+      name: "Disposable Gloves",
+      category: "Consumable",
+      quantity: 1,
+      unit: "pair"
+    }
+
+  ]
+
+};
+
+      /* Display materials when test changes */
+      var testSelection =
+  document.getElementById("testSelection");
+
+if (testSelection) {
+
+  testSelection.addEventListener(
+    "change",
+    function () {
+
+      var selectedTest =
+        testSelection.value;
+
+      if (
+        !selectedTest ||
+        !testMaterialRequirements[selectedTest]
+      ) {
+
+        testMaterialsBox.style.display = "none";
+        testMaterialsList.innerHTML = "";
+
+        return;
+
+      }
+
+      var materials =
+        testMaterialRequirements[selectedTest];
+
+      testMaterialsList.innerHTML = "";
+
+      materials.forEach(function (material) {
+
+        var materialRow =
+          document.createElement("div");
+
+        materialRow.style.cssText =
+          "display:flex;" +
+          "justify-content:space-between;" +
+          "align-items:center;" +
+          "gap:12px;" +
+          "padding:9px 0;" +
+          "border-bottom:1px solid #edf2f7;";
+
+        materialRow.innerHTML =
+
+          "<span style=\"color:#334155; font-size:14px;\">" +
+          material.name +
+          "</span>" +
+
+          "<strong style=\"color:#0b1f5c; font-size:14px; white-space:nowrap;\">" +
+          material.quantity +
+          " " +
+          material.unit +
+          "</strong>";
+
+        testMaterialsList.appendChild(
+          materialRow
+        );
+
+      });
+
+      testMaterialsBox.style.display = "block";
 
     }
   );
