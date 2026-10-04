@@ -1369,6 +1369,9 @@ var stockInSection =
 var dashboardSection =
   document.getElementById("dashboardSection");
 
+      var testsSection =
+  document.getElementById("testsSection");
+
       var sidebarLinks =
         document.querySelectorAll(".sidebar-link");
 
@@ -1377,6 +1380,9 @@ var dashboardSection =
 
       var stockInLink =
   document.querySelector('[data-section="stock-in"]');
+
+      var testsLink =
+  document.querySelector('[data-section="tests"]');
 
       var addProductModal =
         document.getElementById("addProductModal");
@@ -1478,6 +1484,7 @@ if (productsLink) {
   );
 
 }
+      
 
 /* Stock In section */
 
@@ -1514,6 +1521,59 @@ if (stockInLink) {
       });
 
       stockInLink.classList.add("active");
+
+      /* Close mobile sidebar */
+
+      if (window.innerWidth <= 768) {
+        closeSidebar();
+      }
+
+    }
+  );
+
+}
+
+      /* Tests section */
+
+if (testsLink) {
+
+  testsLink.addEventListener(
+    "click",
+    function (event) {
+
+      event.preventDefault();
+
+      /* Show Tests */
+
+      if (testsSection) {
+        testsSection.style.display = "block";
+      }
+
+      /* Hide Dashboard */
+
+      if (dashboardSection) {
+        dashboardSection.style.display = "none";
+      }
+
+      /* Hide Products */
+
+      if (productsSection) {
+        productsSection.style.display = "none";
+      }
+
+      /* Hide Stock In */
+
+      if (stockInSection) {
+        stockInSection.style.display = "none";
+      }
+
+      /* Make Tests active */
+
+      sidebarLinks.forEach(function (link) {
+        link.classList.remove("active");
+      });
+
+      testsLink.classList.add("active");
 
       /* Close mobile sidebar */
 
