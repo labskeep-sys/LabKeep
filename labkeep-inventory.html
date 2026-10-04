@@ -456,6 +456,188 @@
 </section>
 
       <!-- =========================================
+     TEST REGISTRATION SECTION
+========================================== -->
+
+<section
+  id="testsSection"
+  class="inventory-section"
+  style="display:none;"
+>
+
+  <div class="dashboard-header">
+
+    <div>
+
+      <h2 class="dashboard-title">
+        Test Registration
+      </h2>
+
+      <p style="margin:6px 0 0; color:#64748b;">
+        Register laboratory tests and track test usage.
+      </p>
+
+    </div>
+
+    <button
+      type="button"
+      id="openTestRegistrationButton"
+      class="add-product-button"
+    >
+      + Register Test
+    </button>
+
+  </div>
+
+
+  <!-- TEST RECORDS -->
+
+  <section
+    class="content-card"
+    style="margin-top:20px;"
+  >
+
+    <div class="card-header">
+
+      <div>
+
+        <h3 class="card-title">
+          Registered Tests
+        </h3>
+
+        <p
+          style="margin:5px 0 0; color:#64748b; font-size:14px;"
+        >
+          View laboratory tests registered in the system.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div
+      id="testRecordsEmptyState"
+      style="text-align:center; padding:50px 20px;"
+    >
+
+      <div
+        style="
+          font-size:16px;
+          font-weight:700;
+          color:#0b1f5c;
+          margin-bottom:8px;
+        "
+      >
+        No tests registered yet
+      </div>
+
+      <div
+        style="
+          color:#64748b;
+          font-size:14px;
+          margin-bottom:18px;
+        "
+      >
+        Register your first laboratory test to begin tracking test usage.
+      </div>
+
+      <button
+        type="button"
+        id="emptyTestRegistrationButton"
+        class="add-product-button"
+      >
+        + Register Test
+      </button>
+
+    </div>
+
+
+    <!-- TEST RECORDS TABLE -->
+
+    <div
+      id="testRecordsWrapper"
+      style="display:none; overflow-x:auto;"
+    >
+
+      <table
+        style="
+          width:100%;
+          border-collapse:collapse;
+          min-width:700px;
+        "
+      >
+
+        <thead>
+
+          <tr>
+
+            <th
+              style="
+                text-align:left;
+                padding:14px;
+                color:#0b1f5c;
+              "
+            >
+              Date
+            </th>
+
+            <th
+              style="
+                text-align:left;
+                padding:14px;
+                color:#0b1f5c;
+              "
+            >
+              Patient
+            </th>
+
+            <th
+              style="
+                text-align:left;
+                padding:14px;
+                color:#0b1f5c;
+              "
+            >
+              Patient ID
+            </th>
+
+            <th
+              style="
+                text-align:left;
+                padding:14px;
+                color:#0b1f5c;
+              "
+            >
+              Test
+            </th>
+
+            <th
+              style="
+                text-align:left;
+                padding:14px;
+                color:#0b1f5c;
+              "
+            >
+              Status
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="testRecordsBody">
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+</section>
+
+      <!-- =========================================
      STOCK IN SECTION
 ========================================== -->
 
