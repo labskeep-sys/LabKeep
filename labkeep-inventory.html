@@ -1576,6 +1576,21 @@ var closeTestRegistrationModal =
 var cancelTestRegistration =
   document.getElementById("cancelTestRegistration");
 
+      var testRegistrationForm =
+  document.getElementById("testRegistrationForm");
+
+var testRecordsBody =
+  document.getElementById("testRecordsBody");
+
+var testRecordsEmptyState =
+  document.getElementById("testRecordsEmptyState");
+
+var testRecordsWrapper =
+  document.getElementById("testRecordsWrapper");
+
+      var testsStorageKey =
+  "labkeepRegisteredTests";
+
       var sidebarLinks =
         document.querySelectorAll(".sidebar-link");
 
@@ -1874,6 +1889,158 @@ if (testRegistrationModal) {
   );
 
 }
+
+      /* Save Registered Test */
+
+if (testRegistrationForm) {
+
+  testRegistrationForm.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+      var patientName =
+        document.getElementById("testPatientName").value.trim();
+
+      var patientId =
+        document.getElementById("testPatientId").value.trim();
+
+      var testName =
+        document.getElementById("testSelection").value;
+
+      var testDate =
+        document.getElementById("testDate").value;
+
+      var testNotes =
+        document.getElementById("testNotes").value.trim();
+
+      if (
+        !patientName ||
+        !patientId ||
+        !testName ||
+        !testDate
+      ) {
+        return;
+      }
+
+      var tests =
+        JSON.parse(
+          localStorage.getItem(testsStorageKey)
+        ) || [];
+
+      var newTest = {
+
+        id:
+          Date.now().toString(),
+
+        patientName:
+          patientName,
+
+        patientId:
+          patientId,
+
+        testName:
+          testName,
+
+        date:
+          testDate,
+
+        notes:
+          testNotes,
+
+        status:
+          "Registered"
+
+      };
+
+      tests.push(newTest);
+
+      localStorage.setItem(
+        testsStorageKey,
+        JSON.stringify(tests)
+      );
+
+      testRegistrationForm.reset();
+
+      closeTestRegistrationModalWindow();
+
+      renderTestRecords();
+
+    }
+
+  );
+
+}
+      /* Display Registered Tests */
+
+function renderTestRecords() {
+
+  if (!testRecordsBody) {
+    return;
+  }
+
+  var tests =
+    JSON.parse(
+      localStorage.getItem(testsStorageKey)
+    ) || [];
+
+  testRecordsBody.innerHTML = "";
+
+  if (tests.length === 0) {
+
+    if (testRecordsEmptyState) {
+      testRecordsEmptyState.style.display = "block";
+    }
+
+    if (testRecordsWrapper) {
+      testRecordsWrapper.style.display = "none";
+    }
+
+    return;
+  }
+
+  if (testRecordsEmptyState) {
+    testRecordsEmptyState.style.display = "none";
+  }
+
+  if (testRecordsWrapper) {
+    testRecordsWrapper.style.display = "block";
+  }
+
+  tests.forEach(function (test) {
+
+    var row =
+      document.createElement("tr");
+
+    row.innerHTML = `
+      <td style="padding:14px;">
+        ${test.date}
+      </td>
+
+      <td style="padding:14px;">
+        ${test.patientName}
+      </td>
+
+      <td style="padding:14px;">
+        ${test.patientId}
+      </td>
+
+      <td style="padding:14px;">
+        ${test.testName}
+      </td>
+
+      <td style="padding:14px;">
+        ${test.status}
+      </td>
+    `;
+
+    testRecordsBody.appendChild(row);
+
+  });
+
+}
+      renderTestRecords();
       
       /* Add Product popup */
 
