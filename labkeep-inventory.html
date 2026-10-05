@@ -1940,28 +1940,32 @@ var testMaterialRequirements = {
     {
       name: "Leishman Stain",
       category: "Reagent",
-      quantity: 5,
+      defaultquantity: 5,
+      laboratoryquantity: 5,
       unit: "mL"
     },
 
     {
       name: "Buffer Water",
       category: "Material",
-      quantity: 1,
+     defaultquantity: 1,
+      laboratoryquantity: 1,
       unit: "mL"
     },
 
     {
       name: "EDTA Blood Collection Bottle",
       category: "Consumable",
-      quantity: 1,
+     defaultquantity: 1,
+      laboratoryquantity: 1,
       unit: "bottle"
     },
 
     {
       name: "Disposable Gloves",
       category: "Consumable",
-      quantity: 1,
+     defaultquantity: 1,
+      laboratoryquantity: 1,
       unit: "pair"
     }
 
@@ -2012,17 +2016,27 @@ if (testSelection) {
           "padding:9px 0;" +
           "border-bottom:1px solid #edf2f7;";
 
-        materialRow.innerHTML =
+       materialRow.innerHTML =
 
-          "<span style=\"color:#334155; font-size:14px;\">" +
-          material.name +
-          "</span>" +
+  "<span style=\"color:#334155; font-size:14px;\">" +
+  material.name +
+  "</span>" +
 
-          "<strong style=\"color:#0b1f5c; font-size:14px; white-space:nowrap;\">" +
-          material.quantity +
-          " " +
-          material.unit +
-          "</strong>";
+  "<div style=\"display:flex; align-items:center; gap:6px;\">" +
+
+  "<input" +
+  " type=\"number\"" +
+  " min=\"0\"" +
+  " step=\"any\"" +
+  " value=\"" + material.laboratoryQuantity + "\"" +
+  " style=\"width:80px; padding:7px 8px; border:1px solid #cbd5e1; border-radius:7px; text-align:center; font-size:14px;\"" +
+  ">" +
+
+  "<span style=\"color:#475569; font-size:13px;\">" +
+  material.unit +
+  "</span>" +
+
+  "</div>";
 
         testMaterialsList.appendChild(
           materialRow
