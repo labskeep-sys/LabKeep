@@ -703,7 +703,7 @@
 <div class="inventory-form-group">
 
   <label for="testUsageSelection">
-    Select Frequently Performed Test
+    Test Selected
   </label>
 
   <select
@@ -712,7 +712,7 @@
   >
 
     <option value="">
-      Select frequently performed test 
+      Select test 
     </option>
 
     <option value="Full Blood Count">
@@ -736,6 +736,25 @@
     </option>
 
   </select>
+
+  <button
+  type="button"
+  id="changeTestSelectionButton"
+  style="
+    display:none;
+    margin-top:8px;
+    padding:0;
+    border:none;
+    background:none;
+    color:#1237d8;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+  "
+>
+  Change Test
+</button>
 
 </div>
 
@@ -1852,6 +1871,9 @@ var testUsageSelection =
       var testUsageSearchInput =
   document.getElementById("testUsageSearchInput");
 
+      var changeTestSelectionButton =
+  document.getElementById("changeTestSelectionButton");
+
       /* =========================================
    LABKEEP TEST LIBRARY
 ========================================= */
@@ -1991,6 +2013,8 @@ if (testUsageSearchInput) {
 
               testUsageSelection.value =
                 testName;
+
+              testUsageSelection.disabled = true;
 
 
               testUsageSearchResults.style.display =
