@@ -680,6 +680,21 @@
     autocomplete="off"
   >
 
+  <div
+  id="testUsageSearchResults"
+  style="
+    display:none;
+    margin-top:6px;
+    border:1px solid #dbe3ef;
+    border-radius:10px;
+    background:#ffffff;
+    max-height:220px;
+    overflow-y:auto;
+  "
+>
+    
+</div>
+
 </div>
 
 
@@ -1833,6 +1848,180 @@ var testUsageDate =
 
 var testUsageSelection =
   document.getElementById("testUsageSelection");
+
+      var testUsageSearchInput =
+  document.getElementById("testUsageSearchInput");
+
+      /* =========================================
+   LABKEEP TEST LIBRARY
+========================================= */
+
+var labkeepTestLibrary = [
+
+  "Full Blood Count",
+  "Malaria Parasite Test",
+  "Blood Glucose",
+  "Urinalysis",
+  "Lipid Profile"
+
+];
+
+      /* =========================================
+   TEST SEARCH
+========================================= */
+
+var testUsageSearchResults =
+  document.getElementById("testUsageSearchResults");
+
+
+if (testUsageSearchInput) {
+
+  testUsageSearchInput.addEventListener(
+    "input",
+    function () {
+
+      var searchTerm =
+        testUsageSearchInput.value
+          .trim()
+          .toLowerCase();
+
+
+      if (!searchTerm) {
+
+        testUsageSearchResults.style.display =
+          "none";
+
+        testUsageSearchResults.innerHTML =
+          "";
+
+        return;
+
+      }
+
+
+      var matchingTests =
+        labkeepTestLibrary.filter(
+          function (testName) {
+
+            return testName
+              .toLowerCase()
+              .includes(searchTerm);
+
+          }
+        );
+
+
+      testUsageSearchResults.innerHTML =
+        "";
+
+
+      if (matchingTests.length === 0) {
+
+        testUsageSearchResults.innerHTML =
+          "<div style=\"padding:12px 14px; color:#64748b; font-size:14px;\">" +
+          "No matching test found." +
+          "</div>";
+
+        testUsageSearchResults.style.display =
+          "block";
+
+        return;
+
+      }
+
+
+      matchingTests.forEach(
+        function (testName) {
+
+          var result =
+            document.createElement("button");
+
+
+          result.type =
+            "button";
+
+
+          result.textContent =
+            testName;
+
+
+          result.style.cssText =
+            "display:block;" +
+            "width:100%;" +
+            "padding:12px 14px;" +
+            "border:none;" +
+            "border-bottom:1px solid #edf2f7;" +
+            "background:#ffffff;" +
+            "color:#0f172a;" +
+            "font-family:inherit;" +
+            "font-size:14px;" +
+            "text-align:left;" +
+            "cursor:pointer;";
+
+
+          result.addEventListener(
+            "mouseenter",
+            function () {
+
+              result.style.background =
+                "#f8fbff";
+
+            }
+          );
+
+
+          result.addEventListener(
+            "mouseleave",
+            function () {
+
+              result.style.background =
+                "#ffffff";
+
+            }
+          );
+
+
+          result.addEventListener(
+            "click",
+            function () {
+
+              testUsageSearchInput.value =
+                testName;
+
+
+              testUsageSelection.value =
+                testName;
+
+
+              testUsageSearchResults.style.display =
+                "none";
+
+
+              testUsageSearchResults.innerHTML =
+                "";
+
+
+              updateTestUsageMaterials();
+
+            }
+          );
+
+
+          testUsageSearchResults.appendChild(
+            result
+          );
+
+        }
+      );
+
+
+      testUsageSearchResults.style.display =
+        "block";
+
+    }
+  );
+
+}
 
 var numberOfTests =
   document.getElementById("numberOfTests");
