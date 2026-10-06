@@ -3189,6 +3189,26 @@ if (testUsageSearch) {
   );
 
 }
+
+      /* =========================================
+   EMPTY TEST USAGE BUTTON
+========================================= */
+
+document.addEventListener(
+  "click",
+  function (event) {
+
+    if (
+      event.target &&
+      event.target.id === "emptyTestUsageButton"
+    ) {
+
+      openTestUsageModalWindow();
+
+    }
+
+  }
+);
       
 
       
