@@ -1836,6 +1836,104 @@ var testUsageEmptyState =
 var testUsageStorageKey =
   "labkeepTestUsageRecords";
 
+/* =========================================
+   TEST USAGE POPUP
+========================================= */
+
+function openTestUsageModalWindow() {
+
+  if (testUsageModal) {
+
+    testUsageModal.style.removeProperty("display");
+
+    testUsageModal.classList.add("show");
+
+  }
+
+}
+
+
+function closeTestUsageModalWindow() {
+
+  if (testUsageModal) {
+
+    testUsageModal.classList.remove("show");
+
+    testUsageModal.style.removeProperty("display");
+
+  }
+
+}
+
+
+/* Open from main button */
+
+if (openTestUsageButton) {
+
+  openTestUsageButton.addEventListener(
+    "click",
+    openTestUsageModalWindow
+  );
+
+}
+
+
+/* Open from empty state button */
+
+if (emptyTestUsageButton) {
+
+  emptyTestUsageButton.addEventListener(
+    "click",
+    openTestUsageModalWindow
+  );
+
+}
+
+
+/* Close with X */
+
+if (closeTestUsageModal) {
+
+  closeTestUsageModal.addEventListener(
+    "click",
+    closeTestUsageModalWindow
+  );
+
+}
+
+
+/* Close with Cancel */
+
+if (cancelTestUsage) {
+
+  cancelTestUsage.addEventListener(
+    "click",
+    closeTestUsageModalWindow
+  );
+
+}
+
+
+/* Close when clicking outside popup */
+
+if (testUsageModal) {
+
+  testUsageModal.addEventListener(
+    "click",
+    function (event) {
+
+      if (event.target === testUsageModal) {
+
+        closeTestUsageModalWindow();
+
+      }
+
+    }
+  );
+
+}
+      
+
       var sidebarLinks =
         document.querySelectorAll(".sidebar-link");
 
