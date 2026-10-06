@@ -2749,12 +2749,27 @@ function renderTestUsageHistory() {
               .forEach(
                 function (material) {
 
-                  var materialText =
-                    material.name +
-                    " : " +
-                    material.actualQuantity +
-                    " " +
-                    material.unit;
+                  var displayUnit =
+  material.unit;
+
+if (material.actualQuantity !== 1) {
+
+  if (material.unit === "bottle") {
+    displayUnit = "bottles";
+  }
+
+  if (material.unit === "pair") {
+    displayUnit = "pairs";
+  }
+
+}
+
+var materialText =
+  material.name +
+  ": " +
+  material.actualQuantity +
+  " " +
+  displayUnit;
 
                   if (
                     material.category ===
