@@ -2348,6 +2348,56 @@ if (numberOfTests) {
 }
 
       /* =========================================
+   CHANGE TEST SELECTION
+========================================= */
+
+if (changeTestSelectionButton) {
+
+  changeTestSelectionButton.addEventListener(
+    "click",
+    function () {
+
+      testUsageSelection.disabled = false;
+
+      testUsageSearchInput.disabled = false;
+
+      testUsageSelection.value = "";
+
+      testUsageSearchInput.value = "";
+
+      if (testUsageSearchResults) {
+
+        testUsageSearchResults.style.display =
+          "none";
+
+        testUsageSearchResults.innerHTML =
+          "";
+
+      }
+
+      if (usageMaterialsBox) {
+
+        usageMaterialsBox.style.display =
+          "none";
+
+      }
+
+      if (usageMaterialsList) {
+
+        usageMaterialsList.innerHTML =
+          "";
+
+      }
+
+      changeTestSelectionButton.style.display =
+        "none";
+
+    }
+  );
+
+}
+
+      /* =========================================
    SAVE TEST USAGE
 ========================================= */
 
