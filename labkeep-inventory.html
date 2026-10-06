@@ -2319,11 +2319,24 @@ if (testUsageSelection) {
 
   testUsageSelection.addEventListener(
     "change",
-    updateTestUsageMaterials
+    function () {
+
+      if (testUsageSelection.value) {
+
+        testUsageSearchInput.disabled = true;
+
+      } else {
+
+        testUsageSearchInput.disabled = false;
+
+      }
+
+      updateTestUsageMaterials();
+
+    }
   );
 
 }
-
 
 if (numberOfTests) {
 
