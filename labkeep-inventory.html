@@ -2534,12 +2534,20 @@ if (testUsageForm) {
 
 
       var usageRecords =
-        JSON.parse(
-          localStorage.getItem(
-            testUsageStorageKey
-          )
-        ) || [];
+  JSON.parse(
+    localStorage.getItem(
+      testUsageStorageKey
+    )
+  ) || [];
 
+if (
+  window.testUsageFilteredRecords
+) {
+
+  usageRecords =
+    window.testUsageFilteredRecords;
+
+}
 
       var newUsageRecord = {
 
