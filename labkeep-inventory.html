@@ -1931,8 +1931,178 @@ if (testUsageModal) {
   );
 
 }
+
+      /* =========================================
+   TEST USAGE MATERIAL REQUIREMENTS
+========================================= */
+
+var testUsageMaterialRequirements = {
+
+  "Full Blood Count": [
+
+    {
+      name: "Leishman Stain",
+      category: "Reagent",
+      laboratoryQuantity: 5,
+      unit: "mL"
+    },
+
+    {
+      name: "Buffer Water",
+      category: "Reagent",
+      laboratoryQuantity: 1,
+      unit: "mL"
+    },
+
+    {
+      name: "EDTA Blood Collection Bottle",
+      category: "Consumable",
+      laboratoryQuantity: 1,
+      unit: "bottle"
+    },
+
+    {
+      name: "Disposable Gloves",
+      category: "Consumable",
+      laboratoryQuantity: 1,
+      unit: "pair"
+    }
+
+  ]
+
+};
+
+      /* =========================================
+   CALCULATE TEST USAGE MATERIALS
+========================================= */
+
+function updateTestUsageMaterials() {
+
+  if (
+    !testUsageSelection ||
+    !numberOfTests ||
+    !usageMaterialsBox ||
+    !usageMaterialsList
+  ) {
+    return;
+  }
+
+  var selectedTest =
+    testUsageSelection.value;
+
+  var number =
+    Number(numberOfTests.value);
+
+  if (
+    !selectedTest ||
+    !testUsageMaterialRequirements[selectedTest] ||
+    !number ||
+    number < 1
+  ) {
+
+    usageMaterialsBox.style.display = "none";
+    usageMaterialsList.innerHTML = "";
+
+    return;
+
+  }
+
+  var materials =
+    testUsageMaterialRequirements[selectedTest];
+
+  usageMaterialsList.innerHTML = "";
+
+
+  materials.forEach(function (material, index) {
+
+    var calculatedQuantity =
+      material.laboratoryQuantity * number;
+
+
+    var materialRow =
+      document.createElement("div");
+
+    materialRow.style.cssText =
+      "padding:12px 0;" +
+      "border-bottom:1px solid #edf2f7;";
+
+
+    materialRow.innerHTML =
+
+      "<div style=\"margin-bottom:8px;\">" +
+
+        "<div style=\"color:#334155; font-size:14px; font-weight:600;\">" +
+          material.name +
+        "</div>" +
+
+        "<div style=\"color:#94a3b8; font-size:12px; margin-top:3px;\">" +
+          "Default: " +
+          calculatedQuantity +
+          " " +
+          material.unit +
+        "</div>" +
+
+      "</div>" +
+
+
+      "<div style=\"display:flex; align-items:center; gap:8px;\">" +
+
+        "<span style=\"color:#64748b; font-size:13px;\">" +
+          "Actual used:" +
+        "</span>" +
+
+        "<input" +
+          " type=\"number\"" +
+          " min=\"0\"" +
+          " step=\"any\"" +
+          " value=\"" + calculatedQuantity + "\"" +
+          " data-material-index=\"" + index + "\"" +
+          " style=\"width:100px; padding:8px 9px; border:1px solid #cbd5e1; border-radius:8px; text-align:center; font-size:14px;\"" +
+        ">" +
+
+        "<span style=\"color:#475569; font-size:13px;\">" +
+          material.unit +
+        "</span>" +
+
+      "</div>";
+
+
+    usageMaterialsList.appendChild(
+      materialRow
+    );
+
+  });
+
+
+  usageMaterialsBox.style.display = "block";
+
+}
+
+      /* =========================================
+   TEST USAGE MATERIAL CALCULATION EVENTS
+========================================= */
+
+if (testUsageSelection) {
+
+  testUsageSelection.addEventListener(
+    "change",
+    updateTestUsageMaterials
+  );
+
+}
+
+
+if (numberOfTests) {
+
+  numberOfTests.addEventListener(
+    "input",
+    updateTestUsageMaterials
+  );
+
+}
       
 
+      
       var sidebarLinks =
         document.querySelectorAll(".sidebar-link");
 
