@@ -456,7 +456,7 @@
 </section>
 
       <!-- =========================================
-     TEST REGISTRATION SECTION
+     TEST USAGE SECTION
 ========================================== -->
 
 <section
@@ -470,27 +470,27 @@
     <div>
 
       <h2 class="dashboard-title">
-        Test Registration
+        Test Usage
       </h2>
 
       <p style="margin:6px 0 0; color:#64748b;">
-        Register laboratory tests and track test usage.
+        Record laboratory test usage and materials consumed.
       </p>
 
     </div>
 
     <button
       type="button"
-      id="openTestRegistrationButton"
+      id="openTestUsageButton"
       class="add-product-button"
     >
-      + Register Test
+      + Record Test Usage
     </button>
 
   </div>
 
 
-  <!-- TEST RECORDS -->
+  <!-- RECENT TEST USAGE -->
 
   <section
     class="content-card"
@@ -502,13 +502,17 @@
       <div>
 
         <h3 class="card-title">
-          Registered Tests
+          Recent Test Usage
         </h3>
 
         <p
-          style="margin:5px 0 0; color:#64748b; font-size:14px;"
+          style="
+            margin:5px 0 0;
+            color:#64748b;
+            font-size:14px;
+          "
         >
-          View laboratory tests registered in the system.
+          View tests performed and materials used.
         </p>
 
       </div>
@@ -516,9 +520,50 @@
     </div>
 
 
+    <!-- SEARCH -->
+
     <div
-      id="testRecordsEmptyState"
-      style="text-align:center; padding:50px 20px;"
+      style="
+        margin:18px 0 20px;
+      "
+    >
+
+      <input
+        type="search"
+        id="testUsageSearch"
+        placeholder="Search by date..."
+        style="
+          width:100%;
+          max-width:420px;
+          padding:12px 14px;
+          border:1px solid #cbd5e1;
+          border-radius:10px;
+          font-size:14px;
+          outline:none;
+        "
+      >
+
+    </div>
+
+
+    <!-- TEST USAGE CONTENT -->
+
+    <div id="testUsageMonths">
+
+      <!-- Months will be generated here -->
+
+    </div>
+
+
+    <!-- EMPTY STATE -->
+
+    <div
+      id="testUsageEmptyState"
+      style="
+        text-align:center;
+        padding:50px 20px;
+        display:none;
+      "
     >
 
       <div
@@ -529,7 +574,7 @@
           margin-bottom:8px;
         "
       >
-        No tests registered yet
+        No test usage recorded yet
       </div>
 
       <div
@@ -539,103 +584,213 @@
           margin-bottom:18px;
         "
       >
-        Register your first laboratory test to begin tracking test usage.
+        Record your first test usage to begin tracking laboratory consumption.
       </div>
 
       <button
         type="button"
-        id="emptyTestRegistrationButton"
+        id="emptyTestUsageButton"
         class="add-product-button"
       >
-        + Register Test
+        + Record Test Usage
       </button>
-
-    </div>
-
-
-    <!-- TEST RECORDS TABLE -->
-
-    <div
-      id="testRecordsWrapper"
-      style="display:none; overflow-x:auto;"
-    >
-
-      <table
-        style="
-          width:100%;
-          border-collapse:collapse;
-          min-width:700px;
-        "
-      >
-
-        <thead>
-
-          <tr>
-
-            <th
-              style="
-                text-align:left;
-                padding:14px;
-                color:#0b1f5c;
-              "
-            >
-              Date
-            </th>
-
-            <th
-              style="
-                text-align:left;
-                padding:14px;
-                color:#0b1f5c;
-              "
-            >
-              Patient
-            </th>
-
-            <th
-              style="
-                text-align:left;
-                padding:14px;
-                color:#0b1f5c;
-              "
-            >
-              Patient ID
-            </th>
-
-            <th
-              style="
-                text-align:left;
-                padding:14px;
-                color:#0b1f5c;
-              "
-            >
-              Test
-            </th>
-
-            <th
-              style="
-                text-align:left;
-                padding:14px;
-                color:#0b1f5c;
-              "
-            >
-              Status
-            </th>
-
-          </tr>
-
-        </thead>
-
-        <tbody id="testRecordsBody">
-        </tbody>
-
-      </table>
 
     </div>
 
   </section>
 
 </section>
+
+
+<!-- =========================================
+     RECORD TEST USAGE POPUP
+========================================== -->
+
+<div
+  id="testUsageModal"
+  class="inventory-modal"
+  style="display:none;"
+>
+
+  <div class="inventory-modal-content">
+
+    <div class="inventory-modal-header">
+
+      <div>
+
+        <h2 class="inventory-modal-title">
+          Record Test Usage
+        </h2>
+
+        <p
+          style="
+            margin:5px 0 0;
+            color:#64748b;
+            font-size:14px;
+          "
+        >
+          Record tests performed and the materials used.
+        </p>
+
+      </div>
+
+      <button
+        type="button"
+        id="closeTestUsageModal"
+        class="inventory-modal-close"
+      >
+        &times;
+      </button>
+
+    </div>
+
+
+    <form id="testUsageForm">
+
+      <!-- DATE -->
+
+      <div class="inventory-form-group">
+
+        <label for="testUsageDate">
+          Date
+        </label>
+
+        <input
+          type="date"
+          id="testUsageDate"
+          required
+        >
+
+      </div>
+
+
+      <!-- TEST -->
+
+      <div class="inventory-form-group">
+
+        <label for="testUsageSelection">
+          Test Performed
+        </label>
+
+        <select
+          id="testUsageSelection"
+          required
+        >
+
+          <option value="">
+            Select test
+          </option>
+
+          <option value="Full Blood Count">
+            Full Blood Count (FBC)
+          </option>
+
+          <option value="Malaria Parasite Test">
+            Malaria Parasite Test
+          </option>
+
+          <option value="Blood Glucose">
+            Blood Glucose
+          </option>
+
+          <option value="Urinalysis">
+            Urinalysis
+          </option>
+
+          <option value="Lipid Profile">
+            Lipid Profile
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- NUMBER OF TESTS -->
+
+      <div class="inventory-form-group">
+
+        <label for="numberOfTests">
+          Number of Tests Performed
+        </label>
+
+        <input
+          type="number"
+          id="numberOfTests"
+          min="1"
+          step="1"
+          placeholder="Enter number of tests"
+          required
+        >
+
+      </div>
+
+
+      <!-- MATERIALS -->
+
+      <div
+        id="usageMaterialsBox"
+        style="
+          display:none;
+          margin-bottom:18px;
+          padding:16px;
+          background:#f8fbff;
+          border:1px solid #dbe3ef;
+          border-radius:12px;
+        "
+      >
+
+        <div
+          style="
+            color:#0b1f5c;
+            font-size:14px;
+            font-weight:700;
+            margin-bottom:14px;
+          "
+        >
+          Materials Used
+        </div>
+
+
+        <div id="usageMaterialsList">
+        </div>
+
+      </div>
+
+
+      <!-- BUTTONS -->
+
+      <div
+        style="
+          display:flex;
+          gap:10px;
+          justify-content:flex-end;
+          margin-top:20px;
+        "
+      >
+
+        <button
+          type="button"
+          id="cancelTestUsage"
+          class="inventory-cancel-button"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="inventory-save-button"
+        >
+          Record Test Usage
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
 
       <!-- =========================================
      REGISTER TEST POPUP
@@ -1631,6 +1786,55 @@ var testRecordsWrapper =
 
 var testMaterialsList =
   document.getElementById("testMaterialsList");
+
+      /* =========================================
+   TEST USAGE VARIABLES
+========================================= */
+
+var testUsageModal =
+  document.getElementById("testUsageModal");
+
+var openTestUsageButton =
+  document.getElementById("openTestUsageButton");
+
+var emptyTestUsageButton =
+  document.getElementById("emptyTestUsageButton");
+
+var closeTestUsageModal =
+  document.getElementById("closeTestUsageModal");
+
+var cancelTestUsage =
+  document.getElementById("cancelTestUsage");
+
+var testUsageForm =
+  document.getElementById("testUsageForm");
+
+var testUsageDate =
+  document.getElementById("testUsageDate");
+
+var testUsageSelection =
+  document.getElementById("testUsageSelection");
+
+var numberOfTests =
+  document.getElementById("numberOfTests");
+
+var usageMaterialsBox =
+  document.getElementById("usageMaterialsBox");
+
+var usageMaterialsList =
+  document.getElementById("usageMaterialsList");
+
+var testUsageMonths =
+  document.getElementById("testUsageMonths");
+
+var testUsageSearch =
+  document.getElementById("testUsageSearch");
+
+var testUsageEmptyState =
+  document.getElementById("testUsageEmptyState");
+
+var testUsageStorageKey =
+  "labkeepTestUsageRecords";
 
       var sidebarLinks =
         document.querySelectorAll(".sidebar-link");
