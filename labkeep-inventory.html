@@ -665,44 +665,64 @@
 
       <!-- TEST -->
 
-      <div class="inventory-form-group">
+      <!-- TEST SEARCH -->
 
-        <label for="testUsageSelection">
-          Test Performed
-        </label>
+<div class="inventory-form-group">
 
-        <select
-          id="testUsageSelection"
-          required
-        >
+  <label for="testUsageSearchInput">
+    Search Test
+  </label>
 
-          <option value="">
-            Select test
-          </option>
+  <input
+    type="search"
+    id="testUsageSearchInput"
+    placeholder="Search for a laboratory test..."
+    autocomplete="off"
+  >
 
-          <option value="Full Blood Count">
-            Full Blood Count (FBC)
-          </option>
+</div>
 
-          <option value="Malaria Parasite Test">
-            Malaria Parasite Test
-          </option>
 
-          <option value="Blood Glucose">
-            Blood Glucose
-          </option>
+<!-- TEST SELECTION -->
 
-          <option value="Urinalysis">
-            Urinalysis
-          </option>
+<div class="inventory-form-group">
 
-          <option value="Lipid Profile">
-            Lipid Profile
-          </option>
+  <label for="testUsageSelection">
+    Test Performed
+  </label>
 
-        </select>
+  <select
+    id="testUsageSelection"
+    required
+  >
 
-      </div>
+    <option value="">
+      Select test
+    </option>
+
+    <option value="Full Blood Count">
+      Full Blood Count (FBC)
+    </option>
+
+    <option value="Malaria Parasite Test">
+      Malaria Parasite Test
+    </option>
+
+    <option value="Blood Glucose">
+      Blood Glucose
+    </option>
+
+    <option value="Urinalysis">
+      Urinalysis
+    </option>
+
+    <option value="Lipid Profile">
+      Lipid Profile
+    </option>
+
+  </select>
+
+</div>
 
 
       <!-- NUMBER OF TESTS -->
