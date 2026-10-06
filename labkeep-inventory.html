@@ -2120,11 +2120,14 @@ if (emptyTestUsageButton) {
 
   emptyTestUsageButton.addEventListener(
     "click",
-    openTestUsageModalWindow
+    function () {
+
+      openTestUsageModalWindow();
+
+    }
   );
 
 }
-
 
 /* Close with X */
 
