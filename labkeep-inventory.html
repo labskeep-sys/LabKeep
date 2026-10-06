@@ -2100,6 +2100,154 @@ if (numberOfTests) {
   );
 
 }
+
+      /* =========================================
+   SAVE TEST USAGE
+========================================= */
+
+if (testUsageForm) {
+
+  testUsageForm.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+
+      var date =
+        testUsageDate.value;
+
+      var testName =
+        testUsageSelection.value;
+
+      var number =
+        Number(numberOfTests.value);
+
+
+      if (
+        !date ||
+        !testName ||
+        !number ||
+        number < 1
+      ) {
+
+        return;
+
+      }
+
+
+      var materialRequirements =
+        testUsageMaterialRequirements[testName] || [];
+
+
+      var materialInputs =
+        usageMaterialsList.querySelectorAll(
+          "input[data-material-index]"
+        );
+
+
+      var materialsUsed = [];
+
+
+      materialRequirements.forEach(
+        function (material, index) {
+
+          var input =
+            usageMaterialsList.querySelector(
+              'input[data-material-index="' +
+              index +
+              '"]'
+            );
+
+
+          var actualQuantity =
+            input ?
+            Number(input.value) :
+            0;
+
+
+          materialsUsed.push({
+
+            name:
+              material.name,
+
+            category:
+              material.category,
+
+            laboratoryQuantity:
+              material.laboratoryQuantity,
+
+            defaultQuantity:
+              material.laboratoryQuantity * number,
+
+            actualQuantity:
+              actualQuantity,
+
+            unit:
+              material.unit
+
+          });
+
+        }
+      );
+
+
+      var usageRecords =
+        JSON.parse(
+          localStorage.getItem(
+            testUsageStorageKey
+          )
+        ) || [];
+
+
+      var newUsageRecord = {
+
+        id:
+          Date.now().toString(),
+
+        date:
+          date,
+
+        testName:
+          testName,
+
+        numberOfTests:
+          number,
+
+        materials:
+          materialsUsed
+
+      };
+
+
+      usageRecords.push(
+        newUsageRecord
+      );
+
+
+      localStorage.setItem(
+        testUsageStorageKey,
+        JSON.stringify(
+          usageRecords
+        )
+      );
+
+
+      testUsageForm.reset();
+
+
+      usageMaterialsList.innerHTML = "";
+
+      usageMaterialsBox.style.display =
+        "none";
+
+
+      closeTestUsageModalWindow();
+
+    }
+  );
+
+}
       
 
       
