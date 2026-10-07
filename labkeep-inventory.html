@@ -2412,6 +2412,47 @@ function updateTestUsageMaterials() {
       "border-bottom:1px solid #edf2f7;";
 
 
+    var unitOptions = [
+      "µL",
+      "mL",
+      "L",
+      "mg",
+      "g",
+      "kg",
+      "ng",
+      "drops",
+      "bottle",
+      "tube",
+      "tip",
+      "strip",
+      "slide",
+      "kit",
+      "lancet",
+      "swab",
+      "pair",
+      "container"
+    ];
+
+    var unitSelect =
+      "<select" +
+        " data-unit-index=\"" + index + "\"" +
+        " style=\"padding:8px 9px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; background:#fff;\"" +
+      ">";
+
+    unitOptions.forEach(function (unit) {
+
+      unitSelect +=
+        "<option value=\"" + unit + "\"" +
+        (unit === material.unit ? " selected" : "") +
+        ">" +
+        unit +
+        "</option>";
+
+    });
+
+    unitSelect += "</select>";
+
+
     materialRow.innerHTML =
 
       "<div style=\"margin-bottom:8px;\">" +
@@ -2430,7 +2471,7 @@ function updateTestUsageMaterials() {
       "</div>" +
 
 
-      "<div style=\"display:flex; align-items:center; gap:8px;\">" +
+      "<div style=\"display:flex; align-items:center; gap:8px; flex-wrap:wrap;\">" +
 
         "<span style=\"color:#64748b; font-size:13px;\">" +
           "Actual used:" +
@@ -2445,9 +2486,7 @@ function updateTestUsageMaterials() {
           " style=\"width:100px; padding:8px 9px; border:1px solid #cbd5e1; border-radius:8px; text-align:center; font-size:14px;\"" +
         ">" +
 
-        "<span style=\"color:#475569; font-size:13px;\">" +
-          material.unit +
-        "</span>" +
+        unitSelect +
 
       "</div>";
 
