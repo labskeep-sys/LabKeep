@@ -2553,7 +2553,56 @@ function updateMaterialTotal() {
     perTestQuantity * number;
 
 
-  totalDisplay.innerHTML =
+  /* =========================
+     DETERMINE STANDARD UNIT
+  ========================= */
+
+  var standardUnit = null;
+
+
+  if (
+    selectedUnit === "µL" ||
+    selectedUnit === "mL" ||
+    selectedUnit === "L"
+  ) {
+
+    standardUnit = "mL";
+
+  }
+
+
+  if (
+    selectedUnit === "ng" ||
+    selectedUnit === "mg" ||
+    selectedUnit === "g" ||
+    selectedUnit === "kg"
+  ) {
+
+    standardUnit = "g";
+
+  }
+
+
+  var convertedQuantity = null;
+
+
+  if (standardUnit) {
+
+    convertedQuantity =
+      convertQuantity(
+        totalQuantity,
+        selectedUnit,
+        standardUnit
+      );
+
+  }
+
+
+  /* =========================
+     DISPLAY TOTAL
+  ========================= */
+
+  var displayText =
     "Total for " +
     number +
     " test" +
@@ -2564,6 +2613,27 @@ function updateMaterialTotal() {
       " " +
       selectedUnit +
     "</strong>";
+
+
+  if (
+    convertedQuantity !== null &&
+    selectedUnit !== standardUnit
+  ) {
+
+    displayText +=
+      " <span style=\"color:#64748b;\">" +
+      "(=" +
+      convertedQuantity +
+      " " +
+      standardUnit +
+      ")" +
+      "</span>";
+
+  }
+
+
+  totalDisplay.innerHTML =
+    displayText;
 
 }
 
@@ -2586,6 +2656,93 @@ updateMaterialTotal();
 
 
   usageMaterialsBox.style.display = "block";
+
+}
+
+      /* =========================================
+   UNIT CONVERSION
+========================================= */
+
+function convertQuantity(quantity, fromUnit, toUnit) {
+
+  if (
+    fromUnit === toUnit
+  ) {
+
+    return quantity;
+
+  }
+
+
+  /* =========================
+     VOLUME
+  ========================= */
+
+  var volumeInML = {
+
+    "µL": 0.001,
+
+    "mL": 1,
+
+    "L": 1000
+
+  };
+
+
+  if (
+    volumeInML[fromUnit] &&
+    volumeInML[toUnit]
+  ) {
+
+    var quantityInML =
+      quantity * volumeInML[fromUnit];
+
+    return (
+      quantityInML /
+      volumeInML[toUnit]
+    );
+
+  }
+
+
+  /* =========================
+     MASS
+  ========================= */
+
+  var massInGrams = {
+
+    "mg": 0.001,
+
+    "g": 1,
+
+    "kg": 1000,
+
+    "ng": 0.000001
+
+  };
+
+
+  if (
+    massInGrams[fromUnit] &&
+    massInGrams[toUnit]
+  ) {
+
+    var quantityInGrams =
+      quantity * massInGrams[fromUnit];
+
+    return (
+      quantityInGrams /
+      massInGrams[toUnit]
+    );
+
+  }
+
+
+  /* =========================
+     NON-CONVERTIBLE UNITS
+  ========================= */
+
+  return null;
 
 }
 
