@@ -2926,6 +2926,43 @@ if (testUsageForm) {
     var totalActualQuantity =
       actualPerTest * number;
 
+    var inventoryUnit = null;
+
+if (
+  actualUnit === "µL" ||
+  actualUnit === "mL" ||
+  actualUnit === "L"
+) {
+
+  inventoryUnit = "mL";
+
+}
+
+if (
+  actualUnit === "ng" ||
+  actualUnit === "mg" ||
+  actualUnit === "g" ||
+  actualUnit === "kg"
+) {
+
+  inventoryUnit = "g";
+
+}
+
+
+var inventoryQuantity = null;
+
+if (inventoryUnit) {
+
+  inventoryQuantity =
+    convertQuantity(
+      totalActualQuantity,
+      actualUnit,
+      inventoryUnit
+    );
+
+}
+
 
     materialsUsed.push({
 
@@ -2948,7 +2985,15 @@ if (testUsageForm) {
         totalActualQuantity,
 
       unit:
-        actualUnit
+        actualUnit,
+
+      inventoryQuantity:
+
+  inventoryQuantity,
+
+inventoryUnit:
+
+  inventoryUnit
 
     });
 
