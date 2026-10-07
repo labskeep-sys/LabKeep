@@ -2404,96 +2404,183 @@ function updateTestUsageMaterials() {
       material.laboratoryQuantity * number;
 
 
-    var materialRow =
-      document.createElement("div");
+   var unitOptions = [
+  "µL",
+  "mL",
+  "L",
+  "mg",
+  "g",
+  "kg",
+  "ng",
+  "drops",
+  "bottle",
+  "tube",
+  "tip",
+  "strip",
+  "slide",
+  "kit",
+  "lancet",
+  "swab",
+  "pair",
+  "container"
+];
 
-    materialRow.style.cssText =
-      "padding:12px 0;" +
-      "border-bottom:1px solid #edf2f7;";
+var unitSelect =
+  "<select" +
+    " data-unit-index=\"" + index + "\"" +
+    " style=\"padding:8px 9px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; background:#fff;\"" +
+  ">";
 
+unitOptions.forEach(function (unit) {
 
-    var unitOptions = [
-      "µL",
-      "mL",
-      "L",
-      "mg",
-      "g",
-      "kg",
-      "ng",
-      "drops",
-      "bottle",
-      "tube",
-      "tip",
-      "strip",
-      "slide",
-      "kit",
-      "lancet",
-      "swab",
-      "pair",
-      "container"
-    ];
+  unitSelect +=
+    "<option value=\"" + unit + "\"" +
+    (unit === material.unit ? " selected" : "") +
+    ">" +
+    unit +
+    "</option>";
 
-    var unitSelect =
-      "<select" +
-        " data-unit-index=\"" + index + "\"" +
-        " style=\"padding:8px 9px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; background:#fff;\"" +
-      ">";
+});
 
-    unitOptions.forEach(function (unit) {
-
-      unitSelect +=
-        "<option value=\"" + unit + "\"" +
-        (unit === material.unit ? " selected" : "") +
-        ">" +
-        unit +
-        "</option>";
-
-    });
-
-    unitSelect += "</select>";
+unitSelect += "</select>";
 
 
-    materialRow.innerHTML =
-
-      "<div style=\"margin-bottom:8px;\">" +
-
-        "<div style=\"color:#334155; font-size:14px; font-weight:600;\">" +
-          material.name +
-        "</div>" +
-
-        "<div style=\"color:#94a3b8; font-size:12px; margin-top:3px;\">" +
-          "Default: " +
-          calculatedQuantity +
-          " " +
-          material.unit +
-        "</div>" +
-
-      "</div>" +
+var defaultPerTest =
+  material.laboratoryQuantity;
 
 
-      "<div style=\"display:flex; align-items:center; gap:8px; flex-wrap:wrap;\">" +
+var materialRow =
+  document.createElement("div");
 
-        "<span style=\"color:#64748b; font-size:13px;\">" +
-          "Actual used:" +
-        "</span>" +
+materialRow.style.cssText =
+  "padding:12px 0;" +
+  "border-bottom:1px solid #edf2f7;";
 
-        "<input" +
-          " type=\"number\"" +
-          " min=\"0\"" +
-          " step=\"any\"" +
-          " value=\"" + calculatedQuantity + "\"" +
-          " data-material-index=\"" + index + "\"" +
-          " style=\"width:100px; padding:8px 9px; border:1px solid #cbd5e1; border-radius:8px; text-align:center; font-size:14px;\"" +
-        ">" +
 
-        unitSelect +
+materialRow.innerHTML =
 
-      "</div>";
+  "<div style=\"margin-bottom:8px;\">" +
+
+    "<div style=\"color:#334155; font-size:14px; font-weight:600;\">" +
+      material.name +
+    "</div>" +
+
+    "<div style=\"color:#94a3b8; font-size:12px; margin-top:3px;\">" +
+      "Default: " +
+      defaultPerTest +
+      " " +
+      material.unit +
+      " per test" +
+    "</div>" +
+
+  "</div>" +
+
+
+  "<div style=\"display:flex; align-items:center; gap:8px; flex-wrap:wrap;\">" +
+
+    "<span style=\"color:#64748b; font-size:13px;\">" +
+      "Your lab uses:" +
+    "</span>" +
+
+    "<input" +
+      " type=\"number\"" +
+      " min=\"0\"" +
+      " step=\"any\"" +
+      " value=\"" + defaultPerTest + "\"" +
+      " data-material-index=\"" + index + "\"" +
+      " style=\"width:100px; padding:8px 9px; border:1px solid #cbd5e1; border-radius:8px; text-align:center; font-size:14px;\"" +
+    ">" +
+
+    unitSelect +
+
+  "</div>" +
+
+
+  "<div class=\"test-usage-total\" style=\"margin-top:8px; color:#475569; font-size:13px;\">" +
+    "Total for " +
+    number +
+    " test" +
+    (number === 1 ? "" : "s") +
+    ": " +
+    "<strong>" +
+      calculatedQuantity +
+      " " +
+      material.unit +
+    "</strong>" +
+  "</div>";
 
 
     usageMaterialsList.appendChild(
       materialRow
     );
+
+    var quantityInput =
+  materialRow.querySelector(
+    "input[data-material-index=\"" + index + "\"]"
+  );
+
+var unitInput =
+  materialRow.querySelector(
+    "select[data-unit-index=\"" + index + "\"]"
+  );
+
+var totalDisplay =
+  materialRow.querySelector(
+    ".test-usage-total"
+  );
+
+
+function updateMaterialTotal() {
+
+  var perTestQuantity =
+    Number(quantityInput.value);
+
+  if (
+    isNaN(perTestQuantity) ||
+    perTestQuantity < 0
+  ) {
+
+    perTestQuantity = 0;
+
+  }
+
+
+  var selectedUnit =
+    unitInput.value;
+
+
+  var totalQuantity =
+    perTestQuantity * number;
+
+
+  totalDisplay.innerHTML =
+    "Total for " +
+    number +
+    " test" +
+    (number === 1 ? "" : "s") +
+    ": " +
+    "<strong>" +
+      totalQuantity +
+      " " +
+      selectedUnit +
+    "</strong>";
+
+}
+
+
+quantityInput.addEventListener(
+  "input",
+  updateMaterialTotal
+);
+
+
+unitInput.addEventListener(
+  "change",
+  updateMaterialTotal
+);
+
+
+updateMaterialTotal();
 
   });
 
