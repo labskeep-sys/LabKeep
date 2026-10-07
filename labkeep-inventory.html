@@ -2727,46 +2727,76 @@ if (testUsageForm) {
 
 
       materialRequirements.forEach(
-        function (material, index) {
+  function (material, index) {
 
-          var input =
-            usageMaterialsList.querySelector(
-              'input[data-material-index="' +
-              index +
-              '"]'
-            );
-
-
-          var actualQuantity =
-            input ?
-            Number(input.value) :
-            0;
-
-
-          materialsUsed.push({
-
-            name:
-              material.name,
-
-            category:
-              material.category,
-
-            laboratoryQuantity:
-              material.laboratoryQuantity,
-
-            defaultQuantity:
-              material.laboratoryQuantity * number,
-
-            actualQuantity:
-              actualQuantity,
-
-            unit:
-              material.unit
-
-          });
-
-        }
+    var input =
+      usageMaterialsList.querySelector(
+        'input[data-material-index="' +
+        index +
+        '"]'
       );
+
+    var unitInput =
+      usageMaterialsList.querySelector(
+        'select[data-unit-index="' +
+        index +
+        '"]'
+      );
+
+
+    var actualPerTest =
+      input ?
+      Number(input.value) :
+      0;
+
+
+    if (
+      isNaN(actualPerTest) ||
+      actualPerTest < 0
+    ) {
+
+      actualPerTest = 0;
+
+    }
+
+
+    var actualUnit =
+      unitInput ?
+      unitInput.value :
+      material.unit;
+
+
+    var totalActualQuantity =
+      actualPerTest * number;
+
+
+    materialsUsed.push({
+
+      name:
+        material.name,
+
+      category:
+        material.category,
+
+      laboratoryQuantity:
+        material.laboratoryQuantity,
+
+      defaultQuantity:
+        material.laboratoryQuantity * number,
+
+      actualPerTest:
+        actualPerTest,
+
+      actualQuantity:
+        totalActualQuantity,
+
+      unit:
+        actualUnit
+
+    });
+
+  }
+);
 
 
       var usageRecords =
