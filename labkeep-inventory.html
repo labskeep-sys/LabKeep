@@ -4175,7 +4175,26 @@ if (numberOfTests) {
 
   numberOfTests.addEventListener(
     "input",
-    updateTestUsageMaterials
+    function () {
+
+      updateTestUsageMaterials();
+
+      if (
+        Number(numberOfTests.value) >= 1 &&
+        otherMaterialsBox
+      ) {
+
+        otherMaterialsBox.style.display =
+          "block";
+
+      } else if (otherMaterialsBox) {
+
+        otherMaterialsBox.style.display =
+          "none";
+
+      }
+
+    }
   );
 
 }
