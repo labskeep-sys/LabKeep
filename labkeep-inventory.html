@@ -4673,6 +4673,7 @@ function renderTestUsageHistory() {
             var reagents = [];
             var consumables = [];
             var testKits = [];
+            var otherMaterials = [];
 
             (record.materials || [])
               .forEach(
@@ -4828,6 +4829,71 @@ var materialText =
                 }
               );
 
+            (record.otherMaterials || [])
+  .forEach(
+    function (material) {
+
+      var displayUnit =
+        material.unit;
+
+      if (material.quantity !== 1) {
+
+        if (material.unit === "piece") {
+          displayUnit = "pieces";
+        }
+
+        if (material.unit === "pair") {
+          displayUnit = "pairs";
+        }
+
+        if (material.unit === "tube") {
+          displayUnit = "tubes";
+        }
+
+        if (material.unit === "bottle") {
+          displayUnit = "bottles";
+        }
+
+        if (material.unit === "bag") {
+          displayUnit = "bags";
+        }
+
+        if (material.unit === "strip") {
+          displayUnit = "strips";
+        }
+
+        if (material.unit === "slide") {
+          displayUnit = "slides";
+        }
+
+        if (material.unit === "kit") {
+          displayUnit = "kits";
+        }
+
+        if (material.unit === "swab") {
+          displayUnit = "swabs";
+        }
+
+        if (material.unit === "tip") {
+          displayUnit = "tips";
+        }
+
+        if (material.unit === "lancet") {
+          displayUnit = "lancets";
+        }
+
+      }
+
+      otherMaterials.push(
+        material.name +
+        ": " +
+        material.quantity +
+        " " +
+        displayUnit
+      );
+
+    }
+  );
 
             var formattedDate =
               new Date(
@@ -4849,7 +4915,7 @@ var materialText =
 
             recordRow.innerHTML =
 
-              "<div style=\"display:grid; grid-template-columns:1fr 1fr 1fr 1.4fr 1.4fr 1.4fr; gap:16px; align-items:start;\">" +
+              "<div style=\"display:grid; grid-template-columns:1fr 1fr 1fr 1.4fr 1.4fr 1.4fr 1.4fr; gap:16px; align-items:start;\">" +
 
                 "<div>" +
 
@@ -4934,6 +5000,22 @@ var materialText =
                     (
                       testKits.length
                         ? testKits.join("<br>")
+                        : "—"
+                    ) +
+                  "</div>" +
+
+                "</div>" +
+
+              "<div>" +
+
+                  "<div style=\"font-size:12px; color:#94a3b8; margin-bottom:5px;\">" +
+                    "Other Materials" +
+                  "</div>" +
+
+                  "<div style=\"font-size:13px; line-height:1.6; color:#475569;\">" +
+                    (
+                      otherMaterials.length
+                        ? otherMaterials.join("<br>")
                         : "—"
                     ) +
                   "</div>" +
