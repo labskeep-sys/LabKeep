@@ -4076,13 +4076,20 @@ if (addOtherMaterialButton) {
     "click",
     function () {
 
-      alert("Add Another Material button is working");
+      otherMaterialSelect.value = "";
+
+      customMaterialBox.style.display =
+        "none";
+
+      customMaterialName.value = "";
+
+      otherMaterialSelect.focus();
 
     }
   );
 
 }
-   
+      
 if (testUsageSelection) {
 
   testUsageSelection.addEventListener(
