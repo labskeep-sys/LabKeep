@@ -1010,25 +1010,6 @@
 
   </select>
 
-  <button
-    type="button"
-    id="addOtherMaterialButton"
-    style="
-      display:none;
-      margin-top:10px;
-      padding:9px 13px;
-      border:1px solid #cbd5e1;
-      border-radius:8px;
-      background:#fff;
-      color:#334155;
-      font-size:13px;
-      font-weight:600;
-      cursor:pointer;
-    "
-  >
-    + Add Another Material
-  </button>
-
 
   <!-- CUSTOM MATERIAL -->
 
@@ -3723,9 +3704,6 @@ var otherMaterialSelect =
 var otherMaterialsList =
   document.getElementById("otherMaterialsList");
 
-var addOtherMaterialButton =
-  document.getElementById("addOtherMaterialButton");
-
 var customMaterialBox =
   document.getElementById("customMaterialBox");
 
@@ -3805,17 +3783,9 @@ function renderOtherMaterials() {
 
   if (otherMaterialsUsed.length === 0) {
 
-    addOtherMaterialButton.style.display =
-      "none";
-
     return;
 
   }
-
-
-  addOtherMaterialButton.style.display =
-    "inline-block";
-
 
   otherMaterialsUsed.forEach(
     function (material, index) {
