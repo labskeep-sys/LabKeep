@@ -7129,36 +7129,6 @@ window.labkeepRefreshProducts = renderProducts;
 
   renderStockInRecords();
 
-  // =========================================
-// BLOOD BAG SIZE SELECTION
-// =========================================
-
-const testUsageSelection = document.getElementById("testUsageSelection");
-const bloodBagSizeGroup = document.getElementById("bloodBagSizeGroup");
-const bloodBagSize = document.getElementById("bloodBagSize");
-
-if (testUsageSelection && bloodBagSizeGroup && bloodBagSize) {
-
-  testUsageSelection.addEventListener("change", function () {
-
-    if (this.value === "Blood Collection / Donation") {
-
-      bloodBagSizeGroup.style.display = "block";
-      bloodBagSize.required = true;
-
-    } else {
-
-      bloodBagSizeGroup.style.display = "none";
-      bloodBagSize.required = false;
-      bloodBagSize.value = "";
-
-    }
-
-  });
-
-}
-
-
 })();
 </script>
 
