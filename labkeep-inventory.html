@@ -4404,7 +4404,10 @@ inventoryUnit:
           number,
 
         materials:
-          materialsUsed
+          materialsUsed,
+
+        otherMaterials:
+    otherMaterialsUsed
 
       };
 
@@ -4424,6 +4427,15 @@ inventoryUnit:
       renderTestUsageHistory();
 
       testUsageForm.reset();
+
+      otherMaterialsUsed = [];
+
+renderOtherMaterials();
+
+customMaterialBox.style.display =
+  "none";
+
+customMaterialName.value = "";
 
 
       usageMaterialsList.innerHTML = "";
