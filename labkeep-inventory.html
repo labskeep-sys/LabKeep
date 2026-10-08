@@ -4076,6 +4076,13 @@ if (addOtherMaterialButton) {
     "click",
     function () {
 
+      otherMaterialSelect.value = "";
+
+      customMaterialBox.style.display =
+        "none";
+
+      customMaterialName.value = "";
+
       otherMaterialSelect.focus();
 
     }
