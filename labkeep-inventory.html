@@ -3217,6 +3217,16 @@ function updateTestUsageMaterials() {
     ? "bags"
     : material.unit;
 
+    var recordLabel =
+  selectedTest === "Blood Collection / Donation"
+    ? "donation"
+    : "test";
+
+var recordLabelPlural =
+  number === 1
+    ? recordLabel
+    : recordLabel + "s";
+
    var unitOptions = [
   "µL",
   "mL",
@@ -3282,10 +3292,11 @@ materialRow.innerHTML =
 
     "<div style=\"color:#94a3b8; font-size:12px; margin-top:3px;\">" +
       "Default: " +
-      defaultPerTest +
-      " " +
-      material.unit +
-      " per test" +
+defaultPerTest +
+" " +
+material.unit +
+" per " +
+recordLabel
     "</div>" +
 
   "</div>" +
@@ -3313,10 +3324,10 @@ materialRow.innerHTML =
 
   "<div class=\"test-usage-total\" style=\"margin-top:8px; color:#475569; font-size:13px;\">" +
     "Total for " +
-    number +
-    " test" +
-    (number === 1 ? "" : "s") +
-    ": " +
+number +
+" " +
+recordLabelPlural +
+": " +
     "<strong>" +
       calculatedQuantity +
       " " +
