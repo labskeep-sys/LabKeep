@@ -3537,7 +3537,9 @@ function convertQuantity(quantity, fromUnit, toUnit) {
       /* =========================================
    TEST USAGE MATERIAL CALCULATION EVENTS
 ========================================= */
-
+var bloodBagSizeGroup = document.getElementById("bloodBagSizeGroup");
+var bloodBagSize = document.getElementById("bloodBagSize");
+   
 if (testUsageSelection) {
 
   testUsageSelection.addEventListener(
@@ -3556,6 +3558,32 @@ if (testUsageSelection) {
         testUsageSearchInput.disabled = false;
 
       }
+
+      // BLOOD BAG SIZE
+
+    if (
+
+      testUsageSelection.value === "Blood Collection / Donation" &&
+
+      bloodBagSizeGroup &&
+
+      bloodBagSize
+
+    ) {
+
+      bloodBagSizeGroup.style.display = "block";
+
+      bloodBagSize.required = true;
+
+    } else if (bloodBagSizeGroup && bloodBagSize) {
+
+      bloodBagSizeGroup.style.display = "none";
+
+      bloodBagSize.required = false;
+
+      bloodBagSize.value = "";
+
+    }
 
       updateTestUsageMaterials();
 
