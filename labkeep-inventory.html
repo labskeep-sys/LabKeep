@@ -2148,8 +2148,33 @@ if (testUsageSearchInput) {
 
               updateTestUsageMaterials();
 
-            }
-          );
+            // Show blood bag options for Blood Collection / Donation
+
+  if (testName === "Blood Collection / Donation") {
+
+    bloodBagSizeGroup.style.display = "block";
+
+    bloodBagSize.required = true;
+
+    numberOfTestsLabel.textContent = "Number of Bags Used";
+
+    numberOfTests.placeholder = "Enter number of bags";
+
+  } else {
+
+    bloodBagSizeGroup.style.display = "none";
+
+    bloodBagSize.required = false;
+
+    bloodBagSize.value = "";
+
+    numberOfTestsLabel.textContent = "Number of Tests Performed";
+
+    numberOfTests.placeholder = "Enter number of tests";
+
+  }
+
+});
 
 
           testUsageSearchResults.appendChild(
