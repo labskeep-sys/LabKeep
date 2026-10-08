@@ -911,6 +911,151 @@
 
       </div>
 
+      <!-- OPTIONAL OTHER MATERIALS USED -->
+
+<div
+  class="inventory-form-group"
+  id="otherMaterialsBox"
+  style="margin-top:20px;"
+>
+
+  <label>
+    Other Materials Used
+    <span style="font-weight:400; color:#94a3b8;">
+      (Optional)
+    </span>
+  </label>
+
+  <div
+    style="
+      color:#64748b;
+      font-size:13px;
+      margin-bottom:10px;
+    "
+  >
+    Select any additional materials your laboratory used for this test.
+  </div>
+
+
+  <select
+    id="otherMaterialSelect"
+    style="
+      width:100%;
+      padding:10px 12px;
+      border:1px solid #cbd5e1;
+      border-radius:8px;
+      background:#fff;
+      font-size:14px;
+    "
+  >
+
+    <option value="">
+      Select other material used
+    </option>
+
+    <option value="Disposable Syringe">
+      Disposable Syringe
+    </option>
+
+    <option value="Disposable Needle">
+      Disposable Needle
+    </option>
+
+    <option value="Cotton Wool">
+      Cotton Wool
+    </option>
+
+    <option value="Alcohol Swab">
+      Alcohol Swab
+    </option>
+
+    <option value="Pasteur Pipette">
+      Pasteur Pipette
+    </option>
+
+    <option value="Plain Blood Collection Tube">
+      Plain Blood Collection Tube
+    </option>
+
+    <option value="EDTA Blood Collection Tube">
+      EDTA Blood Collection Tube
+    </option>
+
+    <option value="Fluoride-Oxalate Blood Collection Tube">
+      Fluoride-Oxalate Blood Collection Tube
+    </option>
+
+    <option value="Disposable Gloves">
+      Disposable Gloves
+    </option>
+
+    <option value="Lancet">
+      Lancet
+    </option>
+
+    <option value="Heparinized Capillary Tube">
+      Heparinized Capillary Tube
+    </option>
+
+    <option value="Other Material">
+      Other Material
+    </option>
+
+  </select>
+
+
+  <!-- SELECTED OPTIONAL MATERIALS -->
+
+  <div
+    id="otherMaterialsList"
+    style="margin-top:12px;"
+  ></div>
+
+
+  <button
+    type="button"
+    id="addOtherMaterialButton"
+    style="
+      display:none;
+      margin-top:10px;
+      padding:9px 13px;
+      border:1px solid #cbd5e1;
+      border-radius:8px;
+      background:#fff;
+      color:#334155;
+      font-size:13px;
+      font-weight:600;
+      cursor:pointer;
+    "
+  >
+    + Add Another Material
+  </button>
+
+
+  <!-- CUSTOM MATERIAL -->
+
+  <div
+    id="customMaterialBox"
+    style="display:none; margin-top:12px;"
+  >
+
+    <input
+      type="text"
+      id="customMaterialName"
+      placeholder="Enter material name"
+      style="
+        width:100%;
+        padding:10px 12px;
+        border:1px solid #cbd5e1;
+        border-radius:8px;
+        font-size:14px;
+      "
+    >
+
+  </div>
+
+</div>
+
 
       <!-- BUTTONS -->
 
@@ -3567,6 +3712,374 @@ var bloodBagSize = document.getElementById("bloodBagSize");
 
 var numberOfTestsLabel = document.getElementById("numberOfTestsLabel");
 var numberOfTests = document.getElementById("numberOfTests");
+
+/* =========================================
+   OPTIONAL OTHER MATERIALS USED
+========================================= */
+
+var otherMaterialSelect =
+  document.getElementById("otherMaterialSelect");
+
+var otherMaterialsList =
+  document.getElementById("otherMaterialsList");
+
+var addOtherMaterialButton =
+  document.getElementById("addOtherMaterialButton");
+
+var customMaterialBox =
+  document.getElementById("customMaterialBox");
+
+var customMaterialName =
+  document.getElementById("customMaterialName");
+
+
+var otherMaterialsUsed = [];
+
+
+/* =========================================
+   ADD OTHER MATERIAL
+========================================= */
+
+function addOtherMaterial(materialName) {
+
+  if (!materialName) {
+    return;
+  }
+
+
+  var alreadyExists =
+    otherMaterialsUsed.some(
+      function (material) {
+        return material.name === materialName;
+      }
+    );
+
+
+  if (alreadyExists) {
+
+    otherMaterialSelect.value = "";
+
+    return;
+
+  }
+
+
+  var material = {
+
+    name:
+      materialName,
+
+    quantity:
+      1,
+
+    unit:
+      "piece"
+
+  };
+
+
+  otherMaterialsUsed.push(material);
+
+
+  renderOtherMaterials();
+
+
+  otherMaterialSelect.value = "";
+
+  customMaterialBox.style.display =
+    "none";
+
+  customMaterialName.value = "";
+
+}
+
+
+/* =========================================
+   RENDER OTHER MATERIALS
+========================================= */
+
+function renderOtherMaterials() {
+
+  otherMaterialsList.innerHTML = "";
+
+
+  if (otherMaterialsUsed.length === 0) {
+
+    addOtherMaterialButton.style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  addOtherMaterialButton.style.display =
+    "inline-block";
+
+
+  otherMaterialsUsed.forEach(
+    function (material, index) {
+
+      var row =
+        document.createElement("div");
+
+
+      row.style.cssText =
+        "padding:12px 0;" +
+        "border-bottom:1px solid #edf2f7;";
+
+
+      row.innerHTML =
+
+        "<div style=\"display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px;\">" +
+
+          "<strong style=\"font-size:14px; color:#334155;\">" +
+            material.name +
+          "</strong>" +
+
+          "<button type=\"button\" data-remove-other-material=\"" +
+            index +
+          "\" style=\"border:none; background:none; color:#dc2626; font-size:12px; cursor:pointer;\">" +
+            "Remove" +
+          "</button>" +
+
+        "</div>" +
+
+
+        "<div style=\"display:flex; align-items:center; gap:8px; flex-wrap:wrap;\">" +
+
+          "<span style=\"font-size:13px; color:#64748b;\">" +
+            "Quantity used:" +
+          "</span>" +
+
+          "<input" +
+            " type=\"number\"" +
+            " min=\"0\"" +
+            " step=\"any\"" +
+            " value=\"" +
+              material.quantity +
+            "\"" +
+            " data-other-quantity=\"" +
+              index +
+            "\"" +
+            " style=\"width:90px; padding:8px 9px; border:1px solid #cbd5e1; border-radius:8px; text-align:center; font-size:14px;\"" +
+          ">" +
+
+
+          "<select" +
+            " data-other-unit=\"" +
+              index +
+            "\"" +
+            " style=\"padding:8px 9px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; background:#fff;\"" +
+          ">" +
+
+            "<option value=\"piece\"" +
+              (material.unit === "piece" ? " selected" : "") +
+            ">piece</option>" +
+
+            "<option value=\"pair\"" +
+              (material.unit === "pair" ? " selected" : "") +
+            ">pair</option>" +
+
+            "<option value=\"tube\"" +
+              (material.unit === "tube" ? " selected" : "") +
+            ">tube</option>" +
+
+            "<option value=\"bottle\"" +
+              (material.unit === "bottle" ? " selected" : "") +
+            ">bottle</option>" +
+
+            "<option value=\"bag\"" +
+              (material.unit === "bag" ? " selected" : "") +
+            ">bag</option>" +
+
+            "<option value=\"strip\"" +
+              (material.unit === "strip" ? " selected" : "") +
+            ">strip</option>" +
+
+            "<option value=\"slide\"" +
+              (material.unit === "slide" ? " selected" : "") +
+            ">slide</option>" +
+
+            "<option value=\"kit\"" +
+              (material.unit === "kit" ? " selected" : "") +
+            ">kit</option>" +
+
+            "<option value=\"swab\"" +
+              (material.unit === "swab" ? " selected" : "") +
+            ">swab</option>" +
+
+            "<option value=\"tip\"" +
+              (material.unit === "tip" ? " selected" : "") +
+            ">tip</option>" +
+
+            "<option value=\"lancet\"" +
+              (material.unit === "lancet" ? " selected" : "") +
+            ">lancet</option>" +
+
+          "</select>" +
+
+        "</div>";
+
+
+      otherMaterialsList.appendChild(row);
+
+
+      var quantityInput =
+        row.querySelector(
+          "[data-other-quantity=\"" +
+          index +
+          "\"]"
+        );
+
+
+      var unitInput =
+        row.querySelector(
+          "[data-other-unit=\"" +
+          index +
+          "\"]"
+        );
+
+
+      quantityInput.addEventListener(
+        "input",
+        function () {
+
+          material.quantity =
+            Number(quantityInput.value) || 0;
+
+        }
+      );
+
+
+      unitInput.addEventListener(
+        "change",
+        function () {
+
+          material.unit =
+            unitInput.value;
+
+        }
+      );
+
+
+      var removeButton =
+        row.querySelector(
+          "[data-remove-other-material=\"" +
+          index +
+          "\"]"
+        );
+
+
+      removeButton.addEventListener(
+        "click",
+        function () {
+
+          otherMaterialsUsed.splice(
+            index,
+            1
+          );
+
+          renderOtherMaterials();
+
+        }
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   SELECT OTHER MATERIAL
+========================================= */
+
+if (otherMaterialSelect) {
+
+  otherMaterialSelect.addEventListener(
+    "change",
+    function () {
+
+      var selectedMaterial =
+        otherMaterialSelect.value;
+
+
+      if (!selectedMaterial) {
+        return;
+      }
+
+
+      if (
+        selectedMaterial ===
+        "Other Material"
+      ) {
+
+        customMaterialBox.style.display =
+          "block";
+
+        customMaterialName.focus();
+
+        return;
+
+      }
+
+
+      addOtherMaterial(
+        selectedMaterial
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   ADD CUSTOM MATERIAL
+========================================= */
+
+if (customMaterialName) {
+
+  customMaterialName.addEventListener(
+    "change",
+    function () {
+
+      var customName =
+        customMaterialName.value.trim();
+
+
+      if (!customName) {
+        return;
+      }
+
+
+      addOtherMaterial(
+        customName
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   ADD ANOTHER MATERIAL
+========================================= */
+
+if (addOtherMaterialButton) {
+
+  addOtherMaterialButton.addEventListener(
+    "click",
+    function () {
+
+      otherMaterialSelect.focus();
+
+    }
+  );
+
+}
    
 if (testUsageSelection) {
 
