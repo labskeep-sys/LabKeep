@@ -1984,22 +1984,23 @@ var labkeepTestLibrary = [
   "Malaria Test Kit (RDT)",
   "Glucose (GOD-POD)",
   "Glucose (Strip)",
-  "Urinalysis",
+  "Urinalysis (Combi 9)",
+  "Urinalysis (Combi 10)",
   "Total Cholesterol (CHOD-POD)",
-  "Triglcyerides (GPO-POD)",
+  "Triglycerides (GPO-POD)",
   "HDL Cholesterol (Precipitation/Enzymatic Method)",
   "Total Bilirubin (Diazo Reaction Method)",
   "Direct Bilirubin (Diazo Reaction Method)",
   "Creatinine (Jaffe Reaction)",
   "Urea (Berthelot Method)",
-  "ALT (Reitman-Frankel)",
-  "AST (Reitman-Frankel)",
-  "ALP (Bassey-Lowery)",
+  "ALT (Reitman–Frankel)",
+  "AST (Reitman–Frankel)",
+  "ALP (Bassey–Lowery)",
   "Packed Cell Volume (PCV) - Microhematocrit",
   "ESR (Erythrocyte Sedimentation Rate) - Westergren",
   "Blood Grouping (Tile Method)",
-  "Blood Donation/Pre-Transfusion Screening",
-  "Blood Collection/Donation"
+  "Blood Donation / Pre-Transfusion Screening",
+  "Blood Collection / Donation"
 
 ];
 
@@ -7129,6 +7130,35 @@ window.labkeepRefreshProducts = renderProducts;
 
   renderStockInRecords();
 
+  // =========================================
+// BLOOD BAG SIZE SELECTION
+// =========================================
+
+const testUsageSelection = document.getElementById("testUsageSelection");
+const bloodBagSizeGroup = document.getElementById("bloodBagSizeGroup");
+const bloodBagSize = document.getElementById("bloodBagSize");
+
+if (testUsageSelection && bloodBagSizeGroup && bloodBagSize) {
+
+  testUsageSelection.addEventListener("change", function () {
+
+    if (this.value === "Blood Collection / Donation") {
+
+      bloodBagSizeGroup.style.display = "block";
+      bloodBagSize.required = true;
+
+    } else {
+
+      bloodBagSizeGroup.style.display = "none";
+      bloodBagSize.required = false;
+      bloodBagSize.value = "";
+
+    }
+
+  });
+
+}
+  
 })();
 </script>
 
