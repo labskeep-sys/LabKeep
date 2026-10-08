@@ -3232,7 +3232,10 @@ function updateTestUsageMaterials() {
   "pipette",
   "bag",
   "pair",
-  "container"
+  "container",
+  "piece",
+  "cup",
+  "microtube"
 ];
 
 var unitSelect =
@@ -4212,6 +4215,26 @@ if (material.unit === "plate") {
 
 if (material.unit === "well") {
   displayUnit = "wells";
+}
+
+  if (material.unit === "tip") {
+  displayUnit = "tips";
+}
+
+  if (material.unit === "bag") {
+  displayUnit = "bags";
+}
+
+  if (material.unit === "pipette") {
+  displayUnit = "pipettes";
+}
+
+  if (material.unit === "kit") {
+  displayUnit = "kits";
+}
+
+  if (material.unit === "piece") {
+  displayUnit = "pieces";
 }
 
   if (material.unit === "petri-dish") {
