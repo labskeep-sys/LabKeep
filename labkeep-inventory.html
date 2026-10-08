@@ -865,21 +865,19 @@
       <!-- NUMBER OF TESTS -->
 
       <div class="inventory-form-group">
+  <label for="numberOfTests" id="numberOfTestsLabel">
+    Number of Tests Performed
+  </label>
 
-        <label for="numberOfTests">
-          Number of Tests Performed
-        </label>
-
-        <input
-          type="number"
-          id="numberOfTests"
-          min="1"
-          step="1"
-          placeholder="Enter number of tests"
-          required
-        >
-
-      </div>
+  <input
+    type="number"
+    id="numberOfTests"
+    min="1"
+    step="1"
+    placeholder="Enter number of tests"
+    required
+  >
+</div>
 
 
       <!-- MATERIALS -->
@@ -3539,6 +3537,9 @@ function convertQuantity(quantity, fromUnit, toUnit) {
 ========================================= */
 var bloodBagSizeGroup = document.getElementById("bloodBagSizeGroup");
 var bloodBagSize = document.getElementById("bloodBagSize");
+
+var numberOfTestsLabel = document.getElementById("numberOfTestsLabel");
+var numberOfTests = document.getElementById("numberOfTests");
    
 if (testUsageSelection) {
 
@@ -3582,6 +3583,30 @@ if (testUsageSelection) {
       bloodBagSize.required = false;
 
       bloodBagSize.value = "";
+
+    }
+
+      // NUMBER LABEL
+
+    if (
+
+      testUsageSelection.value === "Blood Collection / Donation" &&
+
+      numberOfTestsLabel &&
+
+      numberOfTests
+
+    ) {
+
+      numberOfTestsLabel.textContent = "Number of Bags Used";
+
+      numberOfTests.placeholder = "Enter number of bags";
+
+    } else if (numberOfTestsLabel && numberOfTests) {
+
+      numberOfTestsLabel.textContent = "Number of Tests Performed";
+
+      numberOfTests.placeholder = "Enter number of tests";
 
     }
 
