@@ -767,6 +767,40 @@
 
 </div>
 
+      <!-- BLOOD BAG SIZE -->
+
+<div
+  class="inventory-form-group"
+  id="bloodBagSizeGroup"
+  style="display:none;"
+>
+
+  <label for="bloodBagSize">
+    Blood Bag Size
+  </label>
+
+  <select id="bloodBagSize">
+    
+    <option value="">
+      Select blood bag size
+    </option>
+
+    <option value="450 mL">
+      450 mL
+    </option>
+
+    <option value="250 mL">
+      250 mL
+    </option>
+
+    <option value="50 mL">
+      50 mL
+    </option>
+
+  </select>
+
+</div>
+
 
       <!-- NUMBER OF TESTS -->
 
@@ -3023,8 +3057,16 @@ var testUsageMaterialRequirements = {
     unit: "pair"
   }
 ],
-  
 
+  "Blood Collection / Donation": [
+  {
+    name: "Blood Bag",
+    category: "Blood Collection",
+    laboratoryQuantity: 1,
+    unit: "bag"
+  }
+]
+  
 };
       
       /* =========================================
@@ -7017,6 +7059,35 @@ window.labkeepRefreshProducts = renderProducts;
   ----------------------------------------- */
 
   renderStockInRecords();
+
+  // =========================================
+// BLOOD BAG SIZE SELECTION
+// =========================================
+
+const testUsageSelection = document.getElementById("testUsageSelection");
+const bloodBagSizeGroup = document.getElementById("bloodBagSizeGroup");
+const bloodBagSize = document.getElementById("bloodBagSize");
+
+if (testUsageSelection && bloodBagSizeGroup && bloodBagSize) {
+
+  testUsageSelection.addEventListener("change", function () {
+
+    if (this.value === "Blood Collection / Donation") {
+
+      bloodBagSizeGroup.style.display = "block";
+      bloodBagSize.required = true;
+
+    } else {
+
+      bloodBagSizeGroup.style.display = "none";
+      bloodBagSize.required = false;
+      bloodBagSize.value = "";
+
+    }
+
+  });
+
+}
 
 
 })();
