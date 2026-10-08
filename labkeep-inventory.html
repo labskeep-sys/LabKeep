@@ -3212,6 +3212,10 @@ function updateTestUsageMaterials() {
     var calculatedQuantity =
       material.laboratoryQuantity * number;
 
+    var displayUnit =
+  material.unit === "bag" && calculatedQuantity !== 1
+    ? "bags"
+    : material.unit;
 
    var unitOptions = [
   "µL",
@@ -3316,7 +3320,7 @@ materialRow.innerHTML =
     "<strong>" +
       calculatedQuantity +
       " " +
-      material.unit +
+      displayUnit +
     "</strong>" +
   "</div>";
 
