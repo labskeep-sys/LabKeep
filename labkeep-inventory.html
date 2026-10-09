@@ -8109,6 +8109,20 @@ initialBatch.innerUnit || "";
     ? selectedBatch.quantityPurchased
     : selectedBatch.quantity;
 
+      document.getElementById("productStockUnit").value =
+selectedBatch.stockUnit ||
+product.stockUnit ||
+product.unit;
+
+  document.getElementById("productUnitsPerPackage").value =
+    selectedBatch.unitsPerPackage ?? "";
+
+  document.getElementById("productUnitsPerInner").value =
+    selectedBatch.unitsPerInner ?? "";
+
+  document.getElementById("productInnerUnit").value =
+    selectedBatch.innerUnit || "";
+
       document.getElementById("productExpiry").value =
         selectedBatch.expiry;
 
