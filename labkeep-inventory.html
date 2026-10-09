@@ -7328,59 +7328,45 @@ var status = getProductStatus(
     </td>
     <td>
   <div>
-    ${Number(product.minimum) || 0}
-    ${product.stockUnit || product.unit}
+    ${
+      product.category === "Reagents" &&
+      product.batches &&
+      product.batches.some(function(batch) {
+        return (
+          Number(batch.unitsPerInner) > 0 &&
+          batch.innerUnit &&
+          ["bottle", "vial"].includes(
+            batch.innerUnit.toLowerCase()
+          )
+        );
+      })
+        ? Number(product.minimum) || 0
+        : Number(product.minimum) || 0
+    }
+    ${
+      product.category === "Reagents" &&
+      product.batches &&
+      product.batches.some(function(batch) {
+        return (
+          Number(batch.unitsPerInner) > 0 &&
+          batch.innerUnit &&
+          ["bottle", "vial"].includes(
+            batch.innerUnit.toLowerCase()
+          )
+        );
+      })
+        ? "Bottles/Vials"
+        : product.stockUnit || product.unit
+    }
   </div>
 
   ${
-    product.batches && product.batches.length > 0
-      ? product.batches
-          .filter(function (batch) {
-            return (
-              Number(batch.unitsPerInner) > 0 &&
-              batch.innerUnit &&
-              Number(batch.quantityPurchased) > 0
-            );
-          })
-          .map(function (batch) {
-            var minimumInBatchUnit =
-              Number(product.minimum) /
-              Number(batch.unitsPerInner);
-
-            var innerUnit = batch.innerUnit.trim();
-
-            var pluralUnit = innerUnit;
-
-            if (
-              minimumInBatchUnit !== 1 &&
-              !innerUnit.toLowerCase().endsWith("s")
-            ) {
-              pluralUnit =
-                innerUnit.toLowerCase() === "bottle"
-                  ? "Bottles"
-                  : innerUnit.toLowerCase() === "vial"
-                  ? "Vials"
-                  : innerUnit.toLowerCase() === "box"
-                  ? "Boxes"
-                  : innerUnit.toLowerCase() === "pack"
-                  ? "Packs"
-                  : innerUnit.toLowerCase() === "piece"
-                  ? "Pieces"
-                  : innerUnit + "s";
-            }
-
-            var formattedQuantity =
-              Number.isInteger(minimumInBatchUnit)
-                ? minimumInBatchUnit
-                : Number(minimumInBatchUnit.toFixed(2));
-
-            return `
-              <div style="margin-top:4px; font-size:12px; color:#64748b;">
-                ${formattedQuantity} ${pluralUnit}
-              </div>
-            `;
-          })
-          .join("")
+    product.category === "Reagents"
+      ? `
+        <div style="margin-top:4px; font-size:12px; color:#64748b;">
+          ${minimumInStockUnits} ${product.stockUnit || product.unit}
+        </div>
+      `
       : ""
   }
 </td>
