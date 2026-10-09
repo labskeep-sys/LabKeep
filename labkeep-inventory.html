@@ -8200,6 +8200,12 @@ window.labkeepRefreshProducts = renderProducts;
   var stockInNotes =
     document.getElementById("stockInNotes");
 
+  var stockInPackagingInfo =
+  document.getElementById("stockInPackagingInfo");
+
+var stockInPackagingDetails =
+  document.getElementById("stockInPackagingDetails");
+
   var stockInRecordsWrapper =
     document.getElementById("stockInRecordsWrapper");
 
@@ -8478,23 +8484,193 @@ window.labkeepRefreshProducts = renderProducts;
 
   }
 
+  /* -----------------------------------------
+   DISPLAY SELECTED BATCH PACKAGING
+----------------------------------------- */
+
+function updateStockInPackagingInfo() {
+
+  if (
+    !stockInPackagingInfo ||
+    !stockInPackagingDetails
+  ) {
+    return;
+  }
+
+  var products = getStockInProducts();
+
+  var selectedProductId =
+    Number(stockInProduct.value);
+
+  var product = products.find(function (item) {
+    return item.id === selectedProductId;
+  });
+
+  if (!product) {
+    stockInPackagingInfo.style.display = "none";
+    return;
+  }
+
+  var selectedBatchId = stockInBatch.value;
+
+  if (!selectedBatchId) {
+    stockInPackagingInfo.style.display = "none";
+    return;
+  }
+
+  var batches = product.batches || [];
+
+  var selectedBatch = batches.find(function (batch) {
+    return batch.batch === selectedBatchId;
+  });
+
+  /*
+     For a new batch, use the first existing batch
+     as the packaging reference for now.
+  */
+
+  if (selectedBatchId === "New Batch") {
+
+    selectedBatch = batches[0];
+
+  }
+
+  /*
+     Products without a saved batch structure
+     may still have legacy product information.
+  */
+
+  if (!selectedBatch && product.batch) {
+
+    selectedBatch = {
+      batch: product.batch,
+      stockUnit: product.stockUnit || product.unit,
+      unitsPerPackage: null,
+      unitsPerInner: null,
+      innerUnit: null
+    };
+
+  }
+
+  if (!selectedBatch) {
+    stockInPackagingInfo.style.display = "none";
+    return;
+  }
+
+  var purchaseUnit =
+    selectedBatch.purchaseUnit || product.unit;
+
+  var stockUnit =
+    selectedBatch.stockUnit ||
+    product.stockUnit ||
+    product.unit;
+
+  var unitsPerPackage =
+    Number(selectedBatch.unitsPerPackage) || 0;
+
+  var unitsPerInner =
+    Number(selectedBatch.unitsPerInner) || 0;
+
+  var details = [];
+
+  details.push(
+    "<strong>Purchase unit:</strong> " +
+    purchaseUnit
+  );
+
+  details.push(
+    "<strong>Stock tracked in:</strong> " +
+    stockUnit
+  );
+
+  if (unitsPerPackage > 0) {
+
+    if (unitsPerInner > 0) {
+
+      details.push(
+        "<strong>Bottles per package:</strong> " +
+        unitsPerPackage
+      );
+
+      details.push(
+        "<strong>Usable quantity per bottle:</strong> " +
+        unitsPerInner + " " + stockUnit
+      );
+
+      details.push(
+        "<strong>Usable stock per package:</strong> " +
+        (
+          unitsPerPackage * unitsPerInner
+        ) + " " + stockUnit
+      );
+
+    } else {
+
+      details.push(
+        "<strong>Usable units per package:</strong> " +
+        unitsPerPackage + " " + stockUnit
+      );
+
+    }
+
+  } else {
+
+    details.push(
+      "No packaging conversion is saved for this batch."
+    );
+
+  }
+
+  if (selectedBatchId === "New Batch") {
+
+    details.push(
+      "<em>The new batch will use this packaging reference. We will connect the conversion to stock saving in the next step.</em>"
+    );
+
+  }
+
+  stockInPackagingDetails.innerHTML =
+    details.join("<br>");
+
+  stockInPackagingInfo.style.display = "block";
+
+}
+
 
   /* -----------------------------------------
      PRODUCT CHANGE
   ----------------------------------------- */
 
-  if (stockInProduct) {
+  /* -----------------------------------------
+   PRODUCT AND BATCH CHANGE
+----------------------------------------- */
 
-    stockInProduct.addEventListener(
-      "change",
-      function () {
+if (stockInProduct) {
 
-        populateStockInBatches();
+  stockInProduct.addEventListener(
+    "change",
+    function () {
 
-      }
-    );
+      populateStockInBatches();
+      updateStockInPackagingInfo();
 
-  }
+    }
+  );
+
+}
+
+if (stockInBatch) {
+
+  stockInBatch.addEventListener(
+    "change",
+    function () {
+
+      updateStockInPackagingInfo();
+
+    }
+  );
+
+}
 
 
   /* -----------------------------------------
