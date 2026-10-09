@@ -7135,6 +7135,52 @@ function getProductStatus(quantity, minimum) {
     className: "status-ok"
   };
 }
+
+      /* =========================================
+   CONVERT MINIMUM STOCK TO STOCK UNITS
+========================================== */
+
+function getMinimumStockInStockUnits(product) {
+
+  var minimum = Number(product.minimum) || 0;
+
+  var stockUnit =
+    product.stockUnit || product.unit;
+
+  if (
+    product.category !== "Reagents" ||
+    !["Bottle", "Vial"].includes(product.unit)
+  ) {
+    return minimum;
+  }
+
+  var batches = product.batches || [];
+
+  var conversionBatch = batches.find(function (batch) {
+    return (
+      Number(batch.unitsPerInner) > 0 &&
+      batch.innerUnit &&
+      (batch.stockUnit || stockUnit) === stockUnit
+    );
+  });
+
+  if (!conversionBatch) {
+    return minimum;
+  }
+
+  var innerUnit =
+    conversionBatch.innerUnit.toLowerCase();
+
+  if (
+    innerUnit === "bottle" ||
+    innerUnit === "vial"
+  ) {
+    return minimum *
+      Number(conversionBatch.unitsPerInner);
+  }
+
+  return minimum;
+}
       
 function renderProducts() {
 
