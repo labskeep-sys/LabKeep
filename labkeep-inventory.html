@@ -7113,8 +7113,8 @@ function saveProducts(products) {
 }
       
 function getProductStatus(quantity, minimum) {
-  quantity = Number(quantity);
-  minimum = Number(minimum);
+  quantity = Number(quantity) || 0;
+  minimum = Number(minimum) || 0;
 
   if (quantity <= 0) {
     return {
@@ -7135,7 +7135,7 @@ function getProductStatus(quantity, minimum) {
     className: "status-ok"
   };
 }
-
+      
 function renderProducts() {
 
   var products = getProducts();
