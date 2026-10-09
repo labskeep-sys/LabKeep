@@ -8175,6 +8175,11 @@ if (editButton) {
   document.getElementById("productUnit").value =
     product.unit;
 
+  document.getElementById("productBloodBagSize").value =
+product.bloodBagSize || "";
+
+updateProductBloodBagSizeVisibility();
+
   var initialBatch =
 product.batches && product.batches.length > 0
 ? product.batches[0]
