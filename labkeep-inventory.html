@@ -7558,8 +7558,7 @@ if (isPackagedReagent) {
 
       if (selectedBatch) {
 
-        selectedBatch.quantity =
-          Number(productQuantity);
+       /* Keep usable stock unchanged when editing */
 
         selectedBatch.expiry =
           productExpiry;
@@ -7614,8 +7613,7 @@ if (isPackagedReagent) {
 
     else {
 
-      productToEdit.quantity =
-        Number(productQuantity);
+      /* Keep existing stock quantity unchanged */
 
       productToEdit.batch =
         productBatch;
