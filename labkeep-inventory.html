@@ -8876,17 +8876,23 @@ window.labkeepRefreshProducts = renderProducts;
 
     <script>
 document.addEventListener("DOMContentLoaded", function () {
+
+  const category = document.getElementById("productCategory");
   const purchaseUnit = document.getElementById("productUnit");
   const stockUnit = document.getElementById("productStockUnit");
+
   const packagingFields = document.getElementById("productPackagingFields");
   const unitsPerPackage = document.getElementById("productUnitsPerPackage");
   const unitsPerPackageLabel = document.getElementById("productUnitsPerPackageLabel");
+
   const innerFields = document.getElementById("productInnerPackagingFields");
   const innerUnit = document.getElementById("productInnerUnit");
   const innerUnitLabel = document.getElementById("productInnerUnitLabel");
   const unitsPerInner = document.getElementById("productUnitsPerInner");
   const unitsPerInnerLabel = document.getElementById("productUnitsPerInnerLabel");
+
   if (
+    !category ||
     !purchaseUnit ||
     !stockUnit ||
     !packagingFields ||
@@ -8897,75 +8903,122 @@ document.addEventListener("DOMContentLoaded", function () {
   ) {
     return;
   }
+
   function updatePackagingFields() {
-const purchase = purchaseUnit.value;
-const stock = stockUnit.value;
 
-const needsConversion =
-purchase !== “” &&
-stock !== “” &&
-purchase !== stock;
+    const selectedCategory = category.value;
+    const purchase = purchaseUnit.value;
+    const stock = stockUnit.value;
 
-packagingFields.style.display =
-needsConversion ? “block” : “none”;
+    const innerUnitGroup = innerUnit.closest(".inventory-form-group");
 
-unitsPerPackage.required = needsConversion;
+    const packageUnits = ["Pack", "Box", "Carton"];
+    const measurementUnits = ["mL", "µL", "L", "mg", "g", "kg"];
 
-if (!needsConversion) {
-unitsPerPackage.value = “”;
-innerUnit.value = “”;
-unitsPerInner.value = “”;
-innerFields.style.display = “none”;
-innerUnit.required = false;
-unitsPerInner.required = false;
-return;
-}
+    let showPackaging = false;
+    let showInnerPackaging = false;
 
-const isMultiLevel =
-[“Pack”, “Box”, “Carton”].includes(purchase);
+    // Hide packaging fields until the selected category and unit
+    // determine which questions are needed.
+    packagingFields.style.display = "none";
+    innerFields.style.display = "none";
 
-const stockIsVolumeOrMass =
-[“mL”, “µL”, “L”, “mg”, “g”, “kg”].includes(stock);
+    unitsPerPackage.required = false;
+    unitsPerInner.required = false;
 
-const stockIsCount =
-[“Piece”, “Pair”, “Test”].includes(stock);
+    if (innerUnitGroup) {
+      innerUnitGroup.style.display = "none";
+    }
 
-// Default: hide inner-container fields.
-innerFields.style.display = “none”;
-innerUnit.required = false;
-unitsPerInner.required = false;
+    if (!selectedCategory || !purchase) {
+      return;
+    }
 
-if (isMultiLevel) {
-// Start by assuming the package directly contains usable stock.
-unitsPerPackageLabel.textContent =
-“How many “ + stock + “ are in each “ +
-purchase.toLowerCase() + “?”;
+    // REAGENTS
+    if (selectedCategory === "Reagents") {
 
-// For volume or mass products, allow the user to specify
-// bottles or other inner containers when applicable.
-if (stockIsVolumeOrMass) {
-  innerFields.style.display = "block";
-  unitsPerPackageLabel.textContent =
-    "How many inner packages are in each " +
-    purchase.toLowerCase() + "?";
-  innerUnitLabel.textContent =
-    "Inner container type (if applicable)";
-  innerUnit.placeholder = "e.g. Bottle";
-  unitsPerInnerLabel.textContent =
-    "How many " + stock + " are in each inner container?";
-  innerUnit.required = false;
-  unitsPerInner.required = false;
-}
+      if (["Bottle", "Vial"].includes(purchase)) {
 
-} else {
-unitsPerPackageLabel.textContent =
-“How many “ + stock + “ are in each “ +
-purchase.toLowerCase() + “?”;
-}
-}
+        showPackaging = true;
+
+        unitsPerPackageLabel.textContent =
+          "How many " + (stock || "mL") +
+          " are in each " + purchase.toLowerCase() + "?";
+
+      } else if (packageUnits.includes(purchase)) {
+
+        showPackaging = true;
+        showInnerPackaging = true;
+
+        unitsPerPackageLabel.textContent =
+          "How many bottles are in each " +
+          purchase.toLowerCase() + "?";
+
+        innerUnit.value = "Bottle";
+
+        innerUnitLabel.textContent = "Inner container";
+        unitsPerInnerLabel.textContent =
+          "How many " + (stock || "mL") + " are in each bottle?";
+
+      }
+    }
+
+    // TEST KITS
+    else if (selectedCategory === "Test Kits") {
+
+      if (packageUnits.includes(purchase)) {
+
+        showPackaging = true;
+
+        unitsPerPackageLabel.textContent =
+          "How many kits are in each " +
+          purchase.toLowerCase() + "?";
+
+        stockUnit.value = "Kit";
+      }
+    }
+
+    // CONSUMABLES
+    else if (selectedCategory === "Consumables") {
+
+      if (packageUnits.includes(purchase)) {
+
+        showPackaging = true;
+
+        unitsPerPackageLabel.textContent =
+          "How many pieces are in each " +
+          purchase.toLowerCase() + "?";
+
+        stockUnit.value = "Piece";
+      }
+    }
+
+    packagingFields.style.display =
+      showPackaging ? "block" : "none";
+
+    innerFields.style.display =
+      showInnerPackaging ? "block" : "none";
+
+    unitsPerPackage.required = showPackaging;
+    unitsPerInner.required = showInnerPackaging;
+
+    // Never ask the user to name the inner container.
+    // Reagents in packs, boxes, and cartons use bottles here.
+    if (showInnerPackaging) {
+      innerUnit.value = "Bottle";
+    } else {
+      innerUnit.value = "";
+      unitsPerInner.value = "";
+    }
+
+  }
+
+  category.addEventListener("change", updatePackagingFields);
   purchaseUnit.addEventListener("change", updatePackagingFields);
   stockUnit.addEventListener("change", updatePackagingFields);
+
   updatePackagingFields();
+
 });
 </script>
 
