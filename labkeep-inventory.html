@@ -6253,47 +6253,6 @@ if (testUsageSearch) {
 
       var editingProductId = null;
 
-      // Blood bag size selector in Add Product
-
-var productNameInput =
-document.getElementById("productName");
-
-var productBloodBagSizeGroup =
-document.getElementById("productBloodBagSizeGroup");
-
-var productBloodBagSize =
-document.getElementById("productBloodBagSize");
-
-function updateProductBloodBagSize() {
-
-var productName =
-productNameInput.value.trim().toLowerCase();
-
-var isBloodBag =
-productName === "blood collection bag" ||
-productName === "blood collection bags";
-
-productBloodBagSizeGroup.style.display =
-isBloodBag ? "block" : "none";
-
-productBloodBagSize.required = isBloodBag;
-
-if (!isBloodBag) {
-productBloodBagSize.value = "";
-}
-}
-
-productNameInput.addEventListener(
-"input",
-updateProductBloodBagSize
-);
-
-productNameInput.addEventListener(
-"change",
-updateProductBloodBagSize
-);
-
-
       function closeSidebar() {
 
         inventorySidebar.classList.remove(
