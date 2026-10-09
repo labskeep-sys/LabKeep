@@ -7791,6 +7791,14 @@ productName.toLowerCase().includes("blood collection bag") &&
 
     productToEdit.bloodBagSize =
   productBloodBagSize;
+    if (
+  productToEdit.batches &&
+  productToEdit.batches.length > 0
+) {
+  productToEdit.batches.forEach(function (batch) {
+    batch.bloodBagSize = productBloodBagSize;
+  });
+}
 
     productToEdit.minimum =
       Number(productMinimum);
