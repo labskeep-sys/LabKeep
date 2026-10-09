@@ -1679,7 +1679,7 @@
     <option value="Test">Test</option>
     <option value="Other">Other</option>
   </select>
-  <small>Choose the unit LabKeep should use to track and deduct this product.</small>
+  <small>Choose the unit LabKeep should use to track.</small>
 </div>
 <!-- PACKAGING CONVERSION -->
 <div id="productPackagingFields" style="display: none;">
@@ -8894,50 +8894,71 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
   function updatePackagingFields() {
-    const purchase = purchaseUnit.value;
-    const stock = stockUnit.value;
-    const needsConversion = purchase !== "" &&
-                            stock !== "" &&
-                            purchase !== stock;
-    packagingFields.style.display = needsConversion ? "block" : "none";
-    unitsPerPackage.required = needsConversion;
-    if (!needsConversion) {
-      unitsPerPackage.value = "";
-      innerUnit.value = "";
-      unitsPerInner.value = "";
-      innerFields.style.display = "none";
-      unitsPerInner.required = false;
-      return;
-    }
-    const isMultiLevel =
-      purchase === "Pack" ||
-      purchase === "Box" ||
-      purchase === "Carton";
-    innerFields.style.display = isMultiLevel ? "block" : "none";
-    if (!isMultiLevel) {
-      innerUnit.value = "";
-      unitsPerInner.value = "";
-      unitsPerInner.required = false;
-    }
-    if (purchase === "Bottle" || purchase === "Vial") {
-      unitsPerPackageLabel.textContent =
-        "How many " + stock + " are in each " + purchase.toLowerCase() + "?";
-    } else if (isMultiLevel) {
-      unitsPerPackageLabel.textContent =
-        "How many inner packages are in each " + purchase.toLowerCase() + "?";
-      innerUnitLabel.textContent = "Name of inner package";
-      innerUnit.placeholder = "e.g. Bottle";
-      unitsPerInnerLabel.textContent =
-        "How many " + stock + " are in each inner package?";
-    } else {
-      unitsPerPackageLabel.textContent =
-        "How many " + stock + " are in each " + purchase.toLowerCase() + "?";
-    }
-    if (isMultiLevel) {
-      innerUnit.required = false;
-      unitsPerInner.required = false;
-    }
-  }
+const purchase = purchaseUnit.value;
+const stock = stockUnit.value;
+
+const needsConversion =
+purchase !== “” &&
+stock !== “” &&
+purchase !== stock;
+
+packagingFields.style.display =
+needsConversion ? “block” : “none”;
+
+unitsPerPackage.required = needsConversion;
+
+if (!needsConversion) {
+unitsPerPackage.value = “”;
+innerUnit.value = “”;
+unitsPerInner.value = “”;
+innerFields.style.display = “none”;
+innerUnit.required = false;
+unitsPerInner.required = false;
+return;
+}
+
+const isMultiLevel =
+[“Pack”, “Box”, “Carton”].includes(purchase);
+
+const stockIsVolumeOrMass =
+[“mL”, “µL”, “L”, “mg”, “g”, “kg”].includes(stock);
+
+const stockIsCount =
+[“Piece”, “Pair”, “Test”].includes(stock);
+
+// Default: hide inner-container fields.
+innerFields.style.display = “none”;
+innerUnit.required = false;
+unitsPerInner.required = false;
+
+if (isMultiLevel) {
+// Start by assuming the package directly contains usable stock.
+unitsPerPackageLabel.textContent =
+“How many “ + stock + “ are in each “ +
+purchase.toLowerCase() + “?”;
+
+// For volume or mass products, allow the user to specify
+// bottles or other inner containers when applicable.
+if (stockIsVolumeOrMass) {
+  innerFields.style.display = "block";
+  unitsPerPackageLabel.textContent =
+    "How many inner packages are in each " +
+    purchase.toLowerCase() + "?";
+  innerUnitLabel.textContent =
+    "Inner container type (if applicable)";
+  innerUnit.placeholder = "e.g. Bottle";
+  unitsPerInnerLabel.textContent =
+    "How many " + stock + " are in each inner container?";
+  innerUnit.required = false;
+  unitsPerInner.required = false;
+}
+
+} else {
+unitsPerPackageLabel.textContent =
+“How many “ + stock + “ are in each “ +
+purchase.toLowerCase() + “?”;
+}
+}
   purchaseUnit.addEventListener("change", updatePackagingFields);
   stockUnit.addEventListener("change", updatePackagingFields);
   updatePackagingFields();
