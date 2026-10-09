@@ -7671,51 +7671,43 @@ else {
 
   else {
 
-    var newProduct = {
+   var newProduct = {
 
-      id: Date.now(),
-
-      name: productName,
-
-      category: productCategory,
-
-      unit: productUnit,
-
-      quantity: Number(productQuantity),
-
-      minimum: Number(productMinimum),
-
+  id: Date.now(),
+  name: productName,
+  category: productCategory,
+  unit: productUnit,
+  stockUnit: productStockUnit || productUnit,
+  quantity: initialUsableStock,
+  minimum: Number(productMinimum),
+  batch: productBatch,
+  expiry: productExpiry,
+  cost: productCost
+    ? Number(productCost)
+    : 0,
+  notes: productNotes,
+  batches: [
+    {
       batch: productBatch,
-
+      quantity: initialUsableStock,
+      quantityPurchased: Number(productQuantity),
+      purchaseUnit: productUnit,
+      unitsPerPackage: productUnitsPerPackage,
+      unitsPerInner: isPackagedReagent
+        ? productUnitsPerInner
+        : null,
+      innerUnit: isPackagedReagent
+        ? productInnerUnit
+        : null,
+      stockUnit: productStockUnit || productUnit,
       expiry: productExpiry,
-
       cost: productCost
         ? Number(productCost)
         : 0,
-
-      notes: productNotes,
-
-      batches: [
-
-        {
-
-          batch: productBatch,
-
-          quantity: Number(productQuantity),
-
-          expiry: productExpiry,
-
-          cost: productCost
-            ? Number(productCost)
-            : 0,
-
-          notes: productNotes
-
-        }
-
-      ]
-
-    };
+      notes: productNotes
+    }
+  ]
+};
 
 
     products.push(newProduct);
