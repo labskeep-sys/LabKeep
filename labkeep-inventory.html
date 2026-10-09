@@ -7257,10 +7257,10 @@ function renderProducts() {
       ${product.category}
     </td>
     <td>
-      ${product.quantity} ${product.unit}
+      ${Number(product.quantity) || 0} ${product.stockUnit || product.unit}
     </td>
     <td>
-      ${product.minimum} ${product.unit}
+      ${product.minimum} ${product.stockUnit || product.unit}
     </td>
     <td>
       ${product.unit}
