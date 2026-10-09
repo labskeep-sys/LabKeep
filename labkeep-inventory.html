@@ -7589,6 +7589,11 @@ var initialUsableStock =
         productMinimum === "" ||
         !productBatch ||
         !productExpiry
+        (
+
+          productName.toLowerCase().includes("blood collection bag") &&
+    !productBloodBagSize
+  )
       ) {
 
         alert("Please complete all required fields.");
