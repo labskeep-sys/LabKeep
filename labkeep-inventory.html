@@ -7611,58 +7611,75 @@ else {
 
 
   /* =========================================
-     PRODUCT ALREADY EXISTS
-  ========================================== */
+PRODUCT ALREADY EXISTS
+========================================== */
 
-  if (existingProduct) {
+if (existingProduct) {
 
-    var confirmed =
-      confirm(
-        "This product already exists. Do you want to add this as a new batch?"
-      );
-
-
-    if (!confirmed) {
-      return;
+var confirmed =
+  confirm(
+    "This product already exists. Do you want to add this as a new batch?"
+  );
+if (!confirmed) {
+  return;
+}
+/* Keep stock units consistent */
+var existingStockUnit =
+  existingProduct.stockUnit || existingProduct.unit;
+var incomingStockUnit =
+  productStockUnit || productUnit;
+if (existingStockUnit !== incomingStockUnit) {
+  alert(
+    "This product uses " + existingStockUnit +
+    " for stock tracking. The new batch uses " +
+    incomingStockUnit +
+    ". Please use the same stock unit."
+  );
+  return;
+}
+/* Preserve the existing multi-batch structure */
+if (!existingProduct.batches) {
+  existingProduct.batches = [
+    {
+      batch: existingProduct.batch,
+      quantity: Number(existingProduct.quantity) || 0,
+      expiry: existingProduct.expiry,
+      cost: Number(existingProduct.cost) || 0,
+      notes: existingProduct.notes || ""
     }
+  ];
+}
+/* Add the new batch with its packaging details */
+existingProduct.batches.push({
+  batch: productBatch,
+  quantity: initialUsableStock,
+  quantityPurchased: Number(productQuantity),
+  purchaseUnit: productUnit,
+  unitsPerPackage: productUnitsPerPackage,
+  unitsPerInner: isPackagedReagent
+    ? productUnitsPerInner
+    : null,
+  innerUnit: isPackagedReagent
+    ? productInnerUnit
+    : null,
+  stockUnit: incomingStockUnit,
+  expiry: productExpiry,
+  cost: productCost
+    ? Number(productCost)
+    : 0,
+  notes: productNotes
+});
+/* Update the total usable stock */
+existingProduct.stockUnit = incomingStockUnit;
+existingProduct.quantity =
+  existingProduct.batches.reduce(
+    function (total, batch) {
+      return total + (Number(batch.quantity) || 0);
+    },
+    0
+  );
 
-
-    /* For now, add the new batch information
-       to the existing product */
-
-    if (!existingProduct.batches) {
-      existingProduct.batches = [];
-    }
-
-
-    existingProduct.batches.push({
-
-      batch: productBatch,
-
-      quantity: Number(productQuantity),
-
-      expiry: productExpiry,
-
-      cost: productCost
-        ? Number(productCost)
-        : 0,
-
-      notes: productNotes
-
-    });
-
-
-    /* Update total product quantity */
-
-    existingProduct.quantity =
-      existingProduct.batches.reduce(
-        function (total, batch) {
-          return total + Number(batch.quantity);
-        },
-        0
-      );
-
-  }
+}
 
 
   /* =========================================
