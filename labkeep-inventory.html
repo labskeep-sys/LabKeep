@@ -7279,17 +7279,63 @@ function renderProducts() {
     product.batches && product.batches.length > 0
       ? `
         <div style="margin-top:8px; font-size:12px; line-height:1.7; color:#5b6472;">
-          ${product.batches.map(function(batch) {
-            return `
-              <div>
-                <strong style="color:#0b1f5c;">
-                  ${batch.batch}
-                </strong>
-                — ${batch.quantity} ${product.unit}
-                — Expires ${batch.expiry}
-              </div>
-            `;
-          }).join("")}
+         ${product.batches.map(function(batch) {
+
+var purchaseQuantity =
+batch.quantityPurchased !== undefined
+? batch.quantityPurchased
+: batch.quantity;
+
+var purchaseUnit =
+batch.purchaseUnit || product.unit;
+
+var stockUnit =
+batch.stockUnit || product.stockUnit || product.unit;
+
+var packagingDetails = “”;
+
+if (
+batch.unitsPerInner &&
+batch.unitsPerPackage
+) {
+
+packagingDetails =
+  batch.unitsPerPackage + " " +
+  (batch.innerUnit || "units") +
+  " per " + purchaseUnit +
+  "<br>" +
+  batch.unitsPerInner + " " +
+  stockUnit + " per " +
+  (batch.innerUnit || "unit");
+
+} else if (batch.unitsPerPackage) {
+
+packagingDetails =
+  batch.unitsPerPackage + " " +
+  stockUnit + " per " + purchaseUnit;
+
+}
+
+return `
+  <strong style="color:#0b1f5c;">
+    ${batch.batch}
+  </strong>
+  — ${purchaseQuantity} ${purchaseUnit}
+  <br>
+  ${packagingDetails
+    ? packagingDetails + "<br>"
+    : ""
+  }
+  <span>
+    Usable Stock: ${Number(batch.quantity) || 0} ${stockUnit}
+  </span>
+  <br>
+  Expires ${batch.expiry}
+</div>
+
+`;
+
+}).join(””)}
         </div>
       `
       : `
