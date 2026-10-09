@@ -8019,7 +8019,9 @@ if (editButton) {
       }
 
       document.getElementById("productQuantity").value =
-        selectedBatch.quantity;
+  selectedBatch.quantityPurchased !== undefined
+    ? selectedBatch.quantityPurchased
+    : selectedBatch.quantity;
 
       document.getElementById("productExpiry").value =
         selectedBatch.expiry;
