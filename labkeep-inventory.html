@@ -7367,6 +7367,37 @@ if (addProductForm) {
         document.getElementById("productNotes").value.trim();
 
 
+      var productStockUnit =
+  document.getElementById("productStockUnit").value;
+var productUnitsPerPackage =
+  Number(document.getElementById("productUnitsPerPackage").value) || 0;
+var productUnitsPerInner =
+  Number(document.getElementById("productUnitsPerInner").value) || 0;
+var productInnerUnit =
+  document.getElementById("productInnerUnit").value;
+var packageUnits = ["Pack", "Box", "Carton"];
+var isReagent =
+  productCategory === "Reagents";
+var isPackagedReagent =
+  isReagent && packageUnits.includes(productUnit);
+var isDirectReagent =
+  isReagent && ["Bottle", "Vial"].includes(productUnit);
+var hasPackagingConversion =
+  isPackagedReagent || isDirectReagent ||
+  (
+    ["Test Kits", "Consumables"].includes(productCategory) &&
+    packageUnits.includes(productUnit)
+  );
+var usableUnitsPerPurchaseUnit = 1;
+if (isPackagedReagent) {
+  usableUnitsPerPurchaseUnit =
+    productUnitsPerPackage * productUnitsPerInner;
+} else if (hasPackagingConversion) {
+  usableUnitsPerPurchaseUnit =
+    productUnitsPerPackage;
+}
+
+
       /* Basic validation */
 
       if (
