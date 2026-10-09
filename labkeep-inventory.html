@@ -4382,6 +4382,60 @@ var testUsageMaterialRequirements = {
 }
 
 populateInventoryMaterialOptions();
+
+    /* =========================================
+SHOW BLOOD BAG SIZE IN ADD PRODUCT
+========================================== */
+
+var productNameInput =
+document.getElementById("productName");
+
+var productBloodBagSizeGroup =
+document.getElementById("productBloodBagSizeGroup");
+
+var productBloodBagSizeSelect =
+document.getElementById("productBloodBagSize");
+
+function updateProductBloodBagSizeVisibility() {
+
+if (
+!productNameInput ||
+!productBloodBagSizeGroup ||
+!productBloodBagSizeSelect
+) {
+return;
+}
+
+var isBloodBag =
+productNameInput.value
+.trim()
+.toLowerCase()
+.includes("blood collection bag");
+
+productBloodBagSizeGroup.style.display =
+isBloodBag ? "block" : "none";
+
+productBloodBagSizeSelect.required =
+isBloodBag;
+
+if (!isBloodBag) {
+productBloodBagSizeSelect.value = "";
+}
+}
+
+if (productNameInput) {
+
+productNameInput.addEventListener(
+"input",
+updateProductBloodBagSizeVisibility
+);
+
+productNameInput.addEventListener(
+"change",
+updateProductBloodBagSizeVisibility
+);
+
+}
       
       /* =========================================
    CALCULATE TEST USAGE MATERIALS
