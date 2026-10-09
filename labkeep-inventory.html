@@ -1663,6 +1663,67 @@
 
       </div>
 
+      <!-- USABLE STOCK UNIT -->
+<div class="inventory-form-group">
+  <label for="productStockUnit">Unit Used to Count Stock</label>
+  <select id="productStockUnit" name="productStockUnit" required>
+    <option value="">Select stock unit</option>
+    <option value="Piece">Piece</option>
+    <option value="Pair">Pair</option>
+    <option value="mL">mL</option>
+    <option value="µL">µL</option>
+    <option value="L">Litre (L)</option>
+    <option value="mg">mg</option>
+    <option value="g">Gram (g)</option>
+    <option value="kg">Kilogram (kg)</option>
+    <option value="Test">Test</option>
+    <option value="Other">Other</option>
+  </select>
+  <small>Choose the unit LabKeep should use to track and deduct this product.</small>
+</div>
+<!-- PACKAGING CONVERSION -->
+<div id="productPackagingFields" style="display: none;">
+  <div class="inventory-form-group">
+    <label for="productUnitsPerPackage" id="productUnitsPerPackageLabel">
+      Usable units per purchase unit
+    </label>
+    <input
+      type="number"
+      id="productUnitsPerPackage"
+      name="productUnitsPerPackage"
+      min="0.000001"
+      step="any"
+      placeholder="Enter quantity"
+    >
+  </div>
+  <div id="productInnerPackagingFields" style="display: none;">
+<div class="inventory-form-group">
+  <label for="productInnerUnit" id="productInnerUnitLabel">
+    Inner packaging unit
+  </label>
+  <input
+    type="text"
+    id="productInnerUnit"
+    name="productInnerUnit"
+    placeholder="e.g. Bottle"
+  >
+</div>
+<div class="inventory-form-group">
+  <label for="productUnitsPerInner" id="productUnitsPerInnerLabel">
+    Usable units per inner package
+  </label>
+  <input
+    type="number"
+    id="productUnitsPerInner"
+    name="productUnitsPerInner"
+    min="0.000001"
+    step="any"
+    placeholder="Enter quantity"
+  >
+</div>
+  </div>
+</div>
+
 
       <!-- Quantity + Minimum Stock -->
 
@@ -8807,6 +8868,80 @@ window.labkeepRefreshProducts = renderProducts;
   renderStockInRecords();
 
 })();
+</script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const purchaseUnit = document.getElementById("productUnit");
+  const stockUnit = document.getElementById("productStockUnit");
+  const packagingFields = document.getElementById("productPackagingFields");
+  const unitsPerPackage = document.getElementById("productUnitsPerPackage");
+  const unitsPerPackageLabel = document.getElementById("productUnitsPerPackageLabel");
+  const innerFields = document.getElementById("productInnerPackagingFields");
+  const innerUnit = document.getElementById("productInnerUnit");
+  const innerUnitLabel = document.getElementById("productInnerUnitLabel");
+  const unitsPerInner = document.getElementById("productUnitsPerInner");
+  const unitsPerInnerLabel = document.getElementById("productUnitsPerInnerLabel");
+  if (
+    !purchaseUnit ||
+    !stockUnit ||
+    !packagingFields ||
+    !unitsPerPackage ||
+    !innerFields ||
+    !innerUnit ||
+    !unitsPerInner
+  ) {
+    return;
+  }
+  function updatePackagingFields() {
+    const purchase = purchaseUnit.value;
+    const stock = stockUnit.value;
+    const needsConversion = purchase !== "" &&
+                            stock !== "" &&
+                            purchase !== stock;
+    packagingFields.style.display = needsConversion ? "block" : "none";
+    unitsPerPackage.required = needsConversion;
+    if (!needsConversion) {
+      unitsPerPackage.value = "";
+      innerUnit.value = "";
+      unitsPerInner.value = "";
+      innerFields.style.display = "none";
+      unitsPerInner.required = false;
+      return;
+    }
+    const isMultiLevel =
+      purchase === "Pack" ||
+      purchase === "Box" ||
+      purchase === "Carton";
+    innerFields.style.display = isMultiLevel ? "block" : "none";
+    if (!isMultiLevel) {
+      innerUnit.value = "";
+      unitsPerInner.value = "";
+      unitsPerInner.required = false;
+    }
+    if (purchase === "Bottle" || purchase === "Vial") {
+      unitsPerPackageLabel.textContent =
+        "How many " + stock + " are in each " + purchase.toLowerCase() + "?";
+    } else if (isMultiLevel) {
+      unitsPerPackageLabel.textContent =
+        "How many inner packages are in each " + purchase.toLowerCase() + "?";
+      innerUnitLabel.textContent = "Name of inner package";
+      innerUnit.placeholder = "e.g. Bottle";
+      unitsPerInnerLabel.textContent =
+        "How many " + stock + " are in each inner package?";
+    } else {
+      unitsPerPackageLabel.textContent =
+        "How many " + stock + " are in each " + purchase.toLowerCase() + "?";
+    }
+    if (isMultiLevel) {
+      innerUnit.required = false;
+      unitsPerInner.required = false;
+    }
+  }
+  purchaseUnit.addEventListener("change", updatePackagingFields);
+  stockUnit.addEventListener("change", updatePackagingFields);
+  updatePackagingFields();
+});
 </script>
 
   </body>
