@@ -7986,6 +7986,23 @@ if (editButton) {
   document.getElementById("productUnit").value =
     product.unit;
 
+  var initialBatch =
+product.batches && product.batches.length > 0
+? product.batches[0]
+: product;
+
+document.getElementById("productStockUnit").value =
+initialBatch.stockUnit || product.stockUnit || product.unit;
+
+document.getElementById("productUnitsPerPackage").value =
+initialBatch.unitsPerPackage ?? "";
+
+document.getElementById("productUnitsPerInner").value =
+initialBatch.unitsPerInner ?? "";
+
+document.getElementById("productInnerUnit").value =
+initialBatch.innerUnit || "";
+
   if (product.batches && product.batches.length > 0) {
 
   document.getElementById("productQuantity").value =
