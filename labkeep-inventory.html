@@ -7144,13 +7144,9 @@ function getMinimumStockInStockUnits(product) {
 
   var minimum = Number(product.minimum) || 0;
 
-  var stockUnit =
-    product.stockUnit || product.unit;
+  var stockUnit = product.stockUnit || product.unit;
 
-  if (
-    product.category !== "Reagents" ||
-    !["Bottle", "Vial"].includes(product.unit)
-  ) {
+  if (product.category !== "Reagents") {
     return minimum;
   }
 
@@ -7158,25 +7154,28 @@ function getMinimumStockInStockUnits(product) {
 
   var conversionBatch = batches.find(function (batch) {
     return (
+      Number(batch.quantityPurchased) > 0 &&
       Number(batch.unitsPerInner) > 0 &&
       batch.innerUnit &&
-      (batch.stockUnit || stockUnit) === stockUnit
+      ["bottle", "vial"].includes(
+        batch.innerUnit.toLowerCase()
+      )
     );
   });
 
-  if (!conversionBatch) {
-    return minimum;
+  if (conversionBatch) {
+    return minimum * Number(conversionBatch.unitsPerInner);
   }
 
-  var innerUnit =
-    conversionBatch.innerUnit.toLowerCase();
+  var directBatch = batches.find(function (batch) {
+    return (
+      ["Bottle", "Vial"].includes(batch.purchaseUnit) &&
+      Number(batch.unitsPerPackage) > 0
+    );
+  });
 
-  if (
-    innerUnit === "bottle" ||
-    innerUnit === "vial"
-  ) {
-    return minimum *
-      Number(conversionBatch.unitsPerInner);
+  if (directBatch) {
+    return minimum * Number(directBatch.unitsPerPackage);
   }
 
   return minimum;
@@ -7308,10 +7307,13 @@ function renderProducts() {
   } else if (product.batch) {
     batchCount = 1;
   }
-  var status = getProductStatus(
-    product.quantity,
-    product.minimum
-  );
+  var minimumInStockUnits =
+  getMinimumStockInStockUnits(product);
+
+var status = getProductStatus(
+  product.quantity,
+  minimumInStockUnits
+);
   row.innerHTML = `
     <td>
       <strong style="color:#0b1f5c;">
