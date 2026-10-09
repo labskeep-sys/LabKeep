@@ -7919,7 +7919,9 @@ if (editButton) {
   if (product.batches && product.batches.length > 0) {
 
   document.getElementById("productQuantity").value =
-    product.batches[0].quantity;
+    product.batches[0].quantityPurchased !== undefined
+      ? product.batches[0].quantityPurchased
+      : product.batches[0].quantity;
 
 } else {
 
