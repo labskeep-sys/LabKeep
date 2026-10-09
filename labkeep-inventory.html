@@ -7849,12 +7849,13 @@ productName.toLowerCase().includes("blood collection bag") &&
 else {
 
   var existingProduct =
-    findExistingProduct(
-      products,
-      productName,
-      productCategory,
-      productUnit
-    );
+findExistingProduct(
+products,
+productName,
+productCategory,
+productUnit,
+productBloodBagSize
+);
 
 
   /* =========================================
