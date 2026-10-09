@@ -7110,26 +7110,40 @@ function saveProducts(products) {
 }
 
       function findExistingProduct(
-  products,
-  productName,
-  productCategory,
-  productUnit
+products,
+productName,
+productCategory,
+productUnit,
+productBloodBagSize
 ) {
 
-  return products.find(function (product) {
+return products.find(function (product) {
 
-    return (
-      product.name.trim().toLowerCase() ===
-        productName.trim().toLowerCase() &&
+var sameName =
+  product.name.trim().toLowerCase() ===
+  productName.trim().toLowerCase();
 
-      product.category ===
-        productCategory &&
+var sameCategory =
+  product.category === productCategory;
 
-      product.unit ===
-        productUnit
-    );
+var sameUnit =
+  product.unit === productUnit;
 
-  });
+var isBloodBag =
+  productName.toLowerCase().includes("blood collection bag");
+
+var sameBloodBagSize =
+  (product.bloodBagSize || "") ===
+  (productBloodBagSize || "");
+
+return (
+  sameName &&
+  sameCategory &&
+  sameUnit &&
+  (!isBloodBag || sameBloodBagSize)
+);
+
+});
 
 }
       
