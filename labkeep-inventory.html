@@ -7465,6 +7465,56 @@ var initialUsableStock =
 
       }
 
+      /* =========================================
+         VALIDATE PACKAGING INFORMATION
+      ========================================== */
+
+      if (hasPackagingConversion) {
+
+        if (
+          !productStockUnit ||
+          productUnitsPerPackage <= 0
+        ) {
+
+          alert(
+            "Please enter a valid stock unit and packaging quantity."
+          );
+
+          return;
+
+        }
+
+        if (
+          isPackagedReagent &&
+          (
+            productUnitsPerInner <= 0 ||
+            !productInnerUnit
+          )
+        ) {
+
+          alert(
+            "For packaged reagents, enter the number of bottles per package and the usable quantity per bottle."
+          );
+
+          return;
+
+        }
+
+      }
+
+      if (
+        hasPackagingConversion &&
+        initialUsableStock <= 0
+      ) {
+
+        alert(
+          "The calculated usable stock must be greater than zero. Please check your packaging quantities."
+        );
+
+        return;
+
+      }
+
 
       /* =========================================
          AUTOMATIC BATCH NUMBER
