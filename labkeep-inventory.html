@@ -7347,6 +7347,25 @@ function getMinimumStockInStockUnits(product) {
 
   return minimum;
 }
+
+      /* =========================================
+   GET MINIMUM STOCK DISPLAY UNIT
+========================================== */
+
+function getMinimumStockDisplayUnit(product) {
+
+  var purchaseUnit = (product.unit || "").trim().toLowerCase();
+
+  if (purchaseUnit === "bottle") {
+    return "Bottles";
+  }
+
+  if (purchaseUnit === "vial") {
+    return "Vials";
+  }
+
+  return product.unit || product.stockUnit || "";
+}
       
 function renderProducts() {
 
