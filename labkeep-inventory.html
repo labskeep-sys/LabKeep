@@ -7530,17 +7530,43 @@ var status = getProductStatus(
         );
       })
         ? (
+            product.unit || ""
+
+).toLowerCase() === "bottle"
+
+  ? "Bottles"
+
+  : (
+
+      (product.unit || "").toLowerCase() === "vial"
+
+        ? "Vials"
+
+        : (
+
             product.batches.find(function(batch) {
+
               return (
+
                 Number(batch.unitsPerInner) > 0 &&
+
                 batch.innerUnit &&
+
                 ["bottle", "vial"].includes(
-                  batch.innerUnit.toLowerCase()
+
+                  batch.innerUnit.toLowerCase().trim()
+
                 )
+
               );
-            }).innerUnit.toLowerCase() === "bottle"
-              ? "Bottles"
-              : "Vials"
+
+            }) || {}
+
+          ).innerUnit?.toLowerCase().trim() === "bottle"
+
+            ? "Bottles"
+
+            : "Vials"
           )
         : product.stockUnit || product.unit
     }
