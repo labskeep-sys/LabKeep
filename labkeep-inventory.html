@@ -7354,17 +7354,41 @@ function getMinimumStockInStockUnits(product) {
 
 function getMinimumStockDisplayUnit(product) {
 
-  var purchaseUnit = (product.unit || "").trim().toLowerCase();
+var purchaseUnit = (product.unit || "").trim().toLowerCase();
 
-  if (purchaseUnit === "bottle") {
-    return "Bottles";
-  }
+var batches = product.batches || [];
 
-  if (purchaseUnit === "vial") {
-    return "Vials";
-  }
+/* Direct purchases in bottles or vials */
 
-  return product.unit || product.stockUnit || "";
+if (purchaseUnit === "bottle") {
+return "Bottles";
+}
+
+if (purchaseUnit === "vial") {
+return "Vials";
+}
+
+/* Cartons, boxes, or packs containing bottles or vials */
+
+var packagedBatch = batches.find(function(batch) {
+return (
+Number(batch.unitsPerInner) > 0 &&
+batch.innerUnit &&
+["bottle", "vial"].includes(
+batch.innerUnit.toLowerCase().trim()
+)
+);
+});
+
+if (packagedBatch) {
+return packagedBatch.innerUnit.toLowerCase().trim() === "bottle"
+? "Bottles"
+: "Vials";
+}
+
+/* Fall back to the existing purchase or stock unit */
+
+return product.unit || product.stockUnit || "";
 }
       
 function renderProducts() {
