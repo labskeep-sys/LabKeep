@@ -7521,85 +7521,16 @@ var status = getProductStatus(
     </td>
     <td>
   <div>
-    ${
-      product.category === "Reagents" &&
-      product.batches &&
-      product.batches.some(function(batch) {
-        return (
-          Number(batch.unitsPerInner) > 0 &&
-          batch.innerUnit &&
-          ["bottle", "vial"].includes(
-            batch.innerUnit.toLowerCase()
-          )
-        );
-      })
-        ? Number(product.minimum) || 0
-        : Number(product.minimum) || 0
-    }
-    ${
-      product.category === "Reagents" &&
-      product.batches &&
-      product.batches.some(function(batch) {
-        return (
-          Number(batch.unitsPerInner) > 0 &&
-          batch.innerUnit &&
-          ["bottle", "vial"].includes(
-            batch.innerUnit.toLowerCase()
-          )
-        );
-      })
-        ? (
-            product.unit || ""
-
-).toLowerCase() === "bottle"
-
-  ? "Bottles"
-
-  : (
-
-      (product.unit || "").toLowerCase() === "vial"
-
-        ? "Vials"
-
-        : (
-
-            product.batches.find(function(batch) {
-
-              return (
-
-                Number(batch.unitsPerInner) > 0 &&
-
-                batch.innerUnit &&
-
-                ["bottle", "vial"].includes(
-
-                  batch.innerUnit.toLowerCase().trim()
-
-                )
-
-              );
-
-            }) || {}
-
-          ).innerUnit?.toLowerCase().trim() === "bottle"
-
-            ? "Bottles"
-
-            : "Vials"
-          )
-        : product.stockUnit || product.unit
-    }
+    ${Number(product.minimum) || 0}
+    ${getMinimumStockDisplayUnit(product)}
   </div>
 
-  ${
-    product.category === "Reagents"
-      ? `
-        <div style="margin-top:4px; font-size:12px; color:#64748b;">
-          ${minimumInStockUnits} ${product.stockUnit || product.unit}
-        </div>
-      `
-      : ""
-  }
+${
+product.category === "Reagents"
+? <div style="margin-top:4px; font-size:12px; color:#64748b;"> ${minimumInStockUnits} ${product.stockUnit || product.unit} </div>
+: ""
+}
+
 </td>
     <td>
       ${product.unit}
