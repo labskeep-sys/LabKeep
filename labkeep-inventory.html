@@ -7407,10 +7407,12 @@ var status = getProductStatus(
     <td>
   <strong style="color:#0b1f5c;">
     ${product.name}
-  </strong>${
-product.bloodBagSize
-? "<div style="margin-top:4px; font-size:12px; color:#64748b;"> Size: ${product.bloodBagSize} </div>"
-: ""
+ </strong>${
+  product.bloodBagSize
+    ? `<div style="margin-top:4px; font-size:12px; color:#64748b;">
+         Size: ${product.bloodBagSize}
+       </div>`
+    : ""
 }
 
 </td>
