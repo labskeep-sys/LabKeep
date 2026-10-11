@@ -1564,13 +1564,12 @@
     type="text"
     id="productName"
     name="productName"
-    list="inventoryMaterialOptions"
     placeholder="Select a product to add or enter your own product name"
     autocomplete="on"
     required
   >
 
-  <datalist id="inventoryMaterialOptions"></datalist>
+  <div id="inventoryMaterialOptions" class="inventory-material-suggestions" style="display:none;"></div>
 </div>
       
       <!-- Category -->
@@ -4351,38 +4350,167 @@ var testUsageMaterialRequirements = {
   
 };
 
-      function populateInventoryMaterialOptions() {
-  var materialOptions = document.getElementById("inventoryMaterialOptions");
+     /* =========================================
+   PRODUCT NAME SEARCH SUGGESTIONS
+========================================= */
 
-  if (!materialOptions || typeof testUsageMaterialRequirements === "undefined") {
+var inventoryMaterialNames = [];
+
+var inventoryMaterialOptions =
+  document.getElementById("inventoryMaterialOptions");
+
+
+function populateInventoryMaterialOptions() {
+
+  if (
+    !inventoryMaterialOptions ||
+    typeof testUsageMaterialRequirements === "undefined"
+  ) {
     return;
   }
 
   var materialNames = new Set();
 
-  Object.values(testUsageMaterialRequirements).forEach(function(materials) {
-    materials.forEach(function(material) {
-      if (material.name) {
-        materialNames.add(material.name.trim());
+  Object.values(testUsageMaterialRequirements).forEach(
+    function(materials) {
+
+      if (!Array.isArray(materials)) {
+        return;
       }
-    });
-  });
 
-  materialOptions.innerHTML = "";
+      materials.forEach(function(material) {
 
-  Array.from(materialNames)
+        if (material && material.name) {
+
+          materialNames.add(
+            material.name.trim()
+          );
+
+        }
+
+      });
+
+    }
+  );
+
+  inventoryMaterialNames = Array.from(materialNames)
+    .filter(function(name) {
+      return name.length > 0;
+    })
     .sort(function(a, b) {
       return a.localeCompare(b);
-    })
-    .forEach(function(materialName) {
-      var option = document.createElement("option");
-      option.value = materialName;
-      materialOptions.appendChild(option);
     });
+
+
+  /* STYLE THE SUGGESTION DROPDOWN */
+
+  inventoryMaterialOptions.style.cssText =
+    "display:none;" +
+    "position:absolute;" +
+    "top:100%;" +
+    "left:0;" +
+    "right:0;" +
+    "width:100%;" +
+    "max-height:240px;" +
+    "overflow-y:auto;" +
+    "background:#ffffff;" +
+    "border:1px solid #cbd5e1;" +
+    "border-radius:8px;" +
+    "box-shadow:0 8px 20px rgba(0,0,0,0.12);" +
+    "z-index:9999;" +
+    "box-sizing:border-box;";
+
+
+  /* POSITION THE DROPDOWN UNDER THE INPUT */
+
+  var suggestionParent =
+    inventoryMaterialOptions.parentElement;
+
+  if (suggestionParent) {
+    suggestionParent.style.position = "relative";
+  }
+
 }
 
-populateInventoryMaterialOptions();
 
+function filterInventoryMaterialOptions() {
+
+  if (
+    !productNameInput ||
+    !inventoryMaterialOptions
+  ) {
+    return;
+  }
+
+  var searchText =
+    productNameInput.value.trim().toLowerCase();
+
+  inventoryMaterialOptions.innerHTML = "";
+
+
+  var matchingMaterials =
+    inventoryMaterialNames.filter(function(name) {
+
+      return name.toLowerCase().includes(searchText);
+
+    });
+
+
+  if (matchingMaterials.length === 0) {
+
+    inventoryMaterialOptions.style.display = "none";
+
+    return;
+
+  }
+
+
+  matchingMaterials.forEach(function(materialName) {
+
+    var option = document.createElement("div");
+
+    option.textContent = materialName;
+
+    option.style.cssText =
+      "padding:10px 12px;" +
+      "cursor:pointer;" +
+      "font-size:14px;" +
+      "color:#0b1f5c;" +
+      "background:#ffffff;" +
+      "border-bottom:1px solid #edf2f7;";
+
+
+    option.addEventListener("mouseenter", function() {
+      option.style.background = "#f1f5ff";
+    });
+
+    option.addEventListener("mouseleave", function() {
+      option.style.background = "#ffffff";
+    });
+
+
+    option.addEventListener("click", function() {
+
+      productNameInput.value = materialName;
+
+      inventoryMaterialOptions.style.display = "none";
+
+      updateProductBloodBagSizeVisibility();
+
+    });
+
+
+    inventoryMaterialOptions.appendChild(option);
+
+  });
+
+
+  inventoryMaterialOptions.style.display = "block";
+
+}
+
+
+populateInventoryMaterialOptions();
     /* =========================================
 SHOW BLOOD BAG SIZE IN ADD PRODUCT
 ========================================== */
