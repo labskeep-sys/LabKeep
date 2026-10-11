@@ -7160,12 +7160,44 @@ function renderTestRecords() {
 }
       
       function closeAddProductModalWindow() {
-        
-  addProductModal.classList.remove("show");
-        
-  addProductModal.style.removeProperty("display");
-}
 
+  /* Clear unsaved form entries */
+
+  if (addProductForm) {
+    addProductForm.reset();
+  }
+
+
+  /* Exit Edit mode */
+
+  editingProductId = null;
+
+
+  /* Reset blood bag size field visibility */
+
+  if (typeof updateProductBloodBagSizeVisibility === "function") {
+    updateProductBloodBagSizeVisibility();
+  }
+
+
+  /* Hide product name suggestions */
+
+  var materialSuggestions =
+    document.getElementById("inventoryMaterialOptions");
+
+  if (materialSuggestions) {
+    materialSuggestions.style.display = "none";
+    materialSuggestions.innerHTML = "";
+  }
+
+
+  /* Close the modal */
+
+  addProductModal.classList.remove("show");
+
+  addProductModal.style.removeProperty("display");
+
+}
 
       if (addProductButton) {
 
