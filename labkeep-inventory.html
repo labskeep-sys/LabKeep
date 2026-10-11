@@ -9360,7 +9360,10 @@ if (stockInBatch) {
             product.id,
 
           productName:
-            product.name,
+  product.name +
+  (product.bloodBagSize
+    ? " — " + product.bloodBagSize
+    : ""),
 
           batch:
             selectedBatch,
