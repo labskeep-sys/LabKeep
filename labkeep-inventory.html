@@ -7525,12 +7525,15 @@ var status = getProductStatus(
     ${getMinimumStockDisplayUnit(product)}
   </div>
 
-${
-product.category === "Reagents"
-? <div style="margin-top:4px; font-size:12px; color:#64748b;"> ${minimumInStockUnits} ${product.stockUnit || product.unit} </div>
-: ""
-}
-
+  ${
+    product.category === "Reagents"
+      ? `
+        <div style="margin-top:4px; font-size:12px; color:#64748b;">
+          ${minimumInStockUnits} ${product.stockUnit || product.unit}
+        </div>
+      `
+      : ""
+  }
 </td>
     <td>
       ${product.unit}
