@@ -7606,22 +7606,41 @@ packagingDetails =
 }
 
 return `
-  <strong style="color:#0b1f5c;">
-    ${batch.batch}
-  </strong>
-  — ${purchaseQuantity} ${purchaseUnit}
-  <br>
-  ${packagingDetails
-    ? packagingDetails + "<br>"
-    : ""
-  }
-  <span>
-    Usable Stock: ${Number(batch.quantity) || 0} ${stockUnit}
-  </span>
-  <br>
-  Expires ${batch.expiry}
-</div>
+  <div style="
+    display: block;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 12px;
+    line-height: 1.7;
+    font-weight: 400;
+    color: #5b6472;
+  ">
+    <strong style="
+      color: #0b1f5c;
+      font-size: 12px;
+      font-weight: 600;
+    ">
+      ${batch.batch}
+    </strong>
 
+    — ${purchaseQuantity} ${purchaseUnit}
+
+    <br>
+
+    ${packagingDetails
+      ? packagingDetails + "<br>"
+      : ""
+    }
+
+    <span>
+      Usable Stock: ${Number(batch.quantity) || 0} ${stockUnit}
+    </span>
+
+    <br>
+
+    Expires ${batch.expiry}
+  </div>
 `;
 
 }).join("")}
