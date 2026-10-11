@@ -8257,6 +8257,10 @@ if (editButton) {
 
   editingProductId = productId;
 
+  /* Allow minimum stock to be edited */
+
+document.getElementById("productMinimum").readOnly = false;
+
 
   /* =========================================
      OPEN EDIT FORM
