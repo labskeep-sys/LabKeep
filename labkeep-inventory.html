@@ -7529,7 +7529,19 @@ var status = getProductStatus(
           )
         );
       })
-        ? "Bottles/Vials"
+        ? (
+            product.batches.find(function(batch) {
+              return (
+                Number(batch.unitsPerInner) > 0 &&
+                batch.innerUnit &&
+                ["bottle", "vial"].includes(
+                  batch.innerUnit.toLowerCase()
+                )
+              );
+            }).innerUnit.toLowerCase() === "bottle"
+              ? "Bottles"
+              : "Vials"
+          )
         : product.stockUnit || product.unit
     }
   </div>
