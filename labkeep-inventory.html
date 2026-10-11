@@ -4553,15 +4553,59 @@ productBloodBagSizeSelect.value = "";
 
 if (productNameInput) {
 
-productNameInput.addEventListener(
-"input",
-updateProductBloodBagSizeVisibility
-);
+  productNameInput.addEventListener(
+    "input",
+    function() {
 
-productNameInput.addEventListener(
-"change",
-updateProductBloodBagSizeVisibility
-);
+      updateProductBloodBagSizeVisibility();
+
+      filterInventoryMaterialOptions();
+
+    }
+  );
+
+
+  productNameInput.addEventListener(
+    "focus",
+    function() {
+
+      filterInventoryMaterialOptions();
+
+    }
+  );
+
+
+  productNameInput.addEventListener(
+    "click",
+    function() {
+
+      filterInventoryMaterialOptions();
+
+    }
+  );
+
+
+  productNameInput.addEventListener(
+    "change",
+    updateProductBloodBagSizeVisibility
+  );
+
+
+  document.addEventListener(
+    "click",
+    function(event) {
+
+      if (
+        event.target !== productNameInput &&
+        !inventoryMaterialOptions.contains(event.target)
+      ) {
+
+        inventoryMaterialOptions.style.display = "none";
+
+      }
+
+    }
+  );
 
 }
       
