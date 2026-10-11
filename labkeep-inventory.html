@@ -6307,6 +6307,84 @@ if (testUsageSearch) {
 
       var editingProductId = null;
 
+      /* =========================================
+   SHOW EXISTING MINIMUM STOCK LEVEL
+   WHEN ADDING A MATCHING PRODUCT
+========================================== */
+
+function showExistingProductMinimum() {
+
+  /* Do not interfere with Edit Product mode */
+  if (editingProductId !== null) {
+    return;
+  }
+
+  var productName =
+    document.getElementById("productName").value.trim();
+
+  var productCategory =
+    document.getElementById("productCategory").value;
+
+  var productUnit =
+    document.getElementById("productUnit").value;
+
+  var productBloodBagSize =
+    document.getElementById("productBloodBagSize").value;
+
+  var minimumField =
+    document.getElementById("productMinimum");
+
+  if (
+    !productName ||
+    !productCategory ||
+    !productUnit
+  ) {
+    return;
+  }
+
+  var products = getProducts();
+
+  var matchingProduct = findExistingProduct(
+    products,
+    productName,
+    productCategory,
+    productUnit,
+    productBloodBagSize
+  );
+
+  if (matchingProduct) {
+    minimumField.value =
+      matchingProduct.minimum ?? 0;
+
+    minimumField.readOnly = true;
+  } else {
+    minimumField.readOnly = false;
+  }
+}
+
+
+/* Check when product details change */
+
+document.getElementById("productName").addEventListener(
+  "change",
+  showExistingProductMinimum
+);
+
+document.getElementById("productCategory").addEventListener(
+  "change",
+  showExistingProductMinimum
+);
+
+document.getElementById("productUnit").addEventListener(
+  "change",
+  showExistingProductMinimum
+);
+
+document.getElementById("productBloodBagSize").addEventListener(
+  "change",
+  showExistingProductMinimum
+);
+
       function closeSidebar() {
 
         inventorySidebar.classList.remove(
