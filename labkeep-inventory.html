@@ -5518,6 +5518,14 @@ if (changeTestSelectionButton) {
 
 function applyTestUsageStockDeductions(record) {
 
+  // Prevent the same usage record from deducting stock twice.
+  if (
+    record.stockDeductionStatus === "completed" ||
+    record.stockDeductionStatus === "completed_with_shortages"
+  ) {
+    return record;
+  }
+
   var products = getProducts();
 
   var deductions = [];
