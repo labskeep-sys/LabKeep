@@ -4369,29 +4369,90 @@ function populateInventoryMaterialOptions() {
     return;
   }
 
-  var materialNames = new Set();
+ var materialNames = new Set();
 
-  Object.values(testUsageMaterialRequirements).forEach(
-    function(materials) {
+  /* =========================================
+     1. ADD MATERIALS FROM TEST USAGE REQUIREMENTS
+  ========================================== */
 
-      if (!Array.isArray(materials)) {
-        return;
-      }
+  if (
+    typeof testUsageMaterialRequirements !== "undefined"
+  ) {
 
-      materials.forEach(function(material) {
+    Object.values(testUsageMaterialRequirements).forEach(
+      function(materials) {
 
-        if (material && material.name) {
-
-          materialNames.add(
-            material.name.trim()
-          );
-
+        if (!Array.isArray(materials)) {
+          return;
         }
 
-      });
+        materials.forEach(function(material) {
 
+          if (material && material.name) {
+            materialNames.add(
+              material.name.trim()
+            );
+          }
+
+        });
+
+      }
+    );
+
+  }
+
+
+  /* =========================================
+     2. ADD MATERIALS FROM THE TEST LIBRARY
+  ========================================== */
+
+  if (
+    typeof labkeepTestLibrary !== "undefined"
+  ) {
+
+    Object.values(labkeepTestLibrary).forEach(
+      function(materials) {
+
+        if (!Array.isArray(materials)) {
+          return;
+        }
+
+        materials.forEach(function(material) {
+
+          if (material && material.name) {
+            materialNames.add(
+              material.name.trim()
+            );
+          }
+
+        });
+
+      }
+    );
+
+  }
+
+
+  /* =========================================
+     3. ADD PRODUCTS ALREADY IN INVENTORY
+  ========================================== */
+
+  var existingProducts = getProducts();
+
+  existingProducts.forEach(function(product) {
+
+    if (product && product.name) {
+      materialNames.add(
+        product.name.trim()
+      );
     }
-  );
+
+  });
+
+
+  /* =========================================
+     REMOVE EMPTY NAMES AND SORT ALPHABETICALLY
+  ========================================== */
 
   inventoryMaterialNames = Array.from(materialNames)
     .filter(function(name) {
@@ -4400,8 +4461,7 @@ function populateInventoryMaterialOptions() {
     .sort(function(a, b) {
       return a.localeCompare(b);
     });
-
-
+  
   /* STYLE THE SUGGESTION DROPDOWN */
 
   inventoryMaterialOptions.style.cssText =
