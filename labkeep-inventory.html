@@ -4371,96 +4371,115 @@ function populateInventoryMaterialOptions() {
 
  var materialNames = new Set();
 
-  /* =========================================
-     1. ADD MATERIALS FROM TEST USAGE REQUIREMENTS
-  ========================================== */
+/* =========================================
+   1. MATERIALS FROM TEST USAGE REQUIREMENTS
+========================================= */
 
-  if (
-    typeof testUsageMaterialRequirements !== "undefined"
-  ) {
+if (
+  typeof testUsageMaterialRequirements !== "undefined"
+) {
 
-    Object.values(testUsageMaterialRequirements).forEach(
-      function(materials) {
+  Object.values(testUsageMaterialRequirements).forEach(
+    function(materials) {
 
-        if (!Array.isArray(materials)) {
-          return;
+      if (!Array.isArray(materials)) return;
+
+      materials.forEach(function(material) {
+
+        if (material && material.name) {
+          materialNames.add(material.name.trim());
         }
 
-        materials.forEach(function(material) {
+      });
 
-          if (material && material.name) {
-            materialNames.add(
-              material.name.trim()
-            );
-          }
+    }
+  );
 
-        });
-
-      }
-    );
-
-  }
+}
 
 
-  /* =========================================
-     2. ADD MATERIALS FROM THE TEST LIBRARY
-  ========================================== */
+/* =========================================
+   2. MATERIALS FROM THE TEST LIBRARY
+========================================= */
 
-  if (
-    typeof labkeepTestLibrary !== "undefined"
-  ) {
+if (typeof labkeepTestLibrary !== "undefined") {
 
-    Object.values(labkeepTestLibrary).forEach(
-      function(materials) {
+  Object.values(labkeepTestLibrary).forEach(
+    function(materials) {
 
-        if (!Array.isArray(materials)) {
-          return;
+      if (!Array.isArray(materials)) return;
+
+      materials.forEach(function(material) {
+
+        if (material && material.name) {
+          materialNames.add(material.name.trim());
         }
 
-        materials.forEach(function(material) {
+      });
 
-          if (material && material.name) {
-            materialNames.add(
-              material.name.trim()
-            );
-          }
+    }
+  );
 
-        });
-
-      }
-    );
-
-  }
+}
 
 
-  /* =========================================
-     3. ADD PRODUCTS ALREADY IN INVENTORY
-  ========================================== */
+/* =========================================
+   3. PRODUCTS ALREADY IN INVENTORY
+========================================= */
 
-  var existingProducts = getProducts();
+if (typeof getProducts === "function") {
 
-  existingProducts.forEach(function(product) {
+  getProducts().forEach(function(product) {
 
     if (product && product.name) {
-      materialNames.add(
-        product.name.trim()
-      );
+      materialNames.add(product.name.trim());
     }
 
   });
 
+}
 
-  /* =========================================
-     REMOVE EMPTY NAMES AND SORT ALPHABETICALLY
-  ========================================== */
 
-  inventoryMaterialNames = Array.from(materialNames)
-    .filter(function(name) {
-      return name.length > 0;
-    })
-    .sort(function(a, b) {
-      return a.localeCompare(b);
-    });
+/* =========================================
+   4. READ THE ACTUAL OTHER MATERIALS DROPDOWN
+========================================= */
+
+var otherMaterialsDropdown =
+  document.getElementById("otherMaterialSelect");
+
+if (otherMaterialsDropdown) {
+
+  Array.from(otherMaterialsDropdown.options).forEach(
+    function(option) {
+
+      var materialName = option.value.trim();
+
+      // Skip the placeholder and custom-material option.
+      if (
+        materialName &&
+        materialName !== "Other Material"
+      ) {
+        materialNames.add(materialName);
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   REMOVE DUPLICATES AND SORT
+========================================= */
+
+inventoryMaterialNames = Array.from(materialNames)
+  .filter(function(name) {
+    return name.length > 0;
+  })
+  .sort(function(a, b) {
+    return a.localeCompare(b);
+  });
+  
   
   /* STYLE THE SUGGESTION DROPDOWN */
 
