@@ -4614,11 +4614,13 @@ if (
 return;
 }
 
+var productName =
+productNameInput.value.trim().toLowerCase();
+
 var isBloodBag =
-productNameInput.value
-.trim()
-.toLowerCase()
-.includes("blood collection bag");
+productName.includes("blood bag") ||
+productName.includes("blood collection bag") ||
+productName.includes("blood collection/donation bag");
 
 productBloodBagSizeGroup.style.display =
 isBloodBag ? "block" : "none";
