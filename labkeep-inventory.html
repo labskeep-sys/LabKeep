@@ -7986,6 +7986,27 @@ return packagedBatch.innerUnit.toLowerCase().trim() === "bottle"
 : "Vials";
 }
 
+  /* Packs, boxes, or cartons counted as individual pieces */
+
+var packagedPieces = batches.find(function(batch) {
+var batchStockUnit =
+(batch.stockUnit || stockUnit).trim().toLowerCase();
+
+var batchPurchaseUnit =
+  (batch.purchaseUnit || "").trim().toLowerCase();
+
+return (
+  ["pack", "box", "carton"].includes(batchPurchaseUnit) &&
+  Number(batch.unitsPerPackage) > 0 &&
+  ["piece", "pieces", "unit", "units", "pc", "pcs"].includes(batchStockUnit)
+);
+
+});
+
+if (packagedPieces) {
+return stockUnit || "Pieces";
+}
+
 /* Fall back to the existing purchase or stock unit */
 
 return product.unit || product.stockUnit || "";
