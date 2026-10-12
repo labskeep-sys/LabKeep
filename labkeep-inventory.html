@@ -5513,6 +5513,336 @@ if (changeTestSelectionButton) {
 }
 
       /* =========================================
+   LABKEEP STOCK DEDUCTION ENGINE
+========================================= */
+
+function applyTestUsageStockDeductions(record) {
+
+  var products = getProducts();
+
+  var deductions = [];
+  var shortages = [];
+
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+
+  // Normalize units for safe comparison.
+  function normalizeUnit(unit) {
+
+    var value = String(unit || "")
+      .trim()
+      .toLowerCase();
+
+    var aliases = {
+      "pieces": "piece",
+      "pcs": "piece",
+      "bottles": "bottle",
+      "vials": "vial",
+      "tubes": "tube",
+      "pairs": "pair",
+      "strips": "strip",
+      "kits": "kit",
+      "bags": "bag",
+      "slides": "slide",
+      "tips": "tip",
+      "lancets": "lancet",
+      "swabs": "swab",
+      "cuvettes": "cuvette",
+      "containers": "container",
+      "pipette tips": "pipette tip",
+      "petri-dishes": "petri-dish"
+    };
+
+    return aliases[value] || value;
+
+  }
+
+
+  // Check whether a batch has expired.
+  function isBatchExpired(batch) {
+
+    if (!batch.expiry) {
+      return false;
+    }
+
+    var expiryDate = new Date(
+      batch.expiry + "T00:00:00"
+    );
+
+    if (isNaN(expiryDate.getTime())) {
+      return false;
+    }
+
+    return expiryDate < today;
+
+  }
+
+
+  // Process the materials saved with this usage record.
+  (record.materials || []).forEach(
+    function (material) {
+
+      var requiredQuantity;
+      var requiredUnit;
+
+
+      // Use normalized volume or mass quantities
+      // when the existing handler has calculated them.
+      if (
+        material.inventoryQuantity !== null &&
+        material.inventoryQuantity !== undefined &&
+        material.inventoryUnit
+      ) {
+
+        requiredQuantity =
+          Number(material.inventoryQuantity);
+
+        requiredUnit =
+          material.inventoryUnit;
+
+      } else {
+
+        requiredQuantity =
+          Number(material.actualQuantity);
+
+        requiredUnit =
+          material.unit;
+
+      }
+
+
+      if (
+        !Number.isFinite(requiredQuantity) ||
+        requiredQuantity < 0
+      ) {
+
+        shortages.push({
+          material: material.name,
+          reason: "Invalid material quantity",
+          requiredQuantity: material.actualQuantity,
+          unit: material.unit
+        });
+
+        return;
+
+      }
+
+
+      // Nothing needs deducting for a zero quantity.
+      if (requiredQuantity === 0) {
+        return;
+      }
+
+
+      // Find an exact product-name match.
+      var product =
+        findInventoryProductForUsage(
+          material,
+          products
+        );
+
+
+      if (!product) {
+
+        shortages.push({
+          material: material.name,
+          reason: "Inventory product not found or name is ambiguous",
+          requiredQuantity: requiredQuantity,
+          unit: requiredUnit
+        });
+
+        return;
+
+      }
+
+
+      var productUnit = normalizeUnit(
+        product.stockUnit || product.unit
+      );
+
+      var deductionUnit = normalizeUnit(
+        requiredUnit
+      );
+
+
+      // Do not deduct incompatible units.
+      if (productUnit !== deductionUnit) {
+
+        shortages.push({
+          material: material.name,
+          reason: "Inventory unit does not match usage unit",
+          requiredQuantity: requiredQuantity,
+          unit: requiredUnit,
+          inventoryUnit: product.stockUnit || product.unit
+        });
+
+        return;
+
+      }
+
+
+      // Obtain the product's individual batches.
+      var batches =
+        getUsableBatchList(product);
+
+
+      // Prioritize valid, non-expired batches by
+      // earliest expiry date. Batches without an
+      // expiry date are considered after dated batches.
+      var eligibleBatches = batches
+        .filter(function (batch) {
+
+          return (
+            !isBatchExpired(batch) &&
+            Number(batch.quantity) > 0
+          );
+
+        })
+        .sort(function (a, b) {
+
+          if (!a.expiry && !b.expiry) {
+            return 0;
+          }
+
+          if (!a.expiry) {
+            return 1;
+          }
+
+          if (!b.expiry) {
+            return -1;
+          }
+
+          return a.expiry.localeCompare(
+            b.expiry
+          );
+
+        });
+
+
+      var remaining =
+        requiredQuantity;
+
+
+      eligibleBatches.forEach(
+        function (batch) {
+
+          if (remaining <= 0) {
+            return;
+          }
+
+          var available =
+            Number(batch.quantity) || 0;
+
+          var quantityToDeduct =
+            Math.min(
+              available,
+              remaining
+            );
+
+
+          // Prevent floating-point residue for
+          // fractional reagent quantities.
+          quantityToDeduct =
+            Math.round(
+              quantityToDeduct * 1000000
+            ) / 1000000;
+
+
+          batch.quantity =
+            Math.max(
+              0,
+              available - quantityToDeduct
+            );
+
+
+          remaining =
+            Math.max(
+              0,
+              remaining - quantityToDeduct
+            );
+
+
+          deductions.push({
+
+            material: material.name,
+
+            productId: product.id,
+
+            productName: product.name,
+
+            batch: batch.batch || "",
+
+            quantityDeducted:
+              quantityToDeduct,
+
+            unit: requiredUnit
+
+          });
+
+        }
+      );
+
+
+      // Record any quantity that could not be supplied.
+      if (remaining > 0) {
+
+        shortages.push({
+
+          material: material.name,
+
+          reason: "Insufficient unexpired stock",
+
+          requiredQuantity: requiredQuantity,
+
+          quantityDeducted:
+            requiredQuantity - remaining,
+
+          shortageQuantity: remaining,
+
+          unit: requiredUnit
+
+        });
+
+      }
+
+
+      // Recalculate the product's total stock
+      // from its individual batches.
+      product.quantity =
+        batches.reduce(
+          function (total, batch) {
+
+            return total +
+              (Number(batch.quantity) || 0);
+
+          },
+          0
+        );
+
+    }
+  );
+
+
+  // Prepare the results for the usage record.
+  record.stockDeductions = deductions;
+
+  record.stockShortages = shortages;
+
+  record.stockDeductionStatus =
+    shortages.length > 0
+      ? "completed_with_shortages"
+      : "completed";
+
+
+  // Save the updated inventory.
+  saveProducts(products);
+
+  return record;
+
+}
+
+      /* =========================================
    SAVE TEST USAGE
 ========================================= */
 
