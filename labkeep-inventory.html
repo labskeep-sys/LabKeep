@@ -5615,7 +5615,9 @@ function applyTestUsageStockDeductions(record) {
 
 
   // Process the materials saved with this usage record.
-  (record.materials || []).forEach(
+  (record.materials || [])
+  .concat(record.otherMaterials || [])
+  .forEach(
     function (material) {
 
       var requiredQuantity;
@@ -5638,8 +5640,22 @@ function applyTestUsageStockDeductions(record) {
 
       } else {
 
-        requiredQuantity =
-          Number(material.actualQuantity);
+        // Standard materials use actualQuantity.
+        // Other Materials use quantity.
+        if (
+          material.actualQuantity !== undefined &&
+          material.actualQuantity !== null
+        ) {
+
+          requiredQuantity =
+            Number(material.actualQuantity);
+
+        } else {
+
+          requiredQuantity =
+            Number(material.quantity);
+
+        }
 
         requiredUnit =
           material.unit;
