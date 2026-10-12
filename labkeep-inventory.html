@@ -5844,9 +5844,12 @@ function applyTestUsageStockDeductions(record) {
 
 
   // Save the updated inventory.
-  saveProducts(products);
+saveProducts(products);
 
-  return record;
+// Refresh the Products table immediately.
+renderProducts();
+
+return record;
 
 }
 
