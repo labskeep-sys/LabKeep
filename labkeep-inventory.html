@@ -7956,6 +7956,8 @@ function getMinimumStockDisplayUnit(product) {
 
 var purchaseUnit = (product.unit || "").trim().toLowerCase();
 
+var stockUnit = (product.stockUnit || product.unit || "").trim();
+
 var batches = product.batches || [];
 
 /* Direct purchases in bottles or vials */
