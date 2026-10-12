@@ -7989,16 +7989,20 @@ function getMinimumStockInStockUnits(product) {
     return minimum * Number(conversionBatch.unitsPerInner);
   }
 
-  var directBatch = batches.find(function (batch) {
-    return (
-      ["Bottle", "Vial"].includes(batch.purchaseUnit) &&
-      Number(batch.unitsPerPackage) > 0
-    );
-  });
+  /* Direct bottle/vial purchases: minimum is already in usable units */
 
-  if (directBatch) {
-    return minimum * Number(directBatch.unitsPerPackage);
-  }
+var directBatch = batches.find(function (batch) {
+  return (
+    ["bottle", "vial"].includes(
+      String(batch.purchaseUnit || "").trim().toLowerCase()
+    ) &&
+    Number(batch.unitsPerPackage) > 0
+  );
+});
+
+if (directBatch) {
+  return minimum;
+}
 
   return minimum;
 }
@@ -8015,14 +8019,23 @@ var stockUnit = (product.stockUnit || product.unit || "").trim();
 
 var batches = product.batches || [];
 
-/* Direct purchases in bottles or vials */
+/* Direct reagent bottles and vials display usable-stock units */
 
-if (purchaseUnit === "bottle") {
-return "Bottles";
-}
+if (
+  product.category === "Reagents" &&
+  (purchaseUnit === "bottle" || purchaseUnit === "vial")
+) {
+  var hasDirectBottleBatch = batches.some(function(batch) {
+    return (
+      ["bottle", "vial"].includes(
+        String(batch.purchaseUnit || "").trim().toLowerCase()
+      )
+    );
+  });
 
-if (purchaseUnit === "vial") {
-return "Vials";
+  if (hasDirectBottleBatch) {
+    return stockUnit;
+  }
 }
 
 /* Cartons, boxes, or packs containing bottles or vials */
