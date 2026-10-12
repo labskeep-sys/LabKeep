@@ -5687,25 +5687,34 @@ inventoryUnit:
 
       var newUsageRecord = {
 
-        id:
-          Date.now().toString(),
+id:
+Date.now().toString(),
 
-        date:
-          date,
+date:
+date,
 
-        testName:
-          testName,
+testName:
+testName,
 
-        numberOfTests:
-          number,
+numberOfTests:
+number,
 
-        materials:
-          materialsUsed,
+materials:
+materialsUsed,
 
-        otherMaterials:
-    otherMaterialsUsed
+otherMaterials:
+otherMaterialsUsed,
 
-      };
+stockDeductionStatus:
+"pending",
+
+stockDeductions:
+[],
+
+stockShortages:
+[]
+
+};
 
 
       usageRecords.push(
