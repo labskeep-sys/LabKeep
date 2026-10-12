@@ -4995,6 +4995,33 @@ function convertQuantity(quantity, fromUnit, toUnit) {
   }
 
 
+ /* =========================
+     PIECES AND PAIRS
+  ========================= */
+
+  var countInPieces = {
+    "piece": 1,
+    "pieces": 1,
+    "pair": 2,
+    "pairs": 2
+  };
+
+  if (
+    countInPieces[fromUnit] !== undefined &&
+    countInPieces[toUnit] !== undefined
+  ) {
+
+    var quantityInPieces =
+      quantity * countInPieces[fromUnit];
+
+    return (
+      quantityInPieces /
+      countInPieces[toUnit]
+    );
+
+  }
+
+
   /* =========================
      NON-CONVERTIBLE UNITS
   ========================= */
