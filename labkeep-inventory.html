@@ -7454,6 +7454,59 @@ function saveProducts(products) {
   localStorage.setItem(productsStorageKey, JSON.stringify(products));
 }
 
+// ========================================
+// LABKEEP TEST USAGE STOCK DEDUCTION HELPERS
+// ========================================
+
+function normalizeInventoryName(name) {
+  return String(name || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
+}
+
+
+function findInventoryProductForUsage(material, products) {
+  var materialName = normalizeInventoryName(material.name);
+
+  if (!materialName) {
+    return null;
+  }
+
+  var matches = products.filter(function (product) {
+    var productName = normalizeInventoryName(product.name);
+
+    return productName === materialName;
+  });
+
+  // Do not guess if multiple products have the same name.
+  if (matches.length !== 1) {
+    return null;
+  }
+
+  return matches[0];
+}
+
+
+function getUsableBatchList(product) {
+  if (!Array.isArray(product.batches)) {
+    product.batches = [];
+  }
+
+  // Preserve compatibility with older products that have one batch.
+  if (product.batches.length === 0 && product.batch) {
+    product.batches.push({
+      batch: product.batch,
+      quantity: Number(product.quantity) || 0,
+      expiry: product.expiry || "",
+      cost: product.cost || 0,
+      notes: product.notes || ""
+    });
+  }
+
+  return product.batches;
+}
+      
       function findExistingProduct(
   products,
   productName,
