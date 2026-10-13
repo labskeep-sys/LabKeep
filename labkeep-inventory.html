@@ -6063,10 +6063,22 @@ if (testUsageForm) {
       );
 
 
-    var actualPerTest =
-      input ?
-      Number(input.value) :
-      0;
+    var actualPerTest;
+
+if (input && input.value.trim() !== "") {
+
+actualPerTest = Number(input.value);
+
+} else if (testName === "Blood Collection / Donation") {
+
+actualPerTest =
+Number(material.laboratoryQuantity) || 1;
+
+} else {
+
+actualPerTest = 0;
+
+}
 
 
     if (
