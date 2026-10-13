@@ -10435,11 +10435,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Hide packaging fields until the selected category and unit
     // determine which questions are needed.
-    packagingFields.style.display = "none";
-    innerFields.style.display = "none";
+   packagingFields.style.display = "none";
+innerFields.style.display = "none";
 
-    unitsPerPackage.required = false;
-    unitsPerInner.required = false;
+unitsPerPackage.required = false;
+unitsPerInner.required = false;
+
+unitsPerPackage.disabled = true;
+unitsPerInner.disabled = true;
 
     if (innerUnitGroup) {
       innerUnitGroup.style.display = "none";
