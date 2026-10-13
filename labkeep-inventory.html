@@ -5769,10 +5769,15 @@ function applyTestUsageStockDeductions(record) {
 
       // Find an exact product-name match.
       var product =
-        findInventoryProductForUsage(
-          material,
-          products
-        );
+  findInventoryProductForUsage(
+    Object.assign({}, material, {
+      bloodBagSize:
+        record.testName === "Blood Collection / Donation"
+          ? record.bloodBagSize
+          : null
+    }),
+    products
+  );
 
 
       if (!product) {
@@ -6189,6 +6194,11 @@ testName,
 
 numberOfTests:
 number,
+
+bloodBagSize:
+  testName === "Blood Collection / Donation"
+    ? bloodBagSize.value
+    : null,
 
 materials:
 materialsUsed,
