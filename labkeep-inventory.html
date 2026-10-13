@@ -10203,6 +10203,61 @@ if (stockInBatch) {
 }
 
 
+  /* Show inner-container fields for packaged reagents. */
+
+if (stockInPurchaseUnit) {
+
+  stockInPurchaseUnit.addEventListener(
+    "change",
+    function () {
+
+      var products = getStockInProducts();
+
+      var selectedProductId =
+        Number(stockInProduct.value);
+
+      var product = products.find(function (item) {
+        return item.id === selectedProductId;
+      });
+
+      if (!product || !stockInInnerPackaging) {
+        return;
+      }
+
+      var isPackagedReagent =
+        product.category === "Reagents" &&
+        ["Pack", "Box", "Carton"].includes(
+          stockInPurchaseUnit.value
+        );
+
+      stockInInnerPackaging.style.display =
+        isPackagedReagent ? "block" : "none";
+
+      if (!isPackagedReagent) {
+        stockInInnerUnit.value = "";
+        stockInUnitsPerInner.value = "";
+      } else {
+        stockInInnerUnit.value = "Bottle";
+      }
+
+      if (stockInUnitsPerPackage) {
+        var label =
+          stockInUnitsPerPackage
+            .closest(".stock-in-form-group")
+            .querySelector("label");
+
+        if (label) {
+          label.textContent = isPackagedReagent
+            ? "Number of Bottles Per Package"
+            : "Usable Units Per Purchase Unit";
+        }
+      }
+
+    }
+  );
+
+}
+
   /* -----------------------------------------
      FORMAT DATE
   ----------------------------------------- */
