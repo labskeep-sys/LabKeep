@@ -7986,56 +7986,79 @@ function getUsableBatchList(product) {
   return product.batches;
 }
       
-      function findExistingProduct(
-  products,
-  productName,
-  productCategory,
-  productUnit,
-  productBloodBagSize
+     function findExistingProduct(
+products,
+productName,
+productCategory,
+productUnit,
+productBloodBagSize
 ) {
-  function normalizeName(name) {
-    return String(name || "")
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, " ");
+function normalizeName(name) {
+return String(name || "")
+.trim()
+.toLowerCase()
+.replace(/\s+/g, " ");
+}
+
+function isBloodBagName(name) {
+var normalizedName = normalizeName(name);
+
+return (
+  normalizedName.includes("blood bag") ||
+  normalizedName.includes("blood collection bag") ||
+  normalizedName.includes("blood collection/donation bag")
+);
+
+}
+
+var incomingIsBloodBag = isBloodBagName(productName);
+
+return products.find(function (product) {
+var sameName =
+normalizeName(product.name) === normalizeName(productName);
+
+var sameCategory =
+  product.category === productCategory;
+if (!sameCategory) {
+  return false;
+}
+var existingIsBloodBag = isBloodBagName(product.name);
+if (incomingIsBloodBag || existingIsBloodBag) {
+  if (!incomingIsBloodBag || !existingIsBloodBag) {
+    return false;
+  }
+  var sameBloodBagSize =
+    normalizeName(product.bloodBagSize) ===
+    normalizeName(productBloodBagSize);
+  return sameBloodBagSize;
+}
+return sameName;
+
+});
+}
+      
+function getProductStatus(quantity, minimum) {
+  quantity = Number(quantity) || 0;
+  minimum = Number(minimum) || 0;
+
+  if (quantity <= 0) {
+    return {
+      text: "Out of Stock",
+      className: "status-low"
+    };
   }
 
-  function isBloodBagName(name) {
-    var normalizedName = normalizeName(name);
-
-    return (
-      normalizedName.includes("blood bag") ||
-      normalizedName.includes("blood collection bag") ||
-      normalizedName.includes("blood collection/donation bag")
-    );
+  if (quantity <= minimum) {
+    return {
+      text: "Low Stock",
+      className: "status-low"
+    };
   }
 
-  var incomingIsBloodBag = isBloodBagName(productName);
-
-  return products.find(function (product) {
-    var sameCategory =
-      product.category === productCategory;
-
-    if (!sameCategory) {
-      return false;
-    }
-
-    var existingIsBloodBag = isBloodBagName(product.name);
-
-    if (incomingIsBloodBag || existingIsBloodBag) {
-      return (
-        incomingIsBloodBag &&
-        existingIsBloodBag &&
-        normalizeName(product.bloodBagSize) ===
-          normalizeName(productBloodBagSize)
-      );
-    }
-
-    return (
-      normalizeName(product.name) ===
-      normalizeName(productName)
-    );
-  });
+  return {
+    text: "In Stock",
+    className: "status-ok"
+  };
 }
       /* =========================================
    CONVERT MINIMUM STOCK TO STOCK UNITS
