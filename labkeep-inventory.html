@@ -8487,6 +8487,19 @@ return `
 if (addProductForm) {
 
   addProductForm.addEventListener(
+  "invalid",
+  function(event) {
+    alert(
+      "Form blocked by field: " +
+      (event.target.id || event.target.name || event.target.tagName) +
+      "\nCurrent value: " +
+      event.target.value
+    );
+  },
+  true
+);
+
+  addProductForm.addEventListener(
     "submit",
     function (event) {
 
