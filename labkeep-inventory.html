@@ -9260,6 +9260,10 @@ product.unit;
   document.getElementById("productInnerUnit").value =
     selectedBatch.innerUnit || "";
 
+      document.getElementById("productStockUnit").dispatchEvent(
+  new Event("change", { bubbles: true })
+);
+
       document.getElementById("productExpiry").value =
         selectedBatch.expiry;
 
