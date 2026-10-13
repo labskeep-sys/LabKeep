@@ -10047,15 +10047,18 @@ function updateStockInPackagingInfo() {
   });
 
   /*
-   A new batch must not inherit packaging
-   information from an existing batch.
+   New batches have their own packaging inputs.
+   Never copy packaging values from an existing batch.
 */
 
 if (selectedBatchId === "New Batch") {
 
+  if (stockInNewBatchPackaging) {
+    stockInNewBatchPackaging.style.display = "block";
+  }
+
   stockInPackagingDetails.innerHTML =
-    "<strong>New batch packaging</strong><br>" +
-    "Enter the packaging information for this batch separately.";
+    "Enter the packaging information for this new batch below.";
 
   stockInPackagingInfo.style.display = "block";
 
@@ -10063,6 +10066,13 @@ if (selectedBatchId === "New Batch") {
 
 }
 
+/* Hide new-batch inputs when an existing batch is selected. */
+
+if (stockInNewBatchPackaging) {
+  stockInNewBatchPackaging.style.display = "none";
+}
+
+  
   /*
      Products without a saved batch structure
      may still have legacy product information.
