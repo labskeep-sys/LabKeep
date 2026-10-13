@@ -6118,7 +6118,9 @@ if (inventoryUnit) {
     materialsUsed.push({
 
       name:
-        material.name,
+  testName === "Blood Collection / Donation"
+    ? "Blood Bag " + bloodBagSize.value
+    : material.name,
 
       category:
         material.category,
