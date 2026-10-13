@@ -9269,6 +9269,9 @@ existingProduct.batches.push({
   purchaseUnit: productUnit,
   bloodBagSize: productBloodBagSize,
   unitsPerPackage: productUnitsPerPackage,
+  volumeUnit: productVolumeUnit
+  ? productVolumeUnit.value
+  : null,
   unitsPerInner: isPackagedReagent
     ? productUnitsPerInner
     : null,
@@ -9325,6 +9328,9 @@ existingProduct.quantity =
       purchaseUnit: productUnit,
       bloodBagSize: productBloodBagSize,
       unitsPerPackage: productUnitsPerPackage,
+      volumeUnit: productVolumeUnit
+  ? productVolumeUnit.value
+  : null,
       unitsPerInner: isPackagedReagent
         ? productUnitsPerInner
         : null,
