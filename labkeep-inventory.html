@@ -2001,6 +2001,103 @@ name="productBloodBagSize"
 
       </div>
 
+      <!-- NEW BATCH PACKAGING INPUTS -->
+
+<div
+  id="stockInNewBatchPackaging"
+  style="display:none;"
+>
+
+  <!-- PURCHASE UNIT -->
+
+  <div class="stock-in-form-group">
+
+    <label for="stockInPurchaseUnit">
+      New Batch Purchase Unit
+    </label>
+
+    <select id="stockInPurchaseUnit">
+
+      <option value="">Select purchase unit</option>
+      <option value="Pack">Pack</option>
+      <option value="Box">Box</option>
+      <option value="Carton">Carton</option>
+      <option value="Bottle">Bottle</option>
+      <option value="Vial">Vial</option>
+      <option value="Piece">Piece</option>
+      <option value="Kit">Kit</option>
+      <option value="Strip">Strip</option>
+      <option value="Pair">Pair</option>
+      <option value="Bag">Bag</option>
+
+    </select>
+
+  </div>
+
+
+  <!-- UNITS PER PACKAGE -->
+
+  <div class="stock-in-form-group">
+
+    <label for="stockInUnitsPerPackage">
+      Number of Units Per Package
+    </label>
+
+    <input
+      type="number"
+      id="stockInUnitsPerPackage"
+      min="0.001"
+      step="any"
+      placeholder="Enter units per package"
+    >
+
+  </div>
+
+
+  <!-- INNER CONTAINER -->
+
+  <div
+    id="stockInInnerPackaging"
+    style="display:none;"
+  >
+
+    <div class="stock-in-form-group">
+
+      <label for="stockInInnerUnit">
+        Inner Container
+      </label>
+
+      <select id="stockInInnerUnit">
+
+        <option value="">Select inner container</option>
+        <option value="Bottle">Bottle</option>
+        <option value="Vial">Vial</option>
+
+      </select>
+
+    </div>
+
+
+    <div class="stock-in-form-group">
+
+      <label for="stockInUnitsPerInner">
+        Usable Quantity Per Inner Container
+      </label>
+
+      <input
+        type="number"
+        id="stockInUnitsPerInner"
+        min="0.001"
+        step="any"
+        placeholder="Enter usable quantity"
+      >
+
+    </div>
+
+  </div>
+
+</div>
+
 
       <!-- QUANTITY -->
 
