@@ -9872,34 +9872,74 @@ var stockInUnitsPerInner =
   }
 
   /* -----------------------------------------
-   CONVERT REAGENT VOLUME
+   CONVERT VOLUME AND MASS UNITS
 ----------------------------------------- */
 function convertStockInVolume(value, fromUnit, toUnit) {
-  var volumeInMillilitres = Number(value);
-  if (!Number.isFinite(volumeInMillilitres) || volumeInMillilitres < 0) {
+  var amount = Number(value);
+  if (!Number.isFinite(amount) || amount < 0) {
     return NaN;
   }
-  /* Convert the supplied quantity to mL first. */
-  if (fromUnit === "µL") {
-    volumeInMillilitres = volumeInMillilitres / 1000;
-  } else if (fromUnit === "L") {
-    volumeInMillilitres = volumeInMillilitres * 1000;
-  } else if (fromUnit !== "mL") {
+  var volumeUnits = ["µL", "mL", "L"];
+  var massUnits = ["µg", "mg", "g", "kg"];
+  /* Do not convert between volume and mass. */
+  var fromIsVolume = volumeUnits.includes(fromUnit);
+  var toIsVolume = volumeUnits.includes(toUnit);
+  var fromIsMass = massUnits.includes(fromUnit);
+  var toIsMass = massUnits.includes(toUnit);
+  if (
+    (!fromIsVolume && !fromIsMass) ||
+    (!toIsVolume && !toIsMass)
+  ) {
     return NaN;
   }
-  /* Convert from mL to the product's stock unit. */
-  if (toUnit === "µL") {
-    return volumeInMillilitres * 1000;
+  if (
+    (fromIsVolume && !toIsVolume) ||
+    (fromIsMass && !toIsMass)
+  ) {
+    return NaN;
   }
-  if (toUnit === "L") {
-    return volumeInMillilitres / 1000;
+  /* Convert volume to mL, or mass to mg. */
+  var baseAmount;
+  if (fromIsVolume) {
+    if (fromUnit === "µL") {
+      baseAmount = amount / 1000;
+    } else if (fromUnit === "mL") {
+      baseAmount = amount;
+    } else {
+      baseAmount = amount * 1000;
+    }
+  } else {
+    if (fromUnit === "µg") {
+      baseAmount = amount / 1000;
+    } else if (fromUnit === "mg") {
+      baseAmount = amount;
+    } else if (fromUnit === "g") {
+      baseAmount = amount * 1000;
+    } else {
+      baseAmount = amount * 1000000;
+    }
   }
-  if (toUnit === "mL") {
-    return volumeInMillilitres;
+  /* Convert the base amount to the target unit. */
+  if (toIsVolume) {
+    if (toUnit === "µL") {
+      return baseAmount * 1000;
+    }
+    if (toUnit === "mL") {
+      return baseAmount;
+    }
+    return baseAmount / 1000;
   }
-  return NaN;
+  if (toUnit === "µg") {
+    return baseAmount * 1000;
+  }
+  if (toUnit === "mg") {
+    return baseAmount;
+  }
+  if (toUnit === "g") {
+    return baseAmount / 1000;
+  }
+  return baseAmount / 1000000;
 }
-
 
   /* -----------------------------------------
      OPEN
