@@ -6258,6 +6258,46 @@ deductionMessage += "MATERIALS RECORDED\n";
 
     var unit = material.unit || "";
 
+    var pluralUnits = {
+"bag": "bags",
+"piece": "pieces",
+"kit": "kits",
+"bottle": "bottles",
+"vial": "vials",
+"tube": "tubes",
+"pair": "pairs",
+"strip": "strips",
+"slide": "slides",
+"tip": "tips",
+"pipette tip": "pipette tips",
+"lancet": "lancets",
+"swab": "swabs",
+"cuvette": "cuvettes",
+"container": "containers",
+"syringe": "syringes",
+"needle": "needles",
+"cassette": "cassettes",
+"cartridge": "cartridges",
+"filter": "filters",
+"disc": "discs",
+"plate": "plates",
+"well": "wells",
+"microtube": "microtubes",
+"petri-dish": "petri-dishes",
+"pipette": "pipettes",
+"bottle": "bottles",
+"mL": "mL",
+"µL": "µL",
+"L": "L",
+"g": "g",
+"mg": "mg",
+"kg": "kg"
+};
+
+if (Number(quantity) !== 1) {
+unit = pluralUnits[unit.toLowerCase()] || unit;
+}
+
     deductionMessage +=
       "- " + material.name +
       ": " + quantity + " " + unit + "\n";
