@@ -7987,33 +7987,54 @@ function getUsableBatchList(product) {
 }
       
       function findExistingProduct(
-  products,
-  productName,
-  productCategory,
-  productUnit,
-  productBloodBagSize
+products,
+productName,
+productCategory,
+productUnit,
+productBloodBagSize
 ) {
-  return products.find(function (product) {
-    var sameName =
-      product.name.trim().toLowerCase() ===
-      productName.trim().toLowerCase();
+function normalizeName(name) {
+return String(name || “”)
+.trim()
+.toLowerCase()
+.replace(/\s+/g, “ “);
+}
 
-    var sameCategory =
-      product.category === productCategory;
+function isBloodBagName(name) {
+var normalizedName = normalizeName(name);
 
-    var isBloodBag =
-      productName.toLowerCase().includes("blood collection bag");
+return (
+  normalizedName.includes("blood bag") ||
+  normalizedName.includes("blood collection bag") ||
+  normalizedName.includes("blood collection/donation bag")
+);
 
-    var sameBloodBagSize =
-      (product.bloodBagSize || "") ===
-      (productBloodBagSize || "");
+}
 
-    return (
-      sameName &&
-      sameCategory &&
-      (!isBloodBag || sameBloodBagSize)
-    );
-  });
+var incomingIsBloodBag = isBloodBagName(productName);
+
+return products.find(function (product) {
+var sameName =
+normalizeName(product.name) === normalizeName(productName);
+
+var sameCategory =
+  product.category === productCategory;
+if (!sameCategory) {
+  return false;
+}
+var existingIsBloodBag = isBloodBagName(product.name);
+if (incomingIsBloodBag || existingIsBloodBag) {
+  if (!incomingIsBloodBag || !existingIsBloodBag) {
+    return false;
+  }
+  var sameBloodBagSize =
+    normalizeName(product.bloodBagSize) ===
+    normalizeName(productBloodBagSize);
+  return sameBloodBagSize;
+}
+return sameName;
+
+});
 }
       
 function getProductStatus(quantity, minimum) {
