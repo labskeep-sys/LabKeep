@@ -4625,8 +4625,7 @@ productName.includes("blood collection/donation bag");
 productBloodBagSizeGroup.style.display =
 isBloodBag ? "block" : "none";
 
-productBloodBagSizeSelect.required =
-isBloodBag;
+productBloodBagSizeSelect.required = false;
 
 if (!isBloodBag) {
 productBloodBagSizeSelect.value = "";
@@ -8570,8 +8569,12 @@ var initialUsableStock =
         !productBatch ||
 !productExpiry ||
 (
-productName.toLowerCase().includes("blood collection bag") &&
-!productBloodBagSize
+  (
+    productName.toLowerCase().includes("blood bag") ||
+    productName.toLowerCase().includes("blood collection bag") ||
+    productName.toLowerCase().includes("blood collection/donation bag")
+  ) &&
+  !productBloodBagSize
 )
       ) {
 
