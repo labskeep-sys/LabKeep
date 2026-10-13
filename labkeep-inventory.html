@@ -5802,19 +5802,21 @@ function applyTestUsageStockDeductions(record) {
         requiredUnit
       );
 
-      // Blood bags are tracked as individual bags.
-if (
-  normalizeInventoryName(product.name).startsWith("blood bag ") &&
-  ["bag", "bags", "piece", "pieces", "unit", "units"].includes(productUnit)
-) {
-  productUnit = "bag";
-}
+      // Blood bags are counted as individual bags.
+// Apply this only to blood bag products and their usage.
+var isBloodBagProduct =
+normalizeInventoryName(product.name).includes("blood bag") ||
+normalizeInventoryName(product.name).includes("blood collection bag") ||
+normalizeInventoryName(product.name).includes("blood collection/donation bag");
 
-if (
-  normalizeInventoryName(product.name).startsWith("blood bag ") &&
-  ["bag", "bags", "piece", "pieces", "unit", "units"].includes(deductionUnit)
-) {
-  deductionUnit = "bag";
+var isBloodBagUsage =
+normalizeInventoryName(material.name).includes("blood bag") ||
+normalizeInventoryName(material.name).includes("blood collection bag") ||
+normalizeInventoryName(material.name).includes("blood collection/donation bag");
+
+if (isBloodBagProduct && isBloodBagUsage) {
+productUnit = "bag";
+deductionUnit = "bag";
 }
 
 
