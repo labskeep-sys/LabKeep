@@ -10517,8 +10517,11 @@ unitsPerInner.disabled = true;
     innerFields.style.display =
       showInnerPackaging ? "block" : "none";
 
-    unitsPerPackage.required = showPackaging;
-    unitsPerInner.required = showInnerPackaging;
+   unitsPerPackage.required = showPackaging;
+unitsPerInner.required = showInnerPackaging;
+
+unitsPerPackage.disabled = !showPackaging;
+unitsPerInner.disabled = !showInnerPackaging;
 
     // Never ask the user to name the inner container.
     // Reagents in packs, boxes, and cartons use bottles here.
