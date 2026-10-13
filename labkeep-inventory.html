@@ -6236,35 +6236,96 @@ applyTestUsageStockDeductions(
   newUsageRecord
 );
 
-// TEMPORARY: Diagnose blood bag deduction.
-if (testName === "Blood Collection / Donation") {
+// Show stock deduction results for every test.
+var deductionMessage =
+  "LabKeep Stock Deduction Check\n\n" +
+  "Test / Usage: " + newUsageRecord.testName + "\n" +
+  "Date: " + newUsageRecord.date + "\n" +
+  "Number recorded: " + newUsageRecord.numberOfTests + "\n\n";
 
-  var deductionMessage =
-    "Blood Bag Deduction Check\n\n" +
-    "Selected size: " + newUsageRecord.bloodBagSize + "\n" +
-    "Materials saved: " + newUsageRecord.materials.length + "\n" +
-    "Quantity recorded: " +
-    (newUsageRecord.materials[0]
-      ? newUsageRecord.materials[0].actualQuantity
-      : "No material") + "\n" +
-    "Deductions made: " +
-    newUsageRecord.stockDeductions.length + "\n" +
-    "Shortages reported: " +
-    newUsageRecord.stockShortages.length;
 
-  if (newUsageRecord.stockShortages.length > 0) {
-    deductionMessage += "\n\nReason:\n";
+// Show the materials recorded for this usage.
+deductionMessage += "MATERIALS RECORDED\n";
 
-    newUsageRecord.stockShortages.forEach(
-      function (item) {
-        deductionMessage +=
-          item.material + ": " + item.reason + "\n";
-      }
-    );
-  }
+(newUsageRecord.materials || [])
+  .concat(newUsageRecord.otherMaterials || [])
+  .forEach(function (material) {
 
-  alert(deductionMessage);
+    var quantity =
+      material.actualQuantity !== undefined
+        ? material.actualQuantity
+        : material.quantity;
+
+    var unit = material.unit || "";
+
+    deductionMessage +=
+      "- " + material.name +
+      ": " + quantity + " " + unit + "\n";
+
+  });
+
+
+// Show the deductions that actually occurred.
+deductionMessage +=
+  "\nSTOCK DEDUCTIONS MADE: " +
+  newUsageRecord.stockDeductions.length + "\n";
+
+if (newUsageRecord.stockDeductions.length > 0) {
+
+  newUsageRecord.stockDeductions.forEach(function (item) {
+
+    deductionMessage +=
+      "- " + item.productName +
+      (item.batch ? " (Batch: " + item.batch + ")" : "") +
+      ": -" + item.quantityDeducted +
+      " " + item.unit + "\n";
+
+  });
+
+} else {
+
+  deductionMessage +=
+    "No stock was deducted.\n";
+
 }
+
+
+// Show any shortages or deduction problems.
+deductionMessage +=
+  "\nSHORTAGES / ISSUES: " +
+  newUsageRecord.stockShortages.length + "\n";
+
+if (newUsageRecord.stockShortages.length > 0) {
+
+  newUsageRecord.stockShortages.forEach(function (item) {
+
+    deductionMessage +=
+      "- " + item.material +
+      ": " + item.reason;
+
+    if (item.shortageQuantity !== undefined) {
+      deductionMessage +=
+        " (Shortage: " +
+        item.shortageQuantity +
+        " " + (item.unit || "") + ")";
+    }
+
+    deductionMessage += "\n";
+
+  });
+
+} else {
+
+  deductionMessage +=
+    "No shortages reported.\n";
+
+}
+
+
+// Display the final result.
+alert(deductionMessage);
+
+      
 
       usageRecords.push(
         newUsageRecord
