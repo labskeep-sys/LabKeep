@@ -7973,108 +7973,86 @@ function normalizeInventoryName(name) {
 
 function findInventoryProductForUsage(material, products) {
 
-  var materialName =
-    normalizeInventoryName(material.name);
+var materialName =
+normalizeInventoryName(material.name);
 
-  if (!materialName) {
-    return null;
-  }
-
-  // ========================================
-  // SPECIAL MATCHING FOR BLOOD BAGS
-  // ========================================
-
-  var isBloodBagUsage =
-    materialName.includes("blood bag") ||
-    materialName.includes("blood collection bag") ||
-    materialName.includes("blood collection/donation bag");
-
-  if (isBloodBagUsage) {
-
-    // Identify the selected bag size from the
-    // material name, e.g. "Blood Bag 450 mL".
-    var sizeMatch =
-      materialName.match(/\b(450|250|50)\s*ml\b/i);
-
-    if (!sizeMatch) {
-      return null;
-    }
-
-    var requiredSize =
-      sizeMatch[1] + "ml";
-
-    // Match using the dedicated size property
-    // OR the size included in the product name.
-    var bloodBagMatches =
-      products.filter(function (product) {
-
-        var productName =
-          normalizeInventoryName(product.name);
-
-        var productSize =
-          normalizeInventoryName(
-            product.bloodBagSize
-          );
-
-        var isBloodBagProduct =
-          productName.includes("blood bag") ||
-          productName.includes("blood collection bag") ||
-          productName.includes("blood collection/donation bag");
-
-        if (!isBloodBagProduct) {
-          return false;
-        }
-
-        // Remove spaces so "450 mL" and "450mL"
-        // are treated as the same size.
-        var normalizedProductSize =
-          productSize.replace(/\s+/g, "");
-
-        // Also recognise sizes stored in the name.
-        var productNameSizeMatch =
-          productName.match(/\b(450|250|50)\s*ml\b/i);
-
-        var normalizedNameSize =
-          productNameSizeMatch
-            ? productNameSizeMatch[1] + "ml"
-            : "";
-
-        return (
-          normalizedProductSize === requiredSize ||
-          normalizedNameSize === requiredSize
-        );
-
-      });
-
-    // Never guess if the selected size matches
-    // zero products or more than one product.
-    if (bloodBagMatches.length !== 1) {
-      return null;
-    }
-
-    return bloodBagMatches[0];
-  }
-
-  // ========================================
-  // STANDARD MATCHING FOR ALL OTHER MATERIALS
-  // ========================================
-
-  var matches =
-    products.filter(function (product) {
-
-      var productName =
-        normalizeInventoryName(product.name);
-
-      return productName === materialName;
-
-    });
-
-  if (matches.length !== 1) {
-    return null;
-  }
-
-  return matches[0];
+if (!materialName) {
+return null;
 }
+
+// Recognize blood bags separately from other materials.
+var isBloodBagUsage =
+materialName.includes(“blood bag”) ||
+materialName.includes(“blood collection bag”) ||
+materialName.includes(“blood collection/donation bag”);
+
+if (isBloodBagUsage) {
+
+// Prefer the size explicitly saved with the usage record.
+var requiredSize =
+  normalizeInventoryName(material.bloodBagSize)
+    .replace(/\s+/g, "");
+// Fall back to the material name if necessary.
+if (!requiredSize) {
+  var sizeMatch =
+    materialName.match(/\b(450|250|50)\s*ml\b/i);
+  if (sizeMatch) {
+    requiredSize = sizeMatch[1] + "ml";
+  }
+}
+if (!requiredSize) {
+  return null;
+}
+var bloodBagMatches =
+  products.filter(function (product) {
+    var productName =
+      normalizeInventoryName(product.name);
+    var isBloodBagProduct =
+      productName.includes("blood bag") ||
+      productName.includes("blood collection bag") ||
+      productName.includes("blood collection/donation bag");
+    if (!isBloodBagProduct) {
+      return false;
+    }
+    // Check the dedicated size property.
+    var savedProductSize =
+      normalizeInventoryName(product.bloodBagSize)
+        .replace(/\s+/g, "");
+    // Also check whether the size is included in the name.
+    var productNameSizeMatch =
+      productName.match(/\b(450|250|50)\s*ml\b/i);
+    var nameSize =
+      productNameSizeMatch
+        ? productNameSizeMatch[1] + "ml"
+        : "";
+    return (
+      savedProductSize === requiredSize ||
+      nameSize === requiredSize
+    );
+  });
+// Never deduct from an ambiguous product.
+if (bloodBagMatches.length !== 1) {
+  return null;
+}
+return bloodBagMatches[0];
+
+}
+
+// Keep the existing exact-name matching for all other materials.
+var matches =
+products.filter(function (product) {
+
+  return normalizeInventoryName(product.name) === materialName;
+});
+
+if (matches.length !== 1) {
+return null;
+}
+
+return matches[0];
+}
+
+      
 function getUsableBatchList(product) {
   if (!Array.isArray(product.batches)) {
     product.batches = [];
