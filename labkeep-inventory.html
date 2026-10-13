@@ -5797,6 +5797,21 @@ function applyTestUsageStockDeductions(record) {
         requiredUnit
       );
 
+      // Blood bags are tracked as individual bags.
+if (
+  normalizeInventoryName(product.name).startsWith("blood bag ") &&
+  ["bag", "bags", "piece", "pieces", "unit", "units"].includes(productUnit)
+) {
+  productUnit = "bag";
+}
+
+if (
+  normalizeInventoryName(product.name).startsWith("blood bag ") &&
+  ["bag", "bags", "piece", "pieces", "unit", "units"].includes(deductionUnit)
+) {
+  deductionUnit = "bag";
+}
+
 
       // Do not deduct incompatible units.
       if (productUnit !== deductionUnit) {
