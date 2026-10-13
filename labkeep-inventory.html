@@ -9850,6 +9850,35 @@ var stockInUnitsPerInner =
 
   }
 
+  /* -----------------------------------------
+   CONVERT REAGENT VOLUME
+----------------------------------------- */
+function convertStockInVolume(value, fromUnit, toUnit) {
+  var volumeInMillilitres = Number(value);
+  if (!Number.isFinite(volumeInMillilitres) || volumeInMillilitres < 0) {
+    return NaN;
+  }
+  /* Convert the supplied quantity to mL first. */
+  if (fromUnit === "µL") {
+    volumeInMillilitres = volumeInMillilitres / 1000;
+  } else if (fromUnit === "L") {
+    volumeInMillilitres = volumeInMillilitres * 1000;
+  } else if (fromUnit !== "mL") {
+    return NaN;
+  }
+  /* Convert from mL to the product's stock unit. */
+  if (toUnit === "µL") {
+    return volumeInMillilitres * 1000;
+  }
+  if (toUnit === "L") {
+    return volumeInMillilitres / 1000;
+  }
+  if (toUnit === "mL") {
+    return volumeInMillilitres;
+  }
+  return NaN;
+}
+
 
   /* -----------------------------------------
      OPEN
