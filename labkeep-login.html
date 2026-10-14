@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Laboratory Login | LabKeep</title>
+  <link rel="stylesheet" href="./style-pages.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#0b1f5c;--blue:#1237d8;--bright:#3f7cff;--pale:#f8fbff;--text:#172554;--muted:#64748b;--line:#dbe3ef}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:var(--pale);font-family:"Manrope","Plus Jakarta Sans",sans-serif;color:var(--text)}
+    .auth-header{height:82px;padding:0 clamp(20px,5vw,72px);display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #e8eef7}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--navy)}
+    .brand img{width:48px;height:48px;object-fit:contain;border-radius:10px}
+    .brand-name{font-family:"Plus Jakarta Sans",sans-serif;font-size:22px;font-weight:800;letter-spacing:-.6px}
+    .brand-tagline{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+    .header-link{color:var(--navy);text-decoration:none;font-size:14px;font-weight:800}
+    .header-link:hover{color:var(--blue)}
+    .page{min-height:calc(100vh - 82px);display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,480px);gap:clamp(35px,7vw,100px);align-items:center;max-width:1240px;margin:auto;padding:58px clamp(20px,5vw,72px)}
+    .intro{max-width:570px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #dbe7ff;background:#eef4ff;color:var(--blue);border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+    .eyebrow-dot{width:7px;height:7px;background:var(--bright);border-radius:50%}
+    .intro h1{font-family:"Plus Jakarta Sans",sans-serif;color:var(--navy);font-size:clamp(36px,4.6vw,58px);line-height:1.12;letter-spacing:-2px;margin:22px 0 18px}
+    .intro h1 span{color:var(--blue)}
+    .intro p{font-size:16px;line-height:1.85;color:#53627c;max-width:510px;margin:0}
+    .benefits{display:grid;gap:16px;margin-top:32px}
+    .benefit{display:flex;align-items:flex-start;gap:13px;color:#334155;font-size:14px;line-height:1.65}
+    .benefit-icon{flex:0 0 34px;width:34px;height:34px;display:grid;place-items:center;background:#eaf0ff;color:var(--blue);border-radius:10px;font-weight:800}
+    .auth-card{background:#fff;border:1px solid #e4ebf5;border-radius:22px;padding:clamp(24px,4vw,38px);box-shadow:0 22px 60px rgba(11,31,92,.09)}
+    .card-mark{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:#edf2ff;color:var(--blue);font-size:22px;font-weight:800;margin-bottom:22px}
+    .auth-card h2{margin:0;color:var(--navy);font-family:"Plus Jakarta Sans",sans-serif;font-size:27px;letter-spacing:-.7px}
+    .card-subtitle{margin:9px 0 27px;color:var(--muted);font-size:14px;line-height:1.7}
+    .form-group{margin-bottom:19px}
+    .form-group label{display:block;margin-bottom:8px;color:var(--navy);font-size:13px;font-weight:800}
+    .input-wrap{position:relative}
+    .form-group input{display:block;width:100%;min-height:49px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;color:#0f172a;font:inherit;font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s}
+    .form-group input:focus{border-color:var(--bright);box-shadow:0 0 0 4px rgba(63,124,255,.12)}
+    .password-input{padding-right:76px!important}
+    .toggle-password{position:absolute;right:10px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--blue);font:inherit;font-size:12px;font-weight:800;cursor:pointer;padding:8px}
+    .form-help{font-size:12px;color:var(--muted);margin:7px 0 0;line-height:1.5}
+    .submit-button{width:100%;min-height:50px;margin-top:5px;border:0;border-radius:10px;background:var(--navy);color:#fff;font:inherit;font-size:14px;font-weight:800;cursor:pointer;transition:background .2s,transform .2s}
+    .submit-button:hover{background:var(--blue);transform:translateY(-1px)}
+    .submit-button:disabled{opacity:.65;cursor:wait;transform:none}
+    .message{display:none;margin:0 0 18px;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.55}
+    .message.show{display:block}.message.error{background:#fff1f0;color:#9f241b;border:1px solid #ffd3cf}.message.info{background:#eef4ff;color:var(--navy);border:1px solid #d5e2ff}
+    .form-footer{text-align:center;margin:22px 0 0;color:var(--muted);font-size:13px}
+    .form-footer a{color:var(--blue);font-weight:800;text-decoration:none}
+    .form-footer a:hover{text-decoration:underline}
+    .security-note{display:flex;gap:9px;align-items:flex-start;margin-top:20px;color:#718096;font-size:11px;line-height:1.6}
+    .security-note strong{color:#53627c}
+    .page-footer{text-align:center;padding:0 20px 24px;color:#8491a6;font-size:11px}
+    @media(max-width:850px){.page{grid-template-columns:1fr;max-width:580px;padding-top:42px;gap:30px}.intro{order:2}.auth-card{order:1}.intro h1{font-size:38px}.benefits{margin-top:22px}.page-footer{padding-top:0}}
+    @media(max-width:480px){.auth-header{height:72px;padding:0 18px}.brand img{width:40px;height:40px}.brand-name{font-size:19px}.brand-tagline{font-size:10px}.header-link{font-size:12px}.page{padding:26px 16px 35px}.auth-card{padding:24px 20px;border-radius:17px}.intro h1{font-size:33px;letter-spacing:-1.2px}.intro p{font-size:14px}}
+  </style>
+</head>
+<body>
+  <header class="auth-header">
+    <a class="brand" href="./index.html" aria-label="LabKeep home">
+      <img src="https://cdn.grapesjs.com/workspaces/cmszuue1t0cy0fdmhxd4cfe88/assets/04666e83-e65c-4e93-b5f2-61f9b3937420__logo-5.jpeg" alt="LabKeep logo">
+      <span><span class="brand-name">LabKeep</span><span class="brand-tagline">Keeping Labs Ready, Always</span></span>
+    </a>
+    <a class="header-link" href="./labkeep-register.html">Create an account&nbsp; →</a>
+  </header>
+
+  <main class="page">
+    <section class="intro">
+      <span class="eyebrow"><span class="eyebrow-dot"></span> Laboratory workspace</span>
+      <h1>Your lab, ready for <span>what comes next.</span></h1>
+      <p>Sign in to manage your laboratory inventory, track stock movements, monitor expiry dates and keep essential supplies in view.</p>
+      <div class="benefits">
+        <div class="benefit"><span class="benefit-icon">✓</span><span><strong>Inventory at a glance</strong><br>Keep products, batches and stock levels organised.</span></div>
+        <div class="benefit"><span class="benefit-icon">↗</span><span><strong>Better stock visibility</strong><br>Review stock activity and identify items that need attention.</span></div>
+        <div class="benefit"><span class="benefit-icon">⌁</span><span><strong>Your laboratory workspace</strong><br>Your account will be linked to your laboratory's records.</span></div>
+      </div>
+    </section>
+
+    <section class="auth-card" aria-labelledby="loginHeading">
+      <div class="card-mark" aria-hidden="true">L</div>
+      <h2 id="loginHeading">Welcome back</h2>
+      <p class="card-subtitle">Enter your laboratory name and password to continue.</p>
+      <div id="formMessage" class="message" role="status" aria-live="polite"></div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="labName">Laboratory name</label>
+          <input id="labName" name="labName" type="text" autocomplete="organization" placeholder="Enter your registered laboratory name" maxlength="120" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <input class="password-input" id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+            <button class="toggle-password" type="button" data-target="password" aria-label="Show password">Show</button>
+          </div>
+        </div>
+        <button class="submit-button" id="loginButton" type="submit">Log in to LabKeep</button>
+      </form>
+      <p class="form-footer">New to LabKeep? <a href="./labkeep-register.html">Register your laboratory</a></p>
+      <div class="security-note"><span aria-hidden="true">🔒</span><span><strong>Private laboratory access.</strong> Your login will be verified by LabKeep's server before access is granted.</span></div>
+    </section>
+  </main>
+  <footer class="page-footer">© <span id="currentYear"></span> LabKeep · Keeping Labs Ready, Always</footer>
+
+  <script>
+    // The interface is ready. Authentication will work after the secure Worker endpoints are added.
+    const LABKEEP_API_URL = "https://labkeep-api.labskeep.workers.dev";
+
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+    document.querySelectorAll(".toggle-password").forEach((button) => {
+      button.addEventListener("click", () => {
+        const input = document.getElementById(button.dataset.target);
+        const showing = input.type === "text";
+        input.type = showing ? "password" : "text";
+        button.textContent = showing ? "Show" : "Hide";
+        button.setAttribute("aria-label", showing ? "Show password" : "Hide password");
+      });
+    });
+
+    function showMessage(message, type = "info") {
+      const box = document.getElementById("formMessage");
+      box.textContent = message;
+      box.className = `message show ${type}`;
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = document.getElementById("loginButton");
+      const labName = document.getElementById("labName").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!labName || !password) {
+        showMessage("Enter your laboratory name and password.", "error");
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Signing in…";
+      showMessage("The login page is ready, but secure authentication must be enabled on the LabKeep Worker before you can sign in.");
+
+      // The request is intentionally not sent until the matching secure API endpoint is implemented.
+      button.disabled = false;
+      button.textContent = "Log in to LabKeep";
+    });
+  </script>
+</body>
+</html>
