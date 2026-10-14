@@ -10202,6 +10202,22 @@ if (selectedBatchId === "New Batch") {
     stockInNewBatchPackaging.style.display = "block";
   }
 
+  // Default to the stock unit already assigned to this product.
+if (stockInVolumeUnit) {
+var productStockUnit =
+product.stockUnit || product.unit || "";
+
+  var matchingStockUnit =
+  Array.from(stockInVolumeUnit.options).some(function (option) {
+    return option.value === productStockUnit;
+  });
+
+if (matchingStockUnit) {
+  stockInVolumeUnit.value = productStockUnit;
+}
+
+  }
+
   stockInPackagingDetails.innerHTML =
     "Enter the packaging information for this new batch below.";
 
