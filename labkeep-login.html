@@ -126,24 +126,65 @@
     }
 
     document.getElementById("loginForm").addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const button = document.getElementById("loginButton");
-      const labName = document.getElementById("labName").value.trim();
-      const password = document.getElementById("password").value;
-
-      if (!labName || !password) {
-        showMessage("Enter your laboratory name and password.", "error");
-        return;
+  event.preventDefault();
+  const button = document.getElementById("loginButton");
+  const labName = document.getElementById("labName").value.trim();
+  const password = document.getElementById("password").value;
+  if (!labName || !password) {
+    showMessage("Enter your laboratory name and password.", "error");
+    return;
+  }
+  button.disabled = true;
+  button.textContent = "Signing in…";
+  try {
+    const response = await fetch(
+      LABKEEP_API_URL + "/api/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: labName,
+          password: password
+        })
       }
-
-      button.disabled = true;
-      button.textContent = "Signing in…";
-      showMessage("The login page is ready, but secure authentication must be enabled on the LabKeep Worker before you can sign in.");
-
-      // The request is intentionally not sent until the matching secure API endpoint is implemented.
-      button.disabled = false;
-      button.textContent = "Log in to LabKeep";
-    });
+    );
+    const data = await response.json();
+    if (!response.ok || !data.success) {
+      showMessage(
+        data.message || "Login failed. Check your laboratory name and password.",
+        "error"
+      );
+      return;
+    }
+    if (!data.token) {
+      showMessage(
+        "Login succeeded, but the server did not return a session token. Please try again.",
+        "error"
+      );
+      return;
+    }
+    sessionStorage.setItem("labkeepSessionToken", data.token);
+    sessionStorage.setItem(
+      "labkeepLaboratory",
+      JSON.stringify(data.laboratory)
+    );
+    showMessage("Login successful! Opening your laboratory dashboard…");
+    setTimeout(() => {
+      window.location.href = "./labkeep-inventory.html";
+    }, 700);
+  } catch (error) {
+    console.error("LabKeep login request failed:", error);
+    showMessage(
+      "Unable to connect to LabKeep. Check your internet connection and try again.",
+      "error"
+    );
+  } finally {
+    button.disabled = false;
+    button.textContent = "Log in to LabKeep";
+  }
+});
   </script>
 </body>
 </html>
