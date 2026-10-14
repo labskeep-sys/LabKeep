@@ -10860,55 +10860,62 @@ if (selectedBatch === "New Batch") {
   selectedBatch = newBatch;
 }
 
-        /* -----------------------------------------
-           EXISTING BATCH
-        ----------------------------------------- */
-
-        else {
-
-          var batchToUpdate =
-            product.batches.find(
-              function (batch) {
-
-                return batch.batch ===
-                  selectedBatch;
-
-              }
-            );
-
-
-          if (!batchToUpdate) {
-
-            alert(
-              "The selected batch could not be found."
-            );
-
-            return;
-
-          }
-
-
-          batchToUpdate.quantity =
-            Number(
-              batchToUpdate.quantity || 0
-            ) +
-            quantityReceived;
-
-
-          if (expiry) {
-
-            batchToUpdate.expiry =
-              expiry;
-
-          }
-
-
-          if (notes) {
-
-            batchToUpdate.notes =
-              notes;
-
-          }
+        /* EXISTING BATCH */
+else {
+  var batchToUpdate = product.batches.find(function (batch) {
+    return batch.batch === selectedBatch;
+  });
+  if (!batchToUpdate) {
+    alert("The selected batch could not be found.");
+    return;
+  }
+  var existingPurchaseUnit =
+    batchToUpdate.purchaseUnit || product.unit;
+  var existingUnitsPerPackage =
+    Number(batchToUpdate.unitsPerPackage) || 0;
+  var existingUnitsPerInner =
+    Number(batchToUpdate.unitsPerInner) || 0;
+  var existingVolumeUnit =
+    batchToUpdate.volumeUnit || "";
+  var existingIsPackagedReagent =
+    product.category === "Reagents" &&
+    ["Pack", "Box", "Carton"].includes(existingPurchaseUnit);
+  var existingIsDirectReagent =
+    product.category === "Reagents" &&
+    ["Bottle", "Vial"].includes(existingPurchaseUnit);
+  var existingRequiresPackaging =
+    existingIsPackagedReagent ||
+    existingIsDirectReagent ||
+    (
+      ["Test Kits", "Consumables"].includes(product.category) &&
+      ["Pack", "Box", "Carton"].includes(existingPurchaseUnit)
+    );
+  var usableQuantity = calculateStockInUsableQuantity(
+    product,
+    existingPurchaseUnit,
+    quantityReceived,
+    existingUnitsPerPackage,
+    existingUnitsPerInner,
+    existingVolumeUnit,
+    existingRequiresPackaging
+  );
+  if (
+    !Number.isFinite(usableQuantity) ||
+    usableQuantity <= 0
+  ) {
+    alert(
+      "LabKeep could not calculate the usable stock for this batch. Please check its saved packaging information."
+    );
+    return;
+  }
+  batchToUpdate.quantity =
+    (Number(batchToUpdate.quantity) || 0) + usableQuantity;
+  batchToUpdate.quantityPurchased =
+    (Number(batchToUpdate.quantityPurchased) || 0) +
+    quantityReceived;
+  if (expiry) batchToUpdate.expiry = expiry;
+  if (notes) batchToUpdate.notes = notes;
+}
 
         }
 
