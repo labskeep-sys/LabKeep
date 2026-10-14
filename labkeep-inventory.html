@@ -2080,19 +2080,23 @@ name="productBloodBagSize"
 
 
   <div class="stock-in-form-group">
-
   <label for="stockInVolumeUnit">
-    Volume Measurement Unit
+    Unit Used to Count Stock
   </label>
-
   <select id="stockInVolumeUnit">
-
-    <option value="mL">Millilitres (mL)</option>
-    <option value="µL">Microlitres (µL)</option>
-    <option value="L">Litres (L)</option>
-
+<option value="">Select stock unit</option>
+<optgroup label="Volume Measurements">
+  <option value="µL">Microlitres (µL)</option>
+  <option value="mL">Millilitres (mL)</option>
+  <option value="L">Litres (L)</option>
+</optgroup>
+<optgroup label="Mass Measurements">
+  <option value="µg">Micrograms (µg)</option>
+  <option value="mg">Milligrams (mg)</option>
+  <option value="g">Grams (g)</option>
+  <option value="kg">Kilograms (kg)</option>
+</optgroup>
   </select>
-
 </div>
 
 
