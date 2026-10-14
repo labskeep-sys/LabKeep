@@ -10561,6 +10561,96 @@ if (stockInPurchaseUnit) {
 
 
   /* -----------------------------------------
+   CALCULATE USABLE STOCK RECEIVED
+----------------------------------------- */
+function calculateStockInUsableQuantity(
+  product,
+  purchaseUnit,
+  quantityReceived,
+  unitsPerPackage,
+  unitsPerInner,
+  volumeUnit,
+  packagingIsSaved
+) {
+  var category = product.category;
+  var stockUnit = product.stockUnit || product.unit;
+  var quantity = Number(quantityReceived);
+  var packageUnits = Number(unitsPerPackage) || 0;
+  var innerQuantity = Number(unitsPerInner) || 0;
+  if (!Number.isFinite(quantity) || quantity <= 0) {
+    return NaN;
+  }
+  /*
+     Preserve the previous calculation for legacy
+     batches that have no saved packaging information.
+  */
+  if (!packagingIsSaved) {
+    return quantity;
+  }
+  /*
+     Reagents purchased as packs, boxes, or cartons:
+     purchase quantity × bottles per package
+     × usable quantity per bottle.
+  */
+  if (
+    category === "Reagents" &&
+    ["Pack", "Box", "Carton"].includes(purchaseUnit)
+  ) {
+    if (
+      packageUnits <= 0 ||
+      innerQuantity <= 0 ||
+      !volumeUnit
+    ) {
+      return NaN;
+    }
+    var reagentUsableQuantity =
+      quantity * packageUnits * innerQuantity;
+    return convertStockInVolume(
+      reagentUsableQuantity,
+      volumeUnit,
+      stockUnit
+    );
+  }
+  /*
+     Reagents purchased directly as bottles or vials:
+     purchase quantity × usable quantity per bottle/vial.
+  */
+  if (
+    category === "Reagents" &&
+    ["Bottle", "Vial"].includes(purchaseUnit)
+  ) {
+    if (packageUnits <= 0 || !volumeUnit) {
+      return NaN;
+    }
+    var directReagentQuantity = quantity * packageUnits;
+    return convertStockInVolume(
+      directReagentQuantity,
+      volumeUnit,
+      stockUnit
+    );
+  }
+  /*
+     Other packaged products, such as consumables
+     and test kits, use their own count-based conversion.
+  */
+  if (
+    ["Test Kits", "Consumables"].includes(category) &&
+    ["Pack", "Box", "Carton"].includes(purchaseUnit)
+  ) {
+    if (packageUnits <= 0) {
+      return NaN;
+    }
+    return quantity * packageUnits;
+  }
+  /*
+     For products without a packaging conversion,
+     preserve the received quantity.
+  */
+  return quantity;
+}
+
+
+  /* -----------------------------------------
      SAVE STOCK IN
   ----------------------------------------- */
 
