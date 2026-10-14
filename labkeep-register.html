@@ -133,27 +133,90 @@
       box.className = `message show ${type}`;
     }
 
-    document.getElementById("registerForm").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const labName = document.getElementById("labName").value.trim();
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
+    document.getElementById("registerForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-      if (!labName) {
-        showMessage("Enter your laboratory name.", "error");
-        return;
-      }
-      if (password.length < 12) {
-        showMessage("Use a password that is at least 12 characters long.", "error");
-        return;
-      }
-      if (password !== confirmPassword) {
-        showMessage("The passwords do not match. Please check them and try again.", "error");
-        return;
-      }
+  const labName = document.getElementById("labName").value.trim();
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  const registerButton = document.getElementById("registerButton");
 
-      showMessage("The registration page is ready, but secure account creation must be enabled on the LabKeep Worker before an account can be created.");
-    });
+  if (labName.length < 2 || labName.length > 120) {
+    showMessage(
+      "Your laboratory name must contain between 2 and 120 characters.",
+      "error"
+    );
+    return;
+  }
+
+  if (password.length < 12 || password.length > 256) {
+    showMessage(
+      "Your password must contain between 12 and 256 characters.",
+      "error"
+    );
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    showMessage(
+      "The passwords do not match. Please check them and try again.",
+      "error"
+    );
+    return;
+  }
+
+  registerButton.disabled = true;
+  registerButton.textContent = "Creating account...";
+
+  try {
+    const response = await fetch(
+      LABKEEP_API_URL + "/api/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: labName,
+          password: password
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      showMessage(
+        data.message || "Registration failed. Please try again.",
+        "error"
+      );
+      return;
+    }
+
+    showMessage(
+      "Your laboratory account has been created successfully! Redirecting to login...",
+      "info"
+    );
+
+    document.getElementById("registerForm").reset();
+
+    setTimeout(() => {
+      window.location.href = "./labkeep-login.html";
+    }, 1500);
+
+  } catch (error) {
+    console.error("LabKeep registration request failed:", error);
+
+    showMessage(
+      "Unable to connect to LabKeep. Check your internet connection and try again.",
+      "error"
+    );
+
+  } finally {
+    registerButton.disabled = false;
+    registerButton.textContent = "Create laboratory account";
+  }
+});
   </script>
 </body>
 </html>
