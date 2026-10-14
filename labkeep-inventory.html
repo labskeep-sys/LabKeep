@@ -10864,6 +10864,11 @@ function calculateStockInUsableQuantity(
         var expiry =
           stockInExpiry.value;
 
+        var cost =
+document.getElementById("stockInCost")
+? document.getElementById("stockInCost").value.trim()
+: "";
+
         var notes =
           stockInNotes.value.trim();
 
