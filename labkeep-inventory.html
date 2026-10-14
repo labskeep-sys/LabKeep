@@ -10979,37 +10979,56 @@ if (selectedBatch === "New Batch") {
     ? stockInVolumeUnit.value
     : "";
   var isPackagedReagent =
-    product.category === "Reagents" &&
-    ["Pack", "Box", "Carton"].includes(purchaseUnit);
-  var isDirectReagent =
-    product.category === "Reagents" &&
-    ["Bottle", "Vial"].includes(purchaseUnit);
-  var requiresPackaging =
-    isPackagedReagent ||
-    isDirectReagent ||
-    (
-      ["Test Kits", "Consumables"].includes(product.category) &&
-      ["Pack", "Box", "Carton"].includes(purchaseUnit)
-    );
-  if (requiresPackaging && !purchaseUnit) {
-    alert("Please select the purchase unit for this batch.");
-    return;
-  }
-  if (requiresPackaging && unitsPerPackage <= 0) {
-    alert("Please enter a valid quantity per purchase unit.");
-    return;
-  }
-  if (
-    isPackagedReagent &&
-    (unitsPerInner <= 0 || !innerUnit || !volumeUnit)
-  ) {
-    alert("Please enter the bottle quantity, inner container, and measurement unit.");
-    return;
-  }
-  if (isDirectReagent && !volumeUnit) {
-    alert("Please select the measurement unit for this reagent.");
-    return;
-  }
+product.category === "Reagents" &&
+["Pack", "Box", "Carton"].includes(purchaseUnit);
+
+var isDirectReagent =
+product.category === "Reagents" &&
+["Bottle", "Vial"].includes(purchaseUnit);
+
+var isPackagedConsumable =
+product.category === "Consumables" &&
+["Pack", "Box", "Carton"].includes(purchaseUnit);
+
+var isPackagedTestKit =
+product.category === "Test Kits" &&
+["Pack", "Box", "Carton"].includes(purchaseUnit);
+
+var requiresPackaging =
+isPackagedReagent ||
+isDirectReagent ||
+isPackagedConsumable ||
+isPackagedTestKit;
+
+if (
+["Reagents", "Consumables", "Test Kits"].includes(product.category) &&
+!purchaseUnit
+) {
+alert("Please select the purchase unit for this batch.");
+return;
+}
+
+if (requiresPackaging && unitsPerPackage <= 0) {
+alert(
+"Please enter a valid quantity for the selected purchase unit."
+);
+return;
+}
+
+if (
+isPackagedReagent &&
+(unitsPerInner <= 0 || !innerUnit || !volumeUnit)
+) {
+alert(
+"Please enter the number of bottles, the quantity in each bottle, and the stock measurement unit."
+);
+return;
+}
+
+if (isDirectReagent && !volumeUnit) {
+alert("Please select the stock measurement unit.");
+return;
+}
   var usableQuantity = calculateStockInUsableQuantity(
     product,
     purchaseUnit,
