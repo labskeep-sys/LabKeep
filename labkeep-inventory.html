@@ -10364,61 +10364,197 @@ if (stockInBatch) {
 }
 
 
-  /* Show inner-container fields for packaged reagents. */
+ /* Show the correct packaging questions for the selected product. */
 
-if (stockInPurchaseUnit) {
+function updateStockInNewBatchFields() {
 
-  stockInPurchaseUnit.addEventListener(
-    "change",
-    function () {
+var products = getStockInProducts();
 
-      var products = getStockInProducts();
+var selectedProductId = Number(stockInProduct.value);
 
-      var selectedProductId =
-        Number(stockInProduct.value);
+var product = products.find(function (item) {
+return item.id === selectedProductId;
+});
 
-      var product = products.find(function (item) {
-        return item.id === selectedProductId;
-      });
+if (!product || !stockInNewBatchPackaging) {
+return;
+}
 
-      if (!product || !stockInInnerPackaging) {
-        return;
-      }
+var purchaseUnit = stockInPurchaseUnit
+? stockInPurchaseUnit.value
+: "";
 
-      var isPackagedReagent =
-        product.category === "Reagents" &&
-        ["Pack", "Box", "Carton"].includes(
-          stockInPurchaseUnit.value
-        );
+var category = product.category;
 
-      stockInInnerPackaging.style.display =
-        isPackagedReagent ? "block" : "none";
+var packageUnits = ["Pack", "Box", "Carton"];
 
-      if (!isPackagedReagent) {
-        stockInInnerUnit.value = "";
-        stockInUnitsPerInner.value = "";
-      } else {
-        stockInInnerUnit.value = "Bottle";
-      }
+var isPackage = packageUnits.includes(purchaseUnit);
 
-      if (stockInUnitsPerPackage) {
-        var label =
-          stockInUnitsPerPackage
-            .closest(".stock-in-form-group")
-            .querySelector("label");
+var isReagent = category === "Reagents";
 
-        if (label) {
-          label.textContent = isPackagedReagent
-            ? "Number of Bottles Per Package"
-            : "Usable Units Per Purchase Unit";
-        }
-      }
+var isConsumable = category === "Consumables";
 
-    }
-  );
+var isTestKit = category === "Test Kits";
+
+var isPackagedReagent = isReagent && isPackage;
+
+var isDirectReagent =
+isReagent && ["Bottle", "Vial"].includes(purchaseUnit);
+
+var isPackagedConsumable = isConsumable && isPackage;
+
+var isPackagedTestKit = isTestKit && isPackage;
+
+var purchaseGroup = stockInPurchaseUnit
+? stockInPurchaseUnit.closest(".stock-in-form-group")
+: null;
+
+var packageGroup = stockInUnitsPerPackage
+? stockInUnitsPerPackage.closest(".stock-in-form-group")
+: null;
+
+var stockUnitGroup = stockInVolumeUnit
+? stockInVolumeUnit.closest(".stock-in-form-group")
+: null;
+
+var innerGroup = stockInInnerPackaging;
+
+// Show the purchase-unit question only when a package conversion is needed.
+if (purchaseGroup) {
+purchaseGroup.style.display =
+(isReagent || isConsumable || isTestKit) &&
+(isPackage || isDirectReagent)
+? "block"
+: "none";
+}
+
+// Show the package quantity only when a conversion is required.
+if (packageGroup) {
+packageGroup.style.display =
+isPackagedReagent ||
+isDirectReagent ||
+isPackagedConsumable ||
+isPackagedTestKit
+? "block"
+: "none";
+}
+
+// Show the stock measurement unit only for reagents.
+if (stockUnitGroup) {
+stockUnitGroup.style.display =
+isReagent &&
+(isPackage || isDirectReagent)
+? "block"
+: "none";
+}
+
+// Only packaged reagents need the bottle/vial quantity fields.
+if (innerGroup) {
+innerGroup.style.display =
+isPackagedReagent ? "block" : "none";
+}
+
+// Update the package-count question.
+if (stockInUnitsPerPackage) {
+var packageLabel = packageGroup
+? packageGroup.querySelector("label")
+: null;
+
+if (packageLabel) {
+  if (isPackagedReagent) {
+    packageLabel.textContent =
+      "How many bottles are in the " +
+      purchaseUnit.toLowerCase() + "?";
+  } else if (isDirectReagent) {
+    packageLabel.textContent =
+      "How many " +
+      (stockInVolumeUnit.value || "measurement units") +
+      " are in each " + purchaseUnit.toLowerCase() + "?";
+  } else if (isPackagedConsumable) {
+    packageLabel.textContent =
+      "How many pieces are in the " +
+      purchaseUnit.toLowerCase() + "?";
+  } else if (isPackagedTestKit) {
+    packageLabel.textContent =
+      "How many kits are in the " +
+      purchaseUnit.toLowerCase() + "?";
+  }
+}
 
 }
 
+// Update the inner-container quantity question.
+if (stockInUnitsPerInner) {
+var innerLabel = stockInUnitsPerInner
+.closest(".stock-in-form-group")
+.querySelector("label");
+
+if (innerLabel) {
+  var innerUnit = stockInInnerUnit
+    ? stockInInnerUnit.value || "Bottle"
+    : "Bottle";
+  innerLabel.textContent =
+    "How many " +
+    (stockInVolumeUnit.value || "measurement units") +
+    " are in each " + innerUnit.toLowerCase() + "?";
+}
+
+}
+
+// Automatically use the product’s existing stock unit for new batches.
+if (stockInVolumeUnit) {
+var productStockUnit =
+product.stockUnit || product.unit || "";
+
+var matchingStockUnit =
+  Array.from(stockInVolumeUnit.options).some(function (option) {
+    return option.value === productStockUnit;
+  });
+if (matchingStockUnit && !stockInVolumeUnit.value) {
+  stockInVolumeUnit.value = productStockUnit;
+}
+
+}
+
+// Packaged reagents use bottles as their inner container.
+if (isPackagedReagent && stockInInnerUnit) {
+stockInInnerUnit.value = "Bottle";
+}
+
+// Clear packaging values when they are no longer relevant.
+if (!isPackagedReagent && stockInUnitsPerInner) {
+stockInUnitsPerInner.value = "";
+}
+
+if (
+!isPackagedReagent &&
+stockInInnerUnit
+) {
+stockInInnerUnit.value = "";
+}
+
+}
+
+if (stockInPurchaseUnit) {
+stockInPurchaseUnit.addEventListener(
+"change",
+updateStockInNewBatchFields
+);
+}
+
+if (stockInProduct) {
+stockInProduct.addEventListener(
+"change",
+updateStockInNewBatchFields
+);
+}
+
+if (stockInVolumeUnit) {
+stockInVolumeUnit.addEventListener(
+"change",
+updateStockInNewBatchFields
+);
+}
   /* -----------------------------------------
      FORMAT DATE
   ----------------------------------------- */
