@@ -11051,13 +11051,18 @@ else {
         ----------------------------------------- */
 
         alert(
-          quantityReceived +
-          " " +
-          product.unit +
-          " of " +
-          product.name +
-          " has been added to stock."
-        );
+  quantityReceived + " " +
+  (
+    product.batches.find(function (batch) {
+      return batch.batch === selectedBatch;
+    }) || {}
+  ).purchaseUnit +
+  " received. " +
+  usableQuantity + " " +
+  (product.stockUnit || product.unit) +
+  " of " + product.name +
+  " added to usable stock."
+);
 
       }
     );
