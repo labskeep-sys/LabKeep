@@ -10973,20 +10973,31 @@ else {
           batch:
             selectedBatch,
 
-          quantity:
-            quantityReceived,
+          // What was purchased or received
 
-          unit:
-            product.unit,
+  quantity: quantityReceived,
 
-          expiry:
-            expiry,
+  unit: (
 
-          notes:
-            notes
+    product.batches.find(function (batch) {
 
-        });
+      return batch.batch === selectedBatch;
 
+    }) || {}
+
+  ).purchaseUnit || product.unit,
+
+  // What was added to usable inventory
+
+  usableQuantity: usableQuantity,
+
+  stockUnit: product.stockUnit || product.unit,
+
+  expiry: expiry,
+
+  notes: notes
+
+});
 
         saveStockInRecords(
           stockInRecords
