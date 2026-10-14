@@ -11034,6 +11034,37 @@ if (isDirectReagent && !volumeUnit) {
 alert("Please select the stock measurement unit.");
 return;
 }
+
+  // Ensure the batch stock unit is compatible with the product's existing stock unit.
+if (
+  (isPackagedReagent || isDirectReagent) &&
+  volumeUnit
+) {
+  var existingStockUnit =
+    product.stockUnit || product.unit || "";
+
+  var compatibleStockUnits =
+    existingStockUnit &&
+    Number.isFinite(
+      convertStockInVolume(
+        1,
+        volumeUnit,
+        existingStockUnit
+      )
+    );
+
+  if (!compatibleStockUnits) {
+    alert(
+      "The selected stock unit (" +
+      volumeUnit +
+      ") cannot be converted to this product's existing stock unit (" +
+      (existingStockUnit || "not set") +
+      "). Please select a compatible unit."
+    );
+    return;
+  }
+}
+  
   var usableQuantity = calculateStockInUsableQuantity(
     product,
     purchaseUnit,
