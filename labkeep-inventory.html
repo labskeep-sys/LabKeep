@@ -10775,43 +10775,90 @@ function calculateStockInUsableQuantity(
         }
 
 
-        /* -----------------------------------------
-           NEW BATCH
-        ----------------------------------------- */
-
-        if (
-          selectedBatch === "New Batch"
-        ) {
-
-          var newBatch =
-            generateStockInBatchNumber();
-
-
-          product.batches.push({
-
-            batch:
-              newBatch,
-
-            quantity:
-              quantityReceived,
-
-            expiry:
-              expiry,
-
-            cost:
-              "",
-
-            notes:
-              notes
-
-          });
-
-
-          selectedBatch =
-            newBatch;
-
-        }
-
+       /* NEW BATCH */
+if (selectedBatch === "New Batch") {
+  var purchaseUnit = stockInPurchaseUnit
+    ? stockInPurchaseUnit.value
+    : "";
+  var unitsPerPackage = stockInUnitsPerPackage
+    ? Number(stockInUnitsPerPackage.value) || 0
+    : 0;
+  var unitsPerInner = stockInUnitsPerInner
+    ? Number(stockInUnitsPerInner.value) || 0
+    : 0;
+  var innerUnit = stockInInnerUnit
+    ? stockInInnerUnit.value
+    : "";
+  var volumeUnit = stockInVolumeUnit
+    ? stockInVolumeUnit.value
+    : "";
+  var isPackagedReagent =
+    product.category === "Reagents" &&
+    ["Pack", "Box", "Carton"].includes(purchaseUnit);
+  var isDirectReagent =
+    product.category === "Reagents" &&
+    ["Bottle", "Vial"].includes(purchaseUnit);
+  var requiresPackaging =
+    isPackagedReagent ||
+    isDirectReagent ||
+    (
+      ["Test Kits", "Consumables"].includes(product.category) &&
+      ["Pack", "Box", "Carton"].includes(purchaseUnit)
+    );
+  if (requiresPackaging && !purchaseUnit) {
+    alert("Please select the purchase unit for this batch.");
+    return;
+  }
+  if (requiresPackaging && unitsPerPackage <= 0) {
+    alert("Please enter a valid quantity per purchase unit.");
+    return;
+  }
+  if (
+    isPackagedReagent &&
+    (unitsPerInner <= 0 || !innerUnit || !volumeUnit)
+  ) {
+    alert("Please enter the bottle quantity, inner container, and measurement unit.");
+    return;
+  }
+  if (isDirectReagent && !volumeUnit) {
+    alert("Please select the measurement unit for this reagent.");
+    return;
+  }
+  var usableQuantity = calculateStockInUsableQuantity(
+    product,
+    purchaseUnit,
+    quantityReceived,
+    unitsPerPackage,
+    unitsPerInner,
+    volumeUnit,
+    requiresPackaging
+  );
+  if (
+    !Number.isFinite(usableQuantity) ||
+    usableQuantity <= 0
+  ) {
+    alert(
+      "LabKeep could not calculate the usable stock. Please check the packaging and measurement units."
+    );
+    return;
+  }
+  var newBatch = generateStockInBatchNumber();
+  product.batches.push({
+    batch: newBatch,
+    quantity: usableQuantity,
+    quantityPurchased: quantityReceived,
+    purchaseUnit: purchaseUnit || product.unit,
+    unitsPerPackage: unitsPerPackage || null,
+    unitsPerInner: isPackagedReagent ? unitsPerInner : null,
+    innerUnit: isPackagedReagent ? innerUnit : null,
+    volumeUnit: volumeUnit || null,
+    stockUnit: product.stockUnit || product.unit,
+    expiry: expiry,
+    cost: "",
+    notes: notes
+  });
+  selectedBatch = newBatch;
+}
 
         /* -----------------------------------------
            EXISTING BATCH
