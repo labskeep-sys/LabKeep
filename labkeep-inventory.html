@@ -10419,13 +10419,12 @@ var stockUnitGroup = stockInVolumeUnit
 
 var innerGroup = stockInInnerPackaging;
 
-// Show the purchase-unit question only when a package conversion is needed.
+// Keep the purchase-unit dropdown available for all three categories.
 if (purchaseGroup) {
-purchaseGroup.style.display =
-(isReagent || isConsumable || isTestKit) &&
-(isPackage || isDirectReagent)
-? "block"
-: "none";
+  purchaseGroup.style.display =
+    (isReagent || isConsumable || isTestKit)
+      ? "block"
+      : "none";
 }
 
 // Show the package quantity only when a conversion is required.
