@@ -10519,6 +10519,16 @@ if (stockInPurchaseUnit) {
             (record.expiry || "—") +
           "</td>" +
 
+          "<td style='padding:14px; color:#475569;'>" +
+        (
+          record.cost !== undefined &&
+          record.cost !== null &&
+          record.cost !== ""
+            ? "₦" + Number(record.cost).toLocaleString("en-NG")
+            : "—"
+        ) +
+      "</td>" +
+
           "<td style='padding:14px; color:#64748b;'>" +
             (record.notes || "—") +
           "</td>";
