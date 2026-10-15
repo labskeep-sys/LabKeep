@@ -9487,6 +9487,9 @@ function saveProducts(products) {
   if (typeof window.labkeepRefreshExpiryTracker === "function") {
   window.labkeepRefreshExpiryTracker();
 }
+  if (typeof window.labkeepRefreshReorderAlerts === "function") {
+  window.labkeepRefreshReorderAlerts();
+}
 
   // Prepare a snapshot of the inventory being saved.
   const productsSnapshot = JSON.stringify(products);
