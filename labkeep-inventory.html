@@ -45,8 +45,44 @@
         throw new Error("Unable to verify the laboratory session.");
       }
 
-      // The server accepted the session.
-      document.documentElement.style.visibility = "visible";
+      // Read the authenticated laboratory's inventory.
+const data = await response.json();
+
+if (
+  !data.success ||
+  !Array.isArray(data.products)
+) {
+  throw new Error(
+    "LabKeep could not load your inventory."
+  );
+}
+
+// Cache the server inventory for the existing dashboard code.
+localStorage.setItem(
+  "labkeepInventoryProducts",
+  JSON.stringify(data.products)
+);
+
+// Wait until the dashboard scripts have finished loading.
+if (document.readyState === "loading") {
+  await new Promise(function (resolve) {
+    document.addEventListener(
+      "DOMContentLoaded",
+      resolve,
+      { once: true }
+    );
+  });
+}
+
+// Refresh the existing Products display.
+if (
+  typeof window.labkeepRefreshProducts === "function"
+) {
+  window.labkeepRefreshProducts();
+}
+
+// Show the dashboard after inventory loading succeeds.
+document.documentElement.style.visibility = "visible";
 
     } catch (error) {
       console.error("LabKeep session verification failed:", error);
