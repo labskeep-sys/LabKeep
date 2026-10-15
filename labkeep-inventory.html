@@ -7369,7 +7369,9 @@ var materialText =
   );
 
 }
-      renderTestUsageHistory();
+     loadTestUsageRecordsFromDatabase().catch(function (error) {
+  console.error("Unable to load Test Usage history:", error);
+});
 
       /* =========================================
    TEST USAGE DATE SEARCH
