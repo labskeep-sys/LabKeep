@@ -10910,6 +10910,7 @@ window.saveStockOutRecords = saveStockOutRecords;
 function renderStockOutRecords() {
   var recordsBody = document.getElementById("stockOutRecordsBody");
   var emptyState = document.getElementById("stockOutEmptyState");
+  var recordsWrapper = document.getElementById("stockOutRecordsWrapper");
   if (!recordsBody) {
     console.error("Stock Out history table body was not found.");
     return;
@@ -10917,14 +10918,23 @@ function renderStockOutRecords() {
   var records = getStockOutRecords();
   recordsBody.innerHTML = "";
   if (records.length === 0) {
-    if (emptyState) {
-      emptyState.style.display = "block";
-    }
-    return;
+  if (recordsWrapper) {
+    recordsWrapper.style.display = "none";
   }
+
   if (emptyState) {
-    emptyState.style.display = "none";
+    emptyState.style.display = "block";
   }
+
+  return;
+}
+  if (emptyState) {
+  emptyState.style.display = "none";
+}
+
+if (recordsWrapper) {
+  recordsWrapper.style.display = "block";
+}
   records.slice().reverse().forEach(function (record) {
     var row = document.createElement("tr");
     row.style.borderTop = "1px solid #e5e7eb";
