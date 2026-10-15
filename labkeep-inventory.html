@@ -10885,22 +10885,86 @@ var stockInUnitsPerInner =
   }
 
   function getStockOutRecords() {
-  try {
-    return JSON.parse(
-      localStorage.getItem(stockOutStorageKey)
-    ) || [];
-  } catch (error) {
-    return [];
+    try {
+      return JSON.parse(
+        localStorage.getItem(stockOutStorageKey)
+      ) || [];
+    } catch (error) {
+      return [];
+    }
   }
-}
 
-function saveStockOutRecords(records) {
-  localStorage.setItem(
-    stockOutStorageKey,
-    JSON.stringify(records)
-  );
-}
+  // Queue Stock Out updates so they reach D1 in order.
+  let stockOutSyncQueue = Promise.resolve();
 
+  function saveStockOutRecords(records) {
+    // Keep the existing dashboard responsive.
+    localStorage.setItem(
+      stockOutStorageKey,
+      JSON.stringify(records)
+    );
+
+    // Take a snapshot for this database save.
+    const recordsSnapshot = JSON.stringify(records);
+
+    stockOutSyncQueue = stockOutSyncQueue
+      .catch(function () {
+        // Allow a later save to retry.
+      })
+      .then(async function () {
+        const token = sessionStorage.getItem(
+          "labkeepSessionToken"
+        );
+
+        if (!token) {
+          throw new Error(
+            "Your session has expired. Please log in again."
+          );
+        }
+
+        const response = await fetch(
+          "https://labkeep-api.labskeep.workers.dev/api/stock-out",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify({
+              records: JSON.parse(recordsSnapshot)
+            })
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(
+            data.message ||
+            "Unable to save Stock Out records to D1."
+          );
+        }
+
+        console.log(
+          "LabKeep Stock Out records saved to D1:",
+          data.recordCount,
+          "records"
+        );
+      });
+
+    stockOutSyncQueue.catch(function (error) {
+      console.error(
+        "LabKeep Stock Out database save failed:",
+        error
+      );
+
+      alert(
+        "Stock Out history could not be saved to the database. " +
+        (error.message || "Please check your connection.")
+      );
+    });
+  }
+  
   window.getStockOutRecords = getStockOutRecords;
 window.saveStockOutRecords = saveStockOutRecords;
 
