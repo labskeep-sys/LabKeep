@@ -10002,12 +10002,9 @@ var stockInUnitsPerInner =
 
   function saveStockInProducts(products) {
 
-    localStorage.setItem(
-      productsStorageKey,
-      JSON.stringify(products)
-    );
+  saveProducts(products);
 
-  }
+}
 
 
   function getStockInRecords() {
