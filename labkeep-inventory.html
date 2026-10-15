@@ -8630,9 +8630,11 @@ function populateStockOutProducts() {
 }
 
 function openStockOutModalWindow() {
-if (stockOutModal) {
-stockOutModal.classList.add("show");
-}
+  populateStockOutProducts();
+
+  if (stockOutModal) {
+    stockOutModal.classList.add("show");
+  }
 }
 
 function closeStockOutModalWindow() {
