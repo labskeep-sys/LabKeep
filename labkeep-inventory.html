@@ -6,6 +6,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="robots" content="index,follow">
   <meta name="generator" content="GrapesJS Studio">
+
+    <script>
+  // Keep the dashboard hidden until the server verifies the session.
+  document.documentElement.style.visibility = "hidden";
+
+  (async function checkLabKeepSession() {
+    const token = sessionStorage.getItem("labkeepSessionToken");
+
+    // No session token: return to the login page.
+    if (!token) {
+      window.location.replace("./labkeep-login.html");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://labkeep-api.labskeep.workers.dev/api/inventory",
+        {
+          method: "GET",
+          headers: {
+            "Authorization": "Bearer " + token
+          }
+        }
+      );
+
+      // The server rejected the session.
+      if (response.status === 401) {
+        sessionStorage.removeItem("labkeepSessionToken");
+        sessionStorage.removeItem("labkeepLaboratory");
+
+        window.location.replace("./labkeep-login.html");
+        return;
+      }
+
+      // Do not open the dashboard if verification failed.
+      if (!response.ok) {
+        throw new Error("Unable to verify the laboratory session.");
+      }
+
+      // The server accepted the session.
+      document.documentElement.style.visibility = "visible";
+
+    } catch (error) {
+      console.error("LabKeep session verification failed:", error);
+
+      alert(
+        "LabKeep could not verify your session. Please check your internet connection and log in again."
+      );
+
+      sessionStorage.removeItem("labkeepSessionToken");
+      sessionStorage.removeItem("labkeepLaboratory");
+
+      window.location.replace("./labkeep-login.html");
+    }
+  })();
+</script>
+    
   <link rel="stylesheet" href="./style-pages.css">
     
     <style>
