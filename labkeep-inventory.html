@@ -6629,12 +6629,7 @@ alert(deductionMessage);
       );
 
 
-      localStorage.setItem(
-        testUsageStorageKey,
-        JSON.stringify(
-          usageRecords
-        )
-      );
+      saveTestUsageRecords(usageRecords);
 
       renderTestUsageHistory();
 
