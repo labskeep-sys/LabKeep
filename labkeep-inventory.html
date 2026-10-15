@@ -8737,6 +8737,249 @@ stockOutModal.classList.remove("show");
 }
 }
 
+      /* -----------------------------------------
+   SAVE STOCK OUT AND DEDUCT INVENTORY
+----------------------------------------- */
+
+if (stockOutForm) {
+  stockOutForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    try {
+      var productIndex = Number(stockOutProductSelect.value);
+      var requestedQuantity = Number(stockOutQuantityInput.value);
+      var reason = stockOutReasonSelect.value;
+      var selectedBatchIndex = stockOutBatchSelect.value;
+      var transactionDate = stockOutDateInput.value;
+      var notes = stockOutNotesInput.value.trim();
+
+      if (
+        stockOutProductSelect.value === "" ||
+        !Number.isInteger(productIndex)
+      ) {
+        alert("Please select a product.");
+        return;
+      }
+
+      if (
+        !Number.isFinite(requestedQuantity) ||
+        requestedQuantity <= 0
+      ) {
+        alert("Please enter a quantity greater than zero.");
+        return;
+      }
+
+      if (!reason) {
+        alert("Please select a Stock Out reason.");
+        return;
+      }
+
+      if (
+        (reason === "Damaged" || reason === "Expired") &&
+        selectedBatchIndex === ""
+      ) {
+        alert(
+          "Please select the specific batch for damaged or expired stock."
+        );
+        return;
+      }
+
+      var products = getProducts();
+
+      if (
+        productIndex < 0 ||
+        productIndex >= products.length
+      ) {
+        alert("The selected product could not be found.");
+        return;
+      }
+
+      var product = products[productIndex];
+      var batches = getUsableBatchList(product);
+      var unit = product.stockUnit || product.unit || "";
+
+      var deductions = [];
+      var remaining = requestedQuantity;
+
+      /*
+         Specific batch: deduct from that batch only.
+      */
+      if (selectedBatchIndex !== "") {
+        var batchIndex = Number(selectedBatchIndex);
+
+        if (
+          !Number.isInteger(batchIndex) ||
+          batchIndex < 0 ||
+          batchIndex >= batches.length
+        ) {
+          alert("The selected batch could not be found.");
+          return;
+        }
+
+        var selectedBatch = batches[batchIndex];
+        var available = Number(selectedBatch.quantity) || 0;
+
+        if (requestedQuantity > available) {
+          alert(
+            "Insufficient stock in this batch. Available: " +
+            available + (unit ? " " + unit : "") + "."
+          );
+          return;
+        }
+
+        deductions.push({
+          batch: selectedBatch,
+          quantity: requestedQuantity
+        });
+      } else {
+        /*
+           Automatic deduction: earliest expiry first.
+           Expired batches are excluded from ordinary
+           automatic deductions.
+        */
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        var eligibleBatches = batches.filter(function (batch) {
+          var quantity = Number(batch.quantity) || 0;
+
+          if (quantity <= 0) return false;
+
+          if (!batch.expiry) return true;
+
+          var expiryDate = new Date(batch.expiry + "T00:00:00");
+          expiryDate.setHours(0, 0, 0, 0);
+
+          return !Number.isNaN(expiryDate.getTime()) &&
+            expiryDate >= today;
+        });
+
+        eligibleBatches.sort(function (a, b) {
+          if (!a.expiry && !b.expiry) return 0;
+          if (!a.expiry) return 1;
+          if (!b.expiry) return -1;
+
+          return a.expiry.localeCompare(b.expiry);
+        });
+
+        var eligibleTotal = eligibleBatches.reduce(
+          function (total, batch) {
+            return total + (Number(batch.quantity) || 0);
+          },
+          0
+        );
+
+        if (requestedQuantity > eligibleTotal) {
+          alert(
+            "Insufficient eligible stock. Available: " +
+            eligibleTotal + (unit ? " " + unit : "") +
+            ". Select a specific batch if you need to remove expired stock."
+          );
+          return;
+        }
+
+        eligibleBatches.forEach(function (batch) {
+          if (remaining <= 0) return;
+
+          var available = Number(batch.quantity) || 0;
+          var quantityToDeduct = Math.min(available, remaining);
+
+          if (quantityToDeduct > 0) {
+            deductions.push({
+              batch: batch,
+              quantity: quantityToDeduct
+            });
+
+            remaining -= quantityToDeduct;
+          }
+        });
+      }
+
+      /*
+         Apply the validated deductions.
+      */
+      deductions.forEach(function (deduction) {
+        deduction.batch.quantity = Math.round(
+          (
+            (Number(deduction.batch.quantity) || 0) -
+            deduction.quantity
+          ) * 1000000
+        ) / 1000000;
+      });
+
+      /*
+         Recalculate the product's total stock.
+      */
+      product.quantity = Math.round(
+        batches.reduce(function (total, batch) {
+          return total + (Number(batch.quantity) || 0);
+        }, 0) * 1000000
+      ) / 1000000;
+
+      /*
+         Save the updated inventory.
+      */
+      saveProducts(products);
+
+      /*
+         Record each batch deduction separately so the
+         history accurately identifies where stock went.
+      */
+      var records = getStockOutRecords();
+
+      deductions.forEach(function (deduction) {
+        records.push({
+          id: Date.now() + "-" + records.length,
+          date: transactionDate
+            ? new Date(transactionDate + "T12:00:00").toISOString()
+            : new Date().toISOString(),
+          productId: product.id || "",
+          productName: product.name +
+            (product.bloodBagSize
+              ? " — " + product.bloodBagSize
+              : ""),
+          batch: deduction.batch.batch || "Unlabelled batch",
+          quantity: deduction.quantity,
+          unit: unit,
+          reason: reason,
+          notes: notes
+        });
+      });
+
+      saveStockOutRecords(records);
+
+      /*
+         Refresh inventory and history.
+      */
+      if (typeof window.labkeepRefreshProducts === "function") {
+        window.labkeepRefreshProducts();
+      }
+
+      renderStockOutRecords();
+      populateStockOutProducts();
+
+      stockOutForm.reset();
+      closeStockOutModalWindow();
+
+      alert(
+        "Stock Out recorded successfully. " +
+        requestedQuantity + " " + unit +
+        " of " + product.name + " deducted."
+      );
+
+    } catch (error) {
+      console.error("LabKeep Stock Out error:", error);
+
+      alert(
+        "Stock Out failed: " +
+        (error && error.message
+          ? error.message
+          : String(error))
+      );
+    }
+  });
+}
+
 if (openStockOutButton) {
 openStockOutButton.addEventListener(
 "click",
