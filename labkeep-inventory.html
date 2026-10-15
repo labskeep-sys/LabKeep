@@ -1756,6 +1756,12 @@ document.documentElement.style.visibility = "visible";
     </select>
   </div>
   <div class="inventory-form-group">
+  <label for="stockOutBatch">Batch (Optional)</label>
+  <select id="stockOutBatch" name="batch">
+    <option value="">Automatic — earliest expiry first</option>
+  </select>
+</div>
+  <div class="inventory-form-group">
     <label for="stockOutQuantity">Quantity to Remove</label>
     <input
       type="number"
