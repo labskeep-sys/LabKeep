@@ -8917,15 +8917,9 @@ if (stockOutForm) {
       ) / 1000000;
 
       /*
-         Save the updated inventory.
+         Prepare the Stock Out history before saving inventory.
       */
-      saveProducts(products);
-
-      /*
-         Record each batch deduction separately so the
-         history accurately identifies where stock went.
-      */
-     var records = window.getStockOutRecords();
+      var records = window.getStockOutRecords();
 
       deductions.forEach(function (deduction) {
         records.push({
