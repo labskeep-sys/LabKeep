@@ -2824,6 +2824,98 @@ var testUsageEmptyState =
 var testUsageStorageKey =
   "labkeepTestUsageRecords";
 
+      let testUsageSyncQueue = Promise.resolve();
+
+function saveTestUsageRecords(records) {
+  localStorage.setItem(
+    testUsageStorageKey,
+    JSON.stringify(records)
+  );
+
+  const recordsSnapshot = JSON.stringify(records);
+
+  testUsageSyncQueue = testUsageSyncQueue
+    .catch(function () {})
+    .then(async function () {
+      const token = sessionStorage.getItem("labkeepSessionToken");
+
+      if (!token) {
+        throw new Error("Your session has expired. Please log in again.");
+      }
+
+      const response = await fetch(
+        "https://labkeep-api.labskeep.workers.dev/api/test-usage",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+          },
+          body: JSON.stringify({
+            records: JSON.parse(recordsSnapshot)
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.message || "Unable to save Test Usage records to the database."
+        );
+      }
+
+      console.log(
+        "LabKeep Test Usage records saved to the database:",
+        data.recordCount
+      );
+    });
+
+  testUsageSyncQueue.catch(function (error) {
+    console.error(
+      "LabKeep Test Usage database save failed:",
+      error
+    );
+
+    alert(
+      "Your Test Usage changes are saved in this browser, but the database save failed. Please check your connection before relying on these changes on another device."
+    );
+  });
+}
+
+async function loadTestUsageRecordsFromDatabase() {
+  const token = sessionStorage.getItem("labkeepSessionToken");
+
+  if (!token) {
+    throw new Error("Your session has expired. Please log in again.");
+  }
+
+  const response = await fetch(
+    "https://labkeep-api.labskeep.workers.dev/api/test-usage",
+    {
+      method: "GET",
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok || !data.success) {
+    throw new Error(
+      data.message || "Unable to load Test Usage records from the database."
+    );
+  }
+
+  localStorage.setItem(
+    testUsageStorageKey,
+    JSON.stringify(data.records)
+  );
+
+  renderTestUsageHistory();
+}
+
 /* =========================================
    TEST USAGE POPUP
 ========================================= */
