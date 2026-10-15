@@ -10908,23 +10908,23 @@ window.saveStockOutRecords = saveStockOutRecords;
    DISPLAY STOCK OUT RECORDS
 ----------------------------------------- */
 function renderStockOutRecords() {
-  if (!stockOutRecordsBody) {
+  var recordsBody = document.getElementById("stockOutRecordsBody");
+  var emptyState = document.getElementById("stockOutEmptyState");
+  if (!recordsBody) {
+    console.error("Stock Out history table body was not found.");
     return;
   }
   var records = getStockOutRecords();
-  stockOutRecordsBody.innerHTML = "";
+  recordsBody.innerHTML = "";
   if (records.length === 0) {
-    if (stockOutEmptyState) {
-      stockOutEmptyState.style.display = "block";
+    if (emptyState) {
+      emptyState.style.display = "block";
     }
     return;
   }
-  if (stockOutEmptyState) {
-    stockOutEmptyState.style.display = "none";
+  if (emptyState) {
+    emptyState.style.display = "none";
   }
-  /*
-     Newest transaction first
-  */
   records.slice().reverse().forEach(function (record) {
     var row = document.createElement("tr");
     row.style.borderTop = "1px solid #e5e7eb";
@@ -10950,7 +10950,7 @@ function renderStockOutRecords() {
       cell.textContent = String(value);
       row.appendChild(cell);
     });
-    stockOutRecordsBody.appendChild(row);
+    recordsBody.appendChild(row);
   });
 }
 
