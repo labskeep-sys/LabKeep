@@ -8894,6 +8894,9 @@ if (reorderAlertsLink) {
     if (stockOutSection) stockOutSection.style.display = "none";
     if (expiryTrackerSection) expiryTrackerSection.style.display = "none";
     if (reorderAlertsSection) reorderAlertsSection.style.display = "";
+    if (typeof window.labkeepRefreshReorderAlerts === "function") {
+  window.labkeepRefreshReorderAlerts();
+}
 
     sidebarLinks.forEach(function (link) {
       link.classList.remove("active");
