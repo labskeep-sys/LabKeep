@@ -8711,6 +8711,63 @@ event.preventDefault();
 );
 }
 
+      /* Expiry Tracker section */
+
+var expiryTrackerLink =
+  document.getElementById("iol7ebf");
+
+if (expiryTrackerLink) {
+  expiryTrackerLink.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    if (dashboardSection) dashboardSection.style.display = "none";
+    if (productsSection) productsSection.style.display = "none";
+    if (stockInSection) stockInSection.style.display = "none";
+    if (testsSection) testsSection.style.display = "none";
+    if (stockOutSection) stockOutSection.style.display = "none";
+    if (expiryTrackerSection) expiryTrackerSection.style.display = "";
+
+    sidebarLinks.forEach(function (link) {
+      link.classList.remove("active");
+    });
+
+    expiryTrackerLink.classList.add("active");
+
+    if (window.innerWidth <= 768) {
+      closeSidebar();
+    }
+  });
+}
+
+      /* Reorder Alerts section */
+
+var reorderAlertsLink =
+  document.getElementById("igo4zym");
+
+if (reorderAlertsLink) {
+  reorderAlertsLink.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    if (dashboardSection) dashboardSection.style.display = "none";
+    if (productsSection) productsSection.style.display = "none";
+    if (stockInSection) stockInSection.style.display = "none";
+    if (testsSection) testsSection.style.display = "none";
+    if (stockOutSection) stockOutSection.style.display = "none";
+    if (expiryTrackerSection) expiryTrackerSection.style.display = "none";
+    if (reorderAlertsSection) reorderAlertsSection.style.display = "";
+
+    sidebarLinks.forEach(function (link) {
+      link.classList.remove("active");
+    });
+
+    reorderAlertsLink.classList.add("active");
+
+    if (window.innerWidth <= 768) {
+      closeSidebar();
+    }
+  });
+}
+
       // Stock Out form controls
 
 var stockOutModal =
