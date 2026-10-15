@@ -10639,6 +10639,23 @@ var stockInUnitsPerInner =
     });
   }
 
+  function getStockOutRecords() {
+  try {
+    return JSON.parse(
+      localStorage.getItem(stockOutStorageKey)
+    ) || [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveStockOutRecords(records) {
+  localStorage.setItem(
+    stockOutStorageKey,
+    JSON.stringify(records)
+  );
+}
+
   // Load Stock In history from the authenticated laboratory's database.
   async function loadStockInRecordsFromDatabase() {
 
