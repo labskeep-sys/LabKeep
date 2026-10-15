@@ -8436,6 +8436,44 @@ if (testsSection) {
 
 }
 
+      /* Stock Out section */
+
+var stockOutLink =
+document.getElementById("i1sa8n1");
+
+if (stockOutLink) {
+stockOutLink.addEventListener(
+"click",
+function (event) {
+event.preventDefault();
+
+  if (dashboardSection) {
+    dashboardSection.style.display = "none";
+  }
+  if (productsSection) {
+    productsSection.style.display = "none";
+  }
+  if (stockInSection) {
+    stockInSection.style.display = "none";
+  }
+  if (testsSection) {
+    testsSection.style.display = "none";
+  }
+  if (stockOutSection) {
+    stockOutSection.style.display = "";
+  }
+  sidebarLinks.forEach(function (link) {
+    link.classList.remove("active");
+  });
+  stockOutLink.classList.add("active");
+  if (window.innerWidth <= 768) {
+    closeSidebar();
+  }
+}
+
+);
+}
+
       /* Mobile top navigation */
 
       mobileMenuButton.addEventListener(
