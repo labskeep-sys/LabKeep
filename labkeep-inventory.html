@@ -1624,6 +1624,120 @@ document.documentElement.style.visibility = "visible";
 
 </section>
 
+      <!-- =========================================
+     STOCK OUT SECTION
+========================================== --><section id="stockOutSection" class="inventory-section" style="display:none;">  <div class="dashboard-header"><div>
+  <h2 class="dashboard-title">Stock Out</h2>
+
+  <p style="margin:6px 0 0; color:#64748b;">
+    Record stock removed from your laboratory inventory.
+  </p>
+</div>
+
+<button
+  type="button"
+  id="openStockOutButton"
+  class="inventory-save-button"
+>
+  + Stock Out
+</button>
+
+  </div>  <section
+    class="content-card stock-card"
+    style="margin-top:20px;"
+  ><div class="card-header">
+
+  <div>
+    <h3 class="card-title">
+      Stock Out Records
+    </h3>
+
+    <p style="margin:5px 0 0; color:#64748b; font-size:14px;">
+      Track products removed, quantities, reasons, and dates.
+    </p>
+  </div>
+
+</div>
+
+<!-- STOCK OUT RECORDS TABLE -->
+
+<div
+  id="stockOutRecordsWrapper"
+  style="display:none; overflow-x:auto;"
+>
+
+  <table
+    style="width:100%; border-collapse:collapse; min-width:800px;"
+  >
+
+    <thead>
+      <tr>
+
+        <th style="text-align:left; padding:14px; color:#0b1f5c;">
+          Date
+        </th>
+
+        <th style="text-align:left; padding:14px; color:#0b1f5c;">
+          Product
+        </th>
+
+        <th style="text-align:left; padding:14px; color:#0b1f5c;">
+          Batch
+        </th>
+
+        <th style="text-align:left; padding:14px; color:#0b1f5c;">
+          Quantity
+        </th>
+
+        <th style="text-align:left; padding:14px; color:#0b1f5c;">
+          Reason
+        </th>
+
+        <th style="text-align:left; padding:14px; color:#0b1f5c;">
+          Notes
+        </th>
+
+      </tr>
+    </thead>
+
+    <tbody id="stockOutRecordsBody">
+    </tbody>
+
+  </table>
+
+</div>
+
+<!-- EMPTY STATE -->
+
+<div
+  id="stockOutEmptyState"
+  style="text-align:center; padding:50px 20px;"
+>
+
+  <div
+    style="font-size:16px; font-weight:700; color:#0b1f5c; margin-bottom:8px;"
+  >
+    No stock-out records yet
+  </div>
+
+  <div
+    style="color:#64748b; font-size:14px; margin-bottom:18px;"
+  >
+    Record your first stock-out transaction to track where your inventory goes.
+  </div>
+
+  <button
+    type="button"
+    id="emptyStockOutButton"
+    class="inventory-save-button"
+  >
+    + Record Stock Out
+  </button>
+
+</div>
+
+  </section></section>
+
 <!-- Mobile inventory menu -->
       <!-- Mobile inventory menu --><button type="button" id="mobileSidebarButton" aria-expanded="false" class="mobile-sidebar-button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg><span>
           Inventory Menu
