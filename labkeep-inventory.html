@@ -1738,6 +1738,135 @@ document.documentElement.style.visibility = "visible";
 
   </section></section>
 
+      <!-- =========================================
+     EXPIRY TRACKER SECTION
+========================================== -->
+<section id="expiryTrackerSection" class="inventory-section" style="display:none;">
+
+  <div class="dashboard-header">
+    <div>
+      <h2 class="dashboard-title">Expiry Tracker</h2>
+      <p style="margin:6px 0 0; color:#64748b;">
+        Stay ahead of expiring laboratory materials and protect the quality of your inventory.
+      </p>
+    </div>
+  </div>
+
+  <!-- EXPIRY SUMMARY CARDS -->
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-top:22px;">
+
+    <div class="content-card" style="padding:22px; border-left:4px solid #dc2626;">
+      <div style="font-size:13px; color:#64748b;">Expired Batches</div>
+      <div id="expiredBatchCount" style="font-size:32px; font-weight:800; color:#b91c1c; margin-top:8px;">—</div>
+      <div style="font-size:12px; color:#64748b; margin-top:5px;">Require immediate attention</div>
+    </div>
+
+    <div class="content-card" style="padding:22px; border-left:4px solid #f59e0b;">
+      <div style="font-size:13px; color:#64748b;">Expiring Soon</div>
+      <div id="expiringSoonCount" style="font-size:32px; font-weight:800; color:#b45309; margin-top:8px;">—</div>
+      <div style="font-size:12px; color:#64748b; margin-top:5px;">Within the next 30 days</div>
+    </div>
+
+    <div class="content-card" style="padding:22px; border-left:4px solid #16a34a;">
+      <div style="font-size:13px; color:#64748b;">More Than 30 Days</div>
+      <div id="safeBatchCount" style="font-size:32px; font-weight:800; color:#15803d; margin-top:8px;">—</div>
+      <div style="font-size:12px; color:#64748b; margin-top:5px;">Batches beyond the warning window</div>
+    </div>
+
+  </div>
+
+  <!-- EXPIRY TIMELINE -->
+  <div class="content-card" style="margin-top:22px; padding:24px;">
+
+    <div class="card-header">
+      <div>
+        <h3 class="card-title">Expiry Timeline</h3>
+        <p style="margin:5px 0 0; color:#64748b; font-size:14px;">
+          Review batches by urgency and expiry date.
+        </p>
+      </div>
+    </div>
+
+    <div id="expiryTimeline" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-top:20px;">
+
+      <div id="expiryEmptyState" style="grid-column:1/-1; text-align:center; padding:35px 15px; background:#f8fbff; border:1px dashed #cbd5e1; border-radius:14px;">
+        <div style="font-size:30px; margin-bottom:10px;">📅</div>
+        <div style="font-weight:700; color:#0b1f5c;">Your expiry overview will appear here</div>
+        <p style="font-size:14px; color:#64748b; margin:7px 0 0;">
+          Batches with expiry dates will be organized by urgency.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- =========================================
+     REORDER ALERTS SECTION
+========================================== -->
+<section id="reorderAlertsSection" class="inventory-section" style="display:none;">
+
+  <div class="dashboard-header">
+    <div>
+      <h2 class="dashboard-title">Reorder Alerts</h2>
+      <p style="margin:6px 0 0; color:#64748b;">
+        Know what needs replenishing before stock shortages interrupt laboratory operations.
+      </p>
+    </div>
+  </div>
+
+  <!-- REORDER SUMMARY CARDS -->
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-top:22px;">
+
+    <div class="content-card" style="padding:22px; border-left:4px solid #dc2626;">
+      <div style="font-size:13px; color:#64748b;">Critical Stock</div>
+      <div id="criticalStockCount" style="font-size:32px; font-weight:800; color:#b91c1c; margin-top:8px;">—</div>
+      <div style="font-size:12px; color:#64748b; margin-top:5px;">At zero or below zero</div>
+    </div>
+
+    <div class="content-card" style="padding:22px; border-left:4px solid #f59e0b;">
+      <div style="font-size:13px; color:#64748b;">Low Stock</div>
+      <div id="lowStockCount" style="font-size:32px; font-weight:800; color:#b45309; margin-top:8px;">—</div>
+      <div style="font-size:12px; color:#64748b; margin-top:5px;">At or below minimum stock</div>
+    </div>
+
+    <div class="content-card" style="padding:22px; border-left:4px solid #1237d8;">
+      <div style="font-size:13px; color:#64748b;">Units to Replenish</div>
+      <div id="reorderQuantityTotal" style="font-size:32px; font-weight:800; color:#1237d8; margin-top:8px;">—</div>
+      <div style="font-size:12px; color:#64748b; margin-top:5px;">Combined quantity needed</div>
+    </div>
+
+  </div>
+
+  <!-- REORDER PRODUCT CARDS -->
+  <div class="content-card" style="margin-top:22px; padding:24px;">
+
+    <div class="card-header">
+      <div>
+        <h3 class="card-title">Products Needing Attention</h3>
+        <p style="margin:5px 0 0; color:#64748b; font-size:14px;">
+          Compare available stock with each product's minimum level.
+        </p>
+      </div>
+    </div>
+
+    <div id="reorderProductsGrid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin-top:20px;">
+
+      <div id="reorderEmptyState" style="grid-column:1/-1; text-align:center; padding:35px 15px; background:#f8fbff; border:1px dashed #cbd5e1; border-radius:14px;">
+        <div style="font-size:30px; margin-bottom:10px;">📦</div>
+        <div style="font-weight:700; color:#0b1f5c;">No reorder data yet</div>
+        <p style="font-size:14px; color:#64748b; margin:7px 0 0;">
+          Products that reach their minimum stock level will appear here.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
       <!-- STOCK OUT FORM MODAL -->
 <div
   id="stockOutModal"
