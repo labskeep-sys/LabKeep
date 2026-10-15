@@ -8862,6 +8862,9 @@ if (expiryTrackerLink) {
     if (testsSection) testsSection.style.display = "none";
     if (stockOutSection) stockOutSection.style.display = "none";
     if (expiryTrackerSection) expiryTrackerSection.style.display = "";
+    if (typeof window.labkeepRefreshExpiryTracker === "function") {
+  window.labkeepRefreshExpiryTracker();
+}
 
     sidebarLinks.forEach(function (link) {
       link.classList.remove("active");
