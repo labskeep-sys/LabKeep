@@ -8570,6 +8570,64 @@ event.preventDefault();
 );
 }
 
+      // Stock Out form controls
+
+var stockOutModal =
+document.getElementById("stockOutModal");
+
+var openStockOutButton =
+document.getElementById("openStockOutButton");
+
+var emptyStockOutButton =
+document.getElementById("emptyStockOutButton");
+
+var cancelStockOutButton =
+document.getElementById("cancelStockOutButton");
+
+function openStockOutModalWindow() {
+if (stockOutModal) {
+stockOutModal.classList.add("show");
+}
+}
+
+function closeStockOutModalWindow() {
+if (stockOutModal) {
+stockOutModal.classList.remove("show");
+}
+}
+
+if (openStockOutButton) {
+openStockOutButton.addEventListener(
+"click",
+openStockOutModalWindow
+);
+}
+
+if (emptyStockOutButton) {
+emptyStockOutButton.addEventListener(
+"click",
+openStockOutModalWindow
+);
+}
+
+if (cancelStockOutButton) {
+cancelStockOutButton.addEventListener(
+"click",
+closeStockOutModalWindow
+);
+}
+
+if (stockOutModal) {
+stockOutModal.addEventListener(
+"click",
+function (event) {
+if (event.target === stockOutModal) {
+closeStockOutModalWindow();
+}
+}
+);
+}
+
       /* Mobile top navigation */
 
       mobileMenuButton.addEventListener(
