@@ -9537,6 +9537,133 @@ function saveProducts(products) {
   });
 }
 
+      /* =========================================
+   EXPIRY TRACKER
+========================================== */
+
+function renderExpiryTracker() {
+  var products = getProducts();
+  var timeline = document.getElementById("expiryTimeline");
+
+  var expiredCount = document.getElementById("expiredBatchCount");
+  var soonCount = document.getElementById("expiringSoonCount");
+  var safeCount = document.getElementById("safeBatchCount");
+
+  if (!timeline || !expiredCount || !soonCount || !safeCount) {
+    return;
+  }
+
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  var cutoff = new Date(today);
+  cutoff.setDate(cutoff.getDate() + 30);
+
+  var batches = [];
+
+  products.forEach(function (product) {
+    (product.batches || []).forEach(function (batch) {
+      if (!batch.expiry || Number(batch.quantity) <= 0) {
+        return;
+      }
+
+      var expiryDate = new Date(batch.expiry);
+
+      if (isNaN(expiryDate.getTime())) {
+        return;
+      }
+
+      expiryDate.setHours(0, 0, 0, 0);
+
+      batches.push({
+        productName: product.name || "Unnamed product",
+        batch: batch,
+        expiryDate: expiryDate,
+        quantity: Number(batch.quantity) || 0
+      });
+    });
+  });
+
+  var expired = batches.filter(function (item) {
+    return item.expiryDate < today;
+  });
+
+  var expiringSoon = batches.filter(function (item) {
+    return item.expiryDate >= today && item.expiryDate <= cutoff;
+  });
+
+  var safe = batches.filter(function (item) {
+    return item.expiryDate > cutoff;
+  });
+
+  expiredCount.textContent = expired.length;
+  soonCount.textContent = expiringSoon.length;
+  safeCount.textContent = safe.length;
+
+  batches.sort(function (a, b) {
+    return a.expiryDate - b.expiryDate;
+  });
+
+  timeline.innerHTML = "";
+
+  if (batches.length === 0) {
+    timeline.innerHTML =
+      '<div style="grid-column:1/-1;text-align:center;padding:35px 15px;background:#f8fbff;border:1px dashed #cbd5e1;border-radius:14px;">' +
+        '<div style="font-size:30px;margin-bottom:10px;">📅</div>' +
+        '<div style="font-weight:700;color:#0b1f5c;">No dated batches to display</div>' +
+        '<p style="font-size:14px;color:#64748b;margin:7px 0 0;">Add expiry dates to your inventory batches to track them here.</p>' +
+      '</div>';
+    return;
+  }
+
+  batches.forEach(function (item) {
+    var isExpired = item.expiryDate < today;
+    var isSoon = !isExpired && item.expiryDate <= cutoff;
+
+    var borderColor = isExpired ? "#dc2626" : isSoon ? "#f59e0b" : "#16a34a";
+    var background = isExpired ? "#fef2f2" : isSoon ? "#fffbeb" : "#f0fdf4";
+    var label = isExpired ? "EXPIRED" : isSoon ? "EXPIRING SOON" : "IN DATE";
+
+    var card = document.createElement("div");
+    card.style.cssText =
+      "padding:18px;border:1px solid #e2e8f0;border-left:4px solid " +
+      borderColor +
+      ";border-radius:14px;background:" +
+      background +
+      ";";
+
+    var heading = document.createElement("div");
+    heading.style.cssText = "font-size:16px;font-weight:800;color:#0b1f5c;margin-bottom:10px;";
+    heading.textContent = item.productName;
+    card.appendChild(heading);
+
+    var badge = document.createElement("div");
+    badge.style.cssText =
+      "display:inline-block;padding:5px 9px;border-radius:999px;background:#ffffff;color:" +
+      borderColor +
+      ";font-size:11px;font-weight:800;margin-bottom:12px;";
+    badge.textContent = label;
+    card.appendChild(badge);
+
+    var details = document.createElement("div");
+    details.style.cssText = "font-size:13px;line-height:1.9;color:#475569;";
+
+    var expiryText = item.expiryDate.toLocaleDateString();
+
+    details.textContent =
+      "Batch: " + (item.batch.batchNumber || item.batch.batch || "Not specified") +
+      "\nQuantity: " + item.quantity + " " + (item.batch.stockUnit || item.batch.unit || "") +
+      "\nExpiry date: " + expiryText;
+
+    details.style.whiteSpace = "pre-line";
+    card.appendChild(details);
+
+    timeline.appendChild(card);
+  });
+}
+
+window.labkeepRefreshExpiryTracker = renderExpiryTracker;
+
       window.saveProducts = saveProducts;
 // ========================================
 // LABKEEP TEST USAGE STOCK DEDUCTION HELPERS
