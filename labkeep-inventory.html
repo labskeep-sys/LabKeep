@@ -10025,13 +10025,137 @@ var stockInUnitsPerInner =
   }
 
 
+  // Queue Stock In updates so they reach D1 in order.
+  let stockInSyncQueue = Promise.resolve();
+
   function saveStockInRecords(records) {
 
+    // Keep a local copy for immediate dashboard updates.
     localStorage.setItem(
       stockInStorageKey,
       JSON.stringify(records)
     );
 
+    // Save a snapshot of the complete history.
+    const recordsSnapshot = JSON.stringify(records);
+
+    stockInSyncQueue = stockInSyncQueue
+      .catch(function () {
+        // Allow a later save to retry after an earlier failure.
+      })
+      .then(async function () {
+
+        const token = sessionStorage.getItem(
+          "labkeepSessionToken"
+        );
+
+        if (!token) {
+          throw new Error(
+            "Your session has expired. Please log in again."
+          );
+        }
+
+        const response = await fetch(
+          "https://labkeep-api.labskeep.workers.dev/api/stock-in",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify({
+              records: JSON.parse(recordsSnapshot)
+            })
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(
+            data.message ||
+            "Unable to save Stock In records to D1."
+          );
+        }
+
+        console.log(
+          "LabKeep Stock In records saved to D1:",
+          data.recordCount,
+          "records"
+        );
+      });
+
+    stockInSyncQueue.catch(function (error) {
+      console.error(
+        "LabKeep Stock In database save failed:",
+        error
+      );
+
+      alert(
+        "Stock In history could not be saved to the database. " +
+        (error.message || "Please check your connection.")
+      );
+    });
+  }
+
+  // Load Stock In history from the authenticated laboratory's database.
+  async function loadStockInRecordsFromDatabase() {
+
+    const token = sessionStorage.getItem(
+      "labkeepSessionToken"
+    );
+
+    if (!token) {
+      return;
+    }
+
+    try {
+
+      const response = await fetch(
+        "https://labkeep-api.labskeep.workers.dev/api/stock-in",
+        {
+          method: "GET",
+          headers: {
+            "Authorization": "Bearer " + token
+          }
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.message ||
+          "Unable to load Stock In history."
+        );
+      }
+
+      // D1 is now the source of truth for Stock In history.
+      localStorage.setItem(
+        stockInStorageKey,
+        JSON.stringify(data.records)
+      );
+
+      renderStockInRecords();
+
+      console.log(
+        "LabKeep Stock In history loaded from D1:",
+        data.records.length,
+        "records"
+      );
+
+    } catch (error) {
+
+      console.error(
+        "LabKeep Stock In history loading failed:",
+        error
+      );
+
+      alert(
+        "Unable to load Stock In history from the database. " +
+        (error.message || "Please check your connection.")
+      );
+    }
   }
 
 
