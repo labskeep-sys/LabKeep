@@ -8943,6 +8943,14 @@ if (stockOutForm) {
       window.saveStockOutRecords(records);
 
       /*
+
+     Save the updated inventory after recording Stock Out history.
+
+  */
+
+  saveProducts(products);
+
+      /*
          Refresh inventory and history.
       */
       if (typeof window.labkeepRefreshProducts === "function") {
