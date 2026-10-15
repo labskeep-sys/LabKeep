@@ -9481,6 +9481,9 @@ function saveProducts(products) {
     productsStorageKey,
     JSON.stringify(products)
   );
+  if (typeof window.labkeepRefreshExpiryTracker === "function") {
+  window.labkeepRefreshExpiryTracker();
+}
 
   // Prepare a snapshot of the inventory being saved.
   const productsSnapshot = JSON.stringify(products);
