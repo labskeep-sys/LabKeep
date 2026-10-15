@@ -8584,6 +8584,51 @@ document.getElementById("emptyStockOutButton");
 var cancelStockOutButton =
 document.getElementById("cancelStockOutButton");
 
+      var stockOutProductSelect =
+  document.getElementById("stockOutProduct");
+
+function populateStockOutProducts() {
+  if (!stockOutProductSelect) return;
+
+  var products = getProducts();
+
+  stockOutProductSelect.innerHTML = "";
+
+  var placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = products.length
+    ? "Select a product"
+    : "No inventory products available";
+
+  stockOutProductSelect.appendChild(placeholder);
+
+  products.forEach(function (product, index) {
+    var option = document.createElement("option");
+
+    option.value = String(index);
+
+    var label = product.name || "Unnamed product";
+
+    if (product.category) {
+      label += " — " + product.category;
+    }
+
+    if (product.bloodBagSize) {
+      label += " — " + product.bloodBagSize;
+    }
+
+    var unit = product.stockUnit || product.unit || "";
+
+    label += " — Available: " +
+      (Number(product.quantity) || 0) +
+      (unit ? " " + unit : "");
+
+    option.textContent = label;
+
+    stockOutProductSelect.appendChild(option);
+  });
+}
+
 function openStockOutModalWindow() {
 if (stockOutModal) {
 stockOutModal.classList.add("show");
