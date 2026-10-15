@@ -8596,7 +8596,8 @@ document.getElementById("cancelStockOutButton");
       var stockOutBatchSelect =
   document.getElementById("stockOutBatch");
 
-function populateStockOutProducts() {
+
+      function populateStockOutProducts() {
   if (!stockOutProductSelect) return;
 
   var products = getProducts();
@@ -8633,10 +8634,79 @@ function populateStockOutProducts() {
       (unit ? " " + unit : "");
 
     option.textContent = label;
-
     stockOutProductSelect.appendChild(option);
   });
+
+  populateStockOutBatches("");
 }
+
+      function populateStockOutBatches(productIndex) {
+  if (!stockOutBatchSelect) return;
+
+  stockOutBatchSelect.innerHTML = "";
+
+  var automaticOption = document.createElement("option");
+  automaticOption.value = "";
+  automaticOption.textContent =
+    "Automatic — earliest expiry first";
+
+  stockOutBatchSelect.appendChild(automaticOption);
+
+  if (
+    productIndex === "" ||
+    productIndex === null ||
+    productIndex === undefined
+  ) {
+    return;
+  }
+
+  var products = getProducts();
+  var index = Number(productIndex);
+
+  if (
+    !Number.isInteger(index) ||
+    index < 0 ||
+    index >= products.length
+  ) {
+    return;
+  }
+
+  var product = products[index];
+  var batches = getUsableBatchList(product);
+  var unit = product.stockUnit || product.unit || "";
+
+  batches.forEach(function (batch, batchIndex) {
+    var option = document.createElement("option");
+
+    option.value = String(batchIndex);
+
+    var label = batch.batch || ("Batch " + (batchIndex + 1));
+
+    label += " — Available: " +
+      (Number(batch.quantity) || 0) +
+      (unit ? " " + unit : "");
+
+    if (batch.expiry) {
+      label += " — Expires: " + batch.expiry;
+    }
+
+    option.textContent = label;
+    stockOutBatchSelect.appendChild(option);
+  });
+}
+
+      if (stockOutProductSelect) {
+  stockOutProductSelect.addEventListener(
+    "change",
+    function () {
+      populateStockOutBatches(
+        stockOutProductSelect.value
+      );
+    }
+  );
+}
+
+      
 
 function openStockOutModalWindow() {
   populateStockOutProducts();
