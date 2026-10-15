@@ -11006,7 +11006,7 @@ function calculateStockInUsableQuantity(
 
         event.preventDefault();
 
-       
+       try {
 
         var products =
           getStockInProducts();
@@ -11465,6 +11465,21 @@ else {
   " of " + product.name +
   " added to usable stock."
 );
+
+    } catch (error) {
+          console.error(
+            "LabKeep Stock In error:",
+            error
+          );
+
+          alert(
+            "Stock In failed: " +
+            (error && error.message
+              ? error.message
+              : String(error)) +
+            ". Please report this error."
+          );
+        }
 
       }
     );
