@@ -10656,6 +10656,56 @@ function saveStockOutRecords(records) {
   );
 }
 
+  /* -----------------------------------------
+   DISPLAY STOCK OUT RECORDS
+----------------------------------------- */
+function renderStockOutRecords() {
+  if (!stockOutRecordsBody) {
+    return;
+  }
+  var records = getStockOutRecords();
+  stockOutRecordsBody.innerHTML = "";
+  if (records.length === 0) {
+    if (stockOutEmptyState) {
+      stockOutEmptyState.style.display = "block";
+    }
+    return;
+  }
+  if (stockOutEmptyState) {
+    stockOutEmptyState.style.display = "none";
+  }
+  /*
+     Newest transaction first
+  */
+  records.slice().reverse().forEach(function (record) {
+    var row = document.createElement("tr");
+    row.style.borderTop = "1px solid #e5e7eb";
+    var values = [
+      typeof formatStockInDate === "function"
+        ? formatStockInDate(record.date)
+        : (record.date || "—"),
+      record.productName || "—",
+      record.batch || "—",
+      (record.quantity ?? "—") +
+        (record.unit ? " " + record.unit : ""),
+      record.reason || "—",
+      record.notes || "—"
+    ];
+    values.forEach(function (value, index) {
+      var cell = document.createElement("td");
+      cell.style.padding = "14px";
+      cell.style.color =
+        index === 1 ? "#0b1f5c" : "#475569";
+      if (index === 1) {
+        cell.style.fontWeight = "600";
+      }
+      cell.textContent = String(value);
+      row.appendChild(cell);
+    });
+    stockOutRecordsBody.appendChild(row);
+  });
+}
+
   // Load Stock In history from the authenticated laboratory's database.
   async function loadStockInRecordsFromDatabase() {
 
