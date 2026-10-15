@@ -9670,6 +9670,126 @@ function renderExpiryTracker() {
 
 window.labkeepRefreshExpiryTracker = renderExpiryTracker;
 
+      /* =========================================
+   REORDER ALERTS
+========================================== */
+
+function renderReorderAlerts() {
+  var products = getProducts();
+
+  var criticalCount = document.getElementById("criticalStockCount");
+  var lowCount = document.getElementById("lowStockCount");
+  var reorderTotal = document.getElementById("reorderQuantityTotal");
+  var productsGrid = document.getElementById("reorderProductsGrid");
+
+  if (!criticalCount || !lowCount || !reorderTotal || !productsGrid) {
+    return;
+  }
+
+  var attentionProducts = [];
+  var criticalProducts = [];
+  var lowProducts = [];
+  var totalToReplenish = 0;
+
+  products.forEach(function (product) {
+    var quantity = Number(product.quantity);
+    var minimum = Number(product.minimum);
+
+    if (!Number.isFinite(quantity) || !Number.isFinite(minimum)) {
+      return;
+    }
+
+    if (minimum <= 0 || quantity > minimum) {
+      return;
+    }
+
+    var needed = Math.max(0, minimum - quantity);
+
+    var item = {
+      name: product.name || "Unnamed product",
+      category: product.category || "Uncategorized",
+      quantity: quantity,
+      minimum: minimum,
+      needed: needed,
+      unit: product.stockUnit || product.unit || ""
+    };
+
+    attentionProducts.push(item);
+    totalToReplenish += needed;
+
+    if (quantity <= 0) {
+      criticalProducts.push(item);
+    } else {
+      lowProducts.push(item);
+    }
+  });
+
+  criticalCount.textContent = criticalProducts.length;
+  lowCount.textContent = attentionProducts.length;
+  reorderTotal.textContent = Number(totalToReplenish.toFixed(3));
+
+  productsGrid.innerHTML = "";
+
+  if (attentionProducts.length === 0) {
+    productsGrid.innerHTML =
+      '<div style="grid-column:1/-1;text-align:center;padding:35px 15px;background:#f8fbff;border:1px dashed #cbd5e1;border-radius:14px;">' +
+        '<div style="font-size:30px;margin-bottom:10px;">✅</div>' +
+        '<div style="font-weight:700;color:#0b1f5c;">All products are sufficiently stocked</div>' +
+        '<p style="font-size:14px;color:#64748b;margin:7px 0 0;">Products needing replenishment will appear here automatically.</p>' +
+      '</div>';
+    return;
+  }
+
+  attentionProducts.sort(function (a, b) {
+    if (a.quantity <= 0 && b.quantity > 0) return -1;
+    if (a.quantity > 0 && b.quantity <= 0) return 1;
+    return (a.quantity - a.minimum) - (b.quantity - b.minimum);
+  });
+
+  attentionProducts.forEach(function (item) {
+    var isCritical = item.quantity <= 0;
+    var borderColor = isCritical ? "#dc2626" : "#f59e0b";
+    var background = isCritical ? "#fef2f2" : "#fffbeb";
+
+    var card = document.createElement("div");
+    card.style.cssText =
+      "padding:18px;border:1px solid #e2e8f0;border-left:4px solid " +
+      borderColor +
+      ";border-radius:14px;background:" +
+      background +
+      ";";
+
+    var heading = document.createElement("div");
+    heading.style.cssText =
+      "font-size:16px;font-weight:800;color:#0b1f5c;margin-bottom:8px;";
+    heading.textContent = item.name;
+    card.appendChild(heading);
+
+    var status = document.createElement("div");
+    status.style.cssText =
+      "display:inline-block;padding:5px 9px;border-radius:999px;background:#ffffff;color:" +
+      borderColor +
+      ";font-size:11px;font-weight:800;margin-bottom:12px;";
+    status.textContent = isCritical ? "CRITICAL STOCK" : "LOW STOCK";
+    card.appendChild(status);
+
+    var details = document.createElement("div");
+    details.style.cssText =
+      "font-size:13px;line-height:1.9;color:#475569;";
+    details.textContent =
+      "Category: " + item.category +
+      "\nCurrent stock: " + item.quantity + " " + item.unit +
+      "\nMinimum stock: " + item.minimum + " " + item.unit +
+      "\nQuantity to replenish: " + item.needed + " " + item.unit;
+    details.style.whiteSpace = "pre-line";
+    card.appendChild(details);
+
+    productsGrid.appendChild(card);
+  });
+}
+
+window.labkeepRefreshReorderAlerts = renderReorderAlerts;
+
       window.saveProducts = saveProducts;
 // ========================================
 // LABKEEP TEST USAGE STOCK DEDUCTION HELPERS
