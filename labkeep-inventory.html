@@ -9490,6 +9490,27 @@ window.labkeepRefreshDashboardTotalItems = refreshDashboardTotalItems;
 
 refreshDashboardTotalItems();
 
+      function refreshDashboardLowStockItems() {
+  const lowStockElement = document.getElementById("dashboardLowStockItems");
+
+  if (!lowStockElement) return;
+
+  const products = getProducts();
+
+  const lowStockCount = products.filter(function(product) {
+    const quantity = Number(product.quantity) || 0;
+    const minimum = Number(product.minimum) || 0;
+
+    return minimum > 0 && quantity <= minimum;
+  }).length;
+
+  lowStockElement.textContent = lowStockCount;
+}
+
+window.labkeepRefreshDashboardLowStockItems = refreshDashboardLowStockItems;
+
+refreshDashboardLowStockItems();
+
 // Queue inventory updates so they reach the database in order.
 let inventorySyncQueue = Promise.resolve();
 
