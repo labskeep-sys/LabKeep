@@ -1036,3 +1036,100 @@
 #inventoryTestsLink {
   font-size: 18px;
 }
+
+/* =========================================
+   DASHBOARD WELCOME AND LAB IDENTITY
+========================================== */
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.dashboard-heading-copy {
+  min-width: 0;
+}
+
+.dashboard-heading-copy .dashboard-title {
+  margin: 0;
+  font-size: clamp(25px, 3vw, 32px);
+  font-weight: 800;
+  line-height: 1.25;
+  color: #0b1f5c;
+}
+
+.dashboard-welcome-subtitle {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.lab-selector {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 240px;
+  max-width: 100%;
+  padding: 14px 18px;
+  background: #ffffff;
+  border: 1.5px solid #b9c9ee;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(11, 31, 92, 0.06);
+  box-sizing: border-box;
+}
+
+.lab-selector-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  color: #1237d8;
+  background: #eef3ff;
+}
+
+.lab-selector-icon svg {
+  width: 23px;
+  height: 23px;
+}
+
+.lab-selector-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.lab-selector-label {
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
+
+#dashboardLaboratoryName {
+  color: #0b1f5c;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .dashboard-header {
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .lab-selector {
+    width: 100%;
+    min-width: 0;
+  }
+}
