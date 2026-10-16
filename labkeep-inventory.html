@@ -12324,6 +12324,119 @@ if (recordsWrapper) {
     }
   }
 
+  /* -----------------------------------------
+   DISPLAY COMBINED ACTIVITY HISTORY
+----------------------------------------- */
+
+function refreshActivityHistory() {
+  var recordsBody = document.getElementById(
+    "activityHistoryRecordsBody"
+  );
+
+  if (!recordsBody) return;
+
+  var stockInRecords = getStockInRecords().map(function(record) {
+    return {
+      record: record,
+      type: "Stock In"
+    };
+  });
+
+  var stockOutRecords = getStockOutRecords().map(function(record) {
+    return {
+      record: record,
+      type: "Stock Out"
+    };
+  });
+
+  var activities = stockInRecords.concat(stockOutRecords);
+
+  activities.sort(function(a, b) {
+    var dateA = new Date(a.record.date || 0).getTime();
+    var dateB = new Date(b.record.date || 0).getTime();
+
+    if (isNaN(dateA)) dateA = 0;
+    if (isNaN(dateB)) dateB = 0;
+
+    return dateB - dateA;
+  });
+
+  recordsBody.innerHTML = "";
+
+  if (activities.length === 0) {
+    var emptyRow = document.createElement("tr");
+    var emptyCell = document.createElement("td");
+
+    emptyCell.colSpan = 5;
+    emptyCell.style.textAlign = "center";
+    emptyCell.style.padding = "24px";
+    emptyCell.style.color = "#64748b";
+    emptyCell.textContent = "No activity records found yet.";
+
+    emptyRow.appendChild(emptyCell);
+    recordsBody.appendChild(emptyRow);
+    return;
+  }
+
+  activities.forEach(function(activity) {
+    var record = activity.record;
+    var row = document.createElement("tr");
+    row.style.borderTop = "1px solid #e5e7eb";
+
+    var productName =
+      record.productName ||
+      record.product_name ||
+      record.name ||
+      "—";
+
+    var quantity =
+      record.quantity !== undefined && record.quantity !== null
+        ? record.quantity
+        : "—";
+
+    var unit = record.unit || record.stockUnit || "";
+
+    var details = [
+      record.batch ? "Batch: " + record.batch : "",
+      record.reason || "",
+      record.notes || ""
+    ].filter(Boolean).join(" · ") || "—";
+
+    var rawDate = record.date || "";
+    var formattedDate = rawDate;
+
+    if (rawDate && !isNaN(new Date(rawDate).getTime())) {
+      formattedDate = new Date(rawDate).toLocaleDateString();
+    }
+
+    var values = [
+      formattedDate || "—",
+      activity.type,
+      productName,
+      quantity + (unit ? " " + unit : ""),
+      details
+    ];
+
+    values.forEach(function(value, index) {
+      var cell = document.createElement("td");
+
+      cell.style.padding = "14px";
+      cell.style.color = index === 1 ? "#1237d8" : "#475569";
+
+      if (index === 1 || index === 2) {
+        cell.style.fontWeight = "600";
+      }
+
+      cell.textContent = String(value);
+      row.appendChild(cell);
+    });
+
+    recordsBody.appendChild(row);
+  });
+}
+
+window.labkeepRefreshActivityHistory = refreshActivityHistory;
+
 
   /* -----------------------------------------
      BATCH NUMBER
