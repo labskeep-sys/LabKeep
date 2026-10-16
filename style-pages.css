@@ -1143,3 +1143,23 @@
   transform: none !important;
   letter-spacing: normal !important;
 }
+
+/* Keep empty dashboard messages horizontal */
+.activity-list .activity-item:has(> .activity-main:only-child) {
+  grid-template-columns: minmax(0, 1fr);
+  min-height: auto;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.activity-list .activity-item:has(> .activity-main:only-child) .activity-main {
+  width: 100%;
+  min-width: 0;
+}
+
+.activity-list .activity-item:has(> .activity-main:only-child) .activity-title,
+.activity-list .activity-item:has(> .activity-main:only-child) .activity-description {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
