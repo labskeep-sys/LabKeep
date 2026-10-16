@@ -65,6 +65,9 @@ localStorage.setItem(
       if (typeof window.labkeepRefreshDashboardTotalItems === "function") {
   window.labkeepRefreshDashboardTotalItems();
 }
+      if (typeof window.labkeepRefreshDashboardLowStockItems === "function") {
+  window.labkeepRefreshDashboardLowStockItems();
+}
 
 // Wait until the dashboard scripts have finished loading.
 if (document.readyState === "loading") {
@@ -9528,6 +9531,9 @@ function saveProducts(products) {
 }
   if (typeof window.labkeepRefreshDashboardTotalItems === "function") {
   window.labkeepRefreshDashboardTotalItems();
+}
+  if (typeof window.labkeepRefreshDashboardLowStockItems === "function") {
+  window.labkeepRefreshDashboardLowStockItems();
 }
 
   // Prepare a snapshot of the inventory being saved.
