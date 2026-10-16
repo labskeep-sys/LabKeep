@@ -9504,6 +9504,9 @@ function saveProducts(products) {
   if (typeof window.labkeepRefreshReorderAlerts === "function") {
   window.labkeepRefreshReorderAlerts();
 }
+  if (typeof window.labkeepRefreshDashboardTotalItems === "function") {
+  window.labkeepRefreshDashboardTotalItems();
+}
 
   // Prepare a snapshot of the inventory being saved.
   const productsSnapshot = JSON.stringify(products);
