@@ -74,6 +74,9 @@ localStorage.setItem(
       if (typeof window.labkeepRefreshDashboardStockOverview === "function") {
   window.labkeepRefreshDashboardStockOverview();
 }
+      if (typeof window.labkeepRefreshDashboardExpiryAlerts === "function") {
+  window.labkeepRefreshDashboardExpiryAlerts();
+}
 
 // Wait until the dashboard scripts have finished loading.
 if (document.readyState === "loading") {
@@ -9554,7 +9557,116 @@ refreshDashboardLowStockItems();
 window.labkeepRefreshDashboardExpiredItems = refreshDashboardExpiredItems;
 
 refreshDashboardExpiredItems();
-      
+
+
+      function refreshDashboardExpiryAlerts() {
+  const alertsList = document.getElementById("dashboardExpiryAlertsList");
+
+  if (!alertsList) return;
+
+  const products = getProducts();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const cutoff = new Date(today);
+  cutoff.setDate(cutoff.getDate() + 30);
+
+  const alerts = [];
+
+  products.forEach(function(product) {
+    (product.batches || []).forEach(function(batch) {
+      if (!batch.expiry || Number(batch.quantity) <= 0) return;
+
+      const expiryDate = new Date(batch.expiry);
+
+      if (isNaN(expiryDate.getTime())) return;
+
+      expiryDate.setHours(0, 0, 0, 0);
+
+      if (expiryDate > cutoff) return;
+
+      alerts.push({
+        name: product.name || "Unnamed product",
+        batch: batch,
+        expiryDate: expiryDate
+      });
+    });
+  });
+
+  alerts.sort(function(a, b) {
+    return a.expiryDate - b.expiryDate;
+  });
+
+  alertsList.innerHTML = "";
+
+  if (alerts.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "activity-item";
+
+    const message = document.createElement("div");
+    message.className = "activity-main";
+
+    const title = document.createElement("div");
+    title.className = "activity-title";
+    title.textContent = "No upcoming expiry alerts";
+
+    const description = document.createElement("div");
+    description.className = "activity-description";
+    description.textContent = "No batches with remaining stock expire within the next 30 days.";
+
+    message.appendChild(title);
+    message.appendChild(description);
+    empty.appendChild(message);
+    alertsList.appendChild(empty);
+    return;
+  }
+
+  alerts.slice(0, 3).forEach(function(item) {
+    const row = document.createElement("div");
+    row.className = "activity-item";
+
+    const isExpired = item.expiryDate < today;
+
+    const icon = document.createElement("div");
+    icon.className = "activity-icon " + (isExpired ? "warning" : "expiry");
+    icon.textContent = isExpired ? "!" : "📅";
+    icon.setAttribute("aria-hidden", "true");
+
+    const main = document.createElement("div");
+    main.className = "activity-main";
+
+    const title = document.createElement("div");
+    title.className = "activity-title";
+    title.textContent = item.name;
+
+    const description = document.createElement("div");
+    description.className = "activity-description";
+
+    if (isExpired) {
+      description.textContent = "Expired on " +
+        item.expiryDate.toLocaleDateString();
+    } else {
+      const days = Math.round(
+        (item.expiryDate.getTime() - today.getTime()) /
+        86400000
+      );
+
+      description.textContent = days === 0
+        ? "Expires today"
+        : "Expires in " + days + (days === 1 ? " day" : " days");
+    }
+
+    main.appendChild(title);
+    main.appendChild(description);
+    row.appendChild(icon);
+    row.appendChild(main);
+    alertsList.appendChild(row);
+  });
+}
+
+window.labkeepRefreshDashboardExpiryAlerts = refreshDashboardExpiryAlerts;
+
+refreshDashboardExpiryAlerts();
 
       function refreshDashboardStockOverview() {
   const tableBody = document.getElementById("dashboardStockOverviewBody");
@@ -9688,6 +9800,9 @@ function saveProducts(products) {
 }
   if (typeof window.labkeepRefreshDashboardStockOverview === "function") {
   window.labkeepRefreshDashboardStockOverview();
+}
+  if (typeof window.labkeepRefreshDashboardExpiryAlerts === "function") {
+  window.labkeepRefreshDashboardExpiryAlerts();
 }
 
   // Prepare a snapshot of the inventory being saved.
