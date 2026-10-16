@@ -9904,6 +9904,7 @@ refreshDashboardExpiryAlerts();
 window.labkeepRefreshDashboardStockOverview = refreshDashboardStockOverview;
 
 refreshDashboardStockOverview();
+      
 
       const dashboardProductsViewAll = document.getElementById("itwoyoe");
 
@@ -9915,6 +9916,24 @@ if (dashboardProductsViewAll) {
 
     if (productsSidebarLink) {
       productsSidebarLink.click();
+    }
+  });
+}
+      
+      /* Recent Activity - View All */
+
+const dashboardActivityViewAll =
+  document.getElementById("iot38rc");
+
+if (dashboardActivityViewAll) {
+  dashboardActivityViewAll.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    const activityHistoryLink =
+      document.getElementById("dashboardActivityHistoryLink");
+
+    if (activityHistoryLink) {
+      activityHistoryLink.click();
     }
   });
 }
