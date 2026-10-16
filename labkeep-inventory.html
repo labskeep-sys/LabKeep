@@ -73,7 +73,12 @@ if (document.readyState === "loading") {
     );
   });
 }
+const labNameElement = document.getElementById("dashboardLaboratoryName");
 
+if (labNameElement && data.laboratory && data.laboratory.name) {
+  labNameElement.textContent = data.laboratory.name;
+}
+      
 // Refresh the existing Products display.
 if (
   typeof window.labkeepRefreshProducts === "function"
