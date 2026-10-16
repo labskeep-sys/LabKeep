@@ -12393,6 +12393,30 @@ stockInInnerUnit.value = "";
 
 }
 
+  function resetStockInPackagingFields() {
+  if (stockInPurchaseUnit) {
+    stockInPurchaseUnit.value = "";
+  }
+
+  if (stockInUnitsPerPackage) {
+    stockInUnitsPerPackage.value = "";
+  }
+
+  if (stockInUnitsPerInner) {
+    stockInUnitsPerInner.value = "";
+  }
+
+  if (stockInInnerUnit) {
+    stockInInnerUnit.value = "";
+  }
+
+  if (stockInVolumeUnit) {
+    stockInVolumeUnit.value = "";
+  }
+
+  updateStockInNewBatchFields();
+}
+
 if (stockInPurchaseUnit) {
 stockInPurchaseUnit.addEventListener(
 "change",
