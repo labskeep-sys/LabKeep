@@ -71,6 +71,9 @@ localStorage.setItem(
       if (typeof window.labkeepRefreshDashboardExpiredItems === "function") {
   window.labkeepRefreshDashboardExpiredItems();
 }
+      if (typeof window.labkeepRefreshDashboardStockOverview === "function") {
+  window.labkeepRefreshDashboardStockOverview();
+}
 
 // Wait until the dashboard scripts have finished loading.
 if (document.readyState === "loading") {
@@ -9561,6 +9564,99 @@ refreshDashboardLowStockItems();
 window.labkeepRefreshDashboardExpiredItems = refreshDashboardExpiredItems;
 
 refreshDashboardExpiredItems();
+      
+
+      function refreshDashboardStockOverview() {
+  const tableBody = document.getElementById("dashboardStockOverviewBody");
+
+  if (!tableBody) return;
+
+  const products = getProducts();
+
+  // Show products needing attention first.
+  const sortedProducts = products.slice().sort(function(a, b) {
+    function priority(product) {
+      const quantity = Number(product.quantity) || 0;
+      const minimum = Number(product.minimum) || 0;
+
+      if (quantity <= 0) return 0;
+      if (minimum > 0 && quantity <= minimum) return 1;
+      return 2;
+    }
+
+    return priority(a) - priority(b);
+  });
+
+  const visibleProducts = sortedProducts.slice(0, 5);
+
+  tableBody.innerHTML = "";
+
+  if (visibleProducts.length === 0) {
+    const row = document.createElement("tr");
+    const cell = document.createElement("td");
+
+    cell.colSpan = 4;
+    cell.style.textAlign = "center";
+    cell.style.padding = "24px";
+    cell.textContent = "No inventory products have been added yet.";
+
+    row.appendChild(cell);
+    tableBody.appendChild(row);
+    return;
+  }
+
+  visibleProducts.forEach(function(product) {
+    const quantity = Number(product.quantity) || 0;
+    const minimum = Number(product.minimum) || 0;
+    const unit = product.stockUnit || product.unit || "";
+
+    let statusText = "OK";
+    let statusClass = "status-ok";
+
+    if (quantity <= 0) {
+      statusText = "Reorder";
+      statusClass = "status-reorder";
+    } else if (minimum > 0 && quantity <= minimum) {
+      statusText = "Low Stock";
+      statusClass = "status-low";
+    }
+
+    let productName = product.name || "Unnamed product";
+
+    if (product.bloodBagSize) {
+      productName += " (" + product.bloodBagSize + " mL)";
+    }
+
+    const row = document.createElement("tr");
+
+    const nameCell = document.createElement("td");
+    nameCell.textContent = productName;
+
+    const quantityCell = document.createElement("td");
+    quantityCell.textContent = quantity + (unit ? " " + unit : "");
+
+    const minimumCell = document.createElement("td");
+    minimumCell.textContent = minimum + (unit ? " " + unit : "");
+
+    const statusCell = document.createElement("td");
+    const statusBadge = document.createElement("span");
+    statusBadge.className = "status " + statusClass;
+    statusBadge.textContent = statusText;
+
+    statusCell.appendChild(statusBadge);
+
+    row.appendChild(nameCell);
+    row.appendChild(quantityCell);
+    row.appendChild(minimumCell);
+    row.appendChild(statusCell);
+
+    tableBody.appendChild(row);
+  });
+}
+
+window.labkeepRefreshDashboardStockOverview = refreshDashboardStockOverview;
+
+refreshDashboardStockOverview();
 
       
 // Queue inventory updates so they reach the database in order.
@@ -9586,6 +9682,9 @@ function saveProducts(products) {
 }
   if (typeof window.labkeepRefreshDashboardExpiredItems === "function") {
   window.labkeepRefreshDashboardExpiredItems();
+}
+  if (typeof window.labkeepRefreshDashboardStockOverview === "function") {
+  window.labkeepRefreshDashboardStockOverview();
 }
 
   // Prepare a snapshot of the inventory being saved.
