@@ -2831,43 +2831,47 @@ name="productBloodBagSize"
   </tr>
 </tbody>
         </td></tr></tbody></table></div></section>
-  <!-- =========================================
-           BOTTOM CARDS
-      ========================================== --><section class="bottom-grid">
-        <!-- EXPIRY ALERTS --><article class="content-card bottom-card"><div class="card-header"><h3 class="card-title">
-              Expiry Alerts
-            </h3><a href="#" id="ie9240b" class="view-all">
-              View All
-            </a></div><div class="activity-list"><!-- Mindray Reagent --><div class="activity-item"><div class="activity-icon expiry"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="6" y="5" width="12" height="15" rx="2" stroke="currentColor" stroke-width="1.8"></rect><path d="M9 3V6M15 3V6M9 10H15M9 14H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></div><div class="activity-main"><div id="i5jf7hj" class="activity-title">
-                  Mindray Reagent
-                </div><div id="ic6yqcw" class="activity-description">
-                  Expires in 30 days
-                </div></div></div><!-- Latex Gloves --><div id="irhuf3m" class="activity-item"><div class="activity-icon warning"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 4L20 19H4L12 4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M12 9V13M12 16V16.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></div><div class="activity-main"><div id="ix8neon" class="activity-title">
-                  Latex Gloves
-                </div><div class="activity-description">
-                  Expires in 45 days
-                </div></div></div></div></article>
-        <!-- RECENT ACTIVITY --><article id="ik71x03" class="content-card bottom-card"><div class="card-header"><h3 class="card-title">
-              Recent Activity
-            </h3><a href="#" id="iot38rc" class="view-all">
-              View All
-            </a></div><div class="activity-list"><!-- Stock In --><div class="activity-item"><div class="activity-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 8V12L15 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></div><div class="activity-main"><div class="activity-title">
-                  Stock In - EDTA Tubes
-                </div><div class="activity-description">
-                  50 Packs added
-                </div></div><div class="activity-time">
-                Today, 10:20 AM
-              </div></div><!-- Stock Out --><div class="activity-item"><div class="activity-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" stroke="currentColor" stroke-width="1.8"></circle><path d="M9 12H15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></div><div class="activity-main"><div id="i7mn3ce" class="activity-title">
-                  Stock Out - Malaria RDT
-                </div><div class="activity-description">
-                  10 Boxes used
-                </div></div><div class="activity-time">
-                Today, 09:15 AM
-              </div></div></div></article>
-      </section>
-     </section>
-    </main>
-  </div>
+ <!-- =========================================
+     BOTTOM CARDS
+========================================== -->
+<section class="bottom-grid">
+
+  <!-- EXPIRY ALERTS -->
+  <article class="content-card bottom-card">
+    <div class="card-header">
+      <h3 class="card-title">Expiry Alerts</h3>
+      <a href="#" id="ie9240b" class="view-all">View All</a>
+    </div>
+
+    <div class="activity-list" id="dashboardExpiryAlertsList">
+      <div class="activity-item">
+        <div class="activity-main">
+          <div class="activity-title">Loading expiry alerts...</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- RECENT ACTIVITY -->
+  <article id="ik71x03" class="content-card bottom-card">
+    <div class="card-header">
+      <h3 class="card-title">Recent Activity</h3>
+      <a href="#" id="iot38rc" class="view-all">View All</a>
+    </div>
+
+    <div class="activity-list" id="dashboardRecentActivityList">
+      <div class="activity-item">
+        <div class="activity-main">
+          <div class="activity-title">Loading recent activity...</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+</section>
+</section>
+</main>
+</div>
     <!-- =========================================
        MINIMAL MOBILE JAVASCRIPT
   ========================================== --><script>
@@ -9644,6 +9648,19 @@ window.labkeepRefreshDashboardStockOverview = refreshDashboardStockOverview;
 
 refreshDashboardStockOverview();
 
+      const dashboardProductsViewAll = document.getElementById("itwoyoe");
+
+if (dashboardProductsViewAll) {
+  dashboardProductsViewAll.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    const productsSidebarLink = document.getElementById("i5likpj");
+
+    if (productsSidebarLink) {
+      productsSidebarLink.click();
+    }
+  });
+}
       
 // Queue inventory updates so they reach the database in order.
 let inventorySyncQueue = Promise.resolve();
