@@ -1169,3 +1169,17 @@
   font-size: 18px !important;
   font-weight: 600 !important;
 }
+
+/* Center the laboratory name in its container on mobile */
+@media (max-width: 768px) {
+  .lab-selector-details {
+    text-align: center;
+    align-items: center;
+  }
+
+  #dashboardLaboratoryName {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
