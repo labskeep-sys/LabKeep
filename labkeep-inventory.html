@@ -11809,6 +11809,132 @@ var stockInUnitsPerInner =
       return [];
     }
   }
+  
+
+  function refreshDashboardRecentActivity() {
+  const activityList = document.getElementById(
+    "dashboardRecentActivityList"
+  );
+
+  if (!activityList) return;
+
+  const stockInRecords = getStockInRecords().map(function(record) {
+    return { ...record, activityType: "Stock In" };
+  });
+
+  const stockOutRecords = getStockOutRecords().map(function(record) {
+    return { ...record, activityType: "Stock Out" };
+  });
+
+  const activities = stockInRecords
+    .concat(stockOutRecords)
+    .map(function(record) {
+      const rawDate =
+        record.date ||
+        record.createdAt ||
+        record.created_at ||
+        "";
+
+      const parsedDate = rawDate ? new Date(rawDate) : null;
+
+      return {
+        record: record,
+        type: record.activityType,
+        date: parsedDate && !isNaN(parsedDate.getTime())
+          ? parsedDate
+          : null
+      };
+    })
+    .sort(function(a, b) {
+      if (!a.date && !b.date) return 0;
+      if (!a.date) return 1;
+      if (!b.date) return -1;
+      return b.date - a.date;
+    })
+    .slice(0, 3);
+
+  activityList.innerHTML = "";
+
+  if (activities.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "activity-item";
+
+    const message = document.createElement("div");
+    message.className = "activity-main";
+
+    const title = document.createElement("div");
+    title.className = "activity-title";
+    title.textContent = "No recent activity";
+
+    const description = document.createElement("div");
+    description.className = "activity-description";
+    description.textContent = "Stock In and Stock Out transactions will appear here.";
+
+    message.appendChild(title);
+    message.appendChild(description);
+    empty.appendChild(message);
+    activityList.appendChild(empty);
+    return;
+  }
+
+  activities.forEach(function(activity) {
+    const record = activity.record;
+
+    const name =
+      record.productName ||
+      record.product_name ||
+      record.name ||
+      "Laboratory supplies";
+
+    const quantity = record.quantity ?? record.usableQuantity ?? "";
+    const unit = record.stockUnit || record.unit || "";
+
+    const row = document.createElement("div");
+    row.className = "activity-item";
+
+    const icon = document.createElement("div");
+    icon.className = "activity-icon";
+    icon.textContent = activity.type === "Stock In" ? "+" : "−";
+    icon.setAttribute("aria-hidden", "true");
+
+    const main = document.createElement("div");
+    main.className = "activity-main";
+
+    const title = document.createElement("div");
+    title.className = "activity-title";
+    title.textContent = activity.type + " - " + name;
+
+    const description = document.createElement("div");
+    description.className = "activity-description";
+
+    if (quantity !== "") {
+      description.textContent =
+        quantity + (unit ? " " + unit : "") +
+        (activity.type === "Stock In" ? " added" : " used");
+    } else {
+      description.textContent = "Transaction recorded";
+    }
+
+    main.appendChild(title);
+    main.appendChild(description);
+    row.appendChild(icon);
+    row.appendChild(main);
+
+    if (activity.date) {
+      const time = document.createElement("div");
+      time.className = "activity-time";
+      time.textContent = activity.date.toLocaleString();
+      row.appendChild(time);
+    }
+
+    activityList.appendChild(row);
+  });
+}
+
+window.labkeepRefreshDashboardRecentActivity =
+  refreshDashboardRecentActivity;
+
+refreshDashboardRecentActivity();
 
   // Queue Stock Out updates so they reach D1 in order.
   let stockOutSyncQueue = Promise.resolve();
