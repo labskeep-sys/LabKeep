@@ -8973,9 +8973,19 @@ if (activityHistoryLink) {
 
     activityHistoryLink.classList.add("active");
 
-    if (typeof window.labkeepRefreshActivityHistory === "function") {
-      window.labkeepRefreshActivityHistory();
-    }
+    Promise.all([
+  typeof window.loadStockInRecordsFromDatabase === "function"
+    ? window.loadStockInRecordsFromDatabase()
+    : Promise.resolve(),
+
+  typeof window.loadStockOutRecordsFromDatabase === "function"
+    ? window.loadStockOutRecordsFromDatabase()
+    : Promise.resolve()
+]).then(function () {
+  if (typeof window.labkeepRefreshActivityHistory === "function") {
+    window.labkeepRefreshActivityHistory();
+  }
+});
 
     if (window.innerWidth <= 768) {
       closeSidebar();
