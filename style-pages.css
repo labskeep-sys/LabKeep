@@ -1131,6 +1131,19 @@
   .lab-selector {
     width: 100%;
     min-width: 0;
+    justify-content: center;
+  }
+
+  .lab-selector-details {
+    flex: 1;
+    align-items: center;
+    text-align: center;
+  }
+
+  #dashboardLaboratoryName {
+    display: block;
+    width: 100%;
+    text-align: center;
   }
 }
 
@@ -1170,16 +1183,3 @@
   font-weight: 600 !important;
 }
 
-/* Center the laboratory name in its container on mobile */
-@media (max-width: 768px) {
-  .lab-selector-details {
-    text-align: center;
-    align-items: center;
-  }
-
-  #dashboardLaboratoryName {
-    display: block;
-    width: 100%;
-    text-align: center;
-  }
-}
