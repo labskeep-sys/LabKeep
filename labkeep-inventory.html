@@ -62,6 +62,9 @@ localStorage.setItem(
   "labkeepInventoryProducts",
   JSON.stringify(data.products)
 );
+      if (typeof window.labkeepRefreshDashboardTotalItems === "function") {
+  window.labkeepRefreshDashboardTotalItems();
+}
 
 // Wait until the dashboard scripts have finished loading.
 if (document.readyState === "loading") {
