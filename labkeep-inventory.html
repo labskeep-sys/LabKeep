@@ -68,6 +68,9 @@ localStorage.setItem(
       if (typeof window.labkeepRefreshDashboardLowStockItems === "function") {
   window.labkeepRefreshDashboardLowStockItems();
 }
+      if (typeof window.labkeepRefreshDashboardExpiredItems === "function") {
+  window.labkeepRefreshDashboardExpiredItems();
+}
 
 // Wait until the dashboard scripts have finished loading.
 if (document.readyState === "loading") {
@@ -9513,6 +9516,41 @@ window.labkeepRefreshDashboardLowStockItems = refreshDashboardLowStockItems;
 
 refreshDashboardLowStockItems();
 
+      function refreshDashboardExpiredItems() {
+  const expiredElement = document.getElementById("dashboardExpiredItems");
+
+  if (!expiredElement) return;
+
+  const products = getProducts();
+
+  // Use today's local date in YYYY-MM-DD format.
+  const now = new Date();
+  const today =
+    now.getFullYear() + "-" +
+    String(now.getMonth() + 1).padStart(2, "0") + "-" +
+    String(now.getDate()).padStart(2, "0");
+
+  // Count each product only once, even if multiple batches have expired.
+  const expiredProducts = products.filter(function(product) {
+    if (!Array.isArray(product.batches)) return false;
+
+    return product.batches.some(function(batch) {
+      const expiry = String(batch.expiry || "").trim();
+      const batchQuantity = Number(batch.quantity) || 0;
+
+      return expiry !== "" &&
+        expiry < today &&
+        batchQuantity > 0;
+    });
+  });
+
+  expiredElement.textContent = expiredProducts.length;
+}
+
+window.labkeepRefreshDashboardExpiredItems = refreshDashboardExpiredItems;
+
+refreshDashboardExpiredItems();
+
 // Queue inventory updates so they reach the database in order.
 let inventorySyncQueue = Promise.resolve();
 
@@ -9533,6 +9571,9 @@ function saveProducts(products) {
 }
   if (typeof window.labkeepRefreshDashboardLowStockItems === "function") {
   window.labkeepRefreshDashboardLowStockItems();
+}
+  if (typeof window.labkeepRefreshDashboardExpiredItems === "function") {
+  window.labkeepRefreshDashboardExpiredItems();
 }
 
   // Prepare a snapshot of the inventory being saved.
