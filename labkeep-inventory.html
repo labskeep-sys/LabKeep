@@ -9494,6 +9494,7 @@ function getProducts() {
 window.labkeepRefreshDashboardTotalItems = refreshDashboardTotalItems;
 
 refreshDashboardTotalItems();
+      
 
       function refreshDashboardLowStockItems() {
   const lowStockElement = document.getElementById("dashboardLowStockItems");
@@ -9516,6 +9517,7 @@ window.labkeepRefreshDashboardLowStockItems = refreshDashboardLowStockItems;
 
 refreshDashboardLowStockItems();
 
+      
       function refreshDashboardExpiredItems() {
   const expiredElement = document.getElementById("dashboardExpiredItems");
 
@@ -9523,24 +9525,26 @@ refreshDashboardLowStockItems();
 
   const products = getProducts();
 
-  // Use today's local date in YYYY-MM-DD format.
-  const now = new Date();
-  const today =
-    now.getFullYear() + "-" +
-    String(now.getMonth() + 1).padStart(2, "0") + "-" +
-    String(now.getDate()).padStart(2, "0");
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-  // Count each product only once, even if multiple batches have expired.
   const expiredProducts = products.filter(function(product) {
     if (!Array.isArray(product.batches)) return false;
 
     return product.batches.some(function(batch) {
-      const expiry = String(batch.expiry || "").trim();
-      const batchQuantity = Number(batch.quantity) || 0;
+      if (!batch.expiry || Number(batch.quantity) <= 0) {
+        return false;
+      }
 
-      return expiry !== "" &&
-        expiry < today &&
-        batchQuantity > 0;
+      const expiryDate = new Date(batch.expiry);
+
+      if (isNaN(expiryDate.getTime())) {
+        return false;
+      }
+
+      expiryDate.setHours(0, 0, 0, 0);
+
+      return expiryDate < today;
     });
   });
 
@@ -9551,6 +9555,7 @@ window.labkeepRefreshDashboardExpiredItems = refreshDashboardExpiredItems;
 
 refreshDashboardExpiredItems();
 
+      
 // Queue inventory updates so they reach the database in order.
 let inventorySyncQueue = Promise.resolve();
 
