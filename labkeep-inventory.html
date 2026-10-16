@@ -1762,6 +1762,61 @@ document.documentElement.style.visibility = "visible";
   </section></section>
 
       <!-- =========================================
+     ACTIVITY HISTORY SECTION
+========================================== -->
+<section
+  id="activityHistorySection"
+  class="inventory-section"
+  style="display:none;"
+>
+  <div class="dashboard-header">
+    <div>
+      <h2 class="dashboard-title">Activity History</h2>
+      <p style="margin:6px 0 0; color:#64748b;">
+        View your laboratory's Stock In and Stock Out transactions in one place.
+      </p>
+    </div>
+  </div>
+
+  <section
+    class="content-card stock-card"
+    style="margin-top:20px;"
+  >
+    <div class="card-header">
+      <div>
+        <h3 class="card-title">All Transactions</h3>
+        <p style="margin:5px 0 0; color:#64748b; font-size:14px;">
+          A combined record of inventory received and used.
+        </p>
+      </div>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table
+        style="width:100%; border-collapse:collapse; min-width:750px;"
+      >
+        <thead>
+          <tr>
+            <th style="text-align:left; padding:14px; color:#0b1f5c;">Date</th>
+            <th style="text-align:left; padding:14px; color:#0b1f5c;">Type</th>
+            <th style="text-align:left; padding:14px; color:#0b1f5c;">Product</th>
+            <th style="text-align:left; padding:14px; color:#0b1f5c;">Quantity</th>
+            <th style="text-align:left; padding:14px; color:#0b1f5c;">Details</th>
+          </tr>
+        </thead>
+        <tbody id="activityHistoryRecordsBody">
+          <tr>
+            <td colspan="5" style="text-align:center; padding:24px; color:#64748b;">
+              Activity history will appear here.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>
+
+      <!-- =========================================
      EXPIRY TRACKER SECTION
 ========================================== -->
 <section id="expiryTrackerSection" class="inventory-section" style="display:none;">
