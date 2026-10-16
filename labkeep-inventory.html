@@ -8997,6 +8997,11 @@ if (expiryTrackerLink) {
     if (stockInSection) stockInSection.style.display = "none";
     if (testsSection) testsSection.style.display = "none";
     if (stockOutSection) stockOutSection.style.display = "none";
+    /* Hide Activity History */
+
+    if (activityHistorySection) {
+  activityHistorySection.style.display = "none";
+}
     if (expiryTrackerSection) expiryTrackerSection.style.display = "";
     if (typeof window.labkeepRefreshExpiryTracker === "function") {
   window.labkeepRefreshExpiryTracker();
@@ -9029,6 +9034,11 @@ if (reorderAlertsLink) {
     if (testsSection) testsSection.style.display = "none";
     if (stockOutSection) stockOutSection.style.display = "none";
     if (expiryTrackerSection) expiryTrackerSection.style.display = "none";
+    /* Hide Activity History */
+
+    if (activityHistorySection) {
+  activityHistorySection.style.display = "none";
+}
     if (reorderAlertsSection) reorderAlertsSection.style.display = "";
     if (typeof window.labkeepRefreshReorderAlerts === "function") {
   window.labkeepRefreshReorderAlerts();
