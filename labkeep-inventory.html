@@ -2764,11 +2764,33 @@ name="productBloodBagSize"
       
 <section id="dashboardSection" class="dashboard-section">
       
-      <!-- Dashboard heading --><section class="dashboard-header"><h2 id="icv3zhr" class="dashboard-title">
-          Dashboard
-        </h2><button type="button" class="lab-selector"><span id="dashboardLaboratoryName">
-  Loading laboratory...
-</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 9L12 14L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></section>
+      <!-- Dashboard heading -->
+<section class="dashboard-header">
+  <div class="dashboard-heading-copy">
+    <h2 class="dashboard-title">Welcome back! 👋</h2>
+    <p class="dashboard-welcome-subtitle">
+      Here's your laboratory's inventory overview.
+    </p>
+  </div>
+
+  <div class="lab-selector" aria-label="Current laboratory">
+    <div class="lab-selector-icon">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M9 3H15M10 3V9L5 18C4.5 19 5.2 21 7 21H17C18.8 21 19.5 19 19 18L14 9V3"
+          stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M7.5 16H16.5"
+          stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="lab-selector-details">
+      <span class="lab-selector-label">YOUR LABORATORY</span>
+      <span id="dashboardLaboratoryName">Loading laboratory...</span>
+    </div>
+  </div>
+</section>
         
       <!-- =========================================
            SUMMARY CARDS
@@ -2808,9 +2830,11 @@ name="productBloodBagSize"
     </td>
   </tr>
 </tbody>
-        </td></tr></tbody></table></div></section><!-- =========================================
+        </td></tr></tbody></table></div></section>
+  <!-- =========================================
            BOTTOM CARDS
-      ========================================== --><section class="bottom-grid"><!-- EXPIRY ALERTS --><article class="content-card bottom-card"><div class="card-header"><h3 class="card-title">
+      ========================================== --><section class="bottom-grid">
+        <!-- EXPIRY ALERTS --><article class="content-card bottom-card"><div class="card-header"><h3 class="card-title">
               Expiry Alerts
             </h3><a href="#" id="ie9240b" class="view-all">
               View All
@@ -2822,7 +2846,8 @@ name="productBloodBagSize"
                   Latex Gloves
                 </div><div class="activity-description">
                   Expires in 45 days
-                </div></div></div></div></article><!-- RECENT ACTIVITY --><article id="ik71x03" class="content-card bottom-card"><div class="card-header"><h3 class="card-title">
+                </div></div></div></div></article>
+        <!-- RECENT ACTIVITY --><article id="ik71x03" class="content-card bottom-card"><div class="card-header"><h3 class="card-title">
               Recent Activity
             </h3><a href="#" id="iot38rc" class="view-all">
               View All
