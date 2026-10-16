@@ -1136,7 +1136,7 @@
 
 
 /* Fix Activity History sidebar font size */
-a#dashboardActivityHistoryLink.sidebar-link {
+#dashboardActivityHistoryLink.sidebar-link {
   font-size: 15px !important;
   font-weight: 600 !important;
   font-family: inherit !important;
