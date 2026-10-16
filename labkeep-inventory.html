@@ -9476,6 +9476,18 @@ function getProducts() {
     return [];
   }
 }
+      function refreshDashboardTotalItems() {
+  const totalItemsElement = document.getElementById("dashboardTotalItems");
+
+  if (!totalItemsElement) return;
+
+  const products = getProducts();
+  totalItemsElement.textContent = products.length;
+}
+
+window.labkeepRefreshDashboardTotalItems = refreshDashboardTotalItems;
+
+refreshDashboardTotalItems();
 
 // Queue inventory updates so they reach the database in order.
 let inventorySyncQueue = Promise.resolve();
