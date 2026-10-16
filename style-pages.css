@@ -1133,3 +1133,10 @@
     min-width: 0;
   }
 }
+
+
+#dashboardActivityHistoryLink {
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+}
