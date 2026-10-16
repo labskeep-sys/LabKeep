@@ -9773,6 +9773,21 @@ if (dashboardProductsViewAll) {
     }
   });
 }
+
+      const dashboardExpiryViewAll = document.getElementById("ie9240b");
+
+if (dashboardExpiryViewAll) {
+  dashboardExpiryViewAll.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    const expirySidebarLink = document.getElementById("iol7ebf");
+
+    if (expirySidebarLink) {
+      expirySidebarLink.click();
+    }
+  });
+}
+      
       
 // Queue inventory updates so they reach the database in order.
 let inventorySyncQueue = Promise.resolve();
