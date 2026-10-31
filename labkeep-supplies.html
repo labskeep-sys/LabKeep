@@ -1681,25 +1681,24 @@ if (productData.category === "equipment") {
 
 }
 
-// Display customer ratings and reviews
+// Display customer ratings and genuine reviews
 const ratingElement = modal.querySelector("#labkeepInfoReviews");
 
-if (productData.customerRating && productData.reviewCount > 0) {
+if (
+  productData.customerRating &&
+  productData.reviewCount > 0 &&
+  productData.customerReviews &&
+  productData.customerReviews.length > 0
+) {
   ratingElement.textContent =
     productData.customerRating + " / 5 (" +
-    productData.reviewCount + " demo reviews)";
-} else {
-  ratingElement.textContent = "No customer reviews yet";
-}
-
-// Display individual demo reviews
-if (productData.customerReviews && productData.customerReviews.length > 0) {
+    productData.reviewCount + " reviews)";
 
   const reviewsContainer = document.createElement("div");
   reviewsContainer.className = "labkeep-customer-reviews";
 
   const reviewHeading = document.createElement("p");
-  reviewHeading.textContent = "Illustrative Demo Reviews";
+  reviewHeading.textContent = "Customer Reviews";
   reviewsContainer.appendChild(reviewHeading);
 
   productData.customerReviews.forEach(function(review) {
@@ -1708,26 +1707,26 @@ if (productData.customerReviews && productData.customerReviews.length > 0) {
     reviewCard.className = "labkeep-customer-review";
 
     const reviewRating = document.createElement("strong");
-    reviewRating.textContent = "★".repeat(review.rating) +
+    reviewRating.textContent =
+      "★".repeat(review.rating) +
       " (" + review.rating + "/5)";
 
     const reviewText = document.createElement("p");
     reviewText.textContent = review.comment;
 
-    const reviewLabel = document.createElement("small");
-    reviewLabel.textContent = "Demo Review — Not a verified customer review";
-
     reviewCard.appendChild(reviewRating);
     reviewCard.appendChild(reviewText);
-    reviewCard.appendChild(reviewLabel);
 
     reviewsContainer.appendChild(reviewCard);
-
   });
 
   ratingElement.parentElement.appendChild(reviewsContainer);
+
+} else {
+  ratingElement.textContent = "No customer reviews yet";
 }
 
+      
       document.body.appendChild(modal);
 
       function closeModal() {
