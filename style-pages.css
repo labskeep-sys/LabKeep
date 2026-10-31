@@ -1183,3 +1183,23 @@
   font-weight: 600 !important;
 }
 
+/* Individual customer reviews */
+.labkeep-customer-review {
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.labkeep-customer-review p {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 5px 0;
+}
+
+/* Golden rating stars */
+.labkeep-customer-review strong {
+  color: #d4a017;
+  font-size: 13px;
+  font-weight: 600;
+}
+
