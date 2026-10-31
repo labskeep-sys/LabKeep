@@ -497,60 +497,125 @@
 
     function sendCartToWhatsApp() {
 
-      if (cart.length === 0) {
+  if (cart.length === 0) {
 
-        alert("Your cart is empty.");
+    alert("Your cart is empty.");
+    return;
 
-        return;
+  }
 
-      }
+  let message =
+    "Hello LabKeep, I would like to order the following products:\n\n";
 
-      let message =
-        "Hello LabKeep, I would like to order the following products:%0A%0A";
+  let total = 0;
 
-      let total = 0;
+  cart.forEach(function (item, index) {
 
-      cart.forEach(function (item, index) {
+    const subtotal = item.price * item.quantity;
 
-        const subtotal =
-          item.price * item.quantity;
+    total += subtotal;
 
-        total += subtotal;
+    message +=
+      (index + 1) + ". " +
+      item.name +
+      " - " +
+      item.priceDisplay +
+      " x " +
+      item.quantity +
+      " = " +
+      formatPrice(subtotal) +
+      "\n";
 
-        message +=
-          (index + 1) + ". " +
-          encodeURIComponent(item.name) +
-          " - " +
-          encodeURIComponent(item.priceDisplay) +
-          " x " +
-          item.quantity +
-          " = " +
-          encodeURIComponent(formatPrice(subtotal)) +
-          "%0A";
+  });
 
-      });
+  message +=
+    "\nTotal: " +
+    formatPrice(total) +
+    "\n\nPlease confirm availability and delivery details.";
 
-      message +=
-        "%0A" +
-        "Total: " +
-        encodeURIComponent(formatPrice(total)) +
-        "%0A%0A" +
-        "Please confirm availability and delivery details.";
+  const whatsappURL =
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(message);
 
-      const whatsappURL = "https://wa.me/" + whatsappNumber + "?text=" + message;
+  // Remember that the customer is leaving to WhatsApp
+  sessionStorage.setItem(
+    "labkeepPendingOrderConfirmation",
+    "yes"
+  );
 
-window.open(whatsappURL, "_blank");
+  window.open(whatsappURL, "_blank");
 
-// Clear the cart after sending the order
-cart = [];
-saveCart();
+}
+
+    function showOrderConfirmation() {
+
+  const pending =
+    sessionStorage.getItem("labkeepPendingOrderConfirmation");
+
+  if (pending !== "yes") return;
+
+  const popup =
+    document.getElementById("orderConfirmPopup");
+
+  if (popup) {
+    popup.classList.add("active");
+  }
+
+}
+
+
+// Customer confirms that they sent the WhatsApp order
+function confirmOrderSent() {
+
+  cart = [];
+
+  saveCart();
+  displayCart();
+
+  sessionStorage.removeItem(
+    "labkeepPendingOrderConfirmation"
+  );
+
+  document
+    .getElementById("orderConfirmPopup")
+    .classList.remove("active");
+
+}
+
+
+// Customer has not sent the message
+function cancelOrderConfirmation() {
+
+  sessionStorage.removeItem(
+    "labkeepPendingOrderConfirmation"
+  );
+
+  document
+    .getElementById("orderConfirmPopup")
+    .classList.remove("active");
+
+}
+
+
+// Detect when the customer returns to LabKeep
+document.addEventListener("visibilitychange", function () {
+
+  if (document.visibilityState === "visible") {
+    showOrderConfirmation();
+  }
+
+});
+
+window.addEventListener("focus", showOrderConfirmation);
+
+window.addEventListener("pageshow", showOrderConfirmation);
+
+
 displayCart();
 
-    }
-
-    displayCart();
-
-  </script>
+</script>
 
 </body>
 </html>
