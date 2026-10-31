@@ -1183,3 +1183,167 @@
   font-weight: 600 !important;
 }
 
+
+/* =========================================
+   LABKEEP PRODUCT INFORMATION POPUP
+========================================= */
+
+.product-info-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.product-info-popup.active {
+  display: flex;
+}
+
+.product-info-popup-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(9, 20, 55, 0.68);
+  backdrop-filter: blur(4px);
+}
+
+.product-info-popup-content {
+  position: relative;
+  z-index: 1;
+  width: 92%;
+  max-width: 620px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.product-popup-header {
+  position: relative;
+  padding: 30px;
+  background: rgb(13 33 84 / 1);
+  color: #ffffff;
+}
+
+.product-popup-header h2 {
+  margin: 0 40px 8px 0;
+  color: #ffffff;
+  font-size: 25px;
+  line-height: 1.4;
+}
+
+.product-popup-header p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+}
+
+.product-popup-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.product-popup-body {
+  padding: 25px 30px;
+}
+
+.product-popup-image {
+  width: 100%;
+  max-height: 230px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #f8fbff;
+  margin-bottom: 20px;
+}
+
+.product-popup-section {
+  padding: 17px 0;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.product-popup-section h3 {
+  margin: 0 0 8px;
+  color: #172033;
+  font-size: 15px;
+}
+
+.product-popup-section p {
+  margin: 0;
+  color: #626b7d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.product-popup-add-cart {
+  width: 100%;
+  margin-top: 22px;
+  padding: 15px;
+  border: none;
+  border-radius: 9px;
+  background: rgb(13 33 84 / 1);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.product-popup-add-cart:hover {
+  background: #1237d8;
+}
+
+.product-info-trigger {
+  display: block;
+  width: 100%;
+  margin-top: 9px;
+  padding: 11px;
+  border: 1px solid #1237d8;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1237d8;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.product-info-trigger:hover {
+  background: #eef2ff;
+}
+
+@media (max-width: 600px) {
+  .product-info-popup {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .product-info-popup-content {
+    width: 100%;
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: 22px 22px 0 0;
+  }
+
+  .product-popup-header {
+    padding: 27px 22px;
+  }
+
+  .product-popup-header h2 {
+    font-size: 21px;
+  }
+
+  .product-popup-body {
+    padding: 22px;
+  }
+}
+
