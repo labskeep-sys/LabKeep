@@ -383,3 +383,19 @@ body {
   }
 }
 
+/* Force smaller customer review text */
+.labkeep-customer-reviews .labkeep-customer-review {
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+}
+
+.labkeep-customer-reviews .labkeep-customer-review p {
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+}
+
+/* Force golden review stars */
+.labkeep-customer-reviews .labkeep-customer-review strong {
+  color: #d4a017 !important;
+  font-size: 13px !important;
+}
