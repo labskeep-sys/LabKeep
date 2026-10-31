@@ -75,6 +75,15 @@ const priceText =
   priceElement
     ?.textContent.replace(/\s+/g, " ").trim() || "";
 
+      const priceNumber = parseFloat(
+  priceText.replace(/[^\d.]/g, "")
+);
+
+if (!Number.isFinite(priceNumber) || priceNumber <= 0) {
+  alert("This product does not have a valid price yet.");
+  return;
+}
+
 const locationMatch =
   productCard.textContent.match(
     /Location:\s*([^]+?)(?=\s*(?:Add to Cart|Request|$))/i
