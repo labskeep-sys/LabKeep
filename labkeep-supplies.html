@@ -948,7 +948,419 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 </style>
     
-    <script>      
+    <script>   
+
+      // =============================================
+// LABKEEP PRODUCT INFORMATION DATABASE
+// =============================================
+
+const productInformation = {
+
+  // =============================================
+  // DIAGNOSTIC TEST KITS AND REAGENTS
+  // =============================================
+
+  "Hepatitis C Virus (HCV) Test Strips": {
+    category: "consumable",
+    productCategory: "Diagnostic Test Kit",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Mindray BC-6800 Reagent": {
+    category: "consumable",
+    productCategory: "Diagnostic Reagent",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Combi-9 Urinalysis Test Strips": {
+    category: "consumable",
+    productCategory: "Diagnostic Test Strips",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Blood Glucose Test Strips": {
+    category: "consumable",
+    productCategory: "Diagnostic Test Strips",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Widal Test Kit": {
+    category: "consumable",
+    productCategory: "Diagnostic Test Kit",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Determine HIV 1 & 2 Test Kit (Pack)": {
+    category: "consumable",
+    productCategory: "Diagnostic Test Kit",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "HBsAg Test Strips (Pack)": {
+    category: "consumable",
+    productCategory: "Diagnostic Test Strips",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "VDRL Test Strips (Pack)": {
+    category: "consumable",
+    productCategory: "Diagnostic Test Strips",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Pregnancy Test Strips (Pack)": {
+    category: "consumable",
+    productCategory: "Diagnostic Test Strips",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Helicobacter pylori (H. pylori) Rapid Test Strip": {
+    category: "consumable",
+    productCategory: "Diagnostic Test Kit",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Antisera A, B, AB, and D": {
+    category: "consumable",
+    productCategory: "Laboratory Reagent",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  // =============================================
+  // LABORATORY CONSUMABLES
+  // =============================================
+
+  "10ml sterile syringes": {
+    category: "consumable",
+    productCategory: "Laboratory Consumable",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Nitrile Examination Gloves": {
+    category: "consumable",
+    productCategory: "Personal Protective Equipment",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "5 ml Syringes (Pack)": {
+    category: "consumable",
+    productCategory: "Laboratory Consumable",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "2 ml Syringes (Pack)": {
+    category: "consumable",
+    productCategory: "Laboratory Consumable",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "EDTA Vaccum Blood Collection Tubes": {
+    category: "consumable",
+    productCategory: "Blood Collection Supplies",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "EDTA Blood Collection Bottles (Non-Vaccum)": {
+    category: "consumable",
+    productCategory: "Blood Collection Supplies",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Plain Blood Collection Tubes (Non-Vaccum)": {
+    category: "consumable",
+    productCategory: "Blood Collection Supplies",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Fluoride Oxalate Bottles (Non-Vaccum)": {
+    category: "consumable",
+    productCategory: "Blood Collection Supplies",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Lithium Heparin Blood Collection Tubes (Non-Vaccum)": {
+    category: "consumable",
+    productCategory: "Blood Collection Supplies",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Disposable Hand Gloves (Pack)": {
+    category: "consumable",
+    productCategory: "Personal Protective Equipment",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Heparinized Capillary Tubes": {
+    category: "consumable",
+    productCategory: "Blood Collection Supplies",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Pipette Tips (1000 Tips)": {
+    category: "consumable",
+    productCategory: "Laboratory Consumable",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Sterile Swab Sticks (Pack)": {
+    category: "consumable",
+    productCategory: "Sample Collection Supplies",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Universal Sample Containers (Carton)": {
+    category: "consumable",
+    productCategory: "Sample Collection Supplies",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Microscope Slides & Coverslips": {
+    category: "consumable",
+    productCategory: "Microscopy Supplies",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Methylated Spirit": {
+    category: "consumable",
+    productCategory: "Laboratory Chemical",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Blood Lancets": {
+    category: "consumable",
+    productCategory: "Sample Collection Supplies",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  // =============================================
+  // MICROBIOLOGY SUPPLIES
+  // =============================================
+
+  "Antibiotic Sensitivity Discs": {
+    category: "consumable",
+    productCategory: "Microbiology Supplies",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Nutrient Agar (100g)": {
+    category: "consumable",
+    productCategory: "Culture Media",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Sabouraud Dextrose Agar (100g)": {
+    category: "consumable",
+    productCategory: "Culture Media",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Sterile Petri Dishes (20 pcs)": {
+    category: "consumable",
+    productCategory: "Microbiology Supplies",
+    description: "",
+    expiryDate: "",
+    storage: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  // =============================================
+  // LABORATORY EQUIPMENT
+  // =============================================
+
+  "Centrifuge 6 Place": {
+    category: "equipment",
+    productCategory: "Laboratory Equipment",
+    description: "",
+    condition: "",
+    warranty: "",
+    maintenanceRequirements: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Binocular Microscope": {
+    category: "equipment",
+    productCategory: "Laboratory Equipment",
+    description: "",
+    condition: "",
+    warranty: "",
+    maintenanceRequirements: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  },
+
+  "Micropipette (500 microlitre)": {
+    category: "equipment",
+    productCategory: "Laboratory Equipment",
+    description: "",
+    condition: "",
+    warranty: "",
+    maintenanceRequirements: "",
+    customerRating: "",
+    reviewCount: 0,
+    customerReviews: []
+  }
+
+};
       
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -989,6 +1401,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const location =
         card.querySelector(".location")?.textContent.trim() ||
         "Not provided by supplier";
+
+      // Retrieve information from the product database
+const productData = productInformation[productName] || {};
 
       // Remove an older popup if one exists
       const oldPopup =
@@ -1033,18 +1448,29 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
 
           <div class="labkeep-info-row">
-            <span class="labkeep-info-label">Product Description</span>
-            <span class="labkeep-info-value">
-              Not provided by supplier
-            </span>
-          </div>
+  <span class="labkeep-info-label">Product Category</span>
+  <span class="labkeep-info-value" id="labkeepInfoCategory"></span>
+</div>
 
-          <div class="labkeep-info-row">
-            <span class="labkeep-info-label">Specifications / Product Details</span>
-            <span class="labkeep-info-value">
-              Not provided by supplier
-            </span>
-          </div>
+<div class="labkeep-info-row">
+  <span class="labkeep-info-label">Product Description</span>
+  <span class="labkeep-info-value" id="labkeepInfoDescription"></span>
+</div>
+
+<div class="labkeep-info-row">
+  <span class="labkeep-info-label">Expiry Date</span>
+  <span class="labkeep-info-value" id="labkeepInfoExpiry"></span>
+</div>
+
+<div class="labkeep-info-row">
+  <span class="labkeep-info-label">Storage Requirements</span>
+  <span class="labkeep-info-value" id="labkeepInfoStorage"></span>
+</div>
+
+<div class="labkeep-info-row">
+  <span class="labkeep-info-label">Customer Ratings & Reviews</span>
+  <span class="labkeep-info-value" id="labkeepInfoReviews"></span>
+</div>
 
           <div class="labkeep-info-note">
             For additional product details, please contact LabKeep.
@@ -1058,6 +1484,31 @@ document.addEventListener("DOMContentLoaded", function () {
       modal.querySelector("#labkeepInfoSupplier").textContent = supplier;
       modal.querySelector("#labkeepInfoPrice").textContent = price;
       modal.querySelector("#labkeepInfoLocation").textContent = location;
+
+      // Populate product information from database
+
+modal.querySelector("#labkeepInfoDescription").textContent =
+  productData.description || "Description not yet provided";
+
+modal.querySelector("#labkeepInfoSpecifications").textContent =
+  productData.specifications || "Specifications not yet provided";
+
+modal.querySelector("#labkeepInfoBatch").textContent =
+  productData.batchNumber || "Batch information not provided";
+
+modal.querySelector("#labkeepInfoExpiry").textContent =
+  productData.expiryDate || "Expiry information not provided";
+
+modal.querySelector("#labkeepInfoStorage").textContent =
+  productData.storage || "Storage information not provided";
+
+modal.querySelector("#labkeepInfoTime").textContent =
+  productData.timeSensitivity || "No time-sensitivity information provided";
+
+modal.querySelector("#labkeepInfoReviews").textContent =
+  productData.reviewCount > 0
+    ? `${productData.customerRating}/5 (${productData.reviewCount} reviews)`
+    : "No customer reviews yet";
 
       document.body.appendChild(modal);
 
