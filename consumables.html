@@ -8,110 +8,159 @@
   <meta name="generator" content="GrapesJS Studio">
   <link rel="stylesheet" href="./style-pages.css">
 
-    <style>
+   <style>
+/* LabKeep Product Information */
+
 .labkeep-product-info-btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 9px 14px;
-  background: #0b1f5c;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 11px 14px;
+  border: 1px solid #1237d8;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1237d8;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
 }
 
 .labkeep-product-info-btn:hover {
-  background: #1237d8;
+  background: #eef2ff;
 }
 
 .labkeep-info-overlay {
-  display: none;
   position: fixed;
   inset: 0;
-  z-index: 99999;
-  background: rgba(0, 0, 0, 0.65);
-  justify-content: center;
+  z-index: 100000;
+  display: flex;
   align-items: center;
-  padding: 15px;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.55);
 }
 
+/* Main popup */
 .labkeep-info-box {
-  background: #fff;
-  width: 100%;
-  max-width: 550px;
-  max-height: 85vh;
+  position: relative;
+  z-index: 2;
+  width: 92%;
+  max-width: 620px;
+  max-height: 88vh;
   overflow-y: auto;
-  border-radius: 12px;
-  padding: 22px;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+  overflow-x: hidden;
+  padding: 0;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
 }
 
+/* Product header */
 .labkeep-info-header {
+  position: relative;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 12px;
-  margin-bottom: 15px;
+  align-items: flex-start;
+  gap: 15px;
+  margin: 0;
+  padding: 32px 30px 28px;
+  background: rgb(13 33 84 / 1);
+  color: #ffffff;
 }
 
 .labkeep-info-header h2 {
-  color: #0b1f5c;
-  font-size: 20px;
-  margin: 0;
+  margin: 0 40px 0 0;
+  color: #ffffff;
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.4;
 }
 
+/* Close button */
 .labkeep-info-close {
-  background: none;
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  z-index: 5;
+  width: 36px;
+  height: 36px;
   border: none;
-  color: #555;
-  font-size: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font-size: 25px;
+  line-height: 30px;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
+.labkeep-info-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Product information body */
 .labkeep-info-row {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
+  margin: 0;
+  padding: 22px 30px;
+  border-bottom: 1px solid #eef1f7;
+}
+
+.labkeep-info-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #172033;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.labkeep-info-value {
+  display: block;
+  color: #626b7d;
   font-size: 14px;
-  line-height: 1.5;
+  font-weight: 400;
+  line-height: 1.7;
 }
 
-.labkeep-info-row strong {
-  color: #0b1f5c;
-}
-
-.labkeep-info-row span {
-  color: #444;
-}
-
-.labkeep-info-reviews {
-  margin-top: 18px;
-}
-
-.labkeep-info-reviews h3 {
-  color: #0b1f5c;
-  font-size: 16px;
-}
-
-#labkeepInfoReviews {
+/* Information note */
+.labkeep-info-note {
+  margin: 20px 30px 24px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #f4f7ff;
+  color: #52617c;
   font-size: 13px;
-  line-height: 1.5;
-  color: #555;
+  line-height: 1.7;
 }
 
+/* Mobile */
 @media (max-width: 600px) {
+  .labkeep-info-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
   .labkeep-info-box {
-    padding: 17px;
+    width: 100%;
+    max-width: none;
+    max-height: 92vh;
+    border-radius: 22px 22px 0 0;
+  }
+
+  .labkeep-info-header {
+    padding: 27px 22px 24px;
   }
 
   .labkeep-info-header h2 {
-    font-size: 17px;
+    font-size: 23px;
+  }
+
+  .labkeep-info-row {
+    padding: 19px 22px;
+  }
+
+  .labkeep-info-note {
+    margin: 18px 22px 22px;
   }
 }
 </style>
