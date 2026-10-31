@@ -1467,6 +1467,21 @@ const productData = productInformation[productName] || {};
   <span class="labkeep-info-value" id="labkeepInfoStorage"></span>
 </div>
 
+<div class="labkeep-info-row" id="labkeepEquipmentConditionRow">
+  <span class="labkeep-info-label">Product Condition</span>
+  <span class="labkeep-info-value" id="labkeepInfoCondition"></span>
+</div>
+
+<div class="labkeep-info-row" id="labkeepEquipmentWarrantyRow">
+  <span class="labkeep-info-label">Warranty</span>
+  <span class="labkeep-info-value" id="labkeepInfoWarranty"></span>
+</div>
+
+<div class="labkeep-info-row" id="labkeepEquipmentMaintenanceRow">
+  <span class="labkeep-info-label">Maintenance Requirements</span>
+  <span class="labkeep-info-value" id="labkeepInfoMaintenance"></span>
+</div>
+
 <div class="labkeep-info-row">
   <span class="labkeep-info-label">Customer Ratings & Reviews</span>
   <span class="labkeep-info-value" id="labkeepInfoReviews"></span>
@@ -1485,30 +1500,57 @@ const productData = productInformation[productName] || {};
       modal.querySelector("#labkeepInfoPrice").textContent = price;
       modal.querySelector("#labkeepInfoLocation").textContent = location;
 
-      // Populate product information from database
+      // Display product information from the database
+modal.querySelector("#labkeepInfoCategory").textContent =
+  productData.productCategory || "Not yet provided";
 
 modal.querySelector("#labkeepInfoDescription").textContent =
-  productData.description || "Description not yet provided";
-
-modal.querySelector("#labkeepInfoSpecifications").textContent =
-  productData.specifications || "Specifications not yet provided";
-
-modal.querySelector("#labkeepInfoBatch").textContent =
-  productData.batchNumber || "Batch information not provided";
+  productData.description || "Not yet provided";
 
 modal.querySelector("#labkeepInfoExpiry").textContent =
-  productData.expiryDate || "Expiry information not provided";
+  productData.category === "equipment"
+    ? "Not applicable"
+    : productData.expiryDate || "Not yet provided";
 
 modal.querySelector("#labkeepInfoStorage").textContent =
-  productData.storage || "Storage information not provided";
+  productData.storage || "Not yet provided";
 
-modal.querySelector("#labkeepInfoTime").textContent =
-  productData.timeSensitivity || "No time-sensitivity information provided";
+      // Display equipment-specific information
+const equipmentRows = [
+  "labkeepEquipmentConditionRow",
+  "labkeepEquipmentWarrantyRow",
+  "labkeepEquipmentMaintenanceRow"
+];
 
-modal.querySelector("#labkeepInfoReviews").textContent =
-  productData.reviewCount > 0
-    ? `${productData.customerRating}/5 (${productData.reviewCount} reviews)`
-    : "No customer reviews yet";
+if (productData.category === "equipment") {
+
+  modal.querySelector("#labkeepInfoCondition").textContent =
+    productData.condition || "Not yet provided";
+
+  modal.querySelector("#labkeepInfoWarranty").textContent =
+    productData.warranty || "Not yet provided";
+
+  modal.querySelector("#labkeepInfoMaintenance").textContent =
+    productData.maintenanceRequirements || "Not yet provided";
+
+} else {
+
+  equipmentRows.forEach(function (rowId) {
+    modal.querySelector("#" + rowId).remove();
+  });
+
+}
+
+// Display customer ratings and reviews
+const ratingElement = modal.querySelector("#labkeepInfoReviews");
+
+if (productData.customerRating && productData.reviewCount > 0) {
+  ratingElement.textContent =
+    productData.customerRating + " / 5 (" +
+    productData.reviewCount + " reviews)";
+} else {
+  ratingElement.textContent = "No customer reviews yet";
+}
 
       document.body.appendChild(modal);
 
