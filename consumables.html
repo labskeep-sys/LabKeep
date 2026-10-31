@@ -7,6 +7,114 @@
   <meta name="robots" content="index,follow">
   <meta name="generator" content="GrapesJS Studio">
   <link rel="stylesheet" href="./style-pages.css">
+
+    <style>
+.labkeep-product-info-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 9px 14px;
+  background: #0b1f5c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.labkeep-product-info-btn:hover {
+  background: #1237d8;
+}
+
+.labkeep-info-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.65);
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.labkeep-info-box {
+  background: #fff;
+  width: 100%;
+  max-width: 550px;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+}
+
+.labkeep-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 12px;
+  margin-bottom: 15px;
+}
+
+.labkeep-info-header h2 {
+  color: #0b1f5c;
+  font-size: 20px;
+  margin: 0;
+}
+
+.labkeep-info-close {
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.labkeep-info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.labkeep-info-row strong {
+  color: #0b1f5c;
+}
+
+.labkeep-info-row span {
+  color: #444;
+}
+
+.labkeep-info-reviews {
+  margin-top: 18px;
+}
+
+.labkeep-info-reviews h3 {
+  color: #0b1f5c;
+  font-size: 16px;
+}
+
+#labkeepInfoReviews {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #555;
+}
+
+@media (max-width: 600px) {
+  .labkeep-info-box {
+    padding: 17px;
+  }
+
+  .labkeep-info-header h2 {
+    font-size: 17px;
+  }
+}
+</style>
   </head>
   <body><div class="LabKeep Supplies"><!-- HEADER / HERO --><header class="LabKeep-hero"><div class="LabKeep-stars"></div><div class="Labkeep-crystal crystal-one"></div><div class="LabKeep-crystal crystal-two"></div><!-- NAVIGATION --><nav id="idf26h-2-2" class="LabKeep-nav"><div class="LabKeep-logo"><div id="if1ihv-2-2" class="logo-symbol"><img src="https://cdn.grapesjs.com/workspaces/cmszuue1t0cy0fdmhxd4cfe88/assets/04666e83-e65c-4e93-b5f2-61f9b3937420__logo-5.jpeg" id="igrr81-2-2"/></div><div><div id="i1awjp-2-2" class="logo-name">LabKeep</div><div class="logo-tagline">
             Keeping Labs Ready, Always.
@@ -103,6 +211,60 @@ var n,t=this,e='gjs-collapse',a='max-height',o=0,i=function(){var n=document.cre
   <script src="location-filter.js"></script>
     
     <script src="cart.js"></script>
+
+    <!-- LabKeep Product Information Popup -->
+<div id="labkeepProductInfoModal" class="labkeep-info-overlay">
+  <div class="labkeep-info-box">
+
+    <div class="labkeep-info-header">
+      <h2 id="labkeepInfoTitle">Product Information</h2>
+      <button type="button" id="labkeepInfoClose" class="labkeep-info-close">&times;</button>
+    </div>
+
+    <div class="labkeep-info-content">
+      <div class="labkeep-info-row">
+        <strong>Supplier:</strong>
+        <span id="labkeepInfoSupplier">Not provided</span>
+      </div>
+
+      <div class="labkeep-info-row">
+        <strong>Price:</strong>
+        <span id="labkeepInfoPrice">Not provided</span>
+      </div>
+
+      <div class="labkeep-info-row">
+        <strong>Location:</strong>
+        <span id="labkeepInfoLocation">Not provided</span>
+      </div>
+
+      <div class="labkeep-info-row">
+        <strong>Category:</strong>
+        <span id="labkeepInfoCategory">Laboratory Consumables</span>
+      </div>
+
+      <div class="labkeep-info-row">
+        <strong>Description:</strong>
+        <span id="labkeepInfoDescription">No description available yet.</span>
+      </div>
+
+      <div class="labkeep-info-row">
+        <strong>Expiry Information:</strong>
+        <span id="labkeepInfoExpiry">Not provided</span>
+      </div>
+
+      <div class="labkeep-info-row">
+        <strong>Storage Requirements:</strong>
+        <span id="labkeepInfoStorage">Not provided</span>
+      </div>
+
+      <div class="labkeep-info-reviews">
+        <h3>Customer Reviews</h3>
+        <div id="labkeepInfoReviews">No customer reviews yet.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
     
   </body>
 </html>
