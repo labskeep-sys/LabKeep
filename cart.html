@@ -188,6 +188,95 @@
       }
 
     }
+
+    /* =================================
+   LABKEEP ORDER CONFIRMATION POPUP
+================================= */
+
+.order-confirm-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100001;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(9, 20, 55, 0.68);
+  backdrop-filter: blur(4px);
+}
+
+.order-confirm-overlay.active {
+  display: flex;
+}
+
+.order-confirm-box {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  padding: 30px 25px;
+  border-radius: 18px;
+  background: #ffffff;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.order-confirm-icon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #eef2ff;
+  color: #1237d8;
+  font-size: 28px;
+}
+
+.order-confirm-box h2 {
+  margin: 0 0 12px;
+  color: #0b1f5c;
+  font-size: 22px;
+}
+
+.order-confirm-box p {
+  margin: 0 0 22px;
+  color: #626b7d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.order-confirm-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.order-confirm-actions button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.order-confirm-sent {
+  background: #0d2154;
+  color: #ffffff;
+}
+
+.order-confirm-not-sent {
+  background: #eef2ff;
+  color: #1237d8;
+}
+
+@media (max-width: 600px) {
+  .order-confirm-box {
+    padding: 27px 21px;
+  }
+}
   </style>
 </head>
 
@@ -224,6 +313,43 @@
     </div>
 
   </main>
+
+  <!-- LABKEEP ORDER CONFIRMATION POPUP -->
+
+<div id="orderConfirmPopup" class="order-confirm-overlay">
+
+  <div class="order-confirm-box">
+
+    <div class="order-confirm-icon">✓</div>
+
+    <h2>Did you send your order?</h2>
+
+    <p>
+      Please confirm whether you successfully sent your
+      order message to LabKeep on WhatsApp.
+    </p>
+
+    <div class="order-confirm-actions">
+
+      <button
+        type="button"
+        class="order-confirm-sent"
+        onclick="confirmOrderSent()">
+        I've Sent My Order
+      </button>
+
+      <button
+        type="button"
+        class="order-confirm-not-sent"
+        onclick="cancelOrderConfirmation()">
+        I Haven't Sent It Yet
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
   <script>
 
