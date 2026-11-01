@@ -349,7 +349,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  // Create the popup
+  // Create popup
   const overlay = document.createElement("div");
   overlay.className = "labkeep-info-overlay";
   overlay.id = "labkeepProductInfoModal";
@@ -360,6 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       <div class="labkeep-info-header">
         <h2 id="labkeepInfoTitle">Product Information</h2>
+
         <button type="button" class="labkeep-info-close"
                 aria-label="Close product information">&times;</button>
       </div>
@@ -367,9 +368,8 @@ document.addEventListener("DOMContentLoaded", function () {
       <div id="labkeepInfoContent"></div>
 
       <p class="labkeep-info-note">
-        Product information is supplied by the seller.
-        Please confirm product specifications and availability
-        before placing your request.
+        For additional product details, please contact LabKeep.
+        Product information will be updated as suppliers provide it.
       </p>
     </div>
   `;
@@ -377,6 +377,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.body.appendChild(overlay);
 
   const infoContent = overlay.querySelector("#labkeepInfoContent");
+  const popupTitle = overlay.querySelector("#labkeepInfoTitle");
   const closeButton = overlay.querySelector(".labkeep-info-close");
 
 
@@ -387,7 +388,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  // Display a product information row
+  // Display product information row
   function createInfoRow(label, value) {
     const row = document.createElement("div");
     row.className = "labkeep-info-row";
@@ -412,6 +413,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const productName = getText(card, "h3");
 
+    // Update popup heading to the selected product name
+    popupTitle.textContent = productName || "Product Information";
+
     const supplierElement = card.querySelector(".supplier");
 
     let supplier = "";
@@ -431,6 +435,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const price = getText(card, ".product-price");
+
     const location = getText(card, ".location")
       .replace(/^⌖\s*/, "");
 
