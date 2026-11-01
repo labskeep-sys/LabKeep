@@ -7,6 +7,163 @@
   <meta name="robots" content="index,follow">
   <meta name="generator" content="GrapesJS Studio">
   <link rel="stylesheet" href="./style-pages.css">
+
+    <style>
+/* LabKeep Product Information */
+
+.labkeep-product-info-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 11px 14px;
+  border: 1px solid #1237d8;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1237d8;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.labkeep-product-info-btn:hover {
+  background: #eef2ff;
+}
+
+.labkeep-info-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+/* Main popup */
+.labkeep-info-box {
+  position: relative;
+  z-index: 2;
+  width: 92%;
+  max-width: 620px;
+  max-height: 88vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+
+/* Product header */
+.labkeep-info-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  margin: 0;
+  padding: 32px 30px 28px;
+  background: rgb(13 33 84 / 1);
+  color: #ffffff;
+}
+
+.labkeep-info-header h2 {
+  margin: 0 40px 0 0;
+  color: #ffffff;
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* Close button */
+.labkeep-info-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  z-index: 5;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font-size: 25px;
+  line-height: 30px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.labkeep-info-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Product information body */
+.labkeep-info-row {
+  margin: 0;
+  padding: 22px 30px;
+  border-bottom: 1px solid #eef1f7;
+}
+
+.labkeep-info-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #172033;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.labkeep-info-value {
+  display: block;
+  color: #626b7d;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+/* Information note */
+.labkeep-info-note {
+  margin: 20px 30px 24px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #f4f7ff;
+  color: #52617c;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .labkeep-info-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .labkeep-info-box {
+    width: 100%;
+    max-width: none;
+    max-height: 92vh;
+    border-radius: 22px 22px 0 0;
+  }
+
+  .labkeep-info-header {
+    padding: 27px 22px 24px;
+  }
+
+  .labkeep-info-header h2 {
+    font-size: 23px;
+  }
+
+  .labkeep-info-row {
+    padding: 19px 22px;
+  }
+
+  .labkeep-info-note {
+    margin: 18px 22px 22px;
+  }
+}
+</style>
   </head>
   <body><div class="LabKeep Supplies"><!-- HEADER / HERO --><header class="LabKeep-hero"><div class="LabKeep-stars"></div><div class="Labkeep-crystal crystal-one"></div><div class="LabKeep-crystal crystal-two"></div><!-- NAVIGATION --><nav id="idf26h-2" class="LabKeep-nav"><div class="LabKeep-logo"><div id="if1ihv-2" class="logo-symbol"><img src="https://cdn.grapesjs.com/workspaces/cmszuue1t0cy0fdmhxd4cfe88/assets/04666e83-e65c-4e93-b5f2-61f9b3937420__logo-5.jpeg" id="igrr81-2"/></div><div><div id="i1awjp-2" class="logo-name">LabKeep</div><div class="logo-tagline">
             Keeping Labs Ready, Always.
@@ -375,6 +532,292 @@ document.addEventListener("DOMContentLoaded", function () {
   border: 1px solid #eeeeee !important;
 }
 </style>
+
+    <script>
+// =============================================
+// LABKEEP REAGENTS PRODUCT INFORMATION
+// =============================================
+
+const reagentsProductInformation = {
+
+  "Malaria RDT (25 Tests)": {
+    productCategory: "Rapid Diagnostic Test Kit",
+    description: "A rapid diagnostic test kit designed to detect malaria antigens in human blood specimens. Intended for use in malaria screening and diagnosis according to the manufacturer's instructions."
+  },
+
+  "Widal Test Kit": {
+    productCategory: "Serological Test Kit",
+    description: "A diagnostic test kit used to detect antibodies associated with Salmonella Typhi and Salmonella Paratyphi infections. Results should be interpreted alongside clinical findings and other laboratory investigations."
+  },
+
+  "HBsAg Test Kit (Pack)": {
+    productCategory: "Rapid Diagnostic Test Kit",
+    description: "A rapid diagnostic test designed to detect hepatitis B surface antigen (HBsAg) in human specimens. Used as an aid in screening for hepatitis B infection."
+  },
+
+  "Determine HIV 1 & 2 Test Kit (Pack)": {
+    productCategory: "HIV Rapid Diagnostic Test Kit",
+    description: "A rapid diagnostic test designed to detect antibodies to HIV-1 and HIV-2. Intended for use within approved HIV testing algorithms and according to the manufacturer's instructions."
+  },
+
+  "VDRL Test Strips (Pack)": {
+    productCategory: "Serological Test Kit",
+    description: "A non-treponemal test used to detect reagin antibodies associated with syphilis. Results require appropriate clinical interpretation and, where indicated, confirmation using additional testing."
+  },
+
+  "Pregnancy Test Strips (Pack)": {
+    productCategory: "Rapid Diagnostic Test Kit",
+    description: "A rapid urine pregnancy test designed to detect human chorionic gonadotropin (hCG), a hormone produced during pregnancy. Follow the manufacturer's instructions for specimen collection and result interpretation."
+  },
+
+  "Combi-9 Urinalysis Test Strips": {
+    productCategory: "Urinalysis Reagent",
+    description: "Multi-parameter urine reagent strips designed for the qualitative or semi-quantitative examination of selected urine constituents. The specific parameters depend on the manufacturer's product specification."
+  },
+
+  "Helicobacter pylori (H. pylori) Rapid Test Strip": {
+    productCategory: "Rapid Diagnostic Test Kit",
+    description: "A rapid diagnostic test intended to assist in detecting Helicobacter pylori infection. The specimen type and whether the test detects antigen or antibodies should be confirmed from the product packaging."
+  },
+
+  "Glucose Reagent": {
+    productCategory: "Clinical Chemistry Reagent",
+    description: "A clinical chemistry reagent used for glucose determination in suitable biological specimens. Confirm the analytical method, specimen requirements and analyser compatibility before purchase."
+  },
+
+  "Urea Reagent Kit": {
+    productCategory: "Clinical Chemistry Reagent",
+    description: "A reagent kit used for the quantitative determination of urea in suitable biological specimens. Intended for laboratory assessment of renal function and related investigations."
+  },
+
+  "Creatinine Reagent Kit": {
+    productCategory: "Clinical Chemistry Reagent",
+    description: "A clinical chemistry reagent kit used for creatinine determination in suitable biological specimens. Commonly used in laboratory assessment of kidney function."
+  },
+
+  "ALT/SGPT Reagent Kit": {
+    productCategory: "Clinical Chemistry Reagent",
+    description: "A reagent kit used to measure alanine aminotransferase (ALT/SGPT) activity in serum or other suitable specimens. Commonly used in the assessment of liver function."
+  },
+
+  "AST/SGOT Reagent Kit": {
+    productCategory: "Clinical Chemistry Reagent",
+    description: "A reagent kit used to measure aspartate aminotransferase (AST/SGOT) activity in suitable biological specimens. Commonly used in liver and related clinical investigations."
+  },
+
+  "Total/Direct Bilirubin Reagent": {
+    productCategory: "Clinical Chemistry Reagent",
+    description: "A clinical chemistry reagent used for the determination of total and/or direct bilirubin in suitable specimens. Confirm whether the supplied kit supports both measurements."
+  },
+
+  "Total Cholesterol Reagent": {
+    productCategory: "Clinical Chemistry Reagent",
+    description: "A reagent used for the quantitative determination of total cholesterol in suitable biological specimens. Commonly used in lipid profile testing and cardiovascular risk assessment."
+  },
+
+  "Triglyceride Reagent": {
+    productCategory: "Clinical Chemistry Reagent",
+    description: "A clinical chemistry reagent used for the quantitative determination of triglycerides in suitable biological specimens. Commonly used as part of lipid profile investigations."
+  }
+
+};
+
+
+// =============================================
+// ADD PRODUCT INFORMATION BUTTONS
+// =============================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const productCards = document.querySelectorAll(".product-card");
+
+  productCards.forEach(function (card) {
+
+    const infoContainer =
+      card.querySelector(".product-info") || card;
+
+    // Prevent duplicate buttons
+    if (infoContainer.querySelector(".labkeep-product-info-btn")) {
+      return;
+    }
+
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "labkeep-product-info-btn";
+    button.textContent = "View Product Info";
+
+    infoContainer.appendChild(button);
+
+
+    // =============================================
+    // OPEN PRODUCT INFORMATION POPUP
+    // =============================================
+
+    button.addEventListener("click", function () {
+
+      const productName =
+        (card.querySelector("h3")?.innerText || "Product information")
+          .replace(/\s+/g, " ")
+          .trim();
+
+      const supplierElement = card.querySelector(".supplier");
+
+      const directSupplierText = Array.from(
+        supplierElement?.childNodes || []
+      )
+        .filter(function (node) {
+          return node.nodeType === Node.TEXT_NODE;
+        })
+        .map(function (node) {
+          return node.textContent.trim();
+        })
+        .find(Boolean);
+
+      const supplier =
+        directSupplierText ||
+        supplierElement?.querySelector("div")?.innerText.trim() ||
+        "Not provided by supplier";
+
+      const price =
+        card.querySelector(".product-price")?.innerText.trim() ||
+        "Not provided by supplier";
+
+      const location =
+        card.querySelector(".location")?.innerText.trim() ||
+        "Not provided by supplier";
+
+
+      // Find matching product information
+      const productData =
+        reagentsProductInformation[productName] || {};
+
+
+      // Remove an existing popup, if present
+      document.getElementById("labkeepProductInfoModal")?.remove();
+
+
+      // Create popup
+      const modal = document.createElement("div");
+
+      modal.id = "labkeepProductInfoModal";
+      modal.className = "labkeep-info-overlay";
+
+      modal.innerHTML = `
+        <div class="labkeep-info-box">
+
+          <div class="labkeep-info-header">
+            <h2 id="labkeepInfoTitle"></h2>
+
+            <button
+              type="button"
+              class="labkeep-info-close"
+              aria-label="Close">
+              &times;
+            </button>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Supplier</span>
+            <span class="labkeep-info-value" id="labkeepInfoSupplier"></span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Price</span>
+            <span class="labkeep-info-value" id="labkeepInfoPrice"></span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Supplier Location</span>
+            <span class="labkeep-info-value" id="labkeepInfoLocation"></span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Product Category</span>
+            <span class="labkeep-info-value" id="labkeepInfoCategory"></span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Product Description</span>
+            <span class="labkeep-info-value" id="labkeepInfoDescription"></span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Expiry Date</span>
+            <span class="labkeep-info-value">Not yet provided</span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Storage Requirements</span>
+            <span class="labkeep-info-value">Not yet provided</span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Customer Ratings & Reviews</span>
+            <span class="labkeep-info-value">No customer reviews yet</span>
+          </div>
+
+          <div class="labkeep-info-note">
+            For additional product details, please contact LabKeep.
+            Product information will be updated as suppliers provide it.
+          </div>
+
+        </div>
+      `;
+
+
+      // Fill popup with product information
+      modal.querySelector("#labkeepInfoTitle").textContent = productName;
+
+      modal.querySelector("#labkeepInfoSupplier").textContent = supplier;
+
+      modal.querySelector("#labkeepInfoPrice").textContent = price;
+
+      modal.querySelector("#labkeepInfoLocation").textContent = location;
+
+      modal.querySelector("#labkeepInfoCategory").textContent =
+        productData.productCategory || "Not yet provided";
+
+      modal.querySelector("#labkeepInfoDescription").textContent =
+        productData.description || "Not yet provided";
+
+
+      // Display popup
+      document.body.appendChild(modal);
+
+
+      // =============================================
+      // CLOSE POPUP
+      // =============================================
+
+      function closeModal() {
+        modal.remove();
+        document.removeEventListener("keydown", handleEscape);
+      }
+
+      function handleEscape(event) {
+        if (event.key === "Escape") {
+          closeModal();
+        }
+      }
+
+      modal.querySelector(".labkeep-info-close")
+        .addEventListener("click", closeModal);
+
+      modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("keydown", handleEscape);
+
+    });
+
+  });
+
+});
+</script>
     
   </body>
 </html>
