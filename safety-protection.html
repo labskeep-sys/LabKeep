@@ -163,6 +163,46 @@
     margin: 18px 22px 22px;
   }
 }
+
+      /* SAFETY POPUP VISIBILITY FIX */
+
+.labkeep-info-overlay:not(.active) {
+  display: none !important;
+}
+
+.labkeep-info-overlay.active {
+  display: flex !important;
+}
+
+#labkeepInfoContent {
+  display: block !important;
+  visibility: visible !important;
+  width: 100%;
+}
+
+#labkeepInfoContent .labkeep-info-row {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  padding: 22px 30px;
+  border-bottom: 1px solid #eef1f7;
+}
+
+#labkeepInfoContent .labkeep-info-label {
+  display: block !important;
+  visibility: visible !important;
+}
+
+#labkeepInfoContent .labkeep-info-value {
+  display: block !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 600px) {
+  #labkeepInfoContent .labkeep-info-row {
+    padding: 19px 22px;
+  }
+}
 </style>
   </head>
   <body><div class="LabKeep Supplies"><!-- HEADER / HERO --><header class="LabKeep-hero"><div class="LabKeep-stars"></div><div class="Labkeep-crystal crystal-one"></div><div class="LabKeep-crystal crystal-two"></div><!-- NAVIGATION --><nav id="idf26h-2-2-2-2-2" class="LabKeep-nav"><div class="LabKeep-logo"><div id="if1ihv-2-2-2-2-2" class="logo-symbol"><img src="https://cdn.grapesjs.com/workspaces/cmszuue1t0cy0fdmhxd4cfe88/assets/04666e83-e65c-4e93-b5f2-61f9b3937420__logo-5.jpeg" id="igrr81-2-2-2-2-2"/></div><div><div id="i1awjp-2-2-2-2-2" class="logo-name">LabKeep</div><div class="logo-tagline">
