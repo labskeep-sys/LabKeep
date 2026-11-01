@@ -261,59 +261,320 @@ var n,t=this,e='gjs-collapse',a='max-height',o=0,i=function(){var n=document.cre
     
     <script src="cart.js"></script>
 
-    <!-- LabKeep Product Information Popup -->
-<div id="labkeepProductInfoModal" class="labkeep-info-overlay">
-  <div class="labkeep-info-box">
+    <script>
+// =============================================
+// LABKEEP CONSUMABLES PRODUCT INFORMATION
+// =============================================
 
-    <div class="labkeep-info-header">
-      <h2 id="labkeepInfoTitle">Product Information</h2>
-      <button type="button" id="labkeepInfoClose" class="labkeep-info-close">&times;</button>
-    </div>
+const consumablesProductInformation = {
 
-    <div class="labkeep-info-content">
-      <div class="labkeep-info-row">
-        <strong>Supplier:</strong>
-        <span id="labkeepInfoSupplier">Not provided</span>
-      </div>
+  "10ml sterile syringes": {
+    productCategory: "Laboratory Consumable",
+    description: "Sterile, disposable 10 ml syringes designed for appropriate fluid aspiration, measurement, transfer or administration procedures. Select the correct syringe specification for the intended application."
+  },
 
-      <div class="labkeep-info-row">
-        <strong>Price:</strong>
-        <span id="labkeepInfoPrice">Not provided</span>
-      </div>
+  "5 ml Syringes (Pack)": {
+    productCategory: "Laboratory Consumable",
+    description: "Disposable 5 ml syringes designed for appropriate fluid measurement, aspiration, transfer or administration procedures. Check product packaging and specifications before use."
+  },
 
-      <div class="labkeep-info-row">
-        <strong>Location:</strong>
-        <span id="labkeepInfoLocation">Not provided</span>
-      </div>
+  "2 ml Syringes (Pack)": {
+    productCategory: "Laboratory Consumable",
+    description: "Disposable 2 ml syringes intended for appropriate small-volume fluid measurement, aspiration, transfer or administration procedures. Use according to the product specifications and intended application."
+  },
 
-      <div class="labkeep-info-row">
-        <strong>Category:</strong>
-        <span id="labkeepInfoCategory">Laboratory Consumables</span>
-      </div>
+  "EDTA Vaccum Blood Collection Tubes": {
+    productCategory: "Blood Collection Supplies",
+    description: "EDTA-containing vacuum blood collection tubes designed for collecting and anticoagulating blood specimens for appropriate haematological investigations. Follow the manufacturer's instructions for specimen collection and handling."
+  },
 
-      <div class="labkeep-info-row">
-        <strong>Description:</strong>
-        <span id="labkeepInfoDescription">No description available yet.</span>
-      </div>
+  "Mindray BC-6800 Reagent": {
+    productCategory: "Diagnostic Reagent",
+    description: "A diagnostic reagent intended for use with compatible Mindray BC-6800 haematology analysers. Confirm the specific reagent type and equipment compatibility before purchase."
+  },
 
-      <div class="labkeep-info-row">
-        <strong>Expiry Information:</strong>
-        <span id="labkeepInfoExpiry">Not provided</span>
-      </div>
+  "Nitrile Examination Gloves": {
+    productCategory: "Personal Protective Equipment",
+    description: "Disposable nitrile examination gloves designed to provide a protective barrier during appropriate laboratory and clinical procedures. Select the correct size and glove specification for the intended task."
+  },
 
-      <div class="labkeep-info-row">
-        <strong>Storage Requirements:</strong>
-        <span id="labkeepInfoStorage">Not provided</span>
-      </div>
+  "Disposable Hand Gloves (Pack)": {
+    productCategory: "Personal Protective Equipment",
+    description: "Disposable hand gloves designed to provide a protective barrier during appropriate laboratory, cleaning and clinical activities. Select the suitable material, size and protection level for the task."
+  },
 
-      <div class="labkeep-info-reviews">
-        <h3>Customer Reviews</h3>
-        <div id="labkeepInfoReviews">No customer reviews yet.</div>
-      </div>
-    </div>
+  "Heparinized Capillary Tubes": {
+    productCategory: "Blood Collection Supplies",
+    description: "Capillary tubes coated with heparin anticoagulant, intended for appropriate micro-volume blood collection and laboratory procedures. Confirm the tube type and intended application before use."
+  },
 
-  </div>
-</div>
-    
+  "EDTA Blood Collection Bottles (Non-Vaccum)": {
+    productCategory: "Blood Collection Supplies",
+    description: "Non-vacuum blood collection containers containing EDTA anticoagulant for appropriate blood specimen collection and haematological testing. Follow the manufacturer's instructions for fill volume and specimen handling."
+  },
+
+  "Plain Blood Collection Tubes (Non-Vaccum)": {
+    productCategory: "Blood Collection Supplies",
+    description: "Non-vacuum blood collection tubes without anticoagulant, intended for appropriate specimen collection where serum is required. Follow the manufacturer's instructions for clotting, processing and specimen handling."
+  },
+
+  "Lithium Heparin Blood Collection Tubes (Non-Vaccum)": {
+    productCategory: "Blood Collection Supplies",
+    description: "Non-vacuum blood collection tubes containing lithium heparin anticoagulant for appropriate plasma specimen collection and laboratory investigations. Confirm suitability for the intended test before use."
+  },
+
+  "Fluoride Oxalate Bottles (Non-Vaccum)": {
+    productCategory: "Blood Collection Supplies",
+    description: "Non-vacuum blood collection containers containing fluoride and oxalate additives, commonly used for appropriate glucose testing specimens. Follow the manufacturer's instructions for collection and handling."
+  },
+
+  "Microscope Slides & Coverslips": {
+    productCategory: "Microscopy Supplies",
+    description: "Glass microscope slides and coverslips used for preparing, mounting and examining specimens under a microscope. Handle carefully and select suitable dimensions for the intended laboratory procedure."
+  },
+
+  "Sterile Swab Sticks (Pack)": {
+    productCategory: "Sample Collection Supplies",
+    description: "Sterile swab sticks intended for appropriate specimen collection and transfer procedures. Select the correct swab type and transport system according to specimen requirements and laboratory protocols."
+  },
+
+  "Pipette Tips (1000 Tips)": {
+    productCategory: "Laboratory Consumable",
+    description: "Disposable pipette tips designed for liquid transfer using compatible micropipettes. Confirm the volume range, fit and sterility requirements for the intended laboratory application."
+  },
+
+  "Universal Sample Containers (Carton)": {
+    productCategory: "Sample Collection Supplies",
+    description: "General-purpose specimen containers designed for appropriate collection, storage and transportation of laboratory samples. Confirm the container capacity, material, closure and sterility requirements before use."
+  },
+
+  "Blood Lancets": {
+    productCategory: "Sample Collection Supplies",
+    description: "Single-use puncture devices designed to obtain capillary blood samples for appropriate testing procedures. Use according to the manufacturer's instructions and dispose of safely in an approved sharps container."
+  },
+
+  "Methylated Spirit": {
+    productCategory: "Laboratory Chemical",
+    description: "A denatured alcohol product used for selected cleaning and laboratory applications, subject to its formulation and approved use. Consult the product label and safety data sheet for handling, storage and fire precautions."
+  },
+
+  "Sterile Petri Dishes (20 pcs)": {
+    productCategory: "Microbiology Supplies",
+    description: "Sterile laboratory dishes designed to hold culture media for appropriate microbiological procedures. Maintain sterility and use according to laboratory protocols and the manufacturer's instructions."
+  }
+
+};
+
+
+// =============================================
+// PRODUCT NAME ALIASES
+// =============================================
+
+const consumablesProductAliases = {
+  "10 ml Syringes (Pack)": "10ml sterile syringes",
+
+  "Lithium Heparin Blood Collection Tubes":
+    "Lithium Heparin Blood Collection Tubes (Non-Vaccum)"
+};
+
+
+// =============================================
+// ADD PRODUCT INFORMATION BUTTONS
+// =============================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const productCards = document.querySelectorAll(".product-card");
+
+  productCards.forEach(function (card) {
+
+    const infoContainer =
+      card.querySelector(".product-info") || card;
+
+    // Prevent duplicate buttons
+    if (infoContainer.querySelector(".labkeep-product-info-btn")) {
+      return;
+    }
+
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "labkeep-product-info-btn";
+    button.textContent = "View Product Info";
+
+    infoContainer.appendChild(button);
+
+
+    // =============================================
+    // OPEN PRODUCT INFORMATION POPUP
+    // =============================================
+
+    button.addEventListener("click", function () {
+
+      const productName =
+        (card.querySelector("h3")?.innerText || "Product information")
+          .replace(/\s+/g, " ")
+          .trim();
+
+      const supplierElement = card.querySelector(".supplier");
+
+      const directSupplierText = Array.from(
+        supplierElement?.childNodes || []
+      )
+        .filter(function (node) {
+          return node.nodeType === Node.TEXT_NODE;
+        })
+        .map(function (node) {
+          return node.textContent.trim();
+        })
+        .find(Boolean);
+
+      const supplier =
+        directSupplierText ||
+        supplierElement?.querySelector("div")?.innerText.trim() ||
+        "Not provided by supplier";
+
+      const price =
+        card.querySelector(".product-price")?.innerText.trim() ||
+        "Not provided by supplier";
+
+      const location =
+        card.querySelector(".location")?.innerText.trim() ||
+        "Not provided by supplier";
+
+
+      // Find matching product information
+      const databaseName =
+        consumablesProductAliases[productName] || productName;
+
+      const productData =
+        consumablesProductInformation[databaseName] || {};
+
+
+      // Remove an existing popup, if present
+      document.getElementById("labkeepProductInfoModal")?.remove();
+
+
+      // Create popup
+      const modal = document.createElement("div");
+
+      modal.id = "labkeepProductInfoModal";
+      modal.className = "labkeep-info-overlay";
+
+      modal.innerHTML = `
+        <div class="labkeep-info-box">
+
+          <div class="labkeep-info-header">
+            <h2 id="labkeepInfoTitle"></h2>
+
+            <button
+              type="button"
+              class="labkeep-info-close"
+              aria-label="Close">
+              &times;
+            </button>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Supplier</span>
+            <span class="labkeep-info-value" id="labkeepInfoSupplier"></span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Price</span>
+            <span class="labkeep-info-value" id="labkeepInfoPrice"></span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Supplier Location</span>
+            <span class="labkeep-info-value" id="labkeepInfoLocation"></span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Product Category</span>
+            <span class="labkeep-info-value" id="labkeepInfoCategory"></span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Product Description</span>
+            <span class="labkeep-info-value" id="labkeepInfoDescription"></span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Expiry Date</span>
+            <span class="labkeep-info-value">Not yet provided</span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Storage Requirements</span>
+            <span class="labkeep-info-value">Not yet provided</span>
+          </div>
+
+          <div class="labkeep-info-row">
+            <span class="labkeep-info-label">Customer Ratings & Reviews</span>
+            <span class="labkeep-info-value">No customer reviews yet</span>
+          </div>
+
+          <div class="labkeep-info-note">
+            For additional product details, please contact LabKeep.
+            Product information will be updated as suppliers provide it.
+          </div>
+
+        </div>
+      `;
+
+
+      // Fill popup with product information
+      modal.querySelector("#labkeepInfoTitle").textContent = productName;
+
+      modal.querySelector("#labkeepInfoSupplier").textContent = supplier;
+
+      modal.querySelector("#labkeepInfoPrice").textContent = price;
+
+      modal.querySelector("#labkeepInfoLocation").textContent = location;
+
+      modal.querySelector("#labkeepInfoCategory").textContent =
+        productData.productCategory || "Not yet provided";
+
+      modal.querySelector("#labkeepInfoDescription").textContent =
+        productData.description || "Not yet provided";
+
+
+      // Display popup
+      document.body.appendChild(modal);
+
+
+      // =============================================
+      // CLOSE POPUP
+      // =============================================
+
+      function closeModal() {
+        modal.remove();
+        document.removeEventListener("keydown", handleEscape);
+      }
+
+      function handleEscape(event) {
+        if (event.key === "Escape") {
+          closeModal();
+        }
+      }
+
+      modal.querySelector(".labkeep-info-close")
+        .addEventListener("click", closeModal);
+
+      modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("keydown", handleEscape);
+
+    });
+
+  });
+
+});
+</script>
   </body>
 </html>
