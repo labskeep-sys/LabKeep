@@ -489,11 +489,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const requestButton = card.querySelector(".Request");
 
-    if (requestButton) {
-      requestButton.insertAdjacentElement("beforebegin", button);
-    } else {
-      card.querySelector(".product-info")?.appendChild(button);
-    }
+if (requestButton) {
+  requestButton.insertAdjacentElement("afterend", button);
+} else {
+  card.querySelector(".product-info")?.appendChild(button);
+}
   });
 
 
