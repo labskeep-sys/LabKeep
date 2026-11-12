@@ -1568,40 +1568,6 @@ modal.querySelector("#labkeepInfoCategory").textContent =
 modal.querySelector("#labkeepInfoDescription").textContent =
   productData.description || "Not yet provided";
 
-modal.querySelector("#labkeepInfoExpiry").textContent =
-  productData.category === "equipment"
-    ? "Not applicable"
-    : productData.expiryDate || "Not yet provided";
-
-modal.querySelector("#labkeepInfoStorage").textContent =
-  productData.storage || "Not yet provided";
-
-      // Display equipment-specific information
-const equipmentRows = [
-  "labkeepEquipmentConditionRow",
-  "labkeepEquipmentWarrantyRow",
-  "labkeepEquipmentMaintenanceRow"
-];
-
-if (productData.category === "equipment") {
-
-  modal.querySelector("#labkeepInfoCondition").textContent =
-    productData.condition || "Not yet provided";
-
-  modal.querySelector("#labkeepInfoWarranty").textContent =
-    productData.warranty || "Not yet provided";
-
-  modal.querySelector("#labkeepInfoMaintenance").textContent =
-    productData.maintenanceRequirements || "Not yet provided";
-
-} else {
-
-  equipmentRows.forEach(function (rowId) {
-    modal.querySelector("#" + rowId).remove();
-  });
-
-}
-
 // Display customer ratings and genuine reviews
 const ratingElement = modal.querySelector("#labkeepInfoReviews");
 
