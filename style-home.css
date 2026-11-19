@@ -1198,3 +1198,192 @@ body {
   }
 
 }
+
+/* =========================================
+   LABKEEP SOLUTIONS — INCREASED FONT SIZES
+========================================= */
+
+/* Main section heading */
+.lab-solutions-heading h2 {
+  font-size: clamp(30px, 4vw, 42px);
+}
+
+.lab-solutions-heading p {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Solution card titles */
+.lab-solution-card-heading h3,
+.lab-rewards-heading h3 {
+  font-size: clamp(19px, 2vw, 23px);
+}
+
+/* Main descriptions */
+.lab-solution-description,
+.lab-rewards-card > p {
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+/* Product previews */
+.lab-preview-product h4 {
+  font-size: 17px;
+}
+
+.lab-preview-product p {
+  font-size: 14px;
+}
+
+/* Dashboard previews */
+.lab-dashboard-top {
+  font-size: 14px;
+}
+
+.lab-dashboard-indicator {
+  font-size: 11px;
+}
+
+.lab-dashboard-stat span {
+  font-size: 12px;
+}
+
+.lab-dashboard-stat strong {
+  font-size: 23px;
+}
+
+.lab-dashboard-list div {
+  font-size: 12px;
+}
+
+.lab-dashboard-feature h4 {
+  font-size: 16px;
+}
+
+.lab-dashboard-feature p {
+  font-size: 13px;
+}
+
+/* Patient notifications */
+.lab-notification-preview h4 {
+  font-size: 15px;
+}
+
+.lab-notification-preview p {
+  font-size: 13px;
+}
+
+/* Information beneath previews */
+.lab-solution-information h4 {
+  font-size: 15px;
+}
+
+.lab-solution-information p {
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* Buttons */
+.lab-solution-link {
+  font-size: 14px;
+}
+
+/* Rewards preview */
+.lab-rewards-feature h4 {
+  font-size: 18px;
+}
+
+.lab-rewards-feature p {
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .lab-solutions-heading h2 {
+    font-size: 30px;
+  }
+
+  .lab-solutions-heading p {
+    font-size: 15px;
+  }
+
+  .lab-solution-card-heading h3,
+  .lab-rewards-heading h3 {
+    font-size: 20px;
+  }
+
+  .lab-solution-description,
+  .lab-rewards-card > p {
+    font-size: 14px;
+  }
+
+  .lab-preview-product h4 {
+    font-size: 16px;
+  }
+
+  .lab-preview-product p {
+    font-size: 13px;
+  }
+
+  .lab-dashboard-top {
+    font-size: 13px;
+  }
+
+  .lab-dashboard-indicator {
+    font-size: 10px;
+  }
+
+  .lab-dashboard-stat span {
+    font-size: 11px;
+  }
+
+  .lab-dashboard-list div {
+    font-size: 11px;
+  }
+
+  .lab-dashboard-feature h4 {
+    font-size: 15px;
+  }
+
+  .lab-dashboard-feature p {
+    font-size: 12px;
+  }
+
+  .lab-solution-information h4 {
+    font-size: 14px;
+  }
+
+  .lab-solution-information p {
+    font-size: 13px;
+  }
+
+  .lab-solution-link {
+    font-size: 13px;
+  }
+}
+
+/* Very narrow phones */
+@media (max-width: 380px) {
+  .lab-solutions-heading h2 {
+    font-size: 27px;
+  }
+
+  .lab-solution-card-heading h3,
+  .lab-rewards-heading h3 {
+    font-size: 18px;
+  }
+
+  .lab-solution-description,
+  .lab-rewards-card > p {
+    font-size: 13px;
+  }
+
+  .lab-dashboard-list div {
+    font-size: 10px;
+  }
+
+  .lab-solution-information p {
+    font-size: 12px;
+  }
+}
