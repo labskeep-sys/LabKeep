@@ -402,3 +402,799 @@ body {
   font-size: 13px;
   font-weight: 600;
 }
+
+/* =========================================
+   LABKEEP SOLUTIONS SECTION
+========================================= */
+
+.lab-solutions-section {
+  width: 100%;
+  padding: 65px 24px;
+  background: #f8fbff;
+  overflow: hidden;
+}
+
+.lab-solutions-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* SECTION HEADING */
+
+.lab-solutions-heading {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+.lab-solutions-heading h2 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(27px, 4vw, 38px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: #0b1f5c;
+}
+
+.lab-solutions-heading p {
+  margin-top: 9px;
+  font-family: "Manrope", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #7181a5;
+}
+
+/* FOUR SOLUTION CARDS */
+
+.lab-solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.lab-solution-card {
+  min-width: 0;
+  overflow: hidden;
+  padding: 25px;
+  border: 1px solid #e2eaff;
+  border-radius: 25px;
+  background: #ffffff;
+  box-shadow: 0 12px 35px rgba(11, 31, 92, 0.07);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.lab-solution-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 42px rgba(11, 31, 92, 0.11);
+}
+
+/* CARD HEADINGS */
+
+.lab-solution-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 13px;
+}
+
+.lab-solution-icon {
+  display: flex;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #edf3ff;
+  color: #1237d8;
+  font-size: 20px;
+}
+
+.lab-solution-card-heading h3,
+.lab-rewards-heading h3 {
+  min-width: 0;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 1.3;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #0b1f5c;
+}
+
+.lab-solution-description {
+  margin-bottom: 20px;
+  font-family: "Manrope", sans-serif;
+  font-size: 13px;
+  line-height: 1.7;
+  font-weight: 600;
+  color: #7181a5;
+}
+
+/* =========================================
+   INDIVIDUAL PREVIEW CAROUSELS
+========================================= */
+
+.lab-preview-carousel,
+.lab-rewards-preview {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 19px;
+  background: #f2f6ff;
+  border: 1px solid #e6edff;
+}
+
+.lab-preview-track {
+  display: flex;
+  width: 100%;
+  transform: translateX(0);
+  transition: transform 0.55s ease-in-out;
+  will-change: transform;
+}
+
+.lab-preview-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 0;
+  padding: 15px;
+  display: flex;
+  align-items: stretch;
+}
+
+/* PROCUREMENT PRODUCT PREVIEWS */
+
+.lab-preview-product {
+  width: 100%;
+  min-height: 205px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 15px;
+  background: #ffffff;
+}
+
+.lab-preview-image {
+  width: 105px;
+  height: 95px;
+  margin-bottom: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 17px;
+  background: linear-gradient(145deg, #edf3ff, #dce8ff);
+  color: #1237d8;
+  font-size: 38px;
+}
+
+.lab-preview-product h4 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 800;
+  color: #0b1f5c;
+}
+
+.lab-preview-product p {
+  margin-top: 5px;
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #7181a5;
+}
+
+/* INVENTORY, GROWTH AND PATIENT DASHBOARD PREVIEWS */
+
+.lab-dashboard-preview {
+  width: 100%;
+  min-height: 205px;
+  padding: 16px;
+  border-radius: 15px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.lab-dashboard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid #edf1fa;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  color: #0b1f5c;
+}
+
+.lab-dashboard-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  font-family: "Manrope", sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  color: #1237d8;
+}
+
+.lab-dashboard-indicator i {
+  font-size: 8px;
+}
+
+.lab-dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.lab-dashboard-stat {
+  min-width: 0;
+  padding: 12px;
+  border-radius: 12px;
+  background: #f2f6ff;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.lab-dashboard-stat span {
+  font-family: "Manrope", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #7181a5;
+}
+
+.lab-dashboard-stat strong {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  color: #1237d8;
+}
+
+.lab-dashboard-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.lab-dashboard-list div {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px;
+  border-radius: 9px;
+  background: #f6f8fd;
+  font-family: "Manrope", sans-serif;
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 700;
+  color: #40547d;
+}
+
+.lab-dashboard-list i {
+  flex-shrink: 0;
+  color: #3f7cff;
+}
+
+.lab-dashboard-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #f2f6ff;
+}
+
+.lab-dashboard-feature > i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 37px;
+  height: 37px;
+  border-radius: 11px;
+  background: #e1eaff;
+  color: #1237d8;
+  font-size: 17px;
+}
+
+.lab-dashboard-feature h4 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 800;
+  color: #0b1f5c;
+}
+
+.lab-dashboard-feature p {
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  line-height: 1.65;
+  font-weight: 600;
+  color: #7181a5;
+}
+
+/* PATIENT NOTIFICATION PREVIEW */
+
+.lab-notification-preview {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px;
+  border-radius: 13px;
+  background: #f1f7ff;
+  border: 1px solid #dce9ff;
+}
+
+.lab-notification-preview > i {
+  flex-shrink: 0;
+  font-size: 23px;
+  color: #129b67;
+}
+
+.lab-notification-preview h4 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: #0b1f5c;
+}
+
+.lab-notification-preview p {
+  margin-top: 5px;
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #7181a5;
+}
+
+/* CAROUSEL CONTROLS */
+
+.lab-preview-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  padding: 10px 12px;
+  border-top: 1px solid #e5ecfb;
+  background: #f8fbff;
+}
+
+.lab-preview-prev,
+.lab-preview-next {
+  display: flex;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #eaf0ff;
+  color: #1237d8;
+  font-size: 16px;
+  transition: background 0.2s ease,
+              color 0.2s ease;
+}
+
+.lab-preview-prev:hover,
+.lab-preview-next:hover {
+  background: #1237d8;
+  color: #ffffff;
+}
+
+.lab-preview-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.lab-preview-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border-radius: 50%;
+  background: #cbd7f0;
+  transition: width 0.2s ease,
+              background 0.2s ease;
+}
+
+.lab-preview-dot.active {
+  width: 19px;
+  border-radius: 10px;
+  background: #1237d8;
+}
+
+/* =========================================
+   SOLUTION INFORMATION
+========================================= */
+
+.lab-solution-information {
+  margin-top: 18px;
+  padding: 15px;
+  border-radius: 14px;
+  background: #f5f8ff;
+  border-left: 3px solid #3f7cff;
+}
+
+.lab-solution-information h4 {
+  margin-bottom: 7px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: #0b1f5c;
+}
+
+.lab-solution-information p {
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  line-height: 1.75;
+  font-weight: 600;
+  color: #7181a5;
+}
+
+/* CARD LINKS */
+
+.lab-solution-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: auto;
+  padding: 11px 17px;
+  border-radius: 999px;
+  background: #1237d8;
+  color: #ffffff;
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s ease,
+              transform 0.2s ease;
+}
+
+.lab-solution-link:hover {
+  background: #0b1f5c;
+  transform: translateY(-2px);
+}
+
+.lab-solution-link span {
+  font-size: 16px;
+}
+
+/* =========================================
+   LABKEEP REWARDS
+========================================= */
+
+.lab-rewards-card {
+  position: relative;
+  width: 100%;
+  margin-top: 25px;
+  padding: 28px;
+  overflow: hidden;
+  border-radius: 25px;
+  background: linear-gradient(
+    125deg,
+    #07143f 0%,
+    #0a1f61 55%,
+    #1237d8 100%
+  );
+  color: #ffffff;
+  box-shadow: 0 18px 45px rgba(11, 31, 92, 0.13);
+}
+
+.lab-rewards-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 10px;
+}
+
+.lab-rewards-heading .lab-solution-icon {
+  background: rgba(255, 255, 255, 0.13);
+  color: #ffffff;
+}
+
+.lab-rewards-heading h3 {
+  color: #ffffff;
+}
+
+.lab-rewards-card > p {
+  margin-bottom: 20px;
+  font-family: "Manrope", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* REWARDS PREVIEW */
+
+.lab-rewards-preview {
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.lab-rewards-preview .lab-preview-controls {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.lab-rewards-preview .lab-preview-prev,
+.lab-rewards-preview .lab-preview-next {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.lab-rewards-preview .lab-preview-dot {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.lab-rewards-preview .lab-preview-dot.active {
+  background: #ffffff;
+}
+
+.lab-rewards-feature {
+  width: 100%;
+  min-height: 135px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 9px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.lab-rewards-feature > i {
+  font-size: 25px;
+  color: #a9c8ff;
+}
+
+.lab-rewards-feature h4 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.lab-rewards-feature p {
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.lab-rewards-card .lab-solution-link {
+  margin-top: 20px;
+  background: #ffffff;
+  color: #0b1f5c;
+}
+
+.lab-rewards-card .lab-solution-link:hover {
+  background: #eaf1ff;
+}
+
+/* =========================================
+   TABLET RESPONSIVENESS
+========================================= */
+
+@media (max-width: 900px) {
+
+  .lab-solutions-section {
+    padding: 55px 22px;
+  }
+
+  .lab-solutions-grid {
+    gap: 18px;
+  }
+
+  .lab-solution-card {
+    padding: 20px;
+  }
+
+  .lab-solution-card-heading h3 {
+    font-size: 18px;
+  }
+
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+========================================= */
+
+@media (max-width: 640px) {
+
+  .lab-solutions-section {
+    padding: 42px 16px;
+  }
+
+  .lab-solutions-heading {
+    margin-bottom: 25px;
+  }
+
+  .lab-solutions-heading h2 {
+    font-size: 28px;
+  }
+
+  .lab-solutions-heading p {
+    max-width: 330px;
+    margin: 8px auto 0;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .lab-solutions-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 17px;
+  }
+
+  .lab-solution-card {
+    width: 100%;
+    padding: 19px;
+    border-radius: 21px;
+  }
+
+  .lab-solution-card-heading {
+    gap: 11px;
+  }
+
+  .lab-solution-card-heading h3 {
+    font-size: 18px;
+  }
+
+  .lab-solution-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .lab-solution-description {
+    font-size: 12px;
+    margin-bottom: 15px;
+  }
+
+  .lab-preview-slide {
+    padding: 10px;
+  }
+
+  .lab-preview-product,
+  .lab-dashboard-preview {
+    min-height: 195px;
+  }
+
+  .lab-dashboard-list div {
+    font-size: 10px;
+  }
+
+  .lab-solution-information {
+    margin-top: 14px;
+    padding: 13px;
+  }
+
+  .lab-solution-information p {
+    font-size: 11px;
+  }
+
+  .lab-solution-link {
+    margin-top: 17px;
+    padding: 11px 15px;
+    font-size: 12px;
+  }
+
+  .lab-rewards-card {
+    margin-top: 18px;
+    padding: 21px;
+    border-radius: 21px;
+  }
+
+  .lab-rewards-heading h3 {
+    font-size: 17px;
+  }
+
+  .lab-rewards-card > p {
+    font-size: 12px;
+  }
+
+}
+
+/* =========================================
+   SMALL PHONES
+   iPhone SE and narrow Android screens
+========================================= */
+
+@media (max-width: 380px) {
+
+  .lab-solutions-section {
+    padding: 35px 12px;
+  }
+
+  .lab-solutions-heading h2 {
+    font-size: 25px;
+  }
+
+  .lab-solution-card {
+    padding: 15px;
+    border-radius: 18px;
+  }
+
+  .lab-solution-card-heading h3 {
+    font-size: 16px;
+  }
+
+  .lab-solution-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+
+  .lab-preview-product,
+  .lab-dashboard-preview {
+    min-height: 185px;
+    padding: 12px;
+  }
+
+  .lab-dashboard-top {
+    font-size: 10px;
+  }
+
+  .lab-dashboard-indicator {
+    font-size: 8px;
+  }
+
+  .lab-dashboard-list div {
+    padding: 7px;
+    font-size: 9px;
+  }
+
+  .lab-dashboard-feature h4 {
+    font-size: 12px;
+  }
+
+  .lab-dashboard-feature p {
+    font-size: 10px;
+  }
+
+  .lab-solution-information h4 {
+    font-size: 12px;
+  }
+
+  .lab-solution-information p {
+    font-size: 10px;
+  }
+
+  .lab-rewards-card {
+    padding: 16px;
+  }
+
+  .lab-rewards-heading h3 {
+    font-size: 15px;
+  }
+
+}
+
+/* ACCESSIBILITY: REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .lab-preview-track,
+  .lab-solution-card,
+  .lab-solution-link {
+    transition: none;
+  }
+
+}
