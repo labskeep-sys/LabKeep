@@ -1387,3 +1387,241 @@ body {
     font-size: 12px;
   }
 }
+
+
+/* =========================================
+   LABKEEP SOLUTIONS HERO
+========================================= */
+
+.lab-solutions-hero {
+  width: 100%;
+  margin-bottom: 35px;
+  padding: 42px 30px;
+  border-radius: 26px;
+  overflow: hidden;
+  background: linear-gradient(
+    125deg,
+    #07143f 0%,
+    #0a1f61 55%,
+    #1237d8 100%
+  );
+  color: #ffffff;
+}
+
+.lab-solutions-hero-content {
+  max-width: 850px;
+}
+
+.lab-solutions-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 15px;
+  margin-bottom: 20px;
+  border-radius: 30px;
+  background: rgba(18, 55, 216, 0.28);
+  color: #54aaff;
+  font-family: "Manrope", sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.lab-solutions-hero h2 {
+  margin-bottom: 17px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(30px, 4.5vw, 46px);
+  line-height: 1.3;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: #ffffff;
+}
+
+.lab-solutions-hero p {
+  max-width: 760px;
+  margin-bottom: 22px;
+  font-family: "Manrope", sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  font-weight: 500;
+  color: #d5e2ff;
+}
+
+.lab-solutions-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 13px;
+}
+
+.lab-hero-primary-button,
+.lab-hero-secondary-button {
+  min-height: 54px;
+  padding: 13px 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-family: "Manrope", sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 0.2s ease,
+              transform 0.2s ease;
+}
+
+.lab-hero-primary-button {
+  background: #ffffff;
+  color: #0b1f5c;
+}
+
+.lab-hero-primary-button:hover {
+  background: #eaf1ff;
+  transform: translateY(-2px);
+}
+
+.lab-hero-secondary-button {
+  border: 1.5px solid #ffffff;
+  background: transparent;
+  color: #ffffff;
+}
+
+.lab-hero-secondary-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   LABORATORY WORKSPACE ACCESS
+========================================= */
+
+.lab-workspace-access {
+  width: 100%;
+  margin-top: 25px;
+  padding: 27px;
+  border-radius: 20px;
+  background: #f1f4fa;
+}
+
+.lab-workspace-access h3 {
+  margin-bottom: 12px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(21px, 3vw, 27px);
+  line-height: 1.45;
+  font-weight: 800;
+  color: #0b1f5c;
+}
+
+.lab-workspace-access p {
+  margin-bottom: 20px;
+  font-family: "Manrope", sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  font-weight: 600;
+  color: #7181a5;
+}
+
+.lab-workspace-access-button {
+  width: 100%;
+  min-height: 58px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #0b1f5c;
+  color: #ffffff;
+  font-family: "Manrope", sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s ease,
+              transform 0.2s ease;
+}
+
+.lab-workspace-access-button:hover {
+  background: #1237d8;
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+========================================= */
+
+@media (max-width: 640px) {
+
+  .lab-solutions-hero {
+    padding: 27px 20px;
+    margin-bottom: 25px;
+    border-radius: 21px;
+  }
+
+  .lab-solutions-eyebrow {
+    font-size: 12px;
+    padding: 7px 12px;
+    margin-bottom: 17px;
+  }
+
+  .lab-solutions-hero h2 {
+    font-size: clamp(28px, 7vw, 36px);
+    line-height: 1.35;
+    letter-spacing: -0.8px;
+  }
+
+  .lab-solutions-hero p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .lab-solutions-hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .lab-hero-primary-button,
+  .lab-hero-secondary-button {
+    width: 100%;
+    min-height: 52px;
+    font-size: 15px;
+  }
+
+  .lab-workspace-access {
+    margin-top: 18px;
+    padding: 21px;
+    border-radius: 17px;
+  }
+
+  .lab-workspace-access h3 {
+    font-size: 21px;
+  }
+
+  .lab-workspace-access p {
+    font-size: 14px;
+  }
+
+  .lab-workspace-access-button {
+    min-height: 55px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 380px) {
+
+  .lab-solutions-hero {
+    padding: 23px 16px;
+  }
+
+  .lab-solutions-hero h2 {
+    font-size: 27px;
+  }
+
+  .lab-solutions-hero p {
+    font-size: 14px;
+  }
+
+  .lab-workspace-access {
+    padding: 17px;
+  }
+}
