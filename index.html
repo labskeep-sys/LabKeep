@@ -1523,22 +1523,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function startAutoPlay() {
 
-      stopAutoPlay();
+  stopAutoPlay();
 
-      if (
-        reducedMotion ||
-        document.hidden ||
-        carousel.matches(":hover") ||
-        carousel.contains(document.activeElement)
-      ) {
-        return;
-      }
+  const isDesktopHover =
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-      autoPlay = setInterval(function () {
-        nextSlide();
-      }, autoPlayDelay);
+  if (
+    reducedMotion ||
+    document.hidden ||
+    (isDesktopHover && carousel.matches(":hover"))
+  ) {
+    return;
+  }
 
-    }
+  autoPlay = setInterval(function () {
+    nextSlide();
+  }, autoPlayDelay);
+
+}
 
     function restartAutoPlay() {
       stopAutoPlay();
@@ -1548,32 +1550,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* PAUSE WHILE VISITOR INTERACTS */
 
-    carousel.addEventListener(
-      "mouseenter",
-      stopAutoPlay
-    );
+   const isDesktopHover =
+  window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-    carousel.addEventListener(
-      "mouseleave",
-      startAutoPlay
-    );
+if (isDesktopHover) {
 
-    carousel.addEventListener(
-      "focusin",
-      stopAutoPlay
-    );
+  carousel.addEventListener("mouseenter", stopAutoPlay);
 
-    carousel.addEventListener(
-      "focusout",
-      function (event) {
+  carousel.addEventListener("mouseleave", startAutoPlay);
 
-        if (!carousel.contains(event.relatedTarget)) {
-          startAutoPlay();
-        }
-
-      }
-    );
-
+}
 
     /* MOBILE TOUCH SWIPING */
 
