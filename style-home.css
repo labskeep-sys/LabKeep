@@ -1634,3 +1634,33 @@ body {
   display: block;
   border-radius: inherit;
 }
+
+
+/* Larger Procurement product images */
+.procurement-card .lab-preview-image {
+  width: 280px;
+  max-width: 100%;
+  height: 210px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.procurement-card .lab-preview-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 18px;
+}
+
+@media (max-width: 480px) {
+  .procurement-card .lab-preview-image {
+    width: 260px;
+    height: 195px;
+  }
+}
