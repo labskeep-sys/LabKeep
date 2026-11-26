@@ -1765,3 +1765,12 @@ body {
 .procurement-card .lab-solution-link {
   margin-top: auto;
 }
+
+/* LABKEEP SOLUTION ICONS */
+
+.lab-solution-icon svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+  flex-shrink: 0;
+}
