@@ -278,99 +278,240 @@
 
           <div class="lab-preview-track">
 
-            <div class="lab-preview-slide">
+  <!-- SLIDE 1: INVENTORY OVERVIEW -->
+  <div class="lab-preview-slide">
 
-              <div class="lab-dashboard-preview">
+    <div class="lab-dashboard-preview">
 
-                <div class="lab-dashboard-top">
-                  <span>Inventory Overview</span>
-                  <span class="lab-dashboard-indicator">
-                    <i class="fas fa-circle"></i> Dashboard
-                  </span>
-                </div>
+      <div class="lab-dashboard-top">
+        <span>Inventory Overview</span>
+        <span class="lab-dashboard-indicator">
+          <i class="fas fa-circle"></i> Sample Dashboard
+        </span>
+      </div>
 
-                <div class="lab-dashboard-stats">
+      <div class="ops-stat-grid">
 
-                  <div class="lab-dashboard-stat">
-                    <span>Total Products</span>
-                    <strong>--</strong>
-                  </div>
+        <div class="ops-stat-card">
+          <span>Total Products</span>
+          <strong>248</strong>
+          <small>Products recorded</small>
+        </div>
 
-                  <div class="lab-dashboard-stat">
-                    <span>Low Stock</span>
-                    <strong>--</strong>
-                  </div>
+        <div class="ops-stat-card ops-warning">
+          <span>Low Stock</span>
+          <strong>12</strong>
+          <small>Need attention</small>
+        </div>
 
-                </div>
+        <div class="ops-stat-card ops-expiry">
+          <span>Expiring Soon</span>
+          <strong>8</strong>
+          <small>Upcoming expiries</small>
+        </div>
 
-                <div class="lab-dashboard-list">
-                  <div><i class="fas fa-box"></i> Products</div>
-                  <div><i class="fas fa-arrow-down"></i> Stock In</div>
-                  <div><i class="fas fa-clock"></i> Expiry Tracking</div>
-                  <div><i class="fas fa-bell"></i> Reorder Alerts</div>
-                </div>
+        <div class="ops-stat-card ops-success">
+          <span>Stock Availability</span>
+          <strong>96%</strong>
+          <small>Illustrative indicator</small>
+        </div>
 
-              </div>
+      </div>
 
-            </div>
+      <div class="ops-inventory-summary">
+        <div class="ops-summary-heading">
+          <strong>Inventory Status</strong>
+          <span>Illustrative data</span>
+        </div>
 
+        <div class="ops-summary-row">
+          <span>Available Stock</span>
+          <strong>96%</strong>
+        </div>
 
-            <div class="lab-preview-slide">
+        <div class="ops-progress">
+          <span style="width:96%"></span>
+        </div>
 
-              <div class="lab-dashboard-preview">
+        <div class="ops-summary-row">
+          <span>Items Requiring Attention</span>
+          <strong>12 items</strong>
+        </div>
 
-                <div class="lab-dashboard-top">
-                  <span>Stock Management</span>
-                  <span class="lab-dashboard-indicator">
-                    <i class="fas fa-boxes-stacked"></i> Stock
-                  </span>
-                </div>
+        <div class="ops-progress ops-progress-warning">
+          <span style="width:24%"></span>
+        </div>
+      </div>
 
-                <div class="lab-dashboard-feature">
-                  <i class="fas fa-chart-bar"></i>
-                  <h4>Monitor Stock Levels</h4>
-                  <p>
-                    Keep track of available consumables
-                    and identify products that need restocking.
-                  </p>
-                </div>
+    </div>
 
-                <div class="lab-dashboard-list">
-                  <div><i class="fas fa-calendar-check"></i> Expiry Monitoring</div>
-                  <div><i class="fas fa-rotate"></i> Stock Updates</div>
-                  <div><i class="fas fa-triangle-exclamation"></i> Reorder Reminders</div>
-                </div>
-
-              </div>
-
-            </div>
+  </div>
 
 
-            <div class="lab-preview-slide">
+  <!-- SLIDE 2: STOCK MANAGEMENT -->
+  <div class="lab-preview-slide">
 
-              <div class="lab-dashboard-preview">
+    <div class="lab-dashboard-preview">
 
-                <div class="lab-dashboard-top">
-                  <span>Laboratory Readiness</span>
-                  <span class="lab-dashboard-indicator">
-                    <i class="fas fa-clipboard-check"></i> Control
-                  </span>
-                </div>
+      <div class="lab-dashboard-top">
+        <span>Stock Management</span>
+        <span class="lab-dashboard-indicator">
+          <i class="fas fa-chart-column"></i> Stock Activity
+        </span>
+      </div>
 
-                <div class="lab-dashboard-feature">
-                  <i class="fas fa-shield-halved"></i>
-                  <h4>Stay Prepared</h4>
-                  <p>
-                    Know what is available, what is running low
-                    and what needs attention.
-                  </p>
-                </div>
+      <div class="ops-chart-heading">
+        <div>
+          <h4>Stock Movement</h4>
+          <p>Monitor supplies received and consumed</p>
+        </div>
+        <span class="ops-chart-period">Weekly</span>
+      </div>
 
-              </div>
+      <div class="ops-chart-legend">
+        <span><i class="ops-legend-in"></i> Stock In</span>
+        <span><i class="ops-legend-out"></i> Stock Out</span>
+      </div>
 
-            </div>
+      <div class="ops-bar-chart">
 
+        <div class="ops-chart-column">
+          <div class="ops-bars">
+            <span class="ops-bar-in" style="height:70%"></span>
+            <span class="ops-bar-out" style="height:40%"></span>
           </div>
+          <small>Mon</small>
+        </div>
+
+        <div class="ops-chart-column">
+          <div class="ops-bars">
+            <span class="ops-bar-in" style="height:48%"></span>
+            <span class="ops-bar-out" style="height:58%"></span>
+          </div>
+          <small>Tue</small>
+        </div>
+
+        <div class="ops-chart-column">
+          <div class="ops-bars">
+            <span class="ops-bar-in" style="height:88%"></span>
+            <span class="ops-bar-out" style="height:52%"></span>
+          </div>
+          <small>Wed</small>
+        </div>
+
+        <div class="ops-chart-column">
+          <div class="ops-bars">
+            <span class="ops-bar-in" style="height:62%"></span>
+            <span class="ops-bar-out" style="height:45%"></span>
+          </div>
+          <small>Thu</small>
+        </div>
+
+        <div class="ops-chart-column">
+          <div class="ops-bars">
+            <span class="ops-bar-in" style="height:100%"></span>
+            <span class="ops-bar-out" style="height:65%"></span>
+          </div>
+          <small>Fri</small>
+        </div>
+
+      </div>
+
+      <div class="ops-chart-footer">
+        <div>
+          <span>Stock In</span>
+          <strong>145 units</strong>
+        </div>
+        <div>
+          <span>Stock Out</span>
+          <strong>98 units</strong>
+        </div>
+      </div>
+
+      <div class="lab-dashboard-list">
+        <div><i class="fas fa-box"></i> Stock Updates</div>
+        <div><i class="fas fa-clock"></i> Expiry Monitoring</div>
+        <div><i class="fas fa-bell"></i> Reorder Alerts</div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SLIDE 3: LABORATORY READINESS -->
+  <div class="lab-preview-slide">
+
+    <div class="lab-dashboard-preview">
+
+      <div class="lab-dashboard-top">
+        <span>Laboratory Readiness</span>
+        <span class="lab-dashboard-indicator">
+          <i class="fas fa-clipboard-check"></i> Readiness
+        </span>
+      </div>
+
+      <div class="ops-readiness-banner">
+        <div class="ops-readiness-icon">
+          <i class="fas fa-shield-halved"></i>
+        </div>
+        <div>
+          <strong>Stay Ready for Testing</strong>
+          <p>Know what is available and what needs attention.</p>
+        </div>
+      </div>
+
+      <div class="ops-readiness-list">
+
+        <div class="ops-readiness-item">
+          <span class="ops-readiness-symbol ops-green">
+            <i class="fas fa-check"></i>
+          </span>
+          <div>
+            <strong>Available Supplies</strong>
+            <small>Essential products in stock</small>
+          </div>
+          <b>On track</b>
+        </div>
+
+        <div class="ops-readiness-item">
+          <span class="ops-readiness-symbol ops-orange">
+            <i class="fas fa-exclamation"></i>
+          </span>
+          <div>
+            <strong>Low Stock Alerts</strong>
+            <small>Products approaching minimum levels</small>
+          </div>
+          <b>12 items</b>
+        </div>
+
+        <div class="ops-readiness-item">
+          <span class="ops-readiness-symbol ops-red">
+            <i class="fas fa-clock"></i>
+          </span>
+          <div>
+            <strong>Expiry Monitoring</strong>
+            <small>Products approaching expiry</small>
+          </div>
+          <b>8 items</b>
+        </div>
+
+      </div>
+
+      <div class="ops-readiness-footer">
+        <i class="fas fa-lightbulb"></i>
+        Better stock visibility. Fewer unexpected interruptions.
+      </div>
+
+      <p class="ops-demo-note">
+        Illustrative dashboard preview
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
 
           <div class="lab-preview-controls">
             <button type="button"
