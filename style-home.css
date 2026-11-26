@@ -1664,3 +1664,62 @@ body {
     height: 195px;
   }
 }
+
+/* PROCUREMENT: FULL-BLEED PRODUCT IMAGE */
+
+.procurement-card .lab-preview-product {
+  position: relative;
+  width: 100%;
+  min-height: 300px;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: transparent;
+}
+
+.procurement-card .lab-preview-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+}
+
+.procurement-card .lab-preview-overlay-text {
+  position: absolute;
+  z-index: 2;
+  left: 15px;
+  right: 15px;
+  bottom: 28px;
+  text-align: center;
+}
+
+.procurement-card .lab-preview-overlay-text h4,
+.procurement-card .lab-preview-overlay-text p {
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.procurement-card .lab-preview-overlay-text h4 {
+  margin-bottom: 8px;
+}
+
+.procurement-card .lab-preview-overlay-text p {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .procurement-card .lab-preview-product {
+    min-height: 280px;
+  }
+
+  .procurement-card .lab-preview-overlay-text {
+    bottom: 22px;
+  }
+}
