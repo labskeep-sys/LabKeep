@@ -2173,3 +2173,19 @@ body {
     font-size: 9px;
   }
 }
+
+
+
+/* Operations readiness SVG icons */
+
+.ops-readiness-icon svg,
+.ops-readiness-symbol svg {
+  width: 19px;
+  height: 19px;
+  display: block;
+}
+
+.ops-readiness-icon svg {
+  width: 23px;
+  height: 23px;
+}
