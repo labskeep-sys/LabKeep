@@ -2189,3 +2189,454 @@ body {
   width: 23px;
   height: 23px;
 }
+
+
+/* =========================================
+   LABKEEP GROWTH DASHBOARD PREVIEWS
+========================================= */
+
+/* FINANCIAL OVERVIEW */
+
+.growth-revenue-card {
+  background: linear-gradient(125deg, #102b91, #3155e8);
+  padding: 19px;
+  border-radius: 17px;
+  margin-top: 18px;
+  color: #fff;
+}
+
+.growth-revenue-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.growth-revenue-heading > span:first-child {
+  color: #e0e7ff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.growth-revenue-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: rgba(255,255,255,.15);
+  border-radius: 10px;
+}
+
+.growth-revenue-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.growth-revenue-card > strong {
+  display: block;
+  font-size: clamp(23px, 4vw, 31px);
+  line-height: 1.3;
+  margin: 12px 0 5px;
+  letter-spacing: -.7px;
+  overflow-wrap: anywhere;
+}
+
+.growth-revenue-card > small {
+  color: #d5dfff;
+  font-size: 11px;
+}
+
+.growth-financial-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px;
+  margin-top: 12px;
+}
+
+.growth-financial-stat {
+  background: #f1f5ff;
+  border-radius: 14px;
+  padding: 14px;
+  min-width: 0;
+}
+
+.growth-financial-stat span {
+  display: block;
+  color: #7180a5;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.growth-financial-stat strong {
+  display: block;
+  color: #2446d8;
+  font-size: 22px;
+  margin-top: 8px;
+}
+
+.growth-financial-stat small {
+  display: block;
+  color: #8794b0;
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+.growth-financial-stat.growth-profit strong {
+  color: #16845b;
+}
+
+.growth-chart-container {
+  background: #f7f9ff;
+  border-radius: 15px;
+  padding: 15px;
+  margin-top: 13px;
+}
+
+.growth-chart-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.growth-chart-heading strong {
+  color: #17295f;
+  font-size: 13px;
+}
+
+.growth-chart-heading span {
+  color: #8290ad;
+  font-size: 10px;
+}
+
+.growth-chart {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  gap: 13px;
+  height: 105px;
+  padding: 12px 5px 0;
+  margin-top: 12px;
+  border-bottom: 1px solid #e4eaf7;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 25px,
+    #e9eef9 26px
+  );
+}
+
+.growth-chart-column {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 0;
+}
+
+.growth-chart-bar {
+  width: 100%;
+  max-width: 29px;
+  background: #9bb0f2;
+  border-radius: 6px 6px 0 0;
+  min-height: 8px;
+}
+
+.growth-chart-bar.growth-chart-highlight {
+  background: #3155e8;
+}
+
+.growth-chart-column small {
+  color: #8290ad;
+  font-size: 10px;
+  margin-top: 7px;
+  padding-bottom: 7px;
+}
+
+.growth-chart-footnote {
+  color: #98a3bd;
+  font-size: 10px;
+  text-align: center;
+  margin-top: 12px;
+}
+
+
+/* TEST PERFORMANCE */
+
+.growth-performance-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: #f1f5ff;
+  padding: 16px;
+  border-radius: 15px;
+  margin-top: 19px;
+}
+
+.growth-performance-intro h4 {
+  color: #17295f;
+  font-size: 15px;
+  margin: 0;
+}
+
+.growth-performance-intro p {
+  color: #8290ad;
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 5px 0 0;
+}
+
+.growth-performance-icon {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e2eaff;
+  color: #3155e8;
+  border-radius: 13px;
+}
+
+.growth-performance-icon svg {
+  width: 23px;
+  height: 23px;
+}
+
+.growth-test-list {
+  margin-top: 19px;
+}
+
+.growth-test-item {
+  margin-bottom: 19px;
+}
+
+.growth-test-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.growth-test-heading strong {
+  color: #34466f;
+  font-size: 12px;
+}
+
+.growth-test-heading span {
+  color: #3155e8;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.growth-test-track {
+  width: 100%;
+  height: 9px;
+  background: #e9eefb;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.growth-test-track span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #3155e8, #7290f2);
+  border-radius: inherit;
+}
+
+.growth-performance-insight {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 14px;
+  background: #f1f5ff;
+  border-radius: 13px;
+  margin-top: 7px;
+}
+
+.growth-insight-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  color: #3155e8;
+  background: #e1e9ff;
+  border-radius: 9px;
+}
+
+.growth-insight-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.growth-performance-insight strong {
+  color: #17295f;
+  font-size: 12px;
+}
+
+.growth-performance-insight p {
+  color: #7180a5;
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 5px 0 0;
+}
+
+
+/* GROWTH OPPORTUNITIES */
+
+.growth-opportunity-banner {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: linear-gradient(120deg, #edf2ff, #f6f8ff);
+  padding: 17px;
+  border-radius: 15px;
+  margin-top: 19px;
+}
+
+.growth-opportunity-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  color: #3155e8;
+  background: #dfe8ff;
+  border-radius: 12px;
+}
+
+.growth-opportunity-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.growth-opportunity-banner strong {
+  color: #17295f;
+  font-size: 13px;
+}
+
+.growth-opportunity-banner p {
+  color: #7180a5;
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 5px 0 0;
+}
+
+.growth-opportunity-list {
+  margin-top: 12px;
+}
+
+.growth-opportunity-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 15px 2px;
+  border-bottom: 1px solid #edf0f8;
+}
+
+.growth-opportunity-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #edf2ff;
+  color: #3155e8;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.growth-opportunity-item > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.growth-opportunity-item strong {
+  display: block;
+  color: #17295f;
+  font-size: 12px;
+}
+
+.growth-opportunity-item small {
+  display: block;
+  color: #8290ad;
+  font-size: 10px;
+  line-height: 1.5;
+  margin-top: 5px;
+}
+
+.growth-opportunity-item > i {
+  color: #3155e8;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.growth-opportunity-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f1f5ff;
+  color: #52658f;
+  padding: 13px;
+  border-radius: 12px;
+  margin-top: 17px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.growth-opportunity-footer svg {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  color: #3155e8;
+}
+
+
+/* SMALL MOBILE SCREENS */
+
+@media (max-width: 380px) {
+
+  .growth-revenue-card {
+    padding: 15px;
+  }
+
+  .growth-revenue-card > strong {
+    font-size: 23px;
+  }
+
+  .growth-financial-stat {
+    padding: 11px;
+  }
+
+  .growth-financial-stat strong {
+    font-size: 19px;
+  }
+
+  .growth-test-heading strong {
+    font-size: 11px;
+  }
+
+  .growth-test-heading span {
+    font-size: 10px;
+  }
+
+  .growth-opportunity-item {
+    gap: 8px;
+  }
+
+  .growth-opportunity-item strong {
+    font-size: 11px;
+  }
+
+}
