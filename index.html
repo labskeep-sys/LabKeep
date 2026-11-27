@@ -958,85 +958,291 @@
 
           <div class="lab-preview-track">
 
-            <div class="lab-preview-slide">
+  <!-- SLIDE 1: PATIENT NOTIFICATIONS -->
+  <div class="lab-preview-slide">
 
-              <div class="lab-dashboard-preview">
+    <div class="lab-dashboard-preview">
 
-                <div class="lab-dashboard-top">
-                  <span>Patient Notifications</span>
-                  <span class="lab-dashboard-indicator">
-                    <i class="fas fa-bell"></i> Updates
-                  </span>
-                </div>
+      <div class="lab-dashboard-top">
+        <span>Patient Notifications</span>
+        <span class="lab-dashboard-indicator">
+          <i class="fas fa-bell"></i> Updates
+        </span>
+      </div>
 
-                <div class="lab-notification-preview">
-                  <i class="fas fa-check-circle"></i>
+      <div class="patient-message-card">
 
-                  <div>
-                    <h4>Result Ready</h4>
-                    <p>
-                      Your laboratory result is ready.
-                      Please contact the laboratory for collection.
-                    </p>
-                  </div>
-                </div>
+        <div class="patient-message-heading">
+          <span class="patient-message-avatar">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a7 7 0 0 0-7 7c0 5-2 7-2 7h18s-2-2-2-7a7 7 0 0 0-7-7Z"/>
+              <path d="M10 20h4"/>
+            </svg>
+          </span>
 
-              </div>
-
-            </div>
-
-
-            <div class="lab-preview-slide">
-
-              <div class="lab-dashboard-preview">
-
-                <div class="lab-dashboard-top">
-                  <span>Appointment Reminders</span>
-                  <span class="lab-dashboard-indicator">
-                    <i class="fas fa-calendar"></i> Reminders
-                  </span>
-                </div>
-
-                <div class="lab-dashboard-feature">
-                  <i class="fas fa-calendar-check"></i>
-                  <h4>Keep Patients Informed</h4>
-                  <p>
-                    Send timely reminders and help patients
-                    stay informed about scheduled visits.
-                  </p>
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="lab-preview-slide">
-
-              <div class="lab-dashboard-preview">
-
-                <div class="lab-dashboard-top">
-                  <span>Patient Communication</span>
-                  <span class="lab-dashboard-indicator">
-                    <i class="fas fa-comments"></i> Engagement
-                  </span>
-                </div>
-
-                <div class="lab-dashboard-feature">
-                  <i class="fas fa-handshake"></i>
-                  <h4>Build Patient Relationships</h4>
-                  <p>
-                    Create a more organised and responsive
-                    patient communication experience.
-                  </p>
-                </div>
-
-              </div>
-
-            </div>
-
+          <div>
+            <strong>Laboratory Notification</strong>
+            <small>Example patient message</small>
           </div>
 
+          <span class="patient-message-status">Sent</span>
+        </div>
+
+        <div class="patient-message-body">
+
+          <div class="patient-message-success">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="m5 12 4 4L19 6"/>
+            </svg>
+          </div>
+
+          <h4>Your Result Is Ready!</h4>
+
+          <p>
+            Your laboratory result is ready.
+            Please contact the laboratory for collection.
+          </p>
+
+          <span class="patient-message-time">
+            Notification preview
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="patient-notification-stats">
+
+        <div>
+          <span class="patient-stat-icon patient-blue">
+            <i class="fas fa-paper-plane"></i>
+          </span>
+          <strong>920</strong>
+          <small>Messages sent</small>
+        </div>
+
+        <div>
+          <span class="patient-stat-icon patient-green">
+            <i class="fas fa-check-double"></i>
+          </span>
+          <strong>96%</strong>
+          <small>Delivery rate</small>
+        </div>
+
+      </div>
+
+      <div class="patient-demo-note">
+        Illustrative communication dashboard
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SLIDE 2: APPOINTMENT REMINDERS -->
+  <div class="lab-preview-slide">
+
+    <div class="lab-dashboard-preview">
+
+      <div class="lab-dashboard-top">
+        <span>Appointment Reminders</span>
+        <span class="lab-dashboard-indicator">
+          <i class="fas fa-calendar"></i> Reminders
+        </span>
+      </div>
+
+      <div class="patient-appointment-intro">
+
+        <div>
+          <h4>Keep Patients Informed</h4>
+          <p>Make scheduled visits easier to remember.</p>
+        </div>
+
+        <span class="patient-calendar-icon">
+          <svg viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="16" rx="2"/>
+            <path d="M16 3v4M8 3v4M3 11h18"/>
+            <path d="m9 16 2 2 4-4"/>
+          </svg>
+        </span>
+
+      </div>
+
+      <div class="patient-appointment-card">
+
+        <div class="patient-appointment-date">
+          <span>EXAMPLE APPOINTMENT</span>
+          <strong>18</strong>
+          <small>DECEMBER</small>
+        </div>
+
+        <div class="patient-appointment-details">
+          <strong>Scheduled Laboratory Visit</strong>
+          <span>
+            <i class="fas fa-clock"></i>
+            9:30 AM
+          </span>
+          <span>
+            <i class="fas fa-map-marker-alt"></i>
+            Laboratory Visit
+          </span>
+        </div>
+
+        <span class="patient-appointment-badge">
+          Reminder
+        </span>
+
+      </div>
+
+      <div class="patient-reminder-message">
+
+        <div class="patient-reminder-top">
+          <i class="fas fa-bell"></i>
+          <strong>Appointment Reminder</strong>
+        </div>
+
+        <p>
+          This is a friendly reminder of your scheduled
+          laboratory visit. We look forward to seeing you.
+        </p>
+
+        <span>Example reminder message</span>
+
+      </div>
+
+      <div class="patient-reminder-benefits">
+
+        <div>
+          <i class="fas fa-calendar-check"></i>
+          <span>Scheduled visits</span>
+        </div>
+
+        <div>
+          <i class="fas fa-comment-dots"></i>
+          <span>Timely reminders</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SLIDE 3: PATIENT RELATIONSHIPS -->
+  <div class="lab-preview-slide">
+
+    <div class="lab-dashboard-preview">
+
+      <div class="lab-dashboard-top">
+        <span>Patient Relationships</span>
+        <span class="lab-dashboard-indicator">
+          <i class="fas fa-heart"></i> Engagement
+        </span>
+      </div>
+
+      <div class="patient-relationship-banner">
+
+        <span class="patient-relationship-icon">
+          <svg viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/>
+          </svg>
+        </span>
+
+        <div>
+          <strong>Build Lasting Relationships</strong>
+          <p>Make every patient interaction count.</p>
+        </div>
+
+      </div>
+
+      <div class="patient-feedback-card">
+
+        <div class="patient-feedback-heading">
+          <strong>Patient Feedback</strong>
+          <span>Sample insights</span>
+        </div>
+
+        <div class="patient-feedback-score">
+          <strong>4.8</strong>
+          <div>
+            <div class="patient-stars">★★★★★</div>
+            <small>Illustrative satisfaction score</small>
+          </div>
+        </div>
+
+        <div class="patient-feedback-track">
+          <span style="width:92%"></span>
+        </div>
+
+        <div class="patient-feedback-caption">
+          <span>Positive feedback indicator</span>
+          <strong>92%</strong>
+        </div>
+
+      </div>
+
+      <div class="patient-relationship-list">
+
+        <div class="patient-relationship-item">
+          <span class="patient-relationship-symbol patient-blue">
+            <i class="fas fa-comments"></i>
+          </span>
+
+          <div>
+            <strong>Patient Communication</strong>
+            <small>Maintain clear and helpful communication.</small>
+          </div>
+        </div>
+
+        <div class="patient-relationship-item">
+          <span class="patient-relationship-symbol patient-green">
+            <i class="fas fa-star"></i>
+          </span>
+
+          <div>
+            <strong>Patient Feedback</strong>
+            <small>Understand experiences and identify improvements.</small>
+          </div>
+        </div>
+
+        <div class="patient-relationship-item">
+          <span class="patient-relationship-symbol patient-purple">
+            <i class="fas fa-user-check"></i>
+          </span>
+
+          <div>
+            <strong>Patient Engagement</strong>
+            <small>Build stronger connections with patients.</small>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="patient-relationship-footer">
+        <i class="fas fa-heart"></i>
+        Better communication. Stronger patient relationships.
+      </div>
+
+      <div class="patient-demo-note">
+        Illustrative patient experience dashboard
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+          
           <div class="lab-preview-controls">
             <button type="button"
               class="lab-preview-prev"
