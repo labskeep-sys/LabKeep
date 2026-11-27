@@ -3214,6 +3214,13 @@ body {
 }
 
 
+.patient-relationship-symbol svg {
+  width: 19px;
+  height: 19px;
+  display: block;
+}
+
+
 /* Reduce spacing before the Growth CTA */
 .growth-card .lab-solution-link {
   margin-top: 12px !important;
